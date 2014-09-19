@@ -30,6 +30,9 @@ Puntos iniciales
 	* https://github.com/OscarMaestre/ServiciosYProcesos
 
 
+Sistemas operativos para dispositivos móviles. Características.
+-------------------------------------------------------------------------------	
+	
 El desarrollo para la telefonía móvil es un campo que se encuentra en plena expansión. El número de teléfonos no deja de crecer y las necesidades de programación de los mismos tampoco. En ese sentido existen diversas plataformas de desarrollo a tener en cuenta al empezar a programar.
 
 * Android: es el más numeroso de lejos. La mayor parte del mercado usa esta plataforma. El hecho de que Google ofrezca *completamente gratis* el sistema operativo para los fabricantes y el entorno para los programadores lo ha hecho crecer hasta desbancar a su competidor. Google solo se ocupa de la venta de apps y ese es su nicho de beneficios.
@@ -68,14 +71,24 @@ En este curso se usara Android con Java como lenguaje de desarrollo.
 
 
 
+Limitaciones
+------------------------------------------------------
+
+Programar un teléfono móvil implica preparar nuestro programa para situaciones que no son de importancia en los ordenadores de escritorio o que incluso no existen.
+
+* Desconexión: un teléfono puede perder el fluido eléctrico sin aviso o perder la conexión de red de forma repentina.
+
+* Seguridad: un teléfono puede ser accesible desde cualquier punto del planeta lo que puede poner en grave riesgo la privacidad del usuario.
+
+* Memoria: la cantidad de memoria de estos dispositivos es mucho más reducida que los equipos de escritorio.
+
+* Consumo batería: la cantidad de código que se ejecuta implica disminuir la cantidad de batería del usuario.
+
+* Almacenamiento: la cantidad de espacio para almacenar ficheros en estos dispositivos es muy variable y a veces prácticamente inexistente.
 
 
-Limitaciones: desconexión, seguridad, memoria, consumo batería, almacenamiento.
--------------------------------------------------------------------------------
 
 
-Sistemas operativos para dispositivos móviles. Características.
--------------------------------------------------------------------------------
 
 Entornos integrados de trabajo.
 ------------------------------------------------------
