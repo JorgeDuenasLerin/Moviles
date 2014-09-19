@@ -268,7 +268,7 @@ Asociación de sonidos a los eventos del juego.
 Análisis de ejecución. Optimización del código.
 ------------------------------------------------------
 
-Documentación de la fase de diseño y de desarrollo de los juegos.
+Documentación de la fase de diseño y de desarrollo.
 ------------------------------------------------------
 
 Sistemas basados en localización
@@ -284,5 +284,5 @@ Servicios de localización, mapas y geocodificación.
 Emuladores para simular las ubicaciones.
 ------------------------------------------------------
 
-Mecanismos para visualizar la información geolocalizada.
+Visualización la información geolocalizada.
 ------------------------------------------------------

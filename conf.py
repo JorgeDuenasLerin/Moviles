@@ -1,7 +1,7 @@
 ﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# ServiciosProcesos documentation build configuration file, created by
+# Moviles documentation build configuration file, created by
 # sphinx-quickstart on Sun Sep  7 15:20:33 2014.
 #
 # This file is execfile()d with the current directory set to its
@@ -44,7 +44,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'ServiciosProcesos'
+project = 'Moviles'
 copyright = '2014, Oscar Gomez'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -177,7 +177,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ServiciosProcesosdoc'
+htmlhelp_basename = 'Movilesdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -197,7 +197,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'ServiciosProcesos.tex', 'Programación de Servicios y Procesos',
+  ('index', 'Moviles.tex', 'Programación de Servicios y Procesos',
    'Oscar Gomez', 'manual'),
 ]
 
@@ -227,7 +227,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'serviciosprocesos', 'ServiciosProcesos Documentation',
+    ('index', 'Moviles', 'Moviles Documentation',
      ['Oscar Gomez'], 1)
 ]
 
@@ -241,8 +241,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'ServiciosProcesos', 'ServiciosProcesos Documentation',
-   'Oscar Gomez', 'ServiciosProcesos', 'One line description of project.',
+  ('index', 'Moviles', 'Moviles Documentation',
+   'Oscar Gomez', 'Moviles', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -262,13 +262,13 @@ texinfo_documents = [
 # -- Options for Epub output ----------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = 'ServiciosProcesos'
+epub_title = 'Moviles'
 epub_author = 'Oscar Gomez'
 epub_publisher = 'Oscar Gomez'
 epub_copyright = '2014, Oscar Gomez'
 
 # The basename for the epub file. It defaults to the project name.
-#epub_basename = 'ServiciosProcesos'
+#epub_basename = 'Moviles'
 
 # The HTML theme for the epub output. Since the default themes are not optimized
 # for small screen space, using the same theme for HTML and epub output is

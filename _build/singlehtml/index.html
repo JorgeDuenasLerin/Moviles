@@ -41,17 +41,67 @@
             
   <div class="section" id="prog-multimedia-y-de-dispositivos-moviles">
 <h1>Prog. multimedia y de dispositivos móviles.<a class="headerlink" href="#prog-multimedia-y-de-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h1>
-<p>Contents:</p>
+<p>Índice:</p>
 <div class="toctree-wrapper compound">
 </div>
 </div>
 <div class="section" id="analisis-de-tecnologias-para-aplicaciones-en-dispositivos-moviles">
 <h1>Análisis de tecnologías para aplicaciones en dispositivos móviles:<a class="headerlink" href="#analisis-de-tecnologias-para-aplicaciones-en-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h1>
-<div class="section" id="limitaciones-desconexion-seguridad-memoria-consumo-bateria-almacenamiento">
-<h2>Limitaciones: desconexión, seguridad, memoria, consumo batería, almacenamiento.<a class="headerlink" href="#limitaciones-desconexion-seguridad-memoria-consumo-bateria-almacenamiento" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="puntos-iniciales">
+<h2>Puntos iniciales<a class="headerlink" href="#puntos-iniciales" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul>
+<li><p class="first">En primer lugar, en <a class="reference external" href="http://10.8.0.253">http://10.8.0.253</a> se puede encontrar un servidor.</p>
+</li>
+<li><p class="first">Los apuntes también se podrán encontrar a diario en <a class="reference external" href="http://oscarmaestre.github.io">http://oscarmaestre.github.io</a></p>
+</li>
+<li><p class="first">Existen fotocopias con la programación, criterios, etc... en la mesa del profesor. En cualquier caso, están colgadas en la página del centro <a class="reference external" href="http://www.iesmaestredecalatrava.es">http://www.iesmaestredecalatrava.es</a> (buscar el apartado &#8220;Presentaciones&#8221;</p>
+</li>
+<li><p class="first">Si se desea acceder a algún fichero individual de los apuntes puede hacerse en las página siguiente</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://github.com/OscarMaestre/Moviles">https://github.com/OscarMaestre/Moviles</a></li>
+<li><a class="reference external" href="https://github.com/OscarMaestre/ServiciosYProcesos">https://github.com/OscarMaestre/ServiciosYProcesos</a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
 </div>
 <div class="section" id="sistemas-operativos-para-dispositivos-moviles-caracteristicas">
 <h2>Sistemas operativos para dispositivos móviles. Características.<a class="headerlink" href="#sistemas-operativos-para-dispositivos-moviles-caracteristicas" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El desarrollo para la telefonía móvil es un campo que se encuentra en plena expansión. El número de teléfonos no deja de crecer y las necesidades de programación de los mismos tampoco. En ese sentido existen diversas plataformas de desarrollo a tener en cuenta al empezar a programar.</p>
+<ul class="simple">
+<li>Android: es el más numeroso de lejos. La mayor parte del mercado usa esta plataforma. El hecho de que Google ofrezca <em>completamente gratis</em> el sistema operativo para los fabricantes y el entorno para los programadores lo ha hecho crecer hasta desbancar a su competidor. Google solo se ocupa de la venta de apps y ese es su nicho de beneficios.</li>
+<li>iOS: Utiliza una filosofía completamente distinta que es controlar todo el proceso desde el desarrollo hasta la distribución de aplicaciones. Ese control se hace por medio del pago de licencias y de la unicidad de la distribución.</li>
+<li>Windows Phone: es el sistema de Microsoft que ha lanzado más o menos recientemente y que aún está por ver si consigue una cuota de mercado significativa o no.</li>
+<li>FirefoxOS: se centra principalmente en mercados emergentes (con el objetivo a largo plazo de ganar cuota de mercado) su filosofía es la misma del software libre.</li>
+<li>Bada: Es la plataforma de Samsung creada exclusivamente para sus teléfonos. Es muy poco usada fuera de Corea del Sur.</li>
+<li>Symbian: surge de un antiguo sistema creado para las PDA, está prácticamente descatalogado en el desarrollo para telefonía móvil.</li>
+<li>Tizen: una plataforma relativamente nueva. Al igual que Android es gratis y además tiene el respaldo de Intel.</li>
+<li>Jolla: surge en los países nórdicos con una filosofía similar al software libre pero con la salvedad de que, de momento, solo se ejecuta en sus teléfonos (que son de gama alta)</li>
+</ul>
+<p>En cuanto a la tecnología hay diferencias sustanciales entre ellas:</p>
+<ul class="simple">
+<li>Android: pensado principalmente para ser programado en Java (aunque se puede llegar a usar C++ con un kit aparte).</li>
+<li>iOS: usa Objective-C que lo separa mucho del resto de plataformas. El entorno exige el pago de una licencia, el SO exige una licencia y el poner aplicaciones a la venta exige otra.</li>
+<li>Windows Phone: usa Visual Studio que es una herramienta muy potente y usa la plataforma .NET.</li>
+<li>FirefoxOS: usa HTML y Javascript.</li>
+<li>Symbian y otros también permiten el uso de HTML y JS.</li>
+<li>Tizen permite dos opciones: C++ o HTML/JS</li>
+<li>Jolla/Sailfish: usa C++.</li>
+<li>Bada usa C++.</li>
+</ul>
+<p>En este curso se usara Android con Java como lenguaje de desarrollo.</p>
+</div>
+<div class="section" id="limitaciones">
+<h2>Limitaciones<a class="headerlink" href="#limitaciones" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Programar un teléfono móvil implica preparar nuestro programa para situaciones que no son de importancia en los ordenadores de escritorio o que incluso no existen.</p>
+<ul class="simple">
+<li>Desconexión: un teléfono puede perder el fluido eléctrico sin aviso o perder la conexión de red de forma repentina.</li>
+<li>Seguridad: un teléfono puede ser accesible desde cualquier punto del planeta lo que puede poner en grave riesgo la privacidad del usuario.</li>
+<li>Memoria: la cantidad de memoria de estos dispositivos es mucho más reducida que los equipos de escritorio.</li>
+<li>Consumo batería: la cantidad de código que se ejecuta implica disminuir la cantidad de batería del usuario.</li>
+<li>Almacenamiento: la cantidad de espacio para almacenar ficheros en estos dispositivos es muy variable y a veces prácticamente inexistente.</li>
+</ul>
 </div>
 <div class="section" id="entornos-integrados-de-trabajo">
 <h2>Entornos integrados de trabajo.<a class="headerlink" href="#entornos-integrados-de-trabajo" title="Enlazar permanentemente con este título">¶</a></h2>
@@ -197,6 +247,72 @@
 <div class="section" id="areas-de-especializacion-librerias-utilizadas-y-lenguajes-de-programacion">
 <h2>Áreas de especialización, librerías utilizadas y lenguajes de programación<a class="headerlink" href="#areas-de-especializacion-librerias-utilizadas-y-lenguajes-de-programacion" title="Enlazar permanentemente con este título">¶</a></h2>
 </div>
+<div class="section" id="componentes-de-un-motor-de-juegos">
+<h2>Componentes de un motor de juegos.<a class="headerlink" href="#componentes-de-un-motor-de-juegos" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="librerias-que-proporcionan-las-funciones-basicas-de-un-motor-2d-3d">
+<h2>Librerías que proporcionan las funciones básicas de un Motor 2D/3D.<a class="headerlink" href="#librerias-que-proporcionan-las-funciones-basicas-de-un-motor-2d-3d" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="apis-graficos-3d">
+<h2>APIs gráficos 3D.<a class="headerlink" href="#apis-graficos-3d" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="estudio-de-juegos-existentes">
+<h2>Estudio de juegos existentes.<a class="headerlink" href="#estudio-de-juegos-existentes" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="aplicacion-de-modificaciones-sobre-juegos-existentes">
+<h2>Aplicación de modificaciones sobre juegos existentes.<a class="headerlink" href="#aplicacion-de-modificaciones-sobre-juegos-existentes" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+</div>
+<div class="section" id="desarrollo-de-juegos-2d-y-3d">
+<h1>Desarrollo de juegos 2D y 3D<a class="headerlink" href="#desarrollo-de-juegos-2d-y-3d" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="entornos-de-desarrollo-para-juegos">
+<h2>Entornos de desarrollo para juegos.<a class="headerlink" href="#entornos-de-desarrollo-para-juegos" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="integracion-del-motor-de-juegos-en-entornos-de-desarrollo">
+<h2>Integración del motor de juegos en entornos de desarrollo.<a class="headerlink" href="#integracion-del-motor-de-juegos-en-entornos-de-desarrollo" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="conceptos-avanzados-de-programacion-3d">
+<h2>Conceptos avanzados de programación 3D.<a class="headerlink" href="#conceptos-avanzados-de-programacion-3d" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="fases-de-desarrollo">
+<h2>Fases de desarrollo:<a class="headerlink" href="#fases-de-desarrollo" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="propiedades-de-los-objetos-luz-texturas-reflejos-sombras">
+<h2>Propiedades de los objetos: luz, texturas, reflejos, sombras.<a class="headerlink" href="#propiedades-de-los-objetos-luz-texturas-reflejos-sombras" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="aplicacion-de-las-funciones-del-motor-grafico-renderizacion">
+<h2>Aplicación de las funciones del motor gráfico. Renderización.<a class="headerlink" href="#aplicacion-de-las-funciones-del-motor-grafico-renderizacion" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="aplicacion-de-las-funciones-del-grafo-de-escena">
+<h2>Aplicación de las funciones del grafo de escena.<a class="headerlink" href="#aplicacion-de-las-funciones-del-grafo-de-escena" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="tipos-de-nodos-y-su-utilizacion">
+<h2>Tipos de nodos y su utilización.<a class="headerlink" href="#tipos-de-nodos-y-su-utilizacion" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="asociacion-de-sonidos-a-los-eventos-del-juego">
+<h2>Asociación de sonidos a los eventos del juego.<a class="headerlink" href="#asociacion-de-sonidos-a-los-eventos-del-juego" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="analisis-de-ejecucion-optimizacion-del-codigo">
+<h2>Análisis de ejecución. Optimización del código.<a class="headerlink" href="#analisis-de-ejecucion-optimizacion-del-codigo" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="documentacion-de-la-fase-de-diseno-y-de-desarrollo">
+<h2>Documentación de la fase de diseño y de desarrollo.<a class="headerlink" href="#documentacion-de-la-fase-de-diseno-y-de-desarrollo" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+</div>
+<div class="section" id="sistemas-basados-en-localizacion">
+<h1>Sistemas basados en localización<a class="headerlink" href="#sistemas-basados-en-localizacion" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="tecnologias-de-localizacion-gps-a-gps">
+<h2>Tecnologías de localización (GPS, A-GPS,...).<a class="headerlink" href="#tecnologias-de-localizacion-gps-a-gps" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="servicios-de-localizacion-mapas-y-geocodificacion">
+<h2>Servicios de localización, mapas y geocodificación.<a class="headerlink" href="#servicios-de-localizacion-mapas-y-geocodificacion" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="emuladores-para-simular-las-ubicaciones">
+<h2>Emuladores para simular las ubicaciones.<a class="headerlink" href="#emuladores-para-simular-las-ubicaciones" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="visualizacion-la-informacion-geolocalizada">
+<h2>Visualización la información geolocalizada.<a class="headerlink" href="#visualizacion-la-informacion-geolocalizada" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
 </div>
 
 
@@ -221,7 +337,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2014, Oscar Gomez.
-      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>
