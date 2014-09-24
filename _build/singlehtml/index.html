@@ -105,12 +105,155 @@
 </div>
 <div class="section" id="entornos-integrados-de-trabajo">
 <h2>Entornos integrados de trabajo.<a class="headerlink" href="#entornos-integrados-de-trabajo" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>En este apartado vamos a hablar de los distintos entornos que se pueden usar para programar teléfonos móviles.</p>
+<ul class="simple">
+<li>Eclipse.</li>
+<li>XCode para iOS.</li>
+<li>Android Studio.</li>
+<li>NetBeans.</li>
+<li>Visual Studio (para Windows Phone).</li>
+<li>¿Visual Kaffe?</li>
+<li>Línea de comandos.</li>
+<li>Appcelerator.</li>
+</ul>
+</div>
+<div class="section" id="android-studio">
+<h2>Android Studio<a class="headerlink" href="#android-studio" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Android Studio es el entorno oficial de programación de Google. Como tal, es probablemente la herramienta del futuro si bien tiene diversas desventajas.</p>
+<ul class="simple">
+<li>Aún está en fase beta y según los documentos de instalación aún puede cambiar mucho sin previo aviso.</li>
+<li>Requiere una máquina más potente que los otros: de no ser así el proceso de edición-compilación-ejecución se vuelve demasiado lento.</li>
+</ul>
+</div>
+<div class="section" id="eclipse">
+<h2>Eclipse<a class="headerlink" href="#eclipse" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Eclipse ha sido desde los comienzos la herramienta ofrecida por Google para programar en Android. De hecho, en su página se ofrece el &#8220;Android Developer Tools Bundle&#8221; que contiene absolutamente todo lo necesario para trabajar.</p>
+<p>En este manual será la herramienta que se utilizará para los ejemplos.</p>
+</div>
+<div class="section" id="la-linea-de-comandos">
+<h2>La línea de comandos<a class="headerlink" href="#la-linea-de-comandos" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La línea de comandos es el entorno más ligero. Además ofrece grandes ventajas en cuanto a la automatización de tareas, y de hecho Google ofrece el kit de desarrollo adaptado a la línea de comandos. El inconveniente principal es que algunos desarrolladores no están muy acostumbrados a ella.</p>
+</div>
+<div class="section" id="el-primer-proyecto">
+<h2>El primer proyecto<a class="headerlink" href="#el-primer-proyecto" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando se instala el Android Developer Bundle y se arranca Eclipse podremos utilizar un pequeño asistente para crear la primera aplicación. Para ello, en el menú <tt class="docutils literal"><span class="pre">File-New</span></tt> elegiremos la opción <tt class="docutils literal"><span class="pre">Android</span> <span class="pre">Application</span> <span class="pre">Project</span></tt>, mostrándonos una ventana que debería ser parecida a la siguiente figura.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/asistente1.png" src="_images/asistente1.png" />
+<p class="caption">Datos iniciales de la aplicación Android</p>
+</div>
+<p>En ella deberemos prestar atención a los siguientes elementos:</p>
+<ul class="simple">
+<li><em>Minimum required SDK</em> : es la versión de Android mínima que necesitará en su móvil/tablet quien desee instalar la aplicación. Si se tiene la tentación de poner la versión 1.0 se debe tener en cuenta que también se dispondrán de menos clases y métodos para construir la app. La versión 8 (Android 2.1) es un valor razonable a día de hoy.</li>
+<li><em>Target SDK</em> : es la versión de Android para la cual hemos optimizado la aplicación. En todo este manual se usará la versión 19 de Android (o Android 4.4)</li>
+<li><em>Compile with</em> : Android tiene varias versiones y podemos utilizar una versión posterior para optimizar una aplicación orientada a un Android más antiguo. Sin embargo, normalmente no lo haremos y usaremos la misma versión que en el Target SDK, es decir, la 19.</li>
+<li><em>Theme</em> : las aplicaciones pueden tener diversos temas o &#8220;skins&#8221;. Google ofrece algunos estilos predeterminados, pero no haremos especial hincapie en el diseño, solo en la programación. Usaremos el estilo por defecto &#8220;Holo Light&#8221;.</li>
+</ul>
+<p>Despues de haber rellenado estos datos podremos ver algo como esto:</p>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/asistente2.png"><img alt="_images/asistente2.png" src="_images/asistente2.png" /></a>
+<p class="caption">Opciones específicas del proyecto</p>
+<div class="legend">
+Aquí podremos indicar si queremos crear una biblioteca en lugar de una aplicación, si deseamos que se cree una actividad en blanco y si queremos ponerlo en el directorio de trabajo predeterminado. Se dejarán las opciones por defecto.</div>
+</div>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/asistente3.png"><img alt="_images/asistente3.png" src="_images/asistente3.png" /></a>
+<p class="caption">Personalizando el icono</p>
+<div class="legend">
+Esta ventana permite elegir algunas opciones sobre el icono de la aplicación:</div>
+</div>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/asistente4.png"><img alt="_images/asistente4.png" src="_images/asistente4.png" /></a>
+<p class="caption">Tipo de actividad</p>
+<div class="legend">
+Aquí se puede elegir que tipo de actividad se desea. En general, usaremos una actividad en blanco.</div>
+</div>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/asistente5.png"><img alt="_images/asistente5.png" src="_images/asistente5.png" /></a>
+<p class="caption">Datos de la actividad</p>
+<div class="legend">
+En este último paso se indicará el nombre de la clase que contendrá la actividad principal de la aplicación. Usaremos el nombre <tt class="docutils literal"><span class="pre">ActividadPrincipal</span></tt> y terminaremos el asistente.</div>
+</div>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/proyectovacio.png"><img alt="_images/proyectovacio.png" src="_images/proyectovacio.png" /></a>
+<p class="caption">Un proyecto vacío de Android</p>
+<div class="legend">
+El asistente terminará y se nos mostrará el entorno de Eclipse.</div>
+</div>
+</div>
+<div class="section" id="descargando-plataformas">
+<h2>Descargando plataformas<a class="headerlink" href="#descargando-plataformas" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una vez hecho esto se debería instalar alguna versión del kit de desarrollo Android para empezar a programar. Para ello, se debe arrancar el gestor de plataformas Android mediante el menú de Eclipse <tt class="docutils literal"><span class="pre">Window-&gt;SDK</span> <span class="pre">Manager</span></tt></p>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/sdkmanager.png"><img alt="_images/sdkmanager.png" src="_images/sdkmanager.png" /></a>
+<p class="caption">Administrador de plataformas Android</p>
+</div>
+<p>El SDK Manager hace unas cuantas recomendaciones bastante prácticas: normalmente intentará instalar la última versión de Android más algunas herramientas útiles.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
+<p class="last">Una de las herramientas que se descargará es <em>Intel x86 Emulator Accelerator</em> o HAXM. <a class="reference external" href="http://software.intel.com/en-us/android/articles/intel-hardware-accelerated-execution-manager">Esta herramienta de Intel</a> permite acelerar la ejecución del emulador de Android en microprocesadores Intel que tengan activada en su BIOS la opción de aceleración. Puede ser necesario habilitar esta opción en la BIOS (probablemente en alguna opción con el nombre <tt class="docutils literal"><span class="pre">Enable</span> <span class="pre">Intel</span> <span class="pre">VT-x</span></tt> o similar). El uso de HAXM es <strong>MUY RECOMENDABLE</strong>. Por otro lado, el SDK Manager descarga, pero no descomprime ni instala HAXM. Se debe buscar el ZIP en el directorio de instalación y ejecutarlo.</p>
+</div>
+<p>En líneas generales se necesitarán:</p>
+<ul class="simple">
+<li>Todos los archivos de la última plataforma</li>
+<li>El driver USB, que permitirá ejecutar nuestros programas en un móvil/tablet conectado por USB al equipo</li>
+<li>El driver HAXM</li>
+<li>La biblioteca de soporte de Android: permite que programas con una versión moderna se ejecuten en algunas plataformas más antiguas, entre otras cosas.</li>
+<li>Las <em>build-tools</em> o herramientas de compilación.</li>
+<li>Las <em>platform-tools</em> o herramientas específicas de la plataforma.</li>
+<li>Las <em>Android tools</em>, herramientas específicas de Android</li>
+</ul>
+</div>
+<div class="section" id="creando-emuladores">
+<h2>Creando emuladores<a class="headerlink" href="#creando-emuladores" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando se haya completado el paso anterior, se podrán crear <em>Android Virtual Devices</em> o AVDs o emuladores. Se pueden crear dispositivos con diferentes características como se muestra a continuación.</p>
+<p>En primer lugar, se debe elegir la opción <tt class="docutils literal"><span class="pre">Window-Android</span> <span class="pre">Virtual</span> <span class="pre">Device</span> <span class="pre">Manager</span></tt>, con lo que ser verá una herramienta que permite crear emuladores.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/avdmanager.png" src="_images/avdmanager.png" />
+<p class="caption">El Android Virtual Device Manager</p>
+</div>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/creandoavd.png" src="_images/creandoavd.png" />
+<p class="caption">Creando dispositivos</p>
+<div class="legend">
+Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em>. Se recomienda mantener estas opciones.</div>
+</div>
+</div>
+<div class="section" id="arrancando-el-programa">
+<h2>Arrancando el programa<a class="headerlink" href="#arrancando-el-programa" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una vez que se tiene el emulador creado, se puede arrancar con el botón Start, y despues arrancar el proyecto vacío Android de Eclipse. Para ello, una posibilidad es hacer click con el botón derecho en el proyecto que vemos a la izquierda de Eclipse y elegir el menu <tt class="docutils literal"><span class="pre">Run</span> <span class="pre">As-Android</span> <span class="pre">Application</span></tt>. Debería arrancarse la aplicación en el emulador y ver el resultado.</p>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/ejecutandovacio.png"><img alt="_images/ejecutandovacio.png" src="_images/ejecutandovacio.png" /></a>
+<p class="caption">Ejecutando el primer proyecto</p>
+</div>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/primeraapp.png"><img alt="_images/primeraapp.png" src="_images/primeraapp.png" /></a>
+<p class="caption">Emulador ejecutando la primera app</p>
+</div>
 </div>
 <div class="section" id="modulos-para-el-desarrollo-de-aplicaciones-moviles">
 <h2>Módulos para el desarrollo de aplicaciones móviles.<a class="headerlink" href="#modulos-para-el-desarrollo-de-aplicaciones-moviles" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>En este curso, realmente solo necesitaremos Java para crear apps. Sin embargo, existen un montón de bibliotecas que permiten acelerar el desarrollo.</p>
+<ul class="simple">
+<li>Unity para desarrollar juegos.</li>
+<li>JQuery para Javascript.</li>
+<li>Bibliotecas para tareas muy específicas como la seguridad SSL y similares.</li>
+</ul>
 </div>
 <div class="section" id="emuladores">
 <h2>Emuladores.<a class="headerlink" href="#emuladores" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>A la hora de probar un app suele ser posible utilizar un emulador cargado en el sistema operativo que facilite la tarea de depurar la aplicación.</p>
+<p>En Android, Google proporciona un sistema completo de emulación basado en máquinas virtuales (no usa VirtualBox sino un programa similar llamado QEMU).</p>
+<p>El sistema de emulación permite crear dispositivos de características muy variadas para probar nuestra app en distintos entornos. Google denomina a estos dispositivos Android Virtual Devices (o AVDs)</p>
+<ul class="simple">
+<li>Se puede modificar el tamaño y la resolución.</li>
+<li>La memoria RAM y espacio en tarjeta SD.</li>
+<li>Se puede poner o quitar cámara.</li>
+<li>Existen dispositivos predefinidos por Google que permiten crear emuladores muy rápidamente.</li>
+<li>También se pueden clonar dispositivos para hacer solo una modificación de forma rápida.</li>
+<li>Una característica de interés es que <em>si se dispone de una tarjeta gráfica con aceleración</em> se puede activar una casilla llamada &#8220;Host GPU&#8221; que permite acelerar la emulación.</li>
+<li>Se puede obligar al emulador a que &#8220;recuerde&#8221; el estado en que se quedó para así continuar donde nos hubiésemos quedado el último día. Esta opción se llama instantánea o <em>snapshot</em>.</li>
+</ul>
+<p>Si el equipo de escritorio es un Intel se puede instalar el Hardware Accelerated eXecution Manager o HAXM que permite acelerar la emulación. En el directorio <tt class="docutils literal"><span class="pre">sdk/extras/intel</span></tt> se puede encontrar un archivo ZIP que contiene un EXE que instala el HAXM. Se recomienda encarecidamente instalarlo en casa y, si es necesario, habilitar la tecnología VT en la BIOS.</p>
 </div>
 <div class="section" id="configuraciones-tipos-y-caracteristicas-dispositivos-soportados">
 <h2>Configuraciones. Tipos y características. Dispositivos soportados.<a class="headerlink" href="#configuraciones-tipos-y-caracteristicas-dispositivos-soportados" title="Enlazar permanentemente con este título">¶</a></h2>

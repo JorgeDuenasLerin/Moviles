@@ -93,14 +93,239 @@ Programar un teléfono móvil implica preparar nuestro programa para situaciones
 Entornos integrados de trabajo.
 ------------------------------------------------------
 
+En este apartado vamos a hablar de los distintos entornos que se pueden usar para programar teléfonos móviles.
+
+* Eclipse.
+* XCode para iOS.
+* Android Studio.
+* NetBeans.
+* Visual Studio (para Windows Phone).
+* ¿Visual Kaffe?
+* Línea de comandos.
+* Appcelerator.
+
+
+Android Studio
+-------------------------------------------------
+Android Studio es el entorno oficial de programación de Google. Como tal, es probablemente la herramienta del futuro si bien tiene diversas desventajas.
+
+* Aún está en fase beta y según los documentos de instalación aún puede cambiar mucho sin previo aviso.
+* Requiere una máquina más potente que los otros: de no ser así el proceso de edición-compilación-ejecución se vuelve demasiado lento.
+
+
+Eclipse
+-------------------------------------------------
+
+Eclipse ha sido desde los comienzos la herramienta ofrecida por Google para programar en Android. De hecho, en su página se ofrece el "Android Developer Tools Bundle" que contiene absolutamente todo lo necesario para trabajar.
+
+.. INFO::
+   Aún así, despues de descargarlo, aún tendremos que bajar e instalar la(s) plataforma(s) Android para las cuales queramos programar, lo que en sitios con una línea de baja velocidad aún requerirá un tiempo apreciable.
+
+En este manual será la herramienta que se utilizará para los ejemplos.
+
+   
+La línea de comandos
+-------------------------------------------------
+
+La línea de comandos es el entorno más ligero. Además ofrece grandes ventajas en cuanto a la automatización de tareas, y de hecho Google ofrece el kit de desarrollo adaptado a la línea de comandos. El inconveniente principal es que algunos desarrolladores no están muy acostumbrados a ella.
+
+
+El primer proyecto
+------------------------------------------------------
+
+
+Cuando se instala el Android Developer Bundle y se arranca Eclipse podremos utilizar un pequeño asistente para crear la primera aplicación. Para ello, en el menú ``File-New`` elegiremos la opción ``Android Application Project``, mostrándonos una ventana que debería ser parecida a la siguiente figura.
+
+.. figure:: imagenes/asistente1.png
+   :align: center
+   :figwidth: 50%
+   
+   Datos iniciales de la aplicación Android
+   
+En ella deberemos prestar atención a los siguientes elementos:
+
+* *Minimum required SDK* : es la versión de Android mínima que necesitará en su móvil/tablet quien desee instalar la aplicación. Si se tiene la tentación de poner la versión 1.0 se debe tener en cuenta que también se dispondrán de menos clases y métodos para construir la app. La versión 8 (Android 2.1) es un valor razonable a día de hoy.
+
+* *Target SDK* : es la versión de Android para la cual hemos optimizado la aplicación. En todo este manual se usará la versión 19 de Android (o Android 4.4)
+
+* *Compile with* : Android tiene varias versiones y podemos utilizar una versión posterior para optimizar una aplicación orientada a un Android más antiguo. Sin embargo, normalmente no lo haremos y usaremos la misma versión que en el Target SDK, es decir, la 19.
+
+* *Theme* : las aplicaciones pueden tener diversos temas o "skins". Google ofrece algunos estilos predeterminados, pero no haremos especial hincapie en el diseño, solo en la programación. Usaremos el estilo por defecto "Holo Light".
+
+Despues de haber rellenado estos datos podremos ver algo como esto:
+
+.. figure:: imagenes/asistente2.png
+   :scale: 50%
+   :align: center
+   :figwidth: 50%
+   
+   Opciones específicas del proyecto
+   
+   Aquí podremos indicar si queremos crear una biblioteca en lugar de una aplicación, si deseamos que se cree una actividad en blanco y si queremos ponerlo en el directorio de trabajo predeterminado. Se dejarán las opciones por defecto.
+
+
+
+.. figure:: imagenes/asistente3.png
+   :scale: 50%
+   :align: center
+   :figwidth: 50%
+   
+   Personalizando el icono
+   
+   Esta ventana permite elegir algunas opciones sobre el icono de la aplicación:
+   
+
+
+.. figure:: imagenes/asistente4.png
+   :scale: 50%
+   :align: center
+   :figwidth: 50%
+   
+   Tipo de actividad
+   
+   Aquí se puede elegir que tipo de actividad se desea. En general, usaremos una actividad en blanco.
+
+
+
+.. figure:: imagenes/asistente5.png
+   :scale: 50%
+   :align: center
+   :figwidth: 50%
+   
+   Datos de la actividad
+   
+   En este último paso se indicará el nombre de la clase que contendrá la actividad principal de la aplicación. Usaremos el nombre ``ActividadPrincipal`` y terminaremos el asistente.
+   
+   
+
+
+.. figure:: imagenes/proyectovacio.png
+   :scale: 50%
+   :align: center
+   :figwidth: 50%
+   
+   Un proyecto vacío de Android
+   
+   El asistente terminará y se nos mostrará el entorno de Eclipse.
+
+Descargando plataformas
+-------------------------------------------------
+
+Una vez hecho esto se debería instalar alguna versión del kit de desarrollo Android para empezar a programar. Para ello, se debe arrancar el gestor de plataformas Android mediante el menú de Eclipse ``Window->SDK Manager``
+
+.. figure:: imagenes/sdkmanager.png
+   :scale: 50%
+   :align: center
+   :figwidth: 50%
+   
+   Administrador de plataformas Android
+
+El SDK Manager hace unas cuantas recomendaciones bastante prácticas: normalmente intentará instalar la última versión de Android más algunas herramientas útiles.
+
+
+
+.. WARNING::
+   Una de las herramientas que se descargará es *Intel x86 Emulator Accelerator* o HAXM. `Esta herramienta de Intel <http://software.intel.com/en-us/android/articles/intel-hardware-accelerated-execution-manager>`_ permite acelerar la ejecución del emulador de Android en microprocesadores Intel que tengan activada en su BIOS la opción de aceleración. Puede ser necesario habilitar esta opción en la BIOS (probablemente en alguna opción con el nombre ``Enable Intel VT-x`` o similar). El uso de HAXM es **MUY RECOMENDABLE**. Por otro lado, el SDK Manager descarga, pero no descomprime ni instala HAXM. Se debe buscar el ZIP en el directorio de instalación y ejecutarlo.
+   
+  
+   
+En líneas generales se necesitarán:
+
+
+* Todos los archivos de la última plataforma
+* El driver USB, que permitirá ejecutar nuestros programas en un móvil/tablet conectado por USB al equipo
+* El driver HAXM
+* La biblioteca de soporte de Android: permite que programas con una versión moderna se ejecuten en algunas plataformas más antiguas, entre otras cosas.
+* Las *build-tools* o herramientas de compilación.
+* Las *platform-tools* o herramientas específicas de la plataforma.
+* Las *Android tools*, herramientas específicas de Android 
+
+
+
+Creando emuladores
+-------------------------------------------------
+
+Cuando se haya completado el paso anterior, se podrán crear *Android Virtual Devices* o AVDs o emuladores. Se pueden crear dispositivos con diferentes características como se muestra a continuación.
+
+En primer lugar, se debe elegir la opción ``Window-Android Virtual Device Manager``, con lo que ser verá una herramienta que permite crear emuladores.
+
+.. figure:: imagenes/avdmanager.png
+   :align: center
+   :figwidth: 50%
+   
+   El Android Virtual Device Manager
+   
+   
+.. figure:: imagenes/creandoavd.png
+   :align: center
+   :figwidth: 50%
+   
+   Creando dispositivos
+   
+   Una vez arrancado se podrá crear un nuevo dispositivo con el botón *New*. Se recomienda mantener estas opciones.
+   
+   
+Arrancando el programa
+-------------------------------------------------
+
+Una vez que se tiene el emulador creado, se puede arrancar con el botón Start, y despues arrancar el proyecto vacío Android de Eclipse. Para ello, una posibilidad es hacer click con el botón derecho en el proyecto que vemos a la izquierda de Eclipse y elegir el menu ``Run As-Android Application``. Debería arrancarse la aplicación en el emulador y ver el resultado.
+
+.. figure:: imagenes/ejecutandovacio.png
+   :scale: 50%
+   :align: center
+   :figwidth: 50%
+   
+   Ejecutando el primer proyecto
+   
+   
+.. figure:: imagenes/primeraapp.png
+   :scale: 50%
+   :align: center
+   :figwidth: 50%
+   
+   Emulador ejecutando la primera app
+
+
 Módulos para el desarrollo de aplicaciones móviles.
 ------------------------------------------------------
+
+En este curso, realmente solo necesitaremos Java para crear apps. Sin embargo, existen un montón de bibliotecas que permiten acelerar el desarrollo.
+
+* Unity para desarrollar juegos.
+* JQuery para Javascript.
+* Bibliotecas para tareas muy específicas como la seguridad SSL y similares.
+
+
 
 Emuladores.
 ------------------------------------------------------
 
+
+A la hora de probar un app suele ser posible utilizar un emulador cargado en el sistema operativo que facilite la tarea de depurar la aplicación.
+
+En Android, Google proporciona un sistema completo de emulación basado en máquinas virtuales (no usa VirtualBox sino un programa similar llamado QEMU).
+
+El sistema de emulación permite crear dispositivos de características muy variadas para probar nuestra app en distintos entornos. Google denomina a estos dispositivos Android Virtual Devices (o AVDs)
+
+* Se puede modificar el tamaño y la resolución.
+* La memoria RAM y espacio en tarjeta SD.
+* Se puede poner o quitar cámara.
+* Existen dispositivos predefinidos por Google que permiten crear emuladores muy rápidamente.
+* También se pueden clonar dispositivos para hacer solo una modificación de forma rápida.
+* Una característica de interés es que *si se dispone de una tarjeta gráfica con aceleración* se puede activar una casilla llamada "Host GPU" que permite acelerar la emulación.
+* Se puede obligar al emulador a que "recuerde" el estado en que se quedó para así continuar donde nos hubiésemos quedado el último día. Esta opción se llama instantánea o *snapshot*.
+
+Si el equipo de escritorio es un Intel se puede instalar el Hardware Accelerated eXecution Manager o HAXM que permite acelerar la emulación. En el directorio ``sdk/extras/intel`` se puede encontrar un archivo ZIP que contiene un EXE que instala el HAXM. Se recomienda encarecidamente instalarlo en casa y, si es necesario, habilitar la tecnología VT en la BIOS.
+
+
+
 Configuraciones. Tipos y características. Dispositivos soportados.
 -------------------------------------------------------------------------------
+
+
+
+
+
 
 Perfiles. Características. Arquitectura y requerimientos. Dispositivos soportados.
 ----------------------------------------------------------------------------------
@@ -128,6 +353,11 @@ Modificación de aplicaciones existentes.
 
 Utilización del entorno de ejecución del administrador de aplicaciones.
 -------------------------------------------------------------------------------
+
+
+
+
+
 
 Programación de aplicaciones para dispositivos móviles
 ========================================================
