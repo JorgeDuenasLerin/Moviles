@@ -1,5 +1,7 @@
+call make singlehtml
+call make latex
 cd _build\latex
-d:\miktex\miktex\bin\pdflatex Moviles.tex
-d:\miktex\miktex\bin\pdflatex Moviles.tex
+pdflatex Moviles.tex
+pdflatex Moviles.tex
 cd ..
 cd ..
