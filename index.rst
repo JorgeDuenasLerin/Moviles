@@ -183,7 +183,7 @@ Despues de haber rellenado estos datos podremos ver algo como esto:
    
    Tipo de actividad
    
-   Aquí se puede elegir que tipo de actividad se desea. En general, usaremos una actividad en blanco.
+   Aquí se puede elegir qué tipo de actividad se desea. En general, usaremos una actividad en blanco.
 
 
 
@@ -289,7 +289,7 @@ Una vez que se tiene el emulador creado, se puede arrancar con el botón Start, 
 Módulos para el desarrollo de aplicaciones móviles.
 ------------------------------------------------------
 
-En este curso, realmente solo necesitaremos Java para crear apps. Sin embargo, existen un montón de bibliotecas que permiten acelerar el desarrollo.
+En este curso, realmente solo necesitaremos Java para crear apps. Sin embargo, existen un montón de bibliotecas que permiten acelerar el desarrollo para diversos lenguajes y distintas tareas. Solo por nombrar algunos mencionaremos:
 
 * Unity para desarrollar juegos.
 * JQuery para Javascript.
