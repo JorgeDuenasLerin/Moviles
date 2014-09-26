@@ -318,8 +318,18 @@ El sistema de emulación permite crear dispositivos de características muy vari
 Si el equipo de escritorio es un Intel se puede instalar el Hardware Accelerated eXecution Manager o HAXM que permite acelerar la emulación. En el directorio ``sdk/extras/intel`` se puede encontrar un archivo ZIP que contiene un EXE que instala el HAXM. Se recomienda encarecidamente instalarlo en casa y, si es necesario, habilitar la tecnología VT en la BIOS.
 
 
+Ciclo de vida
+------------------------------------------------------
 
-Configuraciones. Tipos y características. Dispositivos soportados.
+
+.. figure:: imagenes/ciclodevida.png
+   :figwidth: 50%
+   :align: center
+   
+   Pasos en la ejecución de una app (imagen tomada de Google).
+
+
+Configuraciones y perfiles
 -------------------------------------------------------------------------------
 
 
@@ -327,26 +337,6 @@ Configuraciones. Tipos y características. Dispositivos soportados.
 
 
 
-Perfiles. Características. Arquitectura y requerimientos. Dispositivos soportados.
-----------------------------------------------------------------------------------
-
-Ciclo de vida de una aplicación
-------------------------------------------------------
-
-Descubrimiento
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Instalación
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Ejecución
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Actualización
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Borrado.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Modificación de aplicaciones existentes.
 ------------------------------------------------------

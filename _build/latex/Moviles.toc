@@ -13,16 +13,10 @@
 \contentsline {section}{\numberline {1.11}Arrancando el programa}{13}{section.1.11}
 \contentsline {section}{\numberline {1.12}M\IeC {\'o}dulos para el desarrollo de aplicaciones m\IeC {\'o}viles.}{14}{section.1.12}
 \contentsline {section}{\numberline {1.13}Emuladores.}{14}{section.1.13}
-\contentsline {section}{\numberline {1.14}Configuraciones. Tipos y caracter\IeC {\'\i }sticas. Dispositivos soportados.}{15}{section.1.14}
-\contentsline {section}{\numberline {1.15}Perfiles. Caracter\IeC {\'\i }sticas. Arquitectura y requerimientos. Dispositivos soportados.}{15}{section.1.15}
-\contentsline {section}{\numberline {1.16}Ciclo de vida de una aplicaci\IeC {\'o}n}{15}{section.1.16}
-\contentsline {subsection}{\numberline {1.16.1}Descubrimiento}{15}{subsection.1.16.1}
-\contentsline {subsection}{\numberline {1.16.2}Instalaci\IeC {\'o}n}{15}{subsection.1.16.2}
-\contentsline {subsection}{\numberline {1.16.3}Ejecuci\IeC {\'o}n}{15}{subsection.1.16.3}
-\contentsline {subsection}{\numberline {1.16.4}Actualizaci\IeC {\'o}n}{15}{subsection.1.16.4}
-\contentsline {subsection}{\numberline {1.16.5}Borrado.}{15}{subsection.1.16.5}
-\contentsline {section}{\numberline {1.17}Modificaci\IeC {\'o}n de aplicaciones existentes.}{15}{section.1.17}
-\contentsline {section}{\numberline {1.18}Utilizaci\IeC {\'o}n del entorno de ejecuci\IeC {\'o}n del administrador de aplicaciones.}{15}{section.1.18}
+\contentsline {section}{\numberline {1.14}Ciclo de vida}{15}{section.1.14}
+\contentsline {section}{\numberline {1.15}Configuraciones y perfiles}{15}{section.1.15}
+\contentsline {section}{\numberline {1.16}Modificaci\IeC {\'o}n de aplicaciones existentes.}{15}{section.1.16}
+\contentsline {section}{\numberline {1.17}Utilizaci\IeC {\'o}n del entorno de ejecuci\IeC {\'o}n del administrador de aplicaciones.}{15}{section.1.17}
 \contentsline {chapter}{\numberline {2}Programaci\IeC {\'o}n de aplicaciones para dispositivos m\IeC {\'o}viles}{17}{chapter.2}
 \contentsline {section}{\numberline {2.1}Herramientas y fases de construcci\IeC {\'o}n.}{18}{section.2.1}
 \contentsline {section}{\numberline {2.2}Interfaces de usuario. Clases asociadas.}{18}{section.2.2}
