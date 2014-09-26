@@ -344,7 +344,7 @@ Como ya se ha mencionado, la plataforma Android establece diversas categorías d
 .. INFO::
    Un cambio en la orientación del dispositivo **también se considera un cambio en el tamaño del dispositivo**.
    
-.. figure:: ../imagenes/tamaniospantalla.png
+.. figure:: imagenes/tamaniospantalla.png
    :figwidth: 50%
    :align: center
    
@@ -385,7 +385,7 @@ Normalmente ya no es necesario poner nada para *ldpi* por dos motivos.
 
 Aunque en este manual se habla en general de Android 4 conviene no perder de vista las plataformas anteriores. Google mantiene una pequeña tabla con `los porcentajes de uso de las diversas versiones de Android  <http://developer.android.com/about/dashboards/index.html>`_ ya que crear nuestra aplicación *exclusivamente para cierta versión y las posteriores* hará que nos autoexcluyamos de una porción del mercado que puede ser muy significativa.
 
-.. figure:: ../imagenes/porcentajesuso.png
+.. figure:: imagenes/porcentajesuso.png
    :figwidth: 50%
    :align: center
    
@@ -402,7 +402,288 @@ Ejercicios
 
 2. Haz que la aplicación anterior muestre datos sobre la plataforma sobre la que se está ejecutando. (Pista, deberás implementar *forzosamente* un método ``protected void onStart()``)   
 
+Para resolver estos ejercicios necesitarás leer los apartados siguientes sobre directorios y recursos.
 
+
+Directorios
+------------------------------------------------------
+
+
+Como ya se ha introducido anteriormente ciertos elementos que pueden cambiar no deberían estar dentro del código, sino en *recursos* (es decir, en ficheros externos que puedan cargarse en tiempo de ejecución). Un ejemplo muy elemental son las cadenas: si queremos ofrecer soporte a varios idiomas, es mejor tener todas las cadenas en un fichero, de forma que si queremos traducir la aplicación, bastará con traducir dicho fichero y hacer que la aplicación cargue distintos ficheros en función el idioma.
+
+
+.. figure:: imagenes/cadenasmultiples.png
+   :figwidth: 50%
+   :align: center
+   
+   Un mismo código fuente, distintas cadenas (Imagen de `shokunin <http://openclipart.org/user-detail/shokunin>`_ ).
+      
+
+
+Veamos un ejemplo muy simple. Supongamos que la aplicación saluda al usuario en el momento del arranque. Podríamos usar este código Java.
+
+.. code-block:: java
+
+	public class Actividad{
+		private final String saludo="Hola";
+	}
+	
+Sin embargo, al hacerlo así, la traducción de la aplicación se vuelve muy compleja. Sin embargo, podemos almacenar las cadenas en un fichero de recursos como ``strings.xml``de esta forma.
+
+.. code-block:: xml
+
+	<string id="saludo">Hola</string>
+	
+Si ahora en el código Java cargamos la cadena (en pseudocódigo)...
+
+.. code-block:: java
+
+		public void saludar(){
+			String saludo=R.string.saludo;
+		}
+		
+...ahora la traducción es muy sencilla, ya que basta con tener otro fichero en la aplicación con las cadenas en inglés:
+
+.. code-block:: xml
+
+	<string id="saludo">Hello</string>
+	
+*Y no habrá que tocar nada del código Java*. De hecho, Android compilar los recursos para que sean fácilmente accesibles desde código Java. En este capítulo se analiza como usar los recursos.
+
+
+
+Tipos de recursos
+------------------------------------------------------
+
+
+Todos los recursos se definen en forma de XML y *deben* ir dentro de uno de estos subdirectorios que hay dentro de ``res``:
+
+* ``res/animator``: contiene los ficheros XML que especifican animaciones. Se verá más sobre animaciones más adelante.
+* ``res/anim``: aquí se pondrán unos tipos especiales de animación llamadas "tween animation" que permiten a Android generar la animación a partir de información tal como "punto inicial", "punto final" y "duración de la animación".
+* ``res/color``: define los colores de nuestra aplicación.
+* ``res/drawable``: para especificar los archivos de imagen usados (en formatos .png, .9.png, .jpg y .gif)
+* ``res/layout``: para indicar la colocación de recursos en pantalla en los distintos tamaños de pantalla.
+* ``res/menu``: define los menús de aplicación.
+* ``res/raw``: recursos almacenados en formato binario. Pueden cargarse con ``Resources.openRawResource()``
+* ``res/values``: ficheros XML que contienen valores simples como números, cadenas o incluso colores. Aunque en realidad aquí se pueden usar los nombres de fichero que queramos la costumbre es usar estos nombres:
+
+	* arrays.xml: permite crear vectores de recursos.
+	
+	* colors.xml: para colores.
+	
+	* dimens.xml: para especificar tamaños.
+	
+	* strings.xml: para cadenas.
+	
+	* styles.xml: para estilos
+	
+	
+* ``res/xml``: aquí se almacena cualquier otro fichero XML que se desee. Los ficheros en este directorio pueden cargarse usando ``Resources.getXML()``
+
+Existe una última posibilidad para almacenar recursos, que es usar el directorio ``assets`` (no es ``res/assets``) sin embargo, Android no compila dichos recursos automáticamente. Deben cargarse con la clase AssetsManager.
+
+Indicando recursos alternativos
+-------------------------------------------------
+Por ejemplo, ya sabemos que el archivo ``res/values/strings.xml`` contiene las cadenas que se mostrarán por defecto. Si esas cadenas están en español y deseamos indicar que se carguen otras cadenas para el idioma inglés se deben indicar modificadores para el directorio ``values``.
+
+* ``res/values-en/strings.xml`` indicaría el fichero de cadenas para el idioma inglés.
+* ``res/values-fr/strings.xml`` para francés.
+* Se puede usar cualquier `código ISO 639-1 <http://www.loc.gov/standards/iso639-2/php/code_list.php>`_ para indicar el idioma.
+
+Los modificadores se pueden añadir a cualquier subdirectorio de los vistos antes, además se pueden poner varios a la vez pero siempre respetando este orden:
+
+1. MCC (Mobile Country Code o código de país) y MNC (Mobile Network Code o código de red). Pueden consultarse las distintas redes y países en `Wikipedia <http://es.wikipedia.org/wiki/MCC/MNC>`_ . Por ejemplo para indicar un recurso específico de un teléfono Android usado en territorio español se usaría ``mcc214`` y para indicar específicamente un recurso en un Android que accede desde Movistar se usaría ``mcc214-mnc07``.  
+
+2. Idioma y región: se usa un código de páis ISO 639-1 que puede o no ir seguido de una "r" y un código de región. Así el modificador "en" indica idioma inglés y "fr" francés, pero "fr-rFR" indica francés de Francia y "fr-rCA" francés de Canadá.
+
+3. Dirección de lectura: ``ldrtl`` para cuando el idioma del dispositivo se lee de derecha a izquierda (right-to-left) y ``ldltr`` para lectura de izquierda a derecha. Obsérvese que ya podriamos indicar un fichero ``res/values-mcc214-frRCA/strings.xml`` para indicar los textos que debe usar un teléfono Android con su idioma puesto a francés (de Canadá) que sin embargo usa una red española. Sin embargo ``res/values-fr-mcc214/strings.xml`` estaría mal ya que aunque el idioma y el territorio son correctos los hemos puesto al revés (sería ``res/values-mcc214-fr``)
+
+4. Anchura mínima del dispositivo: se usa ``swNdp`` donde N es el número mínimo de puntos que debe tener la anchura de la pantalla. También puede indicarse este valor en el ``AndroidManifest.xml`` con el atributo ``android:requiresSmallestWidthDp``Si indicamos varios directorios, Android escogerá siempre el valor de N más pequeño y cercano a la anchura del dispositivo **independientemente de si la pantalla se gira o no**. Algunos valores típicos son:
+
+	* sw320dp: para pantallas de 240x320 (ldpi), de 320x480 (mdpi) o de 480x800 (hdpi)
+	
+	* sw480dp: para 480x800 (mdpi)
+	
+	* sw600dp: para 600x1024 (mdpi)
+	
+5. Anchura disponible: el sufijo ``wNdp`` indica la anchura que la aplicación necesita **teniendo en cuenta si la pantalla se gira** (esta es la diferencia con respecto al anterior). 
+
+6. Altura disponible: el sufijo ``hNdp`` indica la altura que la aplicación necesita.
+
+7. Tamaño de pantalla: pueden usarse los sufijos siguientes:
+
+	* ``small`` de aproximadamente 320x426
+	
+	* ``normal`` aproximadamente 320x470
+	
+	* ``large`` de unos 480x640
+	
+	* ``xlarge`` con un tamaño de 720x960 (normalmente tablets)
+	
+8. Aspecto de la pantalla: ``long``	para pantallas WQVGA, WVGA, FWVGA y ``notlong`` para QVGA, HVGA, and VGA. No tiene nada que ver con la orientación de la pantalla.
+
+9. Orientación de la pantalla: ``port`` (portrait) para cuando la pantalla está en vertical y ``land`` (landscape) para cuando está en horizontal.
+
+10. Modo del interfaz de usuario:
+
+	* ``car`` cuando el dispositivo está en un coche.
+	* ``desk`` en un escritorio
+	* ``television``
+	* ``appliance`` el dispositivo es una herramienta y no tiene pantalla.
+	
+11. Modo nocturno: ``night`` y ``notnight`` dependiendo de si el dispositivo está en modo nocturno o no.
+
+12. Densidad de pixeles: (la escala entre los principales tamaños es 3:4:6:8)
+
+	* ldpi: pantallas de baja densidad, aproximadamente 120dpi.
+	* mdpi: densidad media, unos 160dpi.
+	* hdpi: alta densidad, unos 240dpi.
+	* xhdpi: densidad "extra-alta", unos 320dpi.
+	* nodpi: Usado para recursos para los que no queremos que Android haga el escalado.
+	* tvdpi: unos 213 (entre ``mdpi`` y ``hdpi``)
+
+
+13. Tipo de pantalla: ``finger`` para dispositivos táctiles y ``notouch`` para los demás.
+
+14. Disponibilidad de teclado:
+
+	* ``keysexposed``: hay teclado hardware.
+	* ``keyshidden``: hay teclado hardware pero no está disponible y además *no hay teclado software*.
+	* ``keyssoft``: hay teclado software.
+
+15. Método de entrada: ``nokeys`` cuando no hay teclado hardware, ``qwerty`` si hay un teclado hardware y ``12key`` para teclados hardware de 12 teclas.
+
+16. Disponibilidad de teclas de navegación: 
+
+	* ``nonav``: no se puede navegar con teclas.
+	* ``dpad``: hay un pad direccional.
+	* ``trackball``: hay un trackball.
+	* ``wheel``:  hay un ratón con rueda (poco habitual).
+	
+17. Versión de la plataforma Android: ``v3``, ``v4``, ``v9`` etc...
+
+Tamaños y densidades
+------------------------------------------------------
+
+
+En la tabla siguiente, tomada de la documentación oficial de Google pueden verse los tamaños y densidades aproximados de los distintos tipos de pantalla que podemos encontrar.
+
+.. figure:: imagenes/tamaniospantalla.png
+   :figwidth: 50%
+   :align: center
+   
+   Tamaños de pantalla reconocidos (imagen tomada de Google)
+
+
+Accediendo a los recursos
+------------------------------------------------------
+
+
+Cuando se crea un recurso puede accederse al mismo por medio de la clase especial ``R`` la cual es creada por la herramienta ``aapt``. Dicha herramienta toma todos los recursos y crea distintas subclases para facilitar el uso de dichos recursos. Las clases creadas son:
+
+* R.drawable: para acceder a archivos de imagen.
+* R.id: para acceder al id de un control.
+* R.layout: para cargar disposiciones de controles.
+* R.string: para acceder a cadenas.
+
+
+Aí, por ejemplo si un archivo de imagen ubicado en ``res/drawable/icono.png`` quiere ponerse de fondo en algún control se usará la sentencia:
+
+.. code-block:: java
+
+	control.setBackgroundDrawableResource(
+		R.drawable.icono);
+		
+Por otro lado, si deseamos usar un recurso XML en otro archivo XML se puede hacer usando la siguiente estructura:
+
+1. Empezar siempre por ``@``		
+2. Si se desea acceder a un recurso en otro paquete poner el nombre seguido de ``:``, como ``com.ejemplo:``.
+3. Despues se indica el tipo de recurso, ``string``, ``drawable``...
+4. Despues se indica el nombre del recurso.
+
+Supongamos que tenemos un fichero genérico con distintas definiciones de recursos como este:
+
+.. code-block:: xml
+
+	<?xml version="1.0" encoding="utf-8"?>
+	<resources>
+	   <color name="color_corporativo">#f00</color>
+	   <string name="saludo">Hola</string>
+	</resources>   
+	
+Y que deseamos usar este color y este texto en interfaz. El XML sería así:
+
+.. code-block:: xml
+
+	<?xml version="1.0" encoding="utf-8"?>
+	<EditText
+		xmlns:android=
+		  "http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:textColor="@color/color_corporativo"
+		android:text="@string/saludo" />   	
+	
+	
+Por último mencionar que Android dispone de muchos otros recursos a los cuales se puede acceder usando el prefijo ``android``. Así, por ejemplo, Android define un interfaz para elementos en una lista que podemos usar con este código (obsérvese que Android llama a este interfaz ``simple_list_item_1``):
+
+.. code-block:: java
+
+	setListAdapter(
+		new ArrayAdapter<String>(
+			this, 
+			android.R.layout.simple_list_item_1, 
+			vector
+		)
+	);	
+
+
+Gestión de cambios durante la ejecución
+------------------------------------------------------
+
+
+Android puede decidir reiniciar nuestra app por diversos motivos:
+
+* El usuario ha cambiado el idioma.
+* La pantalla ha rotado por ejemplo de vertical a horizontal.
+* Se ha conectado un teclado
+* Etc...
+
+En estos casos, Android llamará a nuestro método ``onDestroy`` y despues a ``onCreate``. Sin embargo, un usuario podría llegar a perder trabajo, por lo cual una actividad puede usar si lo desea dos métodos que Android llamará.
+
+* ``onSaveInstanceState``: podemos implementarlo para guardar el trabajo que haya hecho.
+* ``onRestoreInstanceState``: Android puede usarlo para restaurar el estado.
+
+Sin embargo, ¿qué ocurre si esto implica grabar y cargar grandes cantidades de datos?: podría ocurrir que la aplicación se ralentizara, dando una pobre experiencia de usuario. En este caso hay dos opciones:
+
+1. Retener un objeto en memoria durante la reinicialización.
+2. Gestionar el cambio por nosotros mismos tomando el control de Android.
+
+En cualquier caso, Android suele recordar automáticamente los elementos de la interfaz de usuario, por lo que lo que llamamos "reiniciar" la actividad en realidad no es un reinicio absoluto.
+
+
+Reteniendo objetos en memoria
+------------------------------------------------------
+El método ``onCreate`` de una actividad siempre acepta un objeto ``Bundle`` en el que puede estar el estado anterior de nuestra actividad. Sin embargo, este objeto no está diseñado para almacenar grandes cantidades de datos. 
+
+Por todo ello, la clase Fragment permite ejecutar ``setRetainInstance(true)`` en el método ``onCreate``y así evitar la destrucción y re-creación de la actividad.
+
+	
+
+Gestionando el cambio
+------------------------------------------------------
+Se puede implementar el método `` onConfigurationChanged()`` para gestonar los cambios por nosotros mismos.
+
+.. DANGER::
+   Implementar este método debería ser *la última opción* ya que tendremos que reaplicar todos los cambios por nosotros mismos (cargar cadenas, interfaces, etc...)
+
+	
+Ejercicios
+------------------------------------------------------
+
+
+1. ¿Qué diferencia hay entre ``sw320dp`` y ``w320dp``?.
+2. Si una imagen mide 30x30 en el tamaño ``ldpi``, ¿cuanto medirá en ``mdpi``, ``hdpi`` y ``xhdpi``?.
 
 Modificación de aplicaciones existentes.
 ------------------------------------------------------
