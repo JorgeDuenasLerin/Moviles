@@ -332,9 +332,75 @@ Ciclo de vida
 Configuraciones y perfiles
 -------------------------------------------------------------------------------
 
+Tamaños y densidades
+------------------------------------------------------
+
+Como ya se ha mencionado, la plataforma Android establece diversas categorías de dispositivo en función del tamaño y la densidad/resolución:
+
+* En tamaños se distingue entre *small* , *normal*, *large* y *xlarge*.
+
+* En densidades se distingue entre *ldpi*, *mdpi*, *hdpi* y *xhdpi*.
+
+.. INFO::
+   Un cambio en la orientación del dispositivo **también se considera un cambio en el tamaño del dispositivo**.
+   
+.. figure:: ../imagenes/tamaniospantalla.png
+   :figwidth: 50%
+   :align: center
+   
+   Tamaños de pantalla (imagen tomada de Google)   
+
+   
+Directorios
+------------------------------------------------------
+
+Para que nuestra aplicación ofrezca soporte a todas estas variantes tan solo se deben utilizar distintos directorios ``layout`` dentro del subdirectorio ``res``. Así, si queremos crear una configuración de interfaz diferente para pantallas grandes podemos crear un subdirectorio ``res/layout-large`` que contenga un interfaz diferente optimizada para pantallas grandes. 
+
+Como puede verse, la clave consiste en utilizar directorios ``layout-xxx`` donde *xxx* pueden ser una serie de sufijos.
+
+* ``res/layout`` es el directorio que se usará para el interfaz por defecto que asume orientación vertical.
+* ``res/layout-large`` para pantallas grandes.
+* ``res/layout-xlarge`` para pantallas muy grandes.
+* ``res/layout-large-land`` para pantallas muy grandes giradas para estar en horizontal (landscape).
+
+
+Imágenes
+------------------------------------------------------
+Cuando se tiene la previsión de que la aplicación se va a ejecutar en muchos dispositivos diferentes se deben crear diferentes versiones de las imágenes usadas.
+
+Lo ideal es disponer de las imágenes en formato vectorial y utilizar las siguientes escalas:
+
+* Para resoluciones *mdpi*, la imagen a escala 1.
+* Para *ldpi*, la imagen a escala 0.75
+* Para *hdpi*, se escala a 1.5
+* Para *xhdpi*, la escala debe ser 2.
+* Y así sucesivamente.
+
+Normalmente ya no es necesario poner nada para *ldpi* por dos motivos.
+
+1. En la actualidad suponen un porcentaje muy pequeño de los dispositivos.
+2. Android puede hacer la escala automáticamente.
 
 
 
+Aunque en este manual se habla en general de Android 4 conviene no perder de vista las plataformas anteriores. Google mantiene una pequeña tabla con `los porcentajes de uso de las diversas versiones de Android  <http://developer.android.com/about/dashboards/index.html>`_ ya que crear nuestra aplicación *exclusivamente para cierta versión y las posteriores* hará que nos autoexcluyamos de una porción del mercado que puede ser muy significativa.
+
+.. figure:: ../imagenes/porcentajesuso.png
+   :figwidth: 50%
+   :align: center
+   
+   Porcentajes de uso de Android (tomada de Google el 4-4-2014)
+   
+   
+   
+   
+Ejercicios
+------------------------------------------------------
+
+
+1. Crea una aplicación que se vea de tres formas distintas en función de que la pantalla sea normal, grande o muy grande
+
+2. Haz que la aplicación anterior muestre datos sobre la plataforma sobre la que se está ejecutando. (Pista, deberás implementar *forzosamente* un método ``protected void onStart()``)   
 
 
 
