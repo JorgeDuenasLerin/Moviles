@@ -393,11 +393,11 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <ol class="arabic">
 <li><p class="first">MCC (Mobile Country Code o código de país) y MNC (Mobile Network Code o código de red). Pueden consultarse las distintas redes y países en <a class="reference external" href="http://es.wikipedia.org/wiki/MCC/MNC">Wikipedia</a> . Por ejemplo para indicar un recurso específico de un teléfono Android usado en territorio español se usaría <tt class="docutils literal"><span class="pre">mcc214</span></tt> y para indicar específicamente un recurso en un Android que accede desde Movistar se usaría <tt class="docutils literal"><span class="pre">mcc214-mnc07</span></tt>.</p>
 </li>
-<li><p class="first">Idioma y región: se usa un código de páis ISO 639-1 que puede o no ir seguido de una &#8220;r&#8221; y un código de región. Así el modificador &#8220;en&#8221; indica idioma inglés y &#8220;fr&#8221; francés, pero &#8220;fr-rFR&#8221; indica francés de Francia y &#8220;fr-rCA&#8221; francés de Canadá.</p>
+<li><p class="first">Idioma y región: se usa un código de páis ISO 639-1 que puede o no ir seguido de una &#8220;r&#8221; y un código de región. Así el modificador &#8220;en&#8221; indica idioma inglés y &#8220;fr&#8221; francés, pero &#8220;fr-rFR&#8221; indica francés de Francia y &#8220;fr-rCA&#8221; francés de Canadá. Pueden consultarse los códigos de país en <a class="reference external" href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">Wikipedia</a></p>
 </li>
-<li><p class="first">Dirección de lectura: <tt class="docutils literal"><span class="pre">ldrtl</span></tt> para cuando el idioma del dispositivo se lee de derecha a izquierda (right-to-left) y <tt class="docutils literal"><span class="pre">ldltr</span></tt> para lectura de izquierda a derecha. Obsérvese que ya podriamos indicar un fichero <tt class="docutils literal"><span class="pre">res/values-mcc214-frRCA/strings.xml</span></tt> para indicar los textos que debe usar un teléfono Android con su idioma puesto a francés (de Canadá) que sin embargo usa una red española. Sin embargo <tt class="docutils literal"><span class="pre">res/values-fr-mcc214/strings.xml</span></tt> estaría mal ya que aunque el idioma y el territorio son correctos los hemos puesto al revés (sería <tt class="docutils literal"><span class="pre">res/values-mcc214-fr</span></tt>)</p>
+<li><p class="first">Dirección de lectura: <tt class="docutils literal"><span class="pre">ldrtl</span></tt> para cuando el idioma del dispositivo se lee de derecha a izquierda (right-to-left) y <tt class="docutils literal"><span class="pre">ldltr</span></tt> para lectura de izquierda a derecha. Obsérvese que ya podriamos indicar un fichero <tt class="docutils literal"><span class="pre">res/values-mcc214-fr-rCA/strings.xml</span></tt> para indicar los textos que debe usar un teléfono Android con su idioma puesto a francés (de Canadá) que sin embargo usa una red española. Sin embargo <tt class="docutils literal"><span class="pre">res/values-fr-mcc214/strings.xml</span></tt> estaría mal ya que aunque el idioma y el territorio son correctos los hemos puesto al revés (sería <tt class="docutils literal"><span class="pre">res/values-mcc214-fr</span></tt>)</p>
 </li>
-<li><p class="first">Anchura mínima del dispositivo: se usa <tt class="docutils literal"><span class="pre">swNdp</span></tt> donde N es el número mínimo de puntos que debe tener la anchura de la pantalla. También puede indicarse este valor en el <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt> con el atributo <a href="#id4"><span class="problematic" id="id5">``</span></a>android:requiresSmallestWidthDp``Si indicamos varios directorios, Android escogerá siempre el valor de N más pequeño y cercano a la anchura del dispositivo <strong>independientemente de si la pantalla se gira o no</strong>. Algunos valores típicos son:</p>
+<li><p class="first">Anchura mínima del dispositivo: se usa <tt class="docutils literal"><span class="pre">swNdp</span></tt> donde N es el número mínimo de puntos que debe tener la anchura de la pantalla. También puede indicarse este valor en el <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt> con el atributo <a href="#id5"><span class="problematic" id="id6">``</span></a>android:requiresSmallestWidthDp``Si indicamos varios directorios, Android escogerá siempre el valor de N más pequeño y cercano a la anchura del dispositivo <strong>independientemente de si la pantalla se gira o no</strong>. Algunos valores típicos son:</p>
 <blockquote>
 <div><ul class="simple">
 <li>sw320dp: para pantallas de 240x320 (ldpi), de 320x480 (mdpi) o de 480x800 (hdpi)</li>
@@ -475,8 +475,13 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 </li>
 </ol>
 </div>
-<div class="section" id="id6">
-<h2>Tamaños y densidades<a class="headerlink" href="#id6" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="ejercicio">
+<h2>Ejercicio<a class="headerlink" href="#ejercicio" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>¿Como debería llamarse un directorio que contuviera recursos específicos para un teléfono en portugués que esté usándose en Francia con el operador Bouygues Telecom y que fuera un dispositivo de una resolución hdpi?</p>
+<p>Respuesta: hay que ir nombrando el directorio con los sufijos correctos en el orden correcto. En este caso sería <tt class="docutils literal"><span class="pre">values-mcc208-mnc20-pt-hdpi</span></tt>.</p>
+</div>
+<div class="section" id="id7">
+<h2>Tamaños y densidades<a class="headerlink" href="#id7" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>En la tabla siguiente, tomada de la documentación oficial de Google pueden verse los tamaños y densidades aproximados de los distintos tipos de pantalla que podemos encontrar.</p>
 <div class="figure align-center" style="width: 50%">
 <img alt="_images/tamaniospantalla.png" src="_images/tamaniospantalla.png" />
@@ -558,7 +563,7 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <div class="section" id="reteniendo-objetos-en-memoria">
 <h2>Reteniendo objetos en memoria<a class="headerlink" href="#reteniendo-objetos-en-memoria" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>El método <tt class="docutils literal"><span class="pre">onCreate</span></tt> de una actividad siempre acepta un objeto <tt class="docutils literal"><span class="pre">Bundle</span></tt> en el que puede estar el estado anterior de nuestra actividad. Sin embargo, este objeto no está diseñado para almacenar grandes cantidades de datos.</p>
-<p>Por todo ello, la clase Fragment permite ejecutar <tt class="docutils literal"><span class="pre">setRetainInstance(true)</span></tt> en el método <a href="#id7"><span class="problematic" id="id8">``</span></a>onCreate``y así evitar la destrucción y re-creación de la actividad.</p>
+<p>Por todo ello, la clase Fragment permite ejecutar <tt class="docutils literal"><span class="pre">setRetainInstance(true)</span></tt> en el método <a href="#id8"><span class="problematic" id="id9">``</span></a>onCreate``y así evitar la destrucción y re-creación de la actividad.</p>
 </div>
 <div class="section" id="gestionando-el-cambio">
 <h2>Gestionando el cambio<a class="headerlink" href="#gestionando-el-cambio" title="Enlazar permanentemente con este título">¶</a></h2>
@@ -568,8 +573,8 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <p class="last">Implementar este método debería ser <em>la última opción</em> ya que tendremos que reaplicar todos los cambios por nosotros mismos (cargar cadenas, interfaces, etc...)</p>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>Ejercicios<a class="headerlink" href="#id9" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="id10">
+<h2>Ejercicios<a class="headerlink" href="#id10" title="Enlazar permanentemente con este título">¶</a></h2>
 <ol class="arabic simple">
 <li>¿Qué diferencia hay entre <tt class="docutils literal"><span class="pre">sw320dp</span></tt> y <tt class="docutils literal"><span class="pre">w320dp</span></tt>?.</li>
 <li>Si una imagen mide 30x30 en el tamaño <tt class="docutils literal"><span class="pre">ldpi</span></tt>, ¿cuanto medirá en <tt class="docutils literal"><span class="pre">mdpi</span></tt>, <tt class="docutils literal"><span class="pre">hdpi</span></tt> y <tt class="docutils literal"><span class="pre">xhdpi</span></tt>?.</li>

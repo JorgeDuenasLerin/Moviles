@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.24)  26 SEP 2014 10:32
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.24)  1 OCT 2014 14:34
 entering extended mode
 **Moviles.tex
 (D:\oscar\Moviles\_build\latex\Moviles.tex
@@ -944,7 +944,7 @@ LaTeX Font Info:    Try loading font information for T1+pcr on input line 298.
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-<asistente1.png, id=506, 475.7775pt x 405.01312pt>
+<asistente1.png, id=511, 475.7775pt x 405.01312pt>
 File: asistente1.png Graphic file (type png)
  <use asistente1.png>
 Package pdftex.def Info: asistente1.png used on input line 303.
@@ -955,7 +955,7 @@ File: asistente1.png Graphic file (type png)
 Package pdftex.def Info: asistente1.png used on input line 303.
 (pdftex.def)             Requested size: 452.96788pt x 385.6131pt.
  [6 <D:/oscar/Moviles/_build/latex/asistente1.png (PNG copy)>] <asistente2.png,
- id=513, 475.02469pt x 405.76593pt>
+ id=518, 475.02469pt x 405.76593pt>
 File: asistente2.png Graphic file (type png)
  <use asistente2.png>
 Package pdftex.def Info: asistente2.png used on input line 327.
@@ -965,7 +965,7 @@ File: asistente2.png Graphic file (type png)
 <use asistente2.png>
 Package pdftex.def Info: asistente2.png used on input line 327.
 (pdftex.def)             Requested size: 452.96788pt x 386.94283pt.
- <asistente3.png, id=514, 492.33937pt x 438.8897pt>
+ <asistente3.png, id=519, 492.33937pt x 438.8897pt>
 File: asistente3.png Graphic file (type png)
 
 <use asistente3.png>
@@ -976,7 +976,7 @@ File: asistente3.png Graphic file (type png)
 Package pdftex.def Info: asistente3.png used on input line 335.
 (pdftex.def)             Requested size: 452.96788pt x 403.81021pt.
 
-<asistente4.png, id=515, 493.845pt x 442.65375pt>
+<asistente4.png, id=520, 493.845pt x 442.65375pt>
 File: asistente4.png Graphic file (type png)
  <use asistente4.png>
 Package pdftex.def Info: asistente4.png used on input line 343.
@@ -986,7 +986,7 @@ File: asistente4.png Graphic file (type png)
 <use asistente4.png>
 Package pdftex.def Info: asistente4.png used on input line 343.
 (pdftex.def)             Requested size: 452.96788pt x 406.01033pt.
- <asistente5.png, id=516, 491.58656pt x 440.39531pt>
+ <asistente5.png, id=521, 491.58656pt x 440.39531pt>
 File: asistente5.png Graphic file (type png)
 
 <use asistente5.png>
@@ -997,7 +997,7 @@ File: asistente5.png Graphic file (type png)
 Package pdftex.def Info: asistente5.png used on input line 351.
 (pdftex.def)             Requested size: 452.96788pt x 405.8137pt.
 
-<proyectovacio.png, id=517, 773.13844pt x 721.19438pt>
+<proyectovacio.png, id=522, 773.13844pt x 721.19438pt>
 File: proyectovacio.png Graphic file (type png)
  <use proyectovacio.png>
 Package pdftex.def Info: proyectovacio.png used on input line 359.
@@ -1007,7 +1007,7 @@ File: proyectovacio.png Graphic file (type png)
 <use proyectovacio.png>
 Package pdftex.def Info: proyectovacio.png used on input line 359.
 (pdftex.def)             Requested size: 452.96788pt x 422.54079pt.
- <sdkmanager.png, id=518, 598.48593pt x 418.56375pt>
+ <sdkmanager.png, id=523, 598.48593pt x 418.56375pt>
 File: sdkmanager.png Graphic file (type png)
 
 <use sdkmanager.png>
@@ -1026,7 +1026,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 377--380
 les/_build/latex/asistente3.png (PNG copy)> <D:/oscar/Moviles/_build/latex/asis
 tente4.png (PNG copy)>] [9 <D:/oscar/Moviles/_build/latex/asistente5.png (PNG c
 opy)> <D:/oscar/Moviles/_build/latex/proyectovacio.png (PNG copy)>]
-<avdmanager.png, id=538, 525.46312pt x 375.65344pt>
+<avdmanager.png, id=543, 525.46312pt x 375.65344pt>
 File: avdmanager.png Graphic file (type png)
  <use avdmanager.png>
 Package pdftex.def Info: avdmanager.png used on input line 416.
@@ -1036,7 +1036,7 @@ File: avdmanager.png Graphic file (type png)
 <use avdmanager.png>
 Package pdftex.def Info: avdmanager.png used on input line 416.
 (pdftex.def)             Requested size: 452.96788pt x 323.84093pt.
- <creandoavd.png, id=539, 304.88907pt x 521.69907pt>
+ <creandoavd.png, id=544, 304.88907pt x 521.69907pt>
 File: creandoavd.png Graphic file (type png)
 
 <use creandoavd.png>
@@ -1047,7 +1047,7 @@ File: creandoavd.png Graphic file (type png)
 Package pdftex.def Info: creandoavd.png used on input line 422.
 (pdftex.def)             Requested size: 304.88832pt x 521.69778pt.
 
-<ejecutandovacio.png, id=540, 505.89pt x 560.0925pt>
+<ejecutandovacio.png, id=545, 505.89pt x 560.0925pt>
 File: ejecutandovacio.png Graphic file (type png)
  <use ejecutandovacio.png>
 Package pdftex.def Info: ejecutandovacio.png used on input line 435.
@@ -1057,7 +1057,7 @@ File: ejecutandovacio.png Graphic file (type png)
 <use ejecutandovacio.png>
 Package pdftex.def Info: ejecutandovacio.png used on input line 435.
 (pdftex.def)             Requested size: 452.96788pt x 501.50615pt.
- <primeraapp.png, id=541, 189.70876pt x 271.0125pt>
+ <primeraapp.png, id=546, 189.70876pt x 271.0125pt>
 File: primeraapp.png Graphic file (type png)
 
 <use primeraapp.png>
@@ -1072,7 +1072,7 @@ oviles/_build/latex/avdmanager.png (PNG copy)>] [12 <D:/oscar/Moviles/_build/la
 tex/creandoavd.png (PNG copy)>]
 [13 <D:/oscar/Moviles/_build/latex/ejecutandovacio.png (PNG copy)> <D:/oscar/Mo
 viles/_build/latex/primeraapp.png (PNG copy)>]
-<ciclodevida.png, id=564, 664.4825pt x 296.10625pt>
+<ciclodevida.png, id=569, 664.4825pt x 296.10625pt>
 File: ciclodevida.png Graphic file (type png)
  <use ciclodevida.png>
 Package pdftex.def Info: ciclodevida.png used on input line 500.
@@ -1083,7 +1083,7 @@ File: ciclodevida.png Graphic file (type png)
 Package pdftex.def Info: ciclodevida.png used on input line 500.
 (pdftex.def)             Requested size: 452.96788pt x 201.85109pt.
  [14]
-<tamaniospantalla.png, id=570, 635.37375pt x 228.10219pt>
+<tamaniospantalla.png, id=575, 635.37375pt x 228.10219pt>
 File: tamaniospantalla.png Graphic file (type png)
 
 <use tamaniospantalla.png>
@@ -1094,7 +1094,7 @@ File: tamaniospantalla.png Graphic file (type png)
 Package pdftex.def Info: tamaniospantalla.png used on input line 522.
 (pdftex.def)             Requested size: 452.96788pt x 162.62193pt.
  [15 <D:/oscar/Moviles/_build/latex/ciclodevida.png> <D:/oscar/Moviles/_build/l
-atex/tamaniospantalla.png (PNG copy)>] <porcentajesuso.png, id=579, 686.565pt x
+atex/tamaniospantalla.png (PNG copy)>] <porcentajesuso.png, id=584, 686.565pt x
  326.72063pt>
 File: porcentajesuso.png Graphic file (type png)
 
@@ -1106,7 +1106,7 @@ File: porcentajesuso.png Graphic file (type png)
 Package pdftex.def Info: porcentajesuso.png used on input line 585.
 (pdftex.def)             Requested size: 452.96788pt x 215.5565pt.
  [16]
-<cadenasmultiples.png, id=587, 289.883pt x 180.675pt>
+<cadenasmultiples.png, id=592, 289.883pt x 180.675pt>
 File: cadenasmultiples.png Graphic file (type png)
 
 <use cadenasmultiples.png>
@@ -1128,21 +1128,18 @@ o bi-na-rio. Pue-den car-gar-se con
 [19] [20]
 File: tamaniospantalla.png Graphic file (type png)
  <use tamaniospantalla.png>
-Package pdftex.def Info: tamaniospantalla.png used on input line 858.
+Package pdftex.def Info: tamaniospantalla.png used on input line 865.
 (pdftex.def)             Requested size: 635.3722pt x 228.10161pt.
 File: tamaniospantalla.png Graphic file (type png)
  <use tamaniospantalla.png>
-Package pdftex.def Info: tamaniospantalla.png used on input line 858.
+Package pdftex.def Info: tamaniospantalla.png used on input line 865.
 (pdftex.def)             Requested size: 452.96788pt x 162.62193pt.
  [21]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <10.95> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 906.
-
-Overfull \vbox (0.86583pt too high) detected at line 924
- []
-
-[22] [23]
-Underfull \hbox (badness 10000) in paragraph at lines 991--994
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 913.
+ [22]
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 998--1001
 
  []
 
@@ -1173,24 +1170,24 @@ Overfull \vbox (31.51228pt too high) has occurred while \output is active []
 [32]
 Cap\'{\i }tulo 6.
 No file Moviles.ind.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1187.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1194.
 [33
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1187.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1194.
  (D:\oscar\Moviles\_build\latex\Moviles.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1187.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1187.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1194.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1194.
 
 Package rerunfilecheck Info: File `Moviles.out' has not changed.
-(rerunfilecheck)             Checksum: A447729C65DD2DD13F851337A90FDA88;7502.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1187.
+(rerunfilecheck)             Checksum: 4F1D5DD8CAE3C6AAC7748A6903FE6590;7560.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1194.
  ) 
 Here is how much of TeX's memory you used:
- 9626 strings out of 493921
- 135859 string characters out of 3144876
- 231191 words of memory out of 3000000
- 12475 multiletter control sequences out of 15000+200000
+ 9629 strings out of 493921
+ 135903 string characters out of 3144876
+ 231228 words of memory out of 3000000
+ 12477 multiletter control sequences out of 15000+200000
  67297 words of font info for 79 fonts, out of 3000000 for 9000
  842 hyphenation exceptions out of 8191
  39i,12n,51p,725b,629s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1202,9 +1199,9 @@ onts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
 e1/urw/helvetic/uhvbo8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/
 times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8
 a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Moviles.pdf (39 pages, 942612 bytes).
+Output written on Moviles.pdf (39 pages, 944199 bytes).
 PDF statistics:
- 762 PDF objects out of 1000 (max. 8388607)
- 175 named destinations out of 1000 (max. 500000)
- 800 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 768 PDF objects out of 1000 (max. 8388607)
+ 176 named destinations out of 1000 (max. 500000)
+ 808 words of extra memory for PDF output out of 10000 (max. 10000000)
 

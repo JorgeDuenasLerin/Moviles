@@ -494,9 +494,9 @@ Los modificadores se pueden añadir a cualquier subdirectorio de los vistos ante
 
 1. MCC (Mobile Country Code o código de país) y MNC (Mobile Network Code o código de red). Pueden consultarse las distintas redes y países en `Wikipedia <http://es.wikipedia.org/wiki/MCC/MNC>`_ . Por ejemplo para indicar un recurso específico de un teléfono Android usado en territorio español se usaría ``mcc214`` y para indicar específicamente un recurso en un Android que accede desde Movistar se usaría ``mcc214-mnc07``.  
 
-2. Idioma y región: se usa un código de páis ISO 639-1 que puede o no ir seguido de una "r" y un código de región. Así el modificador "en" indica idioma inglés y "fr" francés, pero "fr-rFR" indica francés de Francia y "fr-rCA" francés de Canadá.
+2. Idioma y región: se usa un código de páis ISO 639-1 que puede o no ir seguido de una "r" y un código de región. Así el modificador "en" indica idioma inglés y "fr" francés, pero "fr-rFR" indica francés de Francia y "fr-rCA" francés de Canadá. Pueden consultarse los códigos de país en `Wikipedia <http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes>`_ 
 
-3. Dirección de lectura: ``ldrtl`` para cuando el idioma del dispositivo se lee de derecha a izquierda (right-to-left) y ``ldltr`` para lectura de izquierda a derecha. Obsérvese que ya podriamos indicar un fichero ``res/values-mcc214-frRCA/strings.xml`` para indicar los textos que debe usar un teléfono Android con su idioma puesto a francés (de Canadá) que sin embargo usa una red española. Sin embargo ``res/values-fr-mcc214/strings.xml`` estaría mal ya que aunque el idioma y el territorio son correctos los hemos puesto al revés (sería ``res/values-mcc214-fr``)
+3. Dirección de lectura: ``ldrtl`` para cuando el idioma del dispositivo se lee de derecha a izquierda (right-to-left) y ``ldltr`` para lectura de izquierda a derecha. Obsérvese que ya podriamos indicar un fichero ``res/values-mcc214-fr-rCA/strings.xml`` para indicar los textos que debe usar un teléfono Android con su idioma puesto a francés (de Canadá) que sin embargo usa una red española. Sin embargo ``res/values-fr-mcc214/strings.xml`` estaría mal ya que aunque el idioma y el territorio son correctos los hemos puesto al revés (sería ``res/values-mcc214-fr``)
 
 4. Anchura mínima del dispositivo: se usa ``swNdp`` donde N es el número mínimo de puntos que debe tener la anchura de la pantalla. También puede indicarse este valor en el ``AndroidManifest.xml`` con el atributo ``android:requiresSmallestWidthDp``Si indicamos varios directorios, Android escogerá siempre el valor de N más pequeño y cercano a la anchura del dispositivo **independientemente de si la pantalla se gira o no**. Algunos valores típicos son:
 
@@ -561,6 +561,15 @@ Los modificadores se pueden añadir a cualquier subdirectorio de los vistos ante
 	* ``wheel``:  hay un ratón con rueda (poco habitual).
 	
 17. Versión de la plataforma Android: ``v3``, ``v4``, ``v9`` etc...
+
+
+Ejercicio
+------------------------------------------------------
+
+¿Como debería llamarse un directorio que contuviera recursos específicos para un teléfono en portugués que esté usándose en Francia con el operador Bouygues Telecom y que fuera un dispositivo de una resolución hdpi?
+
+Respuesta: hay que ir nombrando el directorio con los sufijos correctos en el orden correcto. En este caso sería ``values-mcc208-mnc20-pt-hdpi``.
+
 
 Tamaños y densidades
 ------------------------------------------------------

@@ -22,14 +22,15 @@
 \contentsline {section}{\numberline {1.20}Directorios}{17}{section.1.20}
 \contentsline {section}{\numberline {1.21}Tipos de recursos}{18}{section.1.21}
 \contentsline {section}{\numberline {1.22}Indicando recursos alternativos}{19}{section.1.22}
-\contentsline {section}{\numberline {1.23}Tama\IeC {\~n}os y densidades}{21}{section.1.23}
-\contentsline {section}{\numberline {1.24}Accediendo a los recursos}{21}{section.1.24}
-\contentsline {section}{\numberline {1.25}Gesti\IeC {\'o}n de cambios durante la ejecuci\IeC {\'o}n}{23}{section.1.25}
-\contentsline {section}{\numberline {1.26}Reteniendo objetos en memoria}{24}{section.1.26}
-\contentsline {section}{\numberline {1.27}Gestionando el cambio}{24}{section.1.27}
-\contentsline {section}{\numberline {1.28}Ejercicios}{24}{section.1.28}
-\contentsline {section}{\numberline {1.29}Modificaci\IeC {\'o}n de aplicaciones existentes.}{24}{section.1.29}
-\contentsline {section}{\numberline {1.30}Utilizaci\IeC {\'o}n del entorno de ejecuci\IeC {\'o}n del administrador de aplicaciones.}{24}{section.1.30}
+\contentsline {section}{\numberline {1.23}Ejercicio}{21}{section.1.23}
+\contentsline {section}{\numberline {1.24}Tama\IeC {\~n}os y densidades}{21}{section.1.24}
+\contentsline {section}{\numberline {1.25}Accediendo a los recursos}{22}{section.1.25}
+\contentsline {section}{\numberline {1.26}Gesti\IeC {\'o}n de cambios durante la ejecuci\IeC {\'o}n}{23}{section.1.26}
+\contentsline {section}{\numberline {1.27}Reteniendo objetos en memoria}{24}{section.1.27}
+\contentsline {section}{\numberline {1.28}Gestionando el cambio}{24}{section.1.28}
+\contentsline {section}{\numberline {1.29}Ejercicios}{24}{section.1.29}
+\contentsline {section}{\numberline {1.30}Modificaci\IeC {\'o}n de aplicaciones existentes.}{24}{section.1.30}
+\contentsline {section}{\numberline {1.31}Utilizaci\IeC {\'o}n del entorno de ejecuci\IeC {\'o}n del administrador de aplicaciones.}{24}{section.1.31}
 \contentsline {chapter}{\numberline {2}Programaci\IeC {\'o}n de aplicaciones para dispositivos m\IeC {\'o}viles}{25}{chapter.2}
 \contentsline {section}{\numberline {2.1}Herramientas y fases de construcci\IeC {\'o}n.}{26}{section.2.1}
 \contentsline {section}{\numberline {2.2}Interfaces de usuario. Clases asociadas.}{26}{section.2.2}
