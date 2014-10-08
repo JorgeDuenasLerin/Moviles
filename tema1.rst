@@ -850,15 +850,6 @@ Cuando hay que modificar una aplicación existente se pueden tener dos situacion
 
 
 
-
-
-
-
-Utilización del entorno de ejecución del administrador de aplicaciones.
--------------------------------------------------------------------------------
-
-
-
 Ejercicio final
 ------------------------------------------------------
 Enunciado
@@ -876,3 +867,15 @@ Usando Fragments se pueden diseñar dos interfaces de usuario:
 * En el otro interfaz, adaptado a móviles, se muestra una sola actividad con solo un fragmento. Cuando se selecciona una noticia *la actividad principal de selección desaparece* y queda oculta por la actividad que contiene el fragmento que muestra noticias. Esta solución es muy razonable al no poder mostrar tantas cosas en una pantalla tan pequeña.
 
 También merece la pena comentar el concepto de *backstack*. El *backstack* es la pila de actividades a través de la cual podemos retroceder usando el botón "Atrás" de Android. Podemos tomar el control de dicha *pila* para decidir si *apilamos* las noticias, o una noticia sustituye a otra.
+
+
+
+Fechas del examen
+------------------------------------------------------
+
+
+Miércoles 15 de octubre 3 últimas horas (de 12'00 a 14'45)
+
+
+
+

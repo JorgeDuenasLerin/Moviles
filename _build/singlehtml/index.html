@@ -724,9 +724,6 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <li>No se dispone del código fuente: de entrada en un proyecto de tamaño mediano puede que ya sea imposible hacer ninguna modificación. Sin embargo, Java ofrece un &#8220;descompilador&#8221; que intenta reconstruir el código fuente a partir del fichero de aplicación.</li>
 </ol>
 </div>
-<div class="section" id="utilizacion-del-entorno-de-ejecucion-del-administrador-de-aplicaciones">
-<h3>Utilización del entorno de ejecución del administrador de aplicaciones.<a class="headerlink" href="#utilizacion-del-entorno-de-ejecucion-del-administrador-de-aplicaciones" title="Enlazar permanentemente con este título">¶</a></h3>
-</div>
 <div class="section" id="ejercicio-final">
 <h3>Ejercicio final<a class="headerlink" href="#ejercicio-final" title="Enlazar permanentemente con este título">¶</a></h3>
 <div class="section" id="id9">
@@ -744,14 +741,127 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <p>También merece la pena comentar el concepto de <em>backstack</em>. El <em>backstack</em> es la pila de actividades a través de la cual podemos retroceder usando el botón &#8220;Atrás&#8221; de Android. Podemos tomar el control de dicha <em>pila</em> para decidir si <em>apilamos</em> las noticias, o una noticia sustituye a otra.</p>
 </div>
 </div>
+<div class="section" id="fechas-del-examen">
+<h3>Fechas del examen<a class="headerlink" href="#fechas-del-examen" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Miércoles 15 de octubre 3 últimas horas (de 12&#8216;00 a 14&#8216;45)</p>
+</div>
 </div>
 <span id="document-tema2"></span><div class="section" id="programacion-de-aplicaciones-para-dispositivos-moviles">
 <h2>Programación de aplicaciones para dispositivos móviles<a class="headerlink" href="#programacion-de-aplicaciones-para-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="section" id="herramientas-y-fases-de-construccion">
 <h3>Herramientas y fases de construcción.<a class="headerlink" href="#herramientas-y-fases-de-construccion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La principal herramienta para programar aplicaciones Android es Eclipse aunque hoy en día está empezando a ser reemplazada por Android Studio.</p>
+<p>En primer lugar se debe hacer un análisis de los permisos que deberá necesitar nuestra aplicación.</p>
+<p>Todos los permisos que requiera nuestra aplicación se indican en el principal fichero del proyecto: <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt></p>
+<p>El archivo <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt> es un archivo imprescindible en cualquier aplicación Android, debe tener siempre ese nombre y debe estar en el directorio raíz del proyecto. Este fichero sirve para lo siguiente:</p>
+<ul class="simple">
+<li>Identifica el paquete Java de la aplicación, que se usará como identificador único de la misma.</li>
+<li>Describe los componentes de la aplicación: actividades, servicios, etc...</li>
+<li>Determina qué procesos alojarán componentes de la aplicación.</li>
+<li>Declara los permisos que debe tener la aplicación para acceder al hardware o al software del sistema.</li>
+<li>Declara los permisos que otros componentes deben tener para interactuar con los componentes de nuestra aplicación.</li>
+<li>Identifica las clases <tt class="docutils literal"><span class="pre">Instrumentation</span></tt> que se usarán para monitorizar el rendimiento. Normalmente esto solo se hace mientras estamos en pruebas, después se elimina.</li>
+<li>Indica la versión mínima de Android que se necesita para ejecutar nuestra app.</li>
+<li>Indica las bibliotecas con las que enlaza nuestro programa.</li>
+</ul>
+<p>Un <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt> tiene esta estructura:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+
+<span class="nt">&lt;manifest&gt;</span>
+
+        <span class="nt">&lt;uses-permission</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;permission</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;permission-tree</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;permission-group</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;instrumentation</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;uses-sdk</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;uses-configuration</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;uses-feature</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;supports-screens</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;compatible-screens</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;supports-gl-texture</span> <span class="nt">/&gt;</span>
+
+        <span class="nt">&lt;application&gt;</span>
+
+                <span class="nt">&lt;activity&gt;</span>
+                        <span class="nt">&lt;intent-filter&gt;</span>
+                                <span class="nt">&lt;action</span> <span class="nt">/&gt;</span>
+                                <span class="nt">&lt;category</span> <span class="nt">/&gt;</span>
+                                <span class="nt">&lt;data</span> <span class="nt">/&gt;</span>
+                        <span class="nt">&lt;/intent-filter&gt;</span>
+                        <span class="nt">&lt;meta-data</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/activity&gt;</span>
+
+                <span class="nt">&lt;activity-alias&gt;</span>
+                        <span class="nt">&lt;intent-filter&gt;</span> . . . <span class="nt">&lt;/intent-filter&gt;</span>
+                        <span class="nt">&lt;meta-data</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/activity-alias&gt;</span>
+
+                <span class="nt">&lt;service&gt;</span>
+                        <span class="nt">&lt;intent-filter&gt;</span> . . . <span class="nt">&lt;/intent-filter&gt;</span>
+                        <span class="nt">&lt;meta-data/&gt;</span>
+                <span class="nt">&lt;/service&gt;</span>
+
+                <span class="nt">&lt;receiver&gt;</span>
+                        <span class="nt">&lt;intent-filter&gt;</span> . . . <span class="nt">&lt;/intent-filter&gt;</span>
+                        <span class="nt">&lt;meta-data</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/receiver&gt;</span>
+
+                <span class="nt">&lt;provider&gt;</span>
+                        <span class="nt">&lt;grant-uri-permission</span> <span class="nt">/&gt;</span>
+                        <span class="nt">&lt;meta-data</span> <span class="nt">/&gt;</span>
+                        <span class="nt">&lt;path-permission</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;/provider&gt;</span>
+
+                <span class="nt">&lt;uses-library</span> <span class="nt">/&gt;</span>
+
+        <span class="nt">&lt;/application&gt;</span>
+
+<span class="nt">&lt;/manifest&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uses-permission">
+<h3><tt class="docutils literal"><span class="pre">&lt;uses-permission&gt;</span></tt><a class="headerlink" href="#uses-permission" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Indica que la app necesita que se le conceda un cierto permiso para poder ser instalada y ejecutada. El permiso se indica en el atributo <tt class="docutils literal"><span class="pre">android:name</span></tt> con un valor como <tt class="docutils literal"><span class="pre">android.permission.CAMERA</span></tt>.</p>
+<p>También puede llevar un atributo <tt class="docutils literal"><span class="pre">android:maxSdkVersion</span></tt> con el que se indica la versión máxima de Android donde es necesario pedir el permiso. Se usa en los casos en los que un permiso deja de existir. Eclipse suele rellenar este valor con la misma versión que usamos para el desarrollo.</p>
+<p>Un posible valor:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;uses-permission</span>
+  <span class="na">android:name=</span><span class="s">&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;</span>
+  <span class="na">android:maxSdkVersion=</span><span class="s">&quot;18&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>Después de construir el <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt> se debería realizar un boceto de como va a ser el interfaz. Aunque se indique de esta forma, el <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt> puede volver a modificarse en el futuro. Hay aplicaciones que permiten elaborar el &#8220;wireframe&#8221; de nuestro interfaz, pero Eclipse también puede ayudar mucho en esta tarea.</p>
 </div>
 <div class="section" id="interfaces-de-usuario-clases-asociadas">
 <h3>Interfaces de usuario. Clases asociadas.<a class="headerlink" href="#interfaces-de-usuario-clases-asociadas" title="Enlazar permanentemente con este título">¶</a></h3>
+<div class="section" id="ejercicio">
+<h4>Ejercicio<a class="headerlink" href="#ejercicio" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Usando el diseñador de Eclipse construye un interfaz como el siguiente. Recuerda editar los ID de los controles (para poder tener en el código nombres más fáciles de recordar) y pon nuevos textos a los controles (para que la aplicación sea fácil de traducir)</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/appPension.png" src="_images/appPension.png" />
+<p class="caption">Interfaz de la aplicación</p>
+</div>
+<p>La aplicación calcula una pensión de una forma muy sencilla: si se ha cotizado durante el mínimo de años exigidos por la ley, se tiene una pensión equivalente al 90% del sueldo actual. Si no ha sido así se tiene una pensión del 75% del sueldo actual.</p>
+<p>Aunque es una funcionalidad que todavía no se va a implementar, la app podrá enviar un SMS con el resultado (y un anuncio de nuestra empresa) a otro número. Esto implica hacer que la aplicación exija pedir ese permiso en el <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt>.</p>
+</div>
+<div class="section" id="codigo-java">
+<h4>Código Java<a class="headerlink" href="#codigo-java" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>El código Java sería algo así (faltan unas líneas)</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActividadPrincipal</span> <span class="kd">extends</span> <span class="n">ActionBarActivity</span> <span class="o">{</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">calcularPension</span><span class="o">(</span><span class="n">View</span> <span class="n">control</span><span class="o">){</span>
+                <span class="n">EditText</span> <span class="n">textoDondeSeEscribeElSueldo</span><span class="o">;</span>
+                <span class="n">textoDondeSeEscribeElSueldo</span><span class="o">=</span>
+                                <span class="o">(</span><span class="n">EditText</span><span class="o">)</span>
+                                <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">txtSueldo</span><span class="o">);</span>
+                <span class="n">textoDondeSeEscribeElSueldo</span><span class="o">.</span><span class="na">getText</span><span class="o">();</span>
+
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="servicios-en-dispositivos-moviles">
 <h3>Servicios en dispositivos móviles.<a class="headerlink" href="#servicios-en-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h3>
@@ -811,120 +921,6 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <h3>Documentación de aplicaciones de dispositivos móviles.<a class="headerlink" href="#documentacion-de-aplicaciones-de-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h3>
 </div>
 </div>
-<div class="section" id="utilizacion-de-librerias-multimedia-integradas">
-<h2>Utilización de librerías multimedia integradas<a class="headerlink" href="#utilizacion-de-librerias-multimedia-integradas" title="Enlazar permanentemente con este título">¶</a></h2>
-<div class="section" id="conceptos-sobre-aplicaciones-multimedia">
-<h3>Conceptos sobre aplicaciones multimedia.<a class="headerlink" href="#conceptos-sobre-aplicaciones-multimedia" title="Enlazar permanentemente con este título">¶</a></h3>
-</div>
-<div class="section" id="arquitectura-del-api-utilizado">
-<h3>Arquitectura del API utilizado.<a class="headerlink" href="#arquitectura-del-api-utilizado" title="Enlazar permanentemente con este título">¶</a></h3>
-</div>
-<div class="section" id="fuentes-de-datos-multimedia-clases">
-<h3>Fuentes de datos multimedia. Clases.<a class="headerlink" href="#fuentes-de-datos-multimedia-clases" title="Enlazar permanentemente con este título">¶</a></h3>
-</div>
-<div class="section" id="datos-basados-en-el-tiempo">
-<h3>Datos basados en el tiempo.<a class="headerlink" href="#datos-basados-en-el-tiempo" title="Enlazar permanentemente con este título">¶</a></h3>
-</div>
-<div class="section" id="procesamiento-de-objetos-multimedia-clases-estados-metodos-y-eventos">
-<h3>Procesamiento de objetos multimedia. Clases. Estados, métodos y eventos.<a class="headerlink" href="#procesamiento-de-objetos-multimedia-clases-estados-metodos-y-eventos" title="Enlazar permanentemente con este título">¶</a></h3>
-</div>
-<div class="section" id="reproduccion-de-objetos-multimedia-clases-estados-metodos-y-eventos">
-<h3>Reproducción de objetos multimedia. Clases. Estados, métodos y eventos.<a class="headerlink" href="#reproduccion-de-objetos-multimedia-clases-estados-metodos-y-eventos" title="Enlazar permanentemente con este título">¶</a></h3>
-</div>
-<div class="section" id="depuracion-y-documentacion-de-los-programas">
-<h3>Depuración y documentación de los programas.<a class="headerlink" href="#depuracion-y-documentacion-de-los-programas" title="Enlazar permanentemente con este título">¶</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="programacion-de-aplicaciones-para-dispositivos-moviles">
-<h1>Programación de aplicaciones para dispositivos móviles<a class="headerlink" href="#programacion-de-aplicaciones-para-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h1>
-<div class="section" id="herramientas-y-fases-de-construccion">
-<h2>Herramientas y fases de construcción.<a class="headerlink" href="#herramientas-y-fases-de-construccion" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="interfaces-de-usuario-clases-asociadas">
-<h2>Interfaces de usuario. Clases asociadas.<a class="headerlink" href="#interfaces-de-usuario-clases-asociadas" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="servicios-en-dispositivos-moviles">
-<h2>Servicios en dispositivos móviles.<a class="headerlink" href="#servicios-en-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="proveedores-de-contenido">
-<h2>Proveedores de contenido.<a class="headerlink" href="#proveedores-de-contenido" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="gestion-de-recursos-y-notificaciones">
-<h2>Gestión de recursos y notificaciones.<a class="headerlink" href="#gestion-de-recursos-y-notificaciones" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="contexto-grafico-imagenes">
-<h2>Contexto gráfico. Imágenes.<a class="headerlink" href="#contexto-grafico-imagenes" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="eventos-del-teclado">
-<h2>Eventos del teclado.<a class="headerlink" href="#eventos-del-teclado" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="tecnicas-de-animacion-y-sonido">
-<h2>Técnicas de animación y sonido.<a class="headerlink" href="#tecnicas-de-animacion-y-sonido" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="descubrimiento-de-servicios">
-<h2>Descubrimiento de servicios.<a class="headerlink" href="#descubrimiento-de-servicios" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="bases-de-datos-y-almacenamiento">
-<h2>Bases de datos y almacenamiento.<a class="headerlink" href="#bases-de-datos-y-almacenamiento" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="persistencia">
-<h2>Persistencia.<a class="headerlink" href="#persistencia" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="modelo-de-hilos">
-<h2>Modelo de hilos.<a class="headerlink" href="#modelo-de-hilos" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="comunicaciones-clases-asociadas-tipos-de-conexiones">
-<h2>Comunicaciones: clases asociadas. Tipos de conexiones.<a class="headerlink" href="#comunicaciones-clases-asociadas-tipos-de-conexiones" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="gestion-de-la-comunicacion-inalambrica">
-<h2>Gestión de la comunicación inalámbrica.<a class="headerlink" href="#gestion-de-la-comunicacion-inalambrica" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="seguridad-y-permisos">
-<h2>Seguridad y permisos.<a class="headerlink" href="#seguridad-y-permisos" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="envio-y-recepcion-de-mensajes-texto">
-<h2>Envío y recepción de mensajes texto.<a class="headerlink" href="#envio-y-recepcion-de-mensajes-texto" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="envio-y-recepcion-de-mensajeria-multimedia-sincronizacion-de-contenido">
-<h2>Envío y recepción de mensajería multimedia. Sincronización de contenido.<a class="headerlink" href="#envio-y-recepcion-de-mensajeria-multimedia-sincronizacion-de-contenido" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="manejo-de-conexiones-http-y-https">
-<h2>Manejo de conexiones HTTP y HTTPS.<a class="headerlink" href="#manejo-de-conexiones-http-y-https" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="empaquetado-y-despliegue-de-aplicaciones-para-dispositivos-moviles">
-<h2>Empaquetado y despliegue de aplicaciones para dispositivos móviles.<a class="headerlink" href="#empaquetado-y-despliegue-de-aplicaciones-para-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="centros-de-distribucion-de-aplicaciones">
-<h2>Centros de distribución de aplicaciones.<a class="headerlink" href="#centros-de-distribucion-de-aplicaciones" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="documentacion-de-aplicaciones-de-dispositivos-moviles">
-<h2>Documentación de aplicaciones de dispositivos móviles.<a class="headerlink" href="#documentacion-de-aplicaciones-de-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-</div>
-<div class="section" id="utilizacion-de-librerias-multimedia-integradas">
-<h1>Utilización de librerías multimedia integradas<a class="headerlink" href="#utilizacion-de-librerias-multimedia-integradas" title="Enlazar permanentemente con este título">¶</a></h1>
-<div class="section" id="conceptos-sobre-aplicaciones-multimedia">
-<h2>Conceptos sobre aplicaciones multimedia.<a class="headerlink" href="#conceptos-sobre-aplicaciones-multimedia" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="arquitectura-del-api-utilizado">
-<h2>Arquitectura del API utilizado.<a class="headerlink" href="#arquitectura-del-api-utilizado" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="fuentes-de-datos-multimedia-clases">
-<h2>Fuentes de datos multimedia. Clases.<a class="headerlink" href="#fuentes-de-datos-multimedia-clases" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="datos-basados-en-el-tiempo">
-<h2>Datos basados en el tiempo.<a class="headerlink" href="#datos-basados-en-el-tiempo" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="procesamiento-de-objetos-multimedia-clases-estados-metodos-y-eventos">
-<h2>Procesamiento de objetos multimedia. Clases. Estados, métodos y eventos.<a class="headerlink" href="#procesamiento-de-objetos-multimedia-clases-estados-metodos-y-eventos" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="reproduccion-de-objetos-multimedia-clases-estados-metodos-y-eventos">
-<h2>Reproducción de objetos multimedia. Clases. Estados, métodos y eventos.<a class="headerlink" href="#reproduccion-de-objetos-multimedia-clases-estados-metodos-y-eventos" title="Enlazar permanentemente con este título">¶</a></h2>
-</div>
-<div class="section" id="depuracion-y-documentacion-de-los-programas">
-<h2>Depuración y documentación de los programas.<a class="headerlink" href="#depuracion-y-documentacion-de-los-programas" title="Enlazar permanentemente con este título">¶</a></h2>
 </div>
 </div>
 <div class="section" id="analisis-de-motores-de-juegos">
@@ -1051,12 +1047,13 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <li class="toctree-l2"><a class="reference internal" href="index.html#solucion-ejercicio">Solución ejercicio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#id6">Solución ejercicio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#modificacion-de-aplicaciones-existentes">Modificación de aplicaciones existentes.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#utilizacion-del-entorno-de-ejecucion-del-administrador-de-aplicaciones">Utilización del entorno de ejecución del administrador de aplicaciones.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#ejercicio-final">Ejercicio final</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#fechas-del-examen">Fechas del examen</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-tema2">Programación de aplicaciones para dispositivos móviles</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="index.html#herramientas-y-fases-de-construccion">Herramientas y fases de construcción.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#uses-permission"><tt class="docutils literal"><span class="pre">&lt;uses-permission&gt;</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#interfaces-de-usuario-clases-asociadas">Interfaces de usuario. Clases asociadas.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#servicios-en-dispositivos-moviles">Servicios en dispositivos móviles.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#proveedores-de-contenido">Proveedores de contenido.</a></li>
@@ -1077,16 +1074,6 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <li class="toctree-l2"><a class="reference internal" href="index.html#empaquetado-y-despliegue-de-aplicaciones-para-dispositivos-moviles">Empaquetado y despliegue de aplicaciones para dispositivos móviles.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#centros-de-distribucion-de-aplicaciones">Centros de distribución de aplicaciones.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#documentacion-de-aplicaciones-de-dispositivos-moviles">Documentación de aplicaciones de dispositivos móviles.</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#utilizacion-de-librerias-multimedia-integradas">Utilización de librerías multimedia integradas</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="index.html#conceptos-sobre-aplicaciones-multimedia">Conceptos sobre aplicaciones multimedia.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#arquitectura-del-api-utilizado">Arquitectura del API utilizado.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#fuentes-de-datos-multimedia-clases">Fuentes de datos multimedia. Clases.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#datos-basados-en-el-tiempo">Datos basados en el tiempo.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#procesamiento-de-objetos-multimedia-clases-estados-metodos-y-eventos">Procesamiento de objetos multimedia. Clases. Estados, métodos y eventos.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#reproduccion-de-objetos-multimedia-clases-estados-metodos-y-eventos">Reproducción de objetos multimedia. Clases. Estados, métodos y eventos.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#depuracion-y-documentacion-de-los-programas">Depuración y documentación de los programas.</a></li>
 </ul>
 </li>
 </ul>
