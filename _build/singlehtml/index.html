@@ -848,20 +848,53 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <div class="section" id="codigo-java">
 <h4>Código Java<a class="headerlink" href="#codigo-java" title="Enlazar permanentemente con este título">¶</a></h4>
 <p>El código Java sería algo así (faltan unas líneas)</p>
-<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActividadPrincipal</span> <span class="kd">extends</span> <span class="n">ActionBarActivity</span> <span class="o">{</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">calcularPension</span><span class="o">(</span><span class="n">View</span> <span class="n">controlPulsado</span><span class="o">){</span>
+                <span class="n">EditText</span> <span class="n">control</span><span class="o">;</span>
+                <span class="n">control</span><span class="o">=(</span><span class="n">EditText</span><span class="o">)</span>
+                                <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">txtSueldoActual</span><span class="o">);</span>
 
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">calcularPension</span><span class="o">(</span><span class="n">View</span> <span class="n">control</span><span class="o">){</span>
-                <span class="n">EditText</span> <span class="n">textoDondeSeEscribeElSueldo</span><span class="o">;</span>
-                <span class="n">textoDondeSeEscribeElSueldo</span><span class="o">=</span>
-                                <span class="o">(</span><span class="n">EditText</span><span class="o">)</span>
-                                <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">txtSueldo</span><span class="o">);</span>
-                <span class="n">textoDondeSeEscribeElSueldo</span><span class="o">.</span><span class="na">getText</span><span class="o">();</span>
+                <span class="n">Editable</span> <span class="n">cadPension</span><span class="o">=</span><span class="n">control</span><span class="o">.</span><span class="na">getEditableText</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">cadPension</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">))</span> <span class="k">return</span> <span class="o">;</span>
+                <span class="n">Double</span> <span class="n">sueldoActual</span><span class="o">;</span>
+                <span class="n">sueldoActual</span><span class="o">=</span>
+                                <span class="n">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">cadPension</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 
+                <span class="n">ToggleButton</span> <span class="n">togMinimo</span><span class="o">;</span>
+                <span class="n">togMinimo</span><span class="o">=(</span><span class="n">ToggleButton</span><span class="o">)</span>
+                                <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">togMinimo</span><span class="o">);</span>
+                <span class="n">Double</span> <span class="n">pensionResultado</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">togMinimo</span><span class="o">.</span><span class="na">isChecked</span><span class="o">()){</span>
+                        <span class="n">pensionResultado</span><span class="o">=</span><span class="n">sueldoActual</span><span class="o">*</span><span class="mf">0.9</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">else</span> <span class="o">{</span>
+                        <span class="n">pensionResultado</span><span class="o">=</span><span class="n">sueldoActual</span><span class="o">*</span><span class="mf">0.75</span><span class="o">;</span>
+                <span class="o">}</span>
+
+                <span class="n">EditText</span> <span class="n">txtPensionResultado</span><span class="o">;</span>
+                <span class="n">txtPensionResultado</span><span class="o">=(</span><span class="n">EditText</span><span class="o">)</span>
+                                <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">txtPensionResultado</span><span class="o">);</span>
+                <span class="n">txtPensionResultado</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">pensionResultado</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
         <span class="o">}</span>
-<span class="o">}</span>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="sobre-el-diseno-de-interfaces">
+<h3>Sobre el diseño de interfaces<a class="headerlink" href="#sobre-el-diseno-de-interfaces" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Cuando se diseña un interfaz lo normal es ir insertando los controles en &#8220;layouts&#8221; que a su vez van dentro de otros. El objetivo es poder modificar un bloque de controles sin afectar a los demás.</p>
+<p>Todo control Android puede manipularse de dos formas:</p>
+<ul>
+<li><p class="first">Indicando su tamaño en los parámetros <tt class="docutils literal"><span class="pre">width</span></tt> y <tt class="docutils literal"><span class="pre">height</span></tt>. Se podría indicar el tamaño en puntos (mala idea porque el control no se redimensiona automáticamente) pero también se pueden indicar otras dos posibilidades:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">wrap_content</span></tt>: significa más o menos &#8220;adáptate al mínimo posible&#8221;.</li>
+<li><tt class="docutils literal"><span class="pre">match_parent</span></tt>: &#8220;agrándate y adápte al tamaño de tu contenedor padre&#8221;.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Indicando qué proporción ocupa con respecto a sus controles del mismo contenedor. Esto se hace modificando el atributo <tt class="docutils literal"><span class="pre">weight</span></tt> y poniendo luego el <tt class="docutils literal"><span class="pre">width</span></tt> o el <tt class="docutils literal"><span class="pre">height</span></tt> a <tt class="docutils literal"><span class="pre">0dp</span></tt>.</p>
+</li>
+</ul>
 </div>
 <div class="section" id="servicios-en-dispositivos-moviles">
 <h3>Servicios en dispositivos móviles.<a class="headerlink" href="#servicios-en-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h3>
@@ -1055,6 +1088,7 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <li class="toctree-l2"><a class="reference internal" href="index.html#herramientas-y-fases-de-construccion">Herramientas y fases de construcción.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#uses-permission"><tt class="docutils literal"><span class="pre">&lt;uses-permission&gt;</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#interfaces-de-usuario-clases-asociadas">Interfaces de usuario. Clases asociadas.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#sobre-el-diseno-de-interfaces">Sobre el diseño de interfaces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#servicios-en-dispositivos-moviles">Servicios en dispositivos móviles.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#proveedores-de-contenido">Proveedores de contenido.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#gestion-de-recursos-y-notificaciones">Gestión de recursos y notificaciones.</a></li>

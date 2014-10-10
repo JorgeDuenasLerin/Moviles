@@ -49,25 +49,26 @@
 \contentsline {section}{\numberline {2.3}Interfaces de usuario. Clases asociadas.}{33}{section.2.3}
 \contentsline {subsection}{\numberline {2.3.1}Ejercicio}{33}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}C\IeC {\'o}digo Java}{33}{subsection.2.3.2}
-\contentsline {section}{\numberline {2.4}Servicios en dispositivos m\IeC {\'o}viles.}{37}{section.2.4}
-\contentsline {section}{\numberline {2.5}Proveedores de contenido.}{37}{section.2.5}
-\contentsline {section}{\numberline {2.6}Gesti\IeC {\'o}n de recursos y notificaciones.}{37}{section.2.6}
-\contentsline {section}{\numberline {2.7}Contexto gr\IeC {\'a}fico. Im\IeC {\'a}genes.}{37}{section.2.7}
-\contentsline {section}{\numberline {2.8}Eventos del teclado.}{37}{section.2.8}
-\contentsline {section}{\numberline {2.9}T\IeC {\'e}cnicas de animaci\IeC {\'o}n y sonido.}{37}{section.2.9}
-\contentsline {section}{\numberline {2.10}Descubrimiento de servicios.}{37}{section.2.10}
-\contentsline {section}{\numberline {2.11}Bases de datos y almacenamiento.}{37}{section.2.11}
-\contentsline {section}{\numberline {2.12}Persistencia.}{37}{section.2.12}
-\contentsline {section}{\numberline {2.13}Modelo de hilos.}{37}{section.2.13}
-\contentsline {section}{\numberline {2.14}Comunicaciones: clases asociadas. Tipos de conexiones.}{37}{section.2.14}
-\contentsline {section}{\numberline {2.15}Gesti\IeC {\'o}n de la comunicaci\IeC {\'o}n inal\IeC {\'a}mbrica.}{37}{section.2.15}
-\contentsline {section}{\numberline {2.16}Seguridad y permisos.}{37}{section.2.16}
-\contentsline {section}{\numberline {2.17}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajes texto.}{37}{section.2.17}
-\contentsline {section}{\numberline {2.18}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajer\IeC {\'\i }a multimedia. Sincronizaci\IeC {\'o}n de contenido.}{37}{section.2.18}
-\contentsline {section}{\numberline {2.19}Manejo de conexiones HTTP y HTTPS.}{37}{section.2.19}
-\contentsline {section}{\numberline {2.20}Empaquetado y despliegue de aplicaciones para dispositivos m\IeC {\'o}viles.}{37}{section.2.20}
-\contentsline {section}{\numberline {2.21}Centros de distribuci\IeC {\'o}n de aplicaciones.}{37}{section.2.21}
-\contentsline {section}{\numberline {2.22}Documentaci\IeC {\'o}n de aplicaciones de dispositivos m\IeC {\'o}viles.}{37}{section.2.22}
+\contentsline {section}{\numberline {2.4}Sobre el dise\IeC {\~n}o de interfaces}{35}{section.2.4}
+\contentsline {section}{\numberline {2.5}Servicios en dispositivos m\IeC {\'o}viles.}{37}{section.2.5}
+\contentsline {section}{\numberline {2.6}Proveedores de contenido.}{37}{section.2.6}
+\contentsline {section}{\numberline {2.7}Gesti\IeC {\'o}n de recursos y notificaciones.}{37}{section.2.7}
+\contentsline {section}{\numberline {2.8}Contexto gr\IeC {\'a}fico. Im\IeC {\'a}genes.}{37}{section.2.8}
+\contentsline {section}{\numberline {2.9}Eventos del teclado.}{37}{section.2.9}
+\contentsline {section}{\numberline {2.10}T\IeC {\'e}cnicas de animaci\IeC {\'o}n y sonido.}{37}{section.2.10}
+\contentsline {section}{\numberline {2.11}Descubrimiento de servicios.}{37}{section.2.11}
+\contentsline {section}{\numberline {2.12}Bases de datos y almacenamiento.}{37}{section.2.12}
+\contentsline {section}{\numberline {2.13}Persistencia.}{37}{section.2.13}
+\contentsline {section}{\numberline {2.14}Modelo de hilos.}{37}{section.2.14}
+\contentsline {section}{\numberline {2.15}Comunicaciones: clases asociadas. Tipos de conexiones.}{37}{section.2.15}
+\contentsline {section}{\numberline {2.16}Gesti\IeC {\'o}n de la comunicaci\IeC {\'o}n inal\IeC {\'a}mbrica.}{37}{section.2.16}
+\contentsline {section}{\numberline {2.17}Seguridad y permisos.}{37}{section.2.17}
+\contentsline {section}{\numberline {2.18}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajes texto.}{37}{section.2.18}
+\contentsline {section}{\numberline {2.19}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajer\IeC {\'\i }a multimedia. Sincronizaci\IeC {\'o}n de contenido.}{37}{section.2.19}
+\contentsline {section}{\numberline {2.20}Manejo de conexiones HTTP y HTTPS.}{37}{section.2.20}
+\contentsline {section}{\numberline {2.21}Empaquetado y despliegue de aplicaciones para dispositivos m\IeC {\'o}viles.}{37}{section.2.21}
+\contentsline {section}{\numberline {2.22}Centros de distribuci\IeC {\'o}n de aplicaciones.}{37}{section.2.22}
+\contentsline {section}{\numberline {2.23}Documentaci\IeC {\'o}n de aplicaciones de dispositivos m\IeC {\'o}viles.}{37}{section.2.23}
 \contentsline {chapter}{\numberline {3}An\IeC {\'a}lisis de motores de juegos}{39}{chapter.3}
 \contentsline {section}{\numberline {3.1}Animaci\IeC {\'o}n 2D y 3D.}{39}{section.3.1}
 \contentsline {section}{\numberline {3.2}Arquitectura del juego. Componentes.}{39}{section.3.2}

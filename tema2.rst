@@ -134,19 +134,55 @@ El código Java sería algo así (faltan unas líneas)
 
 .. code-block:: java
 
-	public class ActividadPrincipal extends ActionBarActivity {
-
-		public void calcularPension(View control){
-			EditText textoDondeSeEscribeElSueldo;
-			textoDondeSeEscribeElSueldo=
-					(EditText) 
-					this.findViewById(R.id.txtSueldo);
-			textoDondeSeEscribeElSueldo.getText();
-					
+	public void calcularPension(View controlPulsado){
+			EditText control;
+			control=(EditText) 
+					this.findViewById(R.id.txtSueldoActual);
+			
+			Editable cadPension=control.getEditableText();
+			if (cadPension.toString().equals("")) return ;
+			Double sueldoActual;
+			sueldoActual=
+					Double.parseDouble(cadPension.toString());
+			
+			ToggleButton togMinimo;
+			togMinimo=(ToggleButton)
+					this.findViewById(R.id.togMinimo);
+			Double pensionResultado;
+			if (togMinimo.isChecked()){
+				pensionResultado=sueldoActual*0.9;
+			}
+			else {
+				pensionResultado=sueldoActual*0.75;
+			}
+			
+			EditText txtPensionResultado;
+			txtPensionResultado=(EditText) 
+					this.findViewById(R.id.txtPensionResultado);
+			txtPensionResultado.setText(pensionResultado.toString());
 		}
-	}
 	
    
+
+Sobre el diseño de interfaces
+------------------------------------------------------
+
+Cuando se diseña un interfaz lo normal es ir insertando los controles en "layouts" que a su vez van dentro de otros. El objetivo es poder modificar un bloque de controles sin afectar a los demás.
+
+
+Todo control Android puede manipularse de dos formas:
+
+* Indicando su tamaño en los parámetros ``width`` y ``height``. Se podría indicar el tamaño en puntos (mala idea porque el control no se redimensiona automáticamente) pero también se pueden indicar otras dos posibilidades:
+	
+	* ``wrap_content``: significa más o menos "adáptate al mínimo posible".
+	* ``match_parent``: "agrándate y adápte al tamaño de tu contenedor padre".
+
+* Indicando qué proporción ocupa con respecto a sus controles del mismo contenedor. Esto se hace modificando el atributo ``weight`` y poniendo luego el ``width`` o el ``height`` a ``0dp``.
+
+
+
+
+
 
 
 
