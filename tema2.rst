@@ -180,6 +180,132 @@ Todo control Android puede manipularse de dos formas:
 * Indicando qué proporción ocupa con respecto a sus controles del mismo contenedor. Esto se hace modificando el atributo ``weight`` y poniendo luego el ``width`` o el ``height`` a ``0dp``.
 
 
+Ejercicio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Crear una aplicación que permita al usuario practicar el cálculo mentar con operaciones sencillas (sumas y restas) con números pequeños (de 1 a 99). Cuando el usuario introduce un resultado se le dice si acierta o no y se genera una nueva operación al azar.
+
+.. code-block:: java
+
+	package com.ies.calculus;
+
+	import java.util.Random;
+
+	import android.support.v7.app.ActionBarActivity;
+	import android.os.Bundle;
+	import android.util.Log;
+	import android.view.Menu;
+	import android.view.MenuItem;
+	import android.view.View;
+	import android.widget.EditText;
+	import android.widget.TextView;
+
+
+	public class ActividadPrincipal extends ActionBarActivity {
+		int num1;
+		int num2;
+		String operacion;
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_actividad_principal);
+			generarOperacion();
+		}
+		
+
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Inflate the menu; this adds items to the action bar if it is present.
+			getMenuInflater().inflate(R.menu.actividad_principal, menu);
+			return true;
+		}
+
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			// Handle action bar item clicks here. The action bar will
+			// automatically handle clicks on the Home/Up button, so long
+			// as you specify a parent activity in AndroidManifest.xml.
+			int id = item.getItemId();
+			if (id == R.id.action_settings) {
+				return true;
+			}
+			return super.onOptionsItemSelected(item);
+		}
+		
+		private void escribirNumeroEnTextView(
+				int num, int id){
+			TextView tv=(TextView)
+					this.findViewById(id);
+			tv.setText(""+num);
+		}
+		private void generarOperacion(){
+			Random generador=new Random();
+			num1=generador.nextInt(100);
+			num2=generador.nextInt(100);
+			escribirNumeroEnTextView(
+					num1, R.id.tvOperando1);
+			escribirNumeroEnTextView(
+					num2, R.id.tvOperando2);
+			//Para generar la op. matemática
+			//escogeremos un valor al azar de un vector
+			String[] ops={"+", "-"};
+			
+			int posAzar=generador.nextInt(ops.length);
+			operacion=ops[posAzar];
+			TextView tvOperando=
+					(TextView)this.findViewById(R.id.tvOperador);
+			tvOperando.setText(operacion);    	
+		}
+		public void comprobar(View control){
+			EditText txtResultado=(EditText)
+					this.findViewById(R.id.txtResultado);
+			String resultado=txtResultado.getText().toString();
+			TextView tvMensajes=(TextView)
+					this.findViewById(R.id.tvMensajes);
+			if (resultado.equals("")){
+				tvMensajes.setText("Resultado incorrecto");
+				generarOperacion();
+				return ;
+			}
+			int resultCalculado=0;
+			switch (operacion.charAt(0)){
+				case '+':{
+					resultCalculado=num1+num2;
+					break;
+				}
+				case '-':{
+					resultCalculado=num1-num2;
+					break;
+				}
+			}
+			int resultadoIntroducido=
+					Integer.parseInt(resultado);
+			if (resultadoIntroducido==resultCalculado){
+				tvMensajes.setText("¡Correcto!");
+			} else {
+				tvMensajes.setText("¡MAL!");
+			}
+			txtResultado.setText("");
+			generarOperacion();
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -895,6 +895,114 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <li><p class="first">Indicando qué proporción ocupa con respecto a sus controles del mismo contenedor. Esto se hace modificando el atributo <tt class="docutils literal"><span class="pre">weight</span></tt> y poniendo luego el <tt class="docutils literal"><span class="pre">width</span></tt> o el <tt class="docutils literal"><span class="pre">height</span></tt> a <tt class="docutils literal"><span class="pre">0dp</span></tt>.</p>
 </li>
 </ul>
+<div class="section" id="id1">
+<h4>Ejercicio<a class="headerlink" href="#id1" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Crear una aplicación que permita al usuario practicar el cálculo mentar con operaciones sencillas (sumas y restas) con números pequeños (de 1 a 99). Cuando el usuario introduce un resultado se le dice si acierta o no y se genera una nueva operación al azar.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">ies</span><span class="o">.</span><span class="na">calculus</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.support.v7.app.ActionBarActivity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.util.Log</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.Menu</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.MenuItem</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.view.View</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.EditText</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.widget.TextView</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActividadPrincipal</span> <span class="kd">extends</span> <span class="n">ActionBarActivity</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">num1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">num2</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">operacion</span><span class="o">;</span>
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+                <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_actividad_principal</span><span class="o">);</span>
+                <span class="n">generarOperacion</span><span class="o">();</span>
+        <span class="o">}</span>
+
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// Inflate the menu; this adds items to the action bar if it is present.</span>
+                <span class="n">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">actividad_principal</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// Handle action bar item clicks here. The action bar will</span>
+                <span class="c1">// automatically handle clicks on the Home/Up button, so long</span>
+                <span class="c1">// as you specify a parent activity in AndroidManifest.xml.</span>
+                <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">action_settings</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="kd">private</span> <span class="kt">void</span> <span class="nf">escribirNumeroEnTextView</span><span class="o">(</span>
+                        <span class="kt">int</span> <span class="n">num</span><span class="o">,</span> <span class="kt">int</span> <span class="n">id</span><span class="o">){</span>
+                <span class="n">TextView</span> <span class="n">tv</span><span class="o">=(</span><span class="n">TextView</span><span class="o">)</span>
+                                <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+                <span class="n">tv</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">+</span><span class="n">num</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">private</span> <span class="kt">void</span> <span class="nf">generarOperacion</span><span class="o">(){</span>
+                <span class="n">Random</span> <span class="n">generador</span><span class="o">=</span><span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+                <span class="n">num1</span><span class="o">=</span><span class="n">generador</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+                <span class="n">num2</span><span class="o">=</span><span class="n">generador</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+                <span class="n">escribirNumeroEnTextView</span><span class="o">(</span>
+                                <span class="n">num1</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvOperando1</span><span class="o">);</span>
+                <span class="n">escribirNumeroEnTextView</span><span class="o">(</span>
+                                <span class="n">num2</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvOperando2</span><span class="o">);</span>
+                <span class="c1">//Para generar la op. matemática</span>
+                <span class="c1">//escogeremos un valor al azar de un vector</span>
+                <span class="n">String</span><span class="o">[]</span> <span class="n">ops</span><span class="o">={</span><span class="s">&quot;+&quot;</span><span class="o">,</span> <span class="s">&quot;-&quot;</span><span class="o">};</span>
+
+                <span class="kt">int</span> <span class="n">posAzar</span><span class="o">=</span><span class="n">generador</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">ops</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+                <span class="n">operacion</span><span class="o">=</span><span class="n">ops</span><span class="o">[</span><span class="n">posAzar</span><span class="o">];</span>
+                <span class="n">TextView</span> <span class="n">tvOperando</span><span class="o">=</span>
+                                <span class="o">(</span><span class="n">TextView</span><span class="o">)</span><span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvOperador</span><span class="o">);</span>
+                <span class="n">tvOperando</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">operacion</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">comprobar</span><span class="o">(</span><span class="n">View</span> <span class="n">control</span><span class="o">){</span>
+                <span class="n">EditText</span> <span class="n">txtResultado</span><span class="o">=(</span><span class="n">EditText</span><span class="o">)</span>
+                                <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">txtResultado</span><span class="o">);</span>
+                <span class="n">String</span> <span class="n">resultado</span><span class="o">=</span><span class="n">txtResultado</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+                <span class="n">TextView</span> <span class="n">tvMensajes</span><span class="o">=(</span><span class="n">TextView</span><span class="o">)</span>
+                                <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvMensajes</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">resultado</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)){</span>
+                        <span class="n">tvMensajes</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;Resultado incorrecto&quot;</span><span class="o">);</span>
+                        <span class="n">generarOperacion</span><span class="o">();</span>
+                        <span class="k">return</span> <span class="o">;</span>
+                <span class="o">}</span>
+                <span class="kt">int</span> <span class="n">resultCalculado</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+                <span class="k">switch</span> <span class="o">(</span><span class="n">operacion</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">)){</span>
+                        <span class="k">case</span> <span class="sc">&#39;+&#39;</span><span class="o">:{</span>
+                                <span class="n">resultCalculado</span><span class="o">=</span><span class="n">num1</span><span class="o">+</span><span class="n">num2</span><span class="o">;</span>
+                                <span class="k">break</span><span class="o">;</span>
+                        <span class="o">}</span>
+                        <span class="k">case</span> <span class="sc">&#39;-&#39;</span><span class="o">:{</span>
+                                <span class="n">resultCalculado</span><span class="o">=</span><span class="n">num1</span><span class="o">-</span><span class="n">num2</span><span class="o">;</span>
+                                <span class="k">break</span><span class="o">;</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="kt">int</span> <span class="n">resultadoIntroducido</span><span class="o">=</span>
+                                <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">resultado</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">resultadoIntroducido</span><span class="o">==</span><span class="n">resultCalculado</span><span class="o">){</span>
+                        <span class="n">tvMensajes</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;¡Correcto!&quot;</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="n">tvMensajes</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;¡MAL!&quot;</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="n">txtResultado</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">);</span>
+                <span class="n">generarOperacion</span><span class="o">();</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="servicios-en-dispositivos-moviles">
 <h3>Servicios en dispositivos móviles.<a class="headerlink" href="#servicios-en-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h3>
