@@ -183,7 +183,7 @@ Todo control Android puede manipularse de dos formas:
 Ejercicio
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Crear una aplicación que permita al usuario practicar el cálculo mental con operaciones sencillas (sumas y restas) con números pequeños (de 1 a 99). Cuando el usuario introduce un resultado se le dice si acierta o no y se genera una nueva operación al azar.
+Crear una aplicación que permita al usuario practicar el cálculo mentar con operaciones sencillas (sumas y restas) con números pequeños (de 1 a 99). Cuando el usuario introduce un resultado se le dice si acierta o no y se genera una nueva operación al azar.
 
 .. code-block:: java
 
@@ -290,20 +290,29 @@ Crear una aplicación que permita al usuario practicar el cálculo mental con op
 		}
 	}
 
-Resumen de los contenedores Android
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-En la imagen siguiente puede apreciarse la variedad de contenedores que ofrece Android:
 
-.. figure:: ..imagenes/contenedores.png
-   :figwidth: 50%  
-   :align: center
-   :alt: Contenedores Android
-   
-   Contenedores Android
-   
-   
-   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
