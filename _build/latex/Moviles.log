@@ -1237,4 +1237,82 @@ LaTeX Warning: File `..imagenes/contenedores.png' not found on input line 1535.
 
 ! Package pdftex.def Error: File `..imagenes/contenedores.png' not found.
 
-See the pdftex.def package documentation for
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1535 ...udegraphics{..imagenes/contenedores.png}
+                                                  
+? 
+
+LaTeX Warning: File `..imagenes/contenedores.png' not found on input line 1535.
+
+
+
+! Package pdftex.def Error: File `..imagenes/contenedores.png' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1535 ...udegraphics{..imagenes/contenedores.png}
+                                                  
+? 
+[38] [39]
+Overfull \vbox (161.72165pt too high) has occurred while \output is active []
+
+
+[40]
+Cap\'{\i }tulo 3.
+[41
+
+] [42
+
+]
+Cap\'{\i }tulo 4.
+[43]
+Overfull \vbox (31.51228pt too high) has occurred while \output is active []
+
+
+[44]
+Cap\'{\i }tulo 5.
+No file Moviles.ind.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1680.
+[45
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1680.
+ (D:\oscar\Moviles\_build\latex\Moviles.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1680.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1680.
+
+Package rerunfilecheck Info: File `Moviles.out' has not changed.
+(rerunfilecheck)             Checksum: C859CC8880380E65C927A9BE9FFD8E68;7162.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1680.
+ ) 
+Here is how much of TeX's memory you used:
+ 9728 strings out of 493921
+ 137124 string characters out of 3144876
+ 235947 words of memory out of 3000000
+ 12529 multiletter control sequences out of 15000+200000
+ 73298 words of font info for 87 fonts, out of 3000000 for 9000
+ 842 hyphenation exceptions out of 8191
+ 39i,12n,51p,725b,629s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Progra
+m Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files (
+x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files (x86)/MiKT
+eX 2.9/fonts/type1/urw/courier/ucrro8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/f
+onts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
+e1/urw/helvetic/uhvbo8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/
+times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8
+a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on Moviles.pdf (51 pages, 1030613 bytes).
+PDF statistics:
+ 838 PDF objects out of 1000 (max. 8388607)
+ 207 named destinations out of 1000 (max. 500000)
+ 807 words of extra memory for PDF output out of 10000 (max. 10000000)
+
