@@ -1007,8 +1007,58 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <h4>Resumen de los contenedores Android<a class="headerlink" href="#resumen-de-los-contenedores-android" title="Enlazar permanentemente con este título">¶</a></h4>
 <p>En la imagen siguiente puede apreciarse la variedad de contenedores que ofrece Android:</p>
 <div class="figure align-center" style="width: 50%">
-<img alt="Contenedores Android" src="..imagenes/contenedores.png" />
+<img alt="Contenedores Android" src="_images/contenedores.png" />
 <p class="caption">Contenedores Android</p>
+</div>
+</div>
+</div>
+<div class="section" id="actividades">
+<h3>Actividades<a class="headerlink" href="#actividades" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Una actividad es un programa diseñado no solo para llamar a otros programas sino que también puede ofrecer sus servicios en Android para que otros programas les llamen a ellos.</p>
+<p>El objetivo básico es comprender la forma de comunicar actividades en Android.</p>
+<div class="section" id="actividad-receptora-de-informacion">
+<h4>Actividad receptora de información<a class="headerlink" href="#actividad-receptora-de-informacion" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Una actividad típica debería estar preparada para recibir parámetros de una forma similar a esta:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">parametroNombre</span><span class="o">=</span>
+                <span class="s">&quot;com.ies.actividades1.nombrePersona&quot;</span><span class="o">;</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">actividad_mostrar_nombres</span><span class="o">);</span>
+
+        <span class="n">Intent</span> <span class="n">intentPasado</span><span class="o">=</span><span class="k">this</span><span class="o">.</span><span class="na">getIntent</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">nombrePasado</span><span class="o">=</span>
+                        <span class="n">intentPasado</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span>
+                <span class="n">ActividadMostrarNombres</span><span class="o">.</span><span class="na">parametroNombre</span>
+        <span class="o">);</span>
+
+        <span class="n">TextView</span> <span class="n">txtNombreAMostrar</span><span class="o">;</span>
+        <span class="n">txtNombreAMostrar</span><span class="o">=</span>
+                        <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">txtNombreMostrado</span><span class="o">);</span>
+        <span class="n">txtNombreAMostrar</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">nombrePasado</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="actividad-llamadora">
+<h4>Actividad llamadora<a class="headerlink" href="#actividad-llamadora" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Una actividad que desee invocar a otro necesitará &#8220;pasar parámetros&#8221; de una forma similar a esta:</p>
+<div class="highlight-java"><div class="highlight"><pre>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pasarNombre</span><span class="o">(</span><span class="n">View</span> <span class="n">control</span><span class="o">){</span>
+    <span class="n">EditText</span> <span class="n">txtNombre</span><span class="o">;</span>
+    <span class="n">txtNombre</span><span class="o">=(</span><span class="n">EditText</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">txtNombre</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">nombre</span><span class="o">=</span><span class="n">txtNombre</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+    <span class="n">Intent</span> <span class="n">iMostrarNombre</span><span class="o">;</span>
+    <span class="c1">//Indicamos quien es el llamador e</span>
+    <span class="c1">//indicamos</span>
+    <span class="n">iMostrarNombre</span><span class="o">=</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span>
+                    <span class="k">this</span><span class="o">,</span> <span class="n">ActividadMostrarNombres</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">iMostrarNombre</span><span class="o">.</span><span class="na">putExtra</span>
+            <span class="o">(</span><span class="n">ActividadMostrarNombres</span><span class="o">.</span><span class="na">parametroNombre</span>
+                            <span class="o">,</span> <span class="n">nombre</span><span class="o">);</span>
+    <span class="c1">//Se lanza el intent</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">startActivity</span><span class="o">(</span><span class="n">iMostrarNombre</span><span class="o">);</span>
+
+<span class="o">}</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -1205,6 +1255,7 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <li class="toctree-l2"><a class="reference internal" href="index.html#uses-permission"><tt class="docutils literal"><span class="pre">&lt;uses-permission&gt;</span></tt></a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#interfaces-de-usuario-clases-asociadas">Interfaces de usuario. Clases asociadas.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#sobre-el-diseno-de-interfaces">Sobre el diseño de interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#actividades">Actividades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#servicios-en-dispositivos-moviles">Servicios en dispositivos móviles.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#proveedores-de-contenido">Proveedores de contenido.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#gestion-de-recursos-y-notificaciones">Gestión de recursos y notificaciones.</a></li>

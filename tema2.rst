@@ -295,7 +295,7 @@ Resumen de los contenedores Android
 
 En la imagen siguiente puede apreciarse la variedad de contenedores que ofrece Android:
 
-.. figure:: ..imagenes/contenedores.png
+.. figure:: imagenes/contenedores.png
    :figwidth: 50%  
    :align: center
    :alt: Contenedores Android
@@ -303,7 +303,62 @@ En la imagen siguiente puede apreciarse la variedad de contenedores que ofrece A
    Contenedores Android
    
    
-   
+Actividades
+------------------------------------------------------
+
+Una actividad es un programa diseñado no solo para llamar a otros programas sino que también puede ofrecer sus servicios en Android para que otros programas les llamen a ellos.
+
+El objetivo básico es comprender la forma de comunicar actividades en Android.
+
+Actividad receptora de información
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Una actividad típica debería estar preparada para recibir parámetros de una forma similar a esta:
+
+.. code-block:: java
+
+	public static String parametroNombre=
+			"com.ies.actividades1.nombrePersona";
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.setContentView(R.layout.actividad_mostrar_nombres);
+		
+		Intent intentPasado=this.getIntent();
+		String nombrePasado=
+				intentPasado.getStringExtra(
+			ActividadMostrarNombres.parametroNombre
+		);
+		
+		TextView txtNombreAMostrar;
+		txtNombreAMostrar=
+				(TextView) this.findViewById(R.id.txtNombreMostrado);
+		txtNombreAMostrar.setText(nombrePasado);
+	}	
+
+Actividad llamadora
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Una actividad que desee invocar a otro necesitará "pasar parámetros" de una forma similar a esta:
+
+.. code-block:: java
+
+	public void pasarNombre(View control){
+    	EditText txtNombre;
+    	txtNombre=(EditText) findViewById(R.id.txtNombre);
+    	String nombre=txtNombre.getText().toString();
+    	Intent iMostrarNombre;
+    	//Indicamos quien es el llamador e
+    	//indicamos
+    	iMostrarNombre=new Intent(
+    			this, ActividadMostrarNombres.class);
+    	iMostrarNombre.putExtra
+    		(ActividadMostrarNombres.parametroNombre
+    				, nombre);
+    	//Se lanza el intent
+    	this.startActivity(iMostrarNombre);
+    	
+    }		
+
 
 
 
