@@ -359,6 +359,38 @@ Una actividad que desee invocar a otro necesitará "pasar parámetros" de una fo
     	
     }		
 
+Construcción de actividades
+------------------------------------------------------
+
+Para crear una actividad desde cero necesitamos hacer dos cosas
+
+1. Crear el interfaz XML (Eclipse puede que no añada un ``id`` a dicho interfaz, si no lo ha hecho añadirlo a mano)
+2. Crear una clase Java que herede de ``Activity``. Dicha clase Java necesita que implementemos al menos dos métodos.
+
+	2.1. El ``onCreate`` contendrá el código que procesa el ``Intent`` que nos pasen.
+	2.2. El ``onCreateView`` devolverá lo mismo que hacía el padre, pero antes usaremos ``setContentView`` para cargar un fichero de interfaz o *layout*.
+	
+	
+Dentro de la actividad suele ser buena política definir los nombres de los parámetros utilizando como prefijo el nombre del paquete:
+
+.. code-block:: java
+
+	public class 
+		ActividadCalculadora extends Activity {
+
+		public static String nombreNum1=
+				"com.ies.actividades2.num1";
+		public static String nombreNum2=
+				"com.ies.actividades2.num2";
+		public static String nombreOp=
+				"com.ies.actividades2.op";
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			// TODO Auto-generated method stub
+			super.onCreate(savedInstanceState);
+			
+		}
+	}
 
 
 
