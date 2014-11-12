@@ -9,7 +9,7 @@ Puntos iniciales
 
 * Los apuntes también se podrán encontrar a diario en http://oscarmaestre.github.io
 
-* Existen fotocopias con la programación, criterios, etc... en la mesa del profesor. En cualquier caso, están colgadas en la página del centro http://www.iesmaestredecalatrava.es (buscar el apartado "Presentaciones"
+* Existen fotocopias con la programación, criterios, etc... en la mesa del profesor. En cualquier caso, están colgadas en la página del centro http://www.iesmaestredecalatrava.es (buscar el apartado "Presentaciones")
 
 * Si se desea acceder a algún fichero individual de los apuntes puede hacerse en las página siguiente
 

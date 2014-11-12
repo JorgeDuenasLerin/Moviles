@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>documentación de Moviles - 1.0</title>
+    <title>Programación multimedia y de dispositivos móviles</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -30,7 +30,7 @@
     <div class="related">
       <h3>Navegación</h3>
       <ul>
-        <li><a href="index.html#document-index">documentación de Moviles - 1.0</a> &raquo;</li> 
+        <li><a href="index.html#document-index">Programación multimedia y de dispositivos móviles</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -52,7 +52,7 @@
 </li>
 <li><p class="first">Los apuntes también se podrán encontrar a diario en <a class="reference external" href="http://oscarmaestre.github.io">http://oscarmaestre.github.io</a></p>
 </li>
-<li><p class="first">Existen fotocopias con la programación, criterios, etc... en la mesa del profesor. En cualquier caso, están colgadas en la página del centro <a class="reference external" href="http://www.iesmaestredecalatrava.es">http://www.iesmaestredecalatrava.es</a> (buscar el apartado &#8220;Presentaciones&#8221;</p>
+<li><p class="first">Existen fotocopias con la programación, criterios, etc... en la mesa del profesor. En cualquier caso, están colgadas en la página del centro <a class="reference external" href="http://www.iesmaestredecalatrava.es">http://www.iesmaestredecalatrava.es</a> (buscar el apartado &#8220;Presentaciones&#8221;)</p>
 </li>
 <li><p class="first">Si se desea acceder a algún fichero individual de los apuntes puede hacerse en las página siguiente</p>
 <blockquote>
@@ -888,7 +888,7 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <blockquote>
 <div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">wrap_content</span></tt>: significa más o menos &#8220;adáptate al mínimo posible&#8221;.</li>
-<li><tt class="docutils literal"><span class="pre">match_parent</span></tt>: &#8220;agrándate y adápte al tamaño de tu contenedor padre&#8221;.</li>
+<li><tt class="docutils literal"><span class="pre">match_parent</span></tt>: &#8220;agrándate y adáptate al tamaño de tu contenedor padre&#8221;.</li>
 </ul>
 </div></blockquote>
 </li>
@@ -1092,8 +1092,14 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <div class="section" id="ejemplo-llamadas-entre-actividades">
 <h3>Ejemplo: llamadas entre actividades<a class="headerlink" href="#ejemplo-llamadas-entre-actividades" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>Supongamos que deseamos tener una actividad que acepta recibir dos números y un operando. Tras la recepción se efectuará la operación matemática y se mostrará el resultado en un interfaz distinto de la actividad llamadora.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/actividadcalculadora.png" src="_images/actividadcalculadora.png" />
+<p class="caption">Aplicación con dos actividades</p>
+</div>
 <div class="section" id="actividad-calculadora">
 <h4>Actividad calculadora<a class="headerlink" href="#actividad-calculadora" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Esta actividad carga el interfaz XML y despues procesa el <tt class="docutils literal"><span class="pre">Intent</span></tt> para determinar qué operación debe ejecutar.</p>
+<p>También define el nombre de los parámetros en <strong>constantes</strong> que tanto el llamador como ella pueden usar (y así evitar el cortar y pegar).</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActividadCalculadora</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
 
         <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">nombreNum1</span><span class="o">=</span>
@@ -1125,7 +1131,6 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 
                 <span class="n">String</span> <span class="n">cadResultado</span><span class="o">=</span>
                                 <span class="n">num1</span><span class="o">+</span><span class="n">op</span><span class="o">+</span><span class="n">num2</span><span class="o">+</span><span class="s">&quot;=&quot;</span><span class="o">+</span><span class="n">resultado</span><span class="o">;</span>
-
                 <span class="n">TextView</span> <span class="n">tvResultado</span><span class="o">;</span>
                 <span class="n">tvResultado</span><span class="o">=(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvResultado</span><span class="o">);</span>
                 <span class="n">tvResultado</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">cadResultado</span><span class="o">);</span>
@@ -1141,12 +1146,6 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
                 <span class="o">}</span>
                 <span class="k">return</span> <span class="n">resultado</span><span class="o">;</span>
         <span class="o">}</span>
-
-        <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="n">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onCreateView</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
-        <span class="o">}</span>
-
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -1227,6 +1226,111 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <div class="highlight-xml"><div class="highlight"><pre>        <span class="nt">&lt;activity</span>
                 <span class="na">android:name=</span><span class="s">&quot;.ActividadCalculadora&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/activity&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Ejercicio<a class="headerlink" href="#id3" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Crear una aplicación con dos actividades donde una de ellas permita introducir un texto y un número y la otra reciba ambos valores. La segunda truncará los <em>n</em> primeros caracteres de la cadena y los mostrará en pantalla.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/acttruncado.png" src="_images/acttruncado.png" />
+<p class="caption">Ejemplo de funcionamiento del truncado</p>
+</div>
+<div class="section" id="actividad-inicial">
+<h4>Actividad inicial<a class="headerlink" href="#actividad-inicial" title="Enlazar permanentemente con este título">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActPeticionTexto</span> <span class="kd">extends</span> <span class="n">ActionBarActivity</span> <span class="o">{</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+                <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_act_peticion_texto</span><span class="o">);</span>
+        <span class="o">}</span>
+
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// Inflate the menu; this adds items to the action bar if it is present.</span>
+                <span class="n">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">act_peticion_texto</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// Handle action bar item clicks here. The action bar will</span>
+                <span class="c1">// automatically handle clicks on the Home/Up button, so long</span>
+                <span class="c1">// as you specify a parent activity in AndroidManifest.xml.</span>
+                <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">action_settings</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="nf">getCadena</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">){</span>
+                <span class="n">EditText</span> <span class="n">controlTexto</span><span class="o">=</span>
+                                <span class="o">(</span><span class="n">EditText</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+                <span class="k">return</span> <span class="n">controlTexto</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">truncar</span><span class="o">(</span><span class="n">View</span> <span class="n">control</span><span class="o">){</span>
+                <span class="n">Intent</span> <span class="n">intento</span><span class="o">=</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span><span class="n">ActividadTruncadora</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+                <span class="n">String</span> <span class="n">textoEscrito</span><span class="o">=</span>
+                                <span class="n">getCadena</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">txtTexto</span><span class="o">);</span>
+                <span class="n">String</span> <span class="n">textoNumCaracteres</span><span class="o">=</span>
+                                <span class="n">getCadena</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">txtNumero</span><span class="o">);</span>
+                <span class="kt">int</span> <span class="n">numCaracteres</span><span class="o">=</span><span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span>
+                                <span class="n">textoNumCaracteres</span><span class="o">);</span>
+                <span class="n">intento</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span>
+                                <span class="n">ActividadTruncadora</span><span class="o">.</span><span class="na">nombreCadena</span><span class="o">,</span>
+                                <span class="n">textoEscrito</span><span class="o">);</span>
+                <span class="n">intento</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span>
+                                <span class="n">ActividadTruncadora</span><span class="o">.</span><span class="na">nombreNumCaracteres</span><span class="o">,</span>
+                                <span class="n">numCaracteres</span><span class="o">);</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">startActivity</span><span class="o">(</span><span class="n">intento</span><span class="o">);</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="actividad-truncadora">
+<h4>Actividad truncadora<a class="headerlink" href="#actividad-truncadora" title="Enlazar permanentemente con este título">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActividadTruncadora</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">nombreCadena</span><span class="o">=</span>
+                        <span class="s">&quot;com.ies.truncado.nombreCadena&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">nombreNumCaracteres</span><span class="o">=</span>
+                        <span class="s">&quot;com.ies.truncado.nombreNumCaracteres&quot;</span><span class="o">;</span>
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// TODO Auto-generated method stub</span>
+                <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">act_truncado</span><span class="o">);</span>
+                <span class="n">Intent</span> <span class="n">intRecibido</span><span class="o">=</span><span class="k">this</span><span class="o">.</span><span class="na">getIntent</span><span class="o">();</span>
+                <span class="n">String</span> <span class="n">cad</span><span class="o">=</span><span class="n">intRecibido</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span>
+                                <span class="n">ActividadTruncadora</span><span class="o">.</span><span class="na">nombreCadena</span>
+                                <span class="o">);</span>
+                <span class="kt">int</span> <span class="n">numCaracteres</span><span class="o">=</span>      <span class="n">intRecibido</span><span class="o">.</span><span class="na">getIntExtra</span><span class="o">(</span>
+                        <span class="n">ActividadTruncadora</span><span class="o">.</span><span class="na">nombreNumCaracteres</span><span class="o">,</span>
+                        <span class="mi">0</span><span class="o">);</span>
+
+                <span class="n">String</span> <span class="n">cadTruncada</span><span class="o">=</span><span class="k">this</span><span class="o">.</span><span class="na">truncar</span><span class="o">(</span><span class="n">cad</span><span class="o">,</span> <span class="n">numCaracteres</span><span class="o">);</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;Truncado&quot;</span><span class="o">,</span> <span class="s">&quot;Resultado:&quot;</span><span class="o">+</span><span class="n">cadTruncada</span><span class="o">);</span>
+                <span class="n">TextView</span> <span class="n">tvTextoTruncado</span><span class="o">=</span>
+                                <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvResultado</span><span class="o">);</span>
+                <span class="n">tvTextoTruncado</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">cadTruncada</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="cm">/* Recorta los num primeros caracteres*/</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="nf">truncar</span> <span class="o">(</span><span class="n">String</span> <span class="n">cad</span><span class="o">,</span> <span class="kt">int</span> <span class="n">num</span><span class="o">){</span>
+                <span class="cm">/* Si el usuario intenta poner</span>
+<span class="cm">                 * un valor más grande que la propia</span>
+<span class="cm">                 * longitud de la cadena, reducimos el numero</span>
+<span class="cm">                 */</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">num</span><span class="o">&gt;</span><span class="n">cad</span><span class="o">.</span><span class="na">length</span><span class="o">()){</span>
+                        <span class="n">num</span><span class="o">=</span><span class="n">cad</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="n">cad</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">num</span><span class="o">);</span>
+        <span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 </div>
@@ -1427,6 +1531,7 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <li class="toctree-l2"><a class="reference internal" href="index.html#actividades">Actividades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#construccion-de-actividades">Construcción de actividades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#ejemplo-llamadas-entre-actividades">Ejemplo: llamadas entre actividades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id3">Ejercicio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#servicios-en-dispositivos-moviles">Servicios en dispositivos móviles.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#proveedores-de-contenido">Proveedores de contenido.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#gestion-de-recursos-y-notificaciones">Gestión de recursos y notificaciones.</a></li>
@@ -1457,7 +1562,7 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
     <div class="related">
       <h3>Navegación</h3>
       <ul>
-        <li><a href="index.html#document-index">documentación de Moviles - 1.0</a> &raquo;</li> 
+        <li><a href="index.html#document-index">Programación multimedia y de dispositivos móviles</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

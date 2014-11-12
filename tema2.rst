@@ -175,7 +175,7 @@ Todo control Android puede manipularse de dos formas:
 * Indicando su tamaño en los parámetros ``width`` y ``height``. Se podría indicar el tamaño en puntos (mala idea porque el control no se redimensiona automáticamente) pero también se pueden indicar otras dos posibilidades:
 	
 	* ``wrap_content``: significa más o menos "adáptate al mínimo posible".
-	* ``match_parent``: "agrándate y adápte al tamaño de tu contenedor padre".
+	* ``match_parent``: "agrándate y adáptate al tamaño de tu contenedor padre".
 
 * Indicando qué proporción ocupa con respecto a sus controles del mismo contenedor. Esto se hace modificando el atributo ``weight`` y poniendo luego el ``width`` o el ``height`` a ``0dp``.
 
@@ -396,8 +396,23 @@ Ejemplo: llamadas entre actividades
 
 Supongamos que deseamos tener una actividad que acepta recibir dos números y un operando. Tras la recepción se efectuará la operación matemática y se mostrará el resultado en un interfaz distinto de la actividad llamadora.
 
+.. figure:: imagenes/actividadcalculadora.png
+   :figwidth: 50%
+   :align: center
+   
+   Aplicación con dos actividades
+
+   
+   
+
+
 Actividad calculadora
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Esta actividad carga el interfaz XML y despues procesa el ``Intent`` para determinar qué operación debe ejecutar.
+
+También define el nombre de los parámetros en **constantes** que tanto el llamador como ella pueden usar (y así evitar el cortar y pegar).
+
 
 .. code-block:: java
 
@@ -431,8 +446,7 @@ Actividad calculadora
 			float resultado=this.calcular(num1, op, num2);
 			
 			String cadResultado=
-					num1+op+num2+"="+resultado;
-			
+					num1+op+num2+"="+resultado;	
 			TextView tvResultado;
 			tvResultado=(TextView) findViewById(R.id.tvResultado);
 			tvResultado.setText(cadResultado);
@@ -448,12 +462,6 @@ Actividad calculadora
 			}
 			return resultado;
 		}
-		
-		@Override
-		public View onCreateView(String name, Context context, AttributeSet attrs) {
-			return super.onCreateView(name, context, attrs);
-		}
-
 	}	
 
 Actividad llamadora
@@ -538,7 +546,118 @@ Se debe añadir esta actividad en el ``AndroidManifest.xml``
 			android:name=".ActividadCalculadora">        
         </activity>
 
+		
+Ejercicio
+------------------------------------------------------
+
+Crear una aplicación con dos actividades donde una de ellas permita introducir un texto y un número y la otra reciba ambos valores. La segunda truncará los *n* primeros caracteres de la cadena y los mostrará en pantalla.
+
+.. figure:: imagenes/acttruncado.png
+   :figwidth: 50%
+   :align: center
+   
+   Ejemplo de funcionamiento del truncado
+   
+Actividad inicial
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: java
+
+	public class ActPeticionTexto extends ActionBarActivity {
+
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_act_peticion_texto);
+		}
+
+
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Inflate the menu; this adds items to the action bar if it is present.
+			getMenuInflater().inflate(R.menu.act_peticion_texto, menu);
+			return true;
+		}
+
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			// Handle action bar item clicks here. The action bar will
+			// automatically handle clicks on the Home/Up button, so long
+			// as you specify a parent activity in AndroidManifest.xml.
+			int id = item.getItemId();
+			if (id == R.id.action_settings) {
+				return true;
+			}
+			return super.onOptionsItemSelected(item);
+		}
+		private String getCadena(int id){
+			EditText controlTexto=
+					(EditText) this.findViewById(id);
+			return controlTexto.getText().toString();
+		}
+		
+		public void truncar(View control){
+			Intent intento=new Intent(this,ActividadTruncadora.class);
+			String textoEscrito=
+					getCadena(R.id.txtTexto);
+			String textoNumCaracteres=
+					getCadena(R.id.txtNumero);
+			int numCaracteres=Integer.parseInt(
+					textoNumCaracteres);
+			intento.putExtra(
+					ActividadTruncadora.nombreCadena, 
+					textoEscrito);
+			intento.putExtra(
+					ActividadTruncadora.nombreNumCaracteres, 
+					numCaracteres);
+			this.startActivity(intento);
+		}
+	}
 	
+
+Actividad truncadora
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: java
+
+	public class ActividadTruncadora extends Activity {
+		public static String nombreCadena=
+				"com.ies.truncado.nombreCadena";
+		public static String nombreNumCaracteres=
+				"com.ies.truncado.nombreNumCaracteres";
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			// TODO Auto-generated method stub
+			super.onCreate(savedInstanceState);
+			this.setContentView(R.layout.act_truncado);
+			Intent intRecibido=this.getIntent();
+			String cad=intRecibido.getStringExtra(
+					ActividadTruncadora.nombreCadena
+					);
+			int numCaracteres=	intRecibido.getIntExtra(
+				ActividadTruncadora.nombreNumCaracteres,
+				0);
+			
+			String cadTruncada=this.truncar(cad, numCaracteres);
+			Log.d("Truncado", "Resultado:"+cadTruncada);
+			TextView tvTextoTruncado=
+					(TextView) this.findViewById(R.id.tvResultado);
+			tvTextoTruncado.setText(cadTruncada);
+		}
+		
+		/* Recorta los num primeros caracteres*/
+		private String truncar (String cad, int num){
+			/* Si el usuario intenta poner
+			 * un valor más grande que la propia
+			 * longitud de la cadena, reducimos el numero
+			 */
+			if (num>cad.length()){
+				num=cad.length();
+			}
+			return cad.substring(0, num);	
+		}
+	}
+		
 
 Servicios en dispositivos móviles.
 ------------------------------------------------------
