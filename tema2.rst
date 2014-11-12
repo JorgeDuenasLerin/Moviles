@@ -393,8 +393,144 @@ Dentro de la actividad suele ser buena política definir los nombres de los par�
 	}
 
 
+	
+Ejemplo: llamadas entre actividades
+------------------------------------------------------
+
+Supongamos que deseamos tener una actividad que acepta recibir dos números y un operando. Tras la recepción se efectuará la operación matemática y se mostrará el resultado en un interfaz distinto de la actividad llamadora.
+
+Actividad calculadora
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: java
+
+	public class ActividadCalculadora extends Activity {
+
+		public static String nombreNum1=
+				"com.ies.actividades2.num1";
+		public static String nombreNum2=
+				"com.ies.actividades2.num2";
+		public static String nombreOp=
+				"com.ies.actividades2.op";
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			// TODO Auto-generated method stub
+			super.onCreate(savedInstanceState);
+			Intent intento=this.getIntent();
+			float num1=
+					intento.getFloatExtra(
+							ActividadCalculadora.nombreNum1
+							, 
+							0.0f);
+			float num2=intento.getFloatExtra(
+					ActividadCalculadora.nombreNum2
+					, 
+					0.0f);
+			String op=
+					intento.getStringExtra(
+							ActividadCalculadora.nombreOp);
+			
+			float resultado=this.calcular(num1, op, num2);
+			
+			String cadResultado=
+					num1+op+num2+"="+resultado;
+			
+			TextView tvResultado;
+			tvResultado=(TextView) findViewById(R.id.tvResultado);
+			tvResultado.setText(cadResultado);
+		}
+		public float calcular(float n1, String op, float n2){
+			float resultado=0.0f;
+			
+			if (op.equals("+")){
+				return n1+n2;
+			}
+			if (op.equals("-")){
+				return n1-n2;
+			}
+			return resultado;
+		}
+		
+		@Override
+		public View onCreateView(String name, Context context, AttributeSet attrs) {
+			// TODO Auto-generated method stub
+			this.setContentView(R.layout.actividad_secundaria);
+			return super.onCreateView(name, context, attrs);
+		}
+
+	}	
+
+Actividad llamadora
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: java
+
+	public class ActividadPrincipal extends ActionBarActivity {
+
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_actividad_principal);
+		}
 
 
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Inflate the menu; this adds items to the action bar if it is present.
+			getMenuInflater().inflate(R.menu.actividad_principal, menu);
+			return true;
+		}
+
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			// Handle action bar item clicks here. The action bar will
+			// automatically handle clicks on the Home/Up button, so long
+			// as you specify a parent activity in AndroidManifest.xml.
+			int id = item.getItemId();
+			if (id == R.id.action_settings) {
+				return true;
+			}
+			return super.onOptionsItemSelected(item);
+		}
+		
+		
+		
+		/* Dado un id de recurso este método nos
+		 * devuelve el texto que hay dentro
+		 */
+		public float getNumero(int id){
+			EditText control;
+			control=(EditText) findViewById(id);
+			String cadena=control.getText().toString();
+			float f=Float.parseFloat(cadena);
+			return f;
+		}
+		public void lanzarActCalculadora(
+				float f1, float f2, String op
+				){
+			Intent intento=new Intent();
+			intento.putExtra(
+					ActividadCalculadora.nombreNum1,
+					f1);
+			intento.putExtra(
+					ActividadCalculadora.nombreNum2,
+					f2);
+			intento.putExtra(
+					ActividadCalculadora.nombreOp,
+					op);
+			this.startActivity(intento);
+		}
+		public void calcular(View control){
+			RadioButton rbSuma;
+			rbSuma=(RadioButton) findViewById(R.id.radSuma);
+			if (rbSuma.isChecked()){
+				float f1=this.getNumero(R.id.txtNum1);
+				float f2=this.getNumero(R.id.txtNum2);
+				lanzarActCalculadora(f1,f2,"+");
+			}
+		}    
+	}
+	
 
 Servicios en dispositivos móviles.
 ------------------------------------------------------
