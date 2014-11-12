@@ -365,10 +365,7 @@ Construcción de actividades
 Para crear una actividad desde cero necesitamos hacer dos cosas
 
 1. Crear el interfaz XML (Eclipse puede que no añada un ``id`` a dicho interfaz, si no lo ha hecho añadirlo a mano)
-2. Crear una clase Java que herede de ``Activity``. Dicha clase Java necesita que implementemos al menos dos métodos.
-
-	2.1. El ``onCreate`` contendrá el código que procesa el ``Intent`` que nos pasen.
-	2.2. El ``onCreateView`` devolverá lo mismo que hacía el padre, pero antes usaremos ``setContentView`` para cargar un fichero de interfaz o *layout*.
+2. Crear una clase Java que herede de ``Activity``. Dicha clase Java necesita que añadamos algo: el ``onCreate`` contendrá ahora el código que procesa el ``Intent`` que nos pasen y también  usaremos ``setContentView`` para cargar un fichero de interfaz o *layout*.
 	
 	
 Dentro de la actividad suele ser buena política definir los nombres de los parámetros utilizando como prefijo el nombre del paquete:
@@ -416,6 +413,7 @@ Actividad calculadora
 		protected void onCreate(Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
 			super.onCreate(savedInstanceState);
+			this.setContentView(R.layout.actividad_secundaria);
 			Intent intento=this.getIntent();
 			float num1=
 					intento.getFloatExtra(
@@ -453,8 +451,6 @@ Actividad calculadora
 		
 		@Override
 		public View onCreateView(String name, Context context, AttributeSet attrs) {
-			// TODO Auto-generated method stub
-			this.setContentView(R.layout.actividad_secundaria);
 			return super.onCreateView(name, context, attrs);
 		}
 
@@ -508,7 +504,7 @@ Actividad llamadora
 		public void lanzarActCalculadora(
 				float f1, float f2, String op
 				){
-			Intent intento=new Intent();
+			Intent intento=new Intent(this, ActividadCalculadora.class);
 			intento.putExtra(
 					ActividadCalculadora.nombreNum1,
 					f1);
@@ -528,8 +524,20 @@ Actividad llamadora
 				float f2=this.getNumero(R.id.txtNum2);
 				lanzarActCalculadora(f1,f2,"+");
 			}
-		}    
+		}   
 	}
+	
+Modificación del ``AndroidManifest.xml``	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Se debe añadir esta actividad en el ``AndroidManifest.xml``
+
+.. code-block:: xml
+
+		<activity 
+			android:name=".ActividadCalculadora">        
+        </activity>
+
 	
 
 Servicios en dispositivos móviles.

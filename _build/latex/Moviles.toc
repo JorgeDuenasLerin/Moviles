@@ -55,49 +55,54 @@
 \contentsline {section}{\numberline {2.5}Actividades}{38}{section.2.5}
 \contentsline {subsection}{\numberline {2.5.1}Actividad receptora de informaci\IeC {\'o}n}{38}{subsection.2.5.1}
 \contentsline {subsection}{\numberline {2.5.2}Actividad llamadora}{39}{subsection.2.5.2}
-\contentsline {section}{\numberline {2.6}Servicios en dispositivos m\IeC {\'o}viles.}{41}{section.2.6}
-\contentsline {section}{\numberline {2.7}Proveedores de contenido.}{41}{section.2.7}
-\contentsline {section}{\numberline {2.8}Gesti\IeC {\'o}n de recursos y notificaciones.}{41}{section.2.8}
-\contentsline {section}{\numberline {2.9}Contexto gr\IeC {\'a}fico. Im\IeC {\'a}genes.}{41}{section.2.9}
-\contentsline {section}{\numberline {2.10}Eventos del teclado.}{41}{section.2.10}
-\contentsline {section}{\numberline {2.11}T\IeC {\'e}cnicas de animaci\IeC {\'o}n y sonido.}{41}{section.2.11}
-\contentsline {section}{\numberline {2.12}Descubrimiento de servicios.}{41}{section.2.12}
-\contentsline {section}{\numberline {2.13}Bases de datos y almacenamiento.}{41}{section.2.13}
-\contentsline {section}{\numberline {2.14}Persistencia.}{41}{section.2.14}
-\contentsline {section}{\numberline {2.15}Modelo de hilos.}{41}{section.2.15}
-\contentsline {section}{\numberline {2.16}Comunicaciones: clases asociadas. Tipos de conexiones.}{41}{section.2.16}
-\contentsline {section}{\numberline {2.17}Gesti\IeC {\'o}n de la comunicaci\IeC {\'o}n inal\IeC {\'a}mbrica.}{41}{section.2.17}
-\contentsline {section}{\numberline {2.18}Seguridad y permisos.}{41}{section.2.18}
-\contentsline {section}{\numberline {2.19}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajes texto.}{41}{section.2.19}
-\contentsline {section}{\numberline {2.20}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajer\IeC {\'\i }a multimedia. Sincronizaci\IeC {\'o}n de contenido.}{41}{section.2.20}
-\contentsline {section}{\numberline {2.21}Manejo de conexiones HTTP y HTTPS.}{41}{section.2.21}
-\contentsline {section}{\numberline {2.22}Empaquetado y despliegue de aplicaciones para dispositivos m\IeC {\'o}viles.}{41}{section.2.22}
-\contentsline {section}{\numberline {2.23}Centros de distribuci\IeC {\'o}n de aplicaciones.}{41}{section.2.23}
-\contentsline {section}{\numberline {2.24}Documentaci\IeC {\'o}n de aplicaciones de dispositivos m\IeC {\'o}viles.}{41}{section.2.24}
-\contentsline {chapter}{\numberline {3}An\IeC {\'a}lisis de motores de juegos}{43}{chapter.3}
-\contentsline {section}{\numberline {3.1}Animaci\IeC {\'o}n 2D y 3D.}{43}{section.3.1}
-\contentsline {section}{\numberline {3.2}Arquitectura del juego. Componentes.}{43}{section.3.2}
-\contentsline {section}{\numberline {3.3}Motores de juegos: Tipos y utilizaci\IeC {\'o}n.}{43}{section.3.3}
-\contentsline {section}{\numberline {3.4}\IeC {\'A}reas de especializaci\IeC {\'o}n, librer\IeC {\'\i }as utilizadas y lenguajes de programaci\IeC {\'o}n}{43}{section.3.4}
-\contentsline {section}{\numberline {3.5}Componentes de un motor de juegos.}{43}{section.3.5}
-\contentsline {section}{\numberline {3.6}Librer\IeC {\'\i }as que proporcionan las funciones b\IeC {\'a}sicas de un Motor 2D/3D.}{43}{section.3.6}
-\contentsline {section}{\numberline {3.7}APIs gr\IeC {\'a}ficos 3D.}{43}{section.3.7}
-\contentsline {section}{\numberline {3.8}Estudio de juegos existentes.}{43}{section.3.8}
-\contentsline {section}{\numberline {3.9}Aplicaci\IeC {\'o}n de modificaciones sobre juegos existentes.}{43}{section.3.9}
-\contentsline {chapter}{\numberline {4}Desarrollo de juegos 2D y 3D}{45}{chapter.4}
-\contentsline {section}{\numberline {4.1}Entornos de desarrollo para juegos.}{46}{section.4.1}
-\contentsline {section}{\numberline {4.2}Integraci\IeC {\'o}n del motor de juegos en entornos de desarrollo.}{46}{section.4.2}
-\contentsline {section}{\numberline {4.3}Conceptos avanzados de programaci\IeC {\'o}n 3D.}{46}{section.4.3}
-\contentsline {section}{\numberline {4.4}Fases de desarrollo:}{46}{section.4.4}
-\contentsline {section}{\numberline {4.5}Propiedades de los objetos: luz, texturas, reflejos, sombras.}{46}{section.4.5}
-\contentsline {section}{\numberline {4.6}Aplicaci\IeC {\'o}n de las funciones del motor gr\IeC {\'a}fico. Renderizaci\IeC {\'o}n.}{46}{section.4.6}
-\contentsline {section}{\numberline {4.7}Aplicaci\IeC {\'o}n de las funciones del grafo de escena.}{46}{section.4.7}
-\contentsline {section}{\numberline {4.8}Tipos de nodos y su utilizaci\IeC {\'o}n.}{46}{section.4.8}
-\contentsline {section}{\numberline {4.9}Asociaci\IeC {\'o}n de sonidos a los eventos del juego.}{46}{section.4.9}
-\contentsline {section}{\numberline {4.10}An\IeC {\'a}lisis de ejecuci\IeC {\'o}n. Optimizaci\IeC {\'o}n del c\IeC {\'o}digo.}{46}{section.4.10}
-\contentsline {section}{\numberline {4.11}Documentaci\IeC {\'o}n de la fase de dise\IeC {\~n}o y de desarrollo.}{46}{section.4.11}
-\contentsline {chapter}{\numberline {5}Sistemas basados en localizaci\IeC {\'o}n}{47}{chapter.5}
-\contentsline {section}{\numberline {5.1}Tecnolog\IeC {\'\i }as de localizaci\IeC {\'o}n (GPS, A-GPS,...).}{47}{section.5.1}
-\contentsline {section}{\numberline {5.2}Servicios de localizaci\IeC {\'o}n, mapas y geocodificaci\IeC {\'o}n.}{47}{section.5.2}
-\contentsline {section}{\numberline {5.3}Emuladores para simular las ubicaciones.}{47}{section.5.3}
-\contentsline {section}{\numberline {5.4}Visualizaci\IeC {\'o}n la informaci\IeC {\'o}n geolocalizada.}{47}{section.5.4}
+\contentsline {section}{\numberline {2.6}Construcci\IeC {\'o}n de actividades}{39}{section.2.6}
+\contentsline {section}{\numberline {2.7}Ejemplo: llamadas entre actividades}{40}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}Actividad calculadora}{40}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}Actividad llamadora}{41}{subsection.2.7.2}
+\contentsline {subsection}{\numberline {2.7.3}Modificaci\IeC {\'o}n del \texttt {AndroidManifest.xml}}{43}{subsection.2.7.3}
+\contentsline {section}{\numberline {2.8}Servicios en dispositivos m\IeC {\'o}viles.}{45}{section.2.8}
+\contentsline {section}{\numberline {2.9}Proveedores de contenido.}{45}{section.2.9}
+\contentsline {section}{\numberline {2.10}Gesti\IeC {\'o}n de recursos y notificaciones.}{45}{section.2.10}
+\contentsline {section}{\numberline {2.11}Contexto gr\IeC {\'a}fico. Im\IeC {\'a}genes.}{45}{section.2.11}
+\contentsline {section}{\numberline {2.12}Eventos del teclado.}{45}{section.2.12}
+\contentsline {section}{\numberline {2.13}T\IeC {\'e}cnicas de animaci\IeC {\'o}n y sonido.}{45}{section.2.13}
+\contentsline {section}{\numberline {2.14}Descubrimiento de servicios.}{45}{section.2.14}
+\contentsline {section}{\numberline {2.15}Bases de datos y almacenamiento.}{45}{section.2.15}
+\contentsline {section}{\numberline {2.16}Persistencia.}{45}{section.2.16}
+\contentsline {section}{\numberline {2.17}Modelo de hilos.}{45}{section.2.17}
+\contentsline {section}{\numberline {2.18}Comunicaciones: clases asociadas. Tipos de conexiones.}{45}{section.2.18}
+\contentsline {section}{\numberline {2.19}Gesti\IeC {\'o}n de la comunicaci\IeC {\'o}n inal\IeC {\'a}mbrica.}{45}{section.2.19}
+\contentsline {section}{\numberline {2.20}Seguridad y permisos.}{45}{section.2.20}
+\contentsline {section}{\numberline {2.21}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajes texto.}{45}{section.2.21}
+\contentsline {section}{\numberline {2.22}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajer\IeC {\'\i }a multimedia. Sincronizaci\IeC {\'o}n de contenido.}{45}{section.2.22}
+\contentsline {section}{\numberline {2.23}Manejo de conexiones HTTP y HTTPS.}{45}{section.2.23}
+\contentsline {section}{\numberline {2.24}Empaquetado y despliegue de aplicaciones para dispositivos m\IeC {\'o}viles.}{45}{section.2.24}
+\contentsline {section}{\numberline {2.25}Centros de distribuci\IeC {\'o}n de aplicaciones.}{45}{section.2.25}
+\contentsline {section}{\numberline {2.26}Documentaci\IeC {\'o}n de aplicaciones de dispositivos m\IeC {\'o}viles.}{45}{section.2.26}
+\contentsline {chapter}{\numberline {3}An\IeC {\'a}lisis de motores de juegos}{47}{chapter.3}
+\contentsline {section}{\numberline {3.1}Animaci\IeC {\'o}n 2D y 3D.}{47}{section.3.1}
+\contentsline {section}{\numberline {3.2}Arquitectura del juego. Componentes.}{47}{section.3.2}
+\contentsline {section}{\numberline {3.3}Motores de juegos: Tipos y utilizaci\IeC {\'o}n.}{47}{section.3.3}
+\contentsline {section}{\numberline {3.4}\IeC {\'A}reas de especializaci\IeC {\'o}n, librer\IeC {\'\i }as utilizadas y lenguajes de programaci\IeC {\'o}n}{47}{section.3.4}
+\contentsline {section}{\numberline {3.5}Componentes de un motor de juegos.}{47}{section.3.5}
+\contentsline {section}{\numberline {3.6}Librer\IeC {\'\i }as que proporcionan las funciones b\IeC {\'a}sicas de un Motor 2D/3D.}{47}{section.3.6}
+\contentsline {section}{\numberline {3.7}APIs gr\IeC {\'a}ficos 3D.}{47}{section.3.7}
+\contentsline {section}{\numberline {3.8}Estudio de juegos existentes.}{47}{section.3.8}
+\contentsline {section}{\numberline {3.9}Aplicaci\IeC {\'o}n de modificaciones sobre juegos existentes.}{47}{section.3.9}
+\contentsline {chapter}{\numberline {4}Desarrollo de juegos 2D y 3D}{49}{chapter.4}
+\contentsline {section}{\numberline {4.1}Entornos de desarrollo para juegos.}{50}{section.4.1}
+\contentsline {section}{\numberline {4.2}Integraci\IeC {\'o}n del motor de juegos en entornos de desarrollo.}{50}{section.4.2}
+\contentsline {section}{\numberline {4.3}Conceptos avanzados de programaci\IeC {\'o}n 3D.}{50}{section.4.3}
+\contentsline {section}{\numberline {4.4}Fases de desarrollo:}{50}{section.4.4}
+\contentsline {section}{\numberline {4.5}Propiedades de los objetos: luz, texturas, reflejos, sombras.}{50}{section.4.5}
+\contentsline {section}{\numberline {4.6}Aplicaci\IeC {\'o}n de las funciones del motor gr\IeC {\'a}fico. Renderizaci\IeC {\'o}n.}{50}{section.4.6}
+\contentsline {section}{\numberline {4.7}Aplicaci\IeC {\'o}n de las funciones del grafo de escena.}{50}{section.4.7}
+\contentsline {section}{\numberline {4.8}Tipos de nodos y su utilizaci\IeC {\'o}n.}{50}{section.4.8}
+\contentsline {section}{\numberline {4.9}Asociaci\IeC {\'o}n de sonidos a los eventos del juego.}{50}{section.4.9}
+\contentsline {section}{\numberline {4.10}An\IeC {\'a}lisis de ejecuci\IeC {\'o}n. Optimizaci\IeC {\'o}n del c\IeC {\'o}digo.}{50}{section.4.10}
+\contentsline {section}{\numberline {4.11}Documentaci\IeC {\'o}n de la fase de dise\IeC {\~n}o y de desarrollo.}{50}{section.4.11}
+\contentsline {chapter}{\numberline {5}Sistemas basados en localizaci\IeC {\'o}n}{51}{chapter.5}
+\contentsline {section}{\numberline {5.1}Tecnolog\IeC {\'\i }as de localizaci\IeC {\'o}n (GPS, A-GPS,...).}{51}{section.5.1}
+\contentsline {section}{\numberline {5.2}Servicios de localizaci\IeC {\'o}n, mapas y geocodificaci\IeC {\'o}n.}{51}{section.5.2}
+\contentsline {section}{\numberline {5.3}Emuladores para simular las ubicaciones.}{51}{section.5.3}
+\contentsline {section}{\numberline {5.4}Visualizaci\IeC {\'o}n la informaci\IeC {\'o}n geolocalizada.}{51}{section.5.4}

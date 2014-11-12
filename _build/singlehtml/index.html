@@ -1062,6 +1062,175 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 </div>
 </div>
 </div>
+<div class="section" id="construccion-de-actividades">
+<h3>Construcción de actividades<a class="headerlink" href="#construccion-de-actividades" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Para crear una actividad desde cero necesitamos hacer dos cosas</p>
+<ol class="arabic simple">
+<li>Crear el interfaz XML (Eclipse puede que no añada un <tt class="docutils literal"><span class="pre">id</span></tt> a dicho interfaz, si no lo ha hecho añadirlo a mano)</li>
+<li>Crear una clase Java que herede de <tt class="docutils literal"><span class="pre">Activity</span></tt>. Dicha clase Java necesita que añadamos algo: el <tt class="docutils literal"><span class="pre">onCreate</span></tt> contendrá ahora el código que procesa el <tt class="docutils literal"><span class="pre">Intent</span></tt> que nos pasen y también  usaremos <tt class="docutils literal"><span class="pre">setContentView</span></tt> para cargar un fichero de interfaz o <em>layout</em>.</li>
+</ol>
+<p>Dentro de la actividad suele ser buena política definir los nombres de los parámetros utilizando como prefijo el nombre del paquete:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span>
+        <span class="nc">ActividadCalculadora</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">nombreNum1</span><span class="o">=</span>
+                        <span class="s">&quot;com.ies.actividades2.num1&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">nombreNum2</span><span class="o">=</span>
+                        <span class="s">&quot;com.ies.actividades2.num2&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">nombreOp</span><span class="o">=</span>
+                        <span class="s">&quot;com.ies.actividades2.op&quot;</span><span class="o">;</span>
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// TODO Auto-generated method stub</span>
+                <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ejemplo-llamadas-entre-actividades">
+<h3>Ejemplo: llamadas entre actividades<a class="headerlink" href="#ejemplo-llamadas-entre-actividades" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Supongamos que deseamos tener una actividad que acepta recibir dos números y un operando. Tras la recepción se efectuará la operación matemática y se mostrará el resultado en un interfaz distinto de la actividad llamadora.</p>
+<div class="section" id="actividad-calculadora">
+<h4>Actividad calculadora<a class="headerlink" href="#actividad-calculadora" title="Enlazar permanentemente con este título">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActividadCalculadora</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">nombreNum1</span><span class="o">=</span>
+                        <span class="s">&quot;com.ies.actividades2.num1&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">nombreNum2</span><span class="o">=</span>
+                        <span class="s">&quot;com.ies.actividades2.num2&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">nombreOp</span><span class="o">=</span>
+                        <span class="s">&quot;com.ies.actividades2.op&quot;</span><span class="o">;</span>
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// TODO Auto-generated method stub</span>
+                <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">actividad_secundaria</span><span class="o">);</span>
+                <span class="n">Intent</span> <span class="n">intento</span><span class="o">=</span><span class="k">this</span><span class="o">.</span><span class="na">getIntent</span><span class="o">();</span>
+                <span class="kt">float</span> <span class="n">num1</span><span class="o">=</span>
+                                <span class="n">intento</span><span class="o">.</span><span class="na">getFloatExtra</span><span class="o">(</span>
+                                                <span class="n">ActividadCalculadora</span><span class="o">.</span><span class="na">nombreNum1</span>
+                                                <span class="o">,</span>
+                                                <span class="mf">0.0f</span><span class="o">);</span>
+                <span class="kt">float</span> <span class="n">num2</span><span class="o">=</span><span class="n">intento</span><span class="o">.</span><span class="na">getFloatExtra</span><span class="o">(</span>
+                                <span class="n">ActividadCalculadora</span><span class="o">.</span><span class="na">nombreNum2</span>
+                                <span class="o">,</span>
+                                <span class="mf">0.0f</span><span class="o">);</span>
+                <span class="n">String</span> <span class="n">op</span><span class="o">=</span>
+                                <span class="n">intento</span><span class="o">.</span><span class="na">getStringExtra</span><span class="o">(</span>
+                                                <span class="n">ActividadCalculadora</span><span class="o">.</span><span class="na">nombreOp</span><span class="o">);</span>
+
+                <span class="kt">float</span> <span class="n">resultado</span><span class="o">=</span><span class="k">this</span><span class="o">.</span><span class="na">calcular</span><span class="o">(</span><span class="n">num1</span><span class="o">,</span> <span class="n">op</span><span class="o">,</span> <span class="n">num2</span><span class="o">);</span>
+
+                <span class="n">String</span> <span class="n">cadResultado</span><span class="o">=</span>
+                                <span class="n">num1</span><span class="o">+</span><span class="n">op</span><span class="o">+</span><span class="n">num2</span><span class="o">+</span><span class="s">&quot;=&quot;</span><span class="o">+</span><span class="n">resultado</span><span class="o">;</span>
+
+                <span class="n">TextView</span> <span class="n">tvResultado</span><span class="o">;</span>
+                <span class="n">tvResultado</span><span class="o">=(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvResultado</span><span class="o">);</span>
+                <span class="n">tvResultado</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">cadResultado</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">float</span> <span class="nf">calcular</span><span class="o">(</span><span class="kt">float</span> <span class="n">n1</span><span class="o">,</span> <span class="n">String</span> <span class="n">op</span><span class="o">,</span> <span class="kt">float</span> <span class="n">n2</span><span class="o">){</span>
+                <span class="kt">float</span> <span class="n">resultado</span><span class="o">=</span><span class="mf">0.0f</span><span class="o">;</span>
+
+                <span class="k">if</span> <span class="o">(</span><span class="n">op</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;+&quot;</span><span class="o">)){</span>
+                        <span class="k">return</span> <span class="n">n1</span><span class="o">+</span><span class="n">n2</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">op</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;-&quot;</span><span class="o">)){</span>
+                        <span class="k">return</span> <span class="n">n1</span><span class="o">-</span><span class="n">n2</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="n">resultado</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">View</span> <span class="nf">onCreateView</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onCreateView</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+        <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h4>Actividad llamadora<a class="headerlink" href="#id2" title="Enlazar permanentemente con este título">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActividadPrincipal</span> <span class="kd">extends</span> <span class="n">ActionBarActivity</span> <span class="o">{</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+                <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_actividad_principal</span><span class="o">);</span>
+        <span class="o">}</span>
+
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// Inflate the menu; this adds items to the action bar if it is present.</span>
+                <span class="n">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">actividad_principal</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// Handle action bar item clicks here. The action bar will</span>
+                <span class="c1">// automatically handle clicks on the Home/Up button, so long</span>
+                <span class="c1">// as you specify a parent activity in AndroidManifest.xml.</span>
+                <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">action_settings</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+        <span class="o">}</span>
+
+
+
+        <span class="cm">/* Dado un id de recurso este método nos</span>
+<span class="cm">         * devuelve el texto que hay dentro</span>
+<span class="cm">         */</span>
+        <span class="kd">public</span> <span class="kt">float</span> <span class="nf">getNumero</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">){</span>
+                <span class="n">EditText</span> <span class="n">control</span><span class="o">;</span>
+                <span class="n">control</span><span class="o">=(</span><span class="n">EditText</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+                <span class="n">String</span> <span class="n">cadena</span><span class="o">=</span><span class="n">control</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+                <span class="kt">float</span> <span class="n">f</span><span class="o">=</span><span class="n">Float</span><span class="o">.</span><span class="na">parseFloat</span><span class="o">(</span><span class="n">cadena</span><span class="o">);</span>
+                <span class="k">return</span> <span class="n">f</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">lanzarActCalculadora</span><span class="o">(</span>
+                        <span class="kt">float</span> <span class="n">f1</span><span class="o">,</span> <span class="kt">float</span> <span class="n">f2</span><span class="o">,</span> <span class="n">String</span> <span class="n">op</span>
+                        <span class="o">){</span>
+                <span class="n">Intent</span> <span class="n">intento</span><span class="o">=</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">ActividadCalculadora</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+                <span class="n">intento</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span>
+                                <span class="n">ActividadCalculadora</span><span class="o">.</span><span class="na">nombreNum1</span><span class="o">,</span>
+                                <span class="n">f1</span><span class="o">);</span>
+                <span class="n">intento</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span>
+                                <span class="n">ActividadCalculadora</span><span class="o">.</span><span class="na">nombreNum2</span><span class="o">,</span>
+                                <span class="n">f2</span><span class="o">);</span>
+                <span class="n">intento</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span>
+                                <span class="n">ActividadCalculadora</span><span class="o">.</span><span class="na">nombreOp</span><span class="o">,</span>
+                                <span class="n">op</span><span class="o">);</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">startActivity</span><span class="o">(</span><span class="n">intento</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">calcular</span><span class="o">(</span><span class="n">View</span> <span class="n">control</span><span class="o">){</span>
+                <span class="n">RadioButton</span> <span class="n">rbSuma</span><span class="o">;</span>
+                <span class="n">rbSuma</span><span class="o">=(</span><span class="n">RadioButton</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">radSuma</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">rbSuma</span><span class="o">.</span><span class="na">isChecked</span><span class="o">()){</span>
+                        <span class="kt">float</span> <span class="n">f1</span><span class="o">=</span><span class="k">this</span><span class="o">.</span><span class="na">getNumero</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">txtNum1</span><span class="o">);</span>
+                        <span class="kt">float</span> <span class="n">f2</span><span class="o">=</span><span class="k">this</span><span class="o">.</span><span class="na">getNumero</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">txtNum2</span><span class="o">);</span>
+                        <span class="n">lanzarActCalculadora</span><span class="o">(</span><span class="n">f1</span><span class="o">,</span><span class="n">f2</span><span class="o">,</span><span class="s">&quot;+&quot;</span><span class="o">);</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modificacion-del-androidmanifest-xml">
+<h4>Modificación del <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt><a class="headerlink" href="#modificacion-del-androidmanifest-xml" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Se debe añadir esta actividad en el <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt></p>
+<div class="highlight-xml"><div class="highlight"><pre>        <span class="nt">&lt;activity</span>
+                <span class="na">android:name=</span><span class="s">&quot;.ActividadCalculadora&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/activity&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="servicios-en-dispositivos-moviles">
 <h3>Servicios en dispositivos móviles.<a class="headerlink" href="#servicios-en-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h3>
 </div>
@@ -1256,6 +1425,8 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <li class="toctree-l2"><a class="reference internal" href="index.html#interfaces-de-usuario-clases-asociadas">Interfaces de usuario. Clases asociadas.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#sobre-el-diseno-de-interfaces">Sobre el diseño de interfaces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#actividades">Actividades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#construccion-de-actividades">Construcción de actividades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#ejemplo-llamadas-entre-actividades">Ejemplo: llamadas entre actividades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#servicios-en-dispositivos-moviles">Servicios en dispositivos móviles.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#proveedores-de-contenido">Proveedores de contenido.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#gestion-de-recursos-y-notificaciones">Gestión de recursos y notificaciones.</a></li>
