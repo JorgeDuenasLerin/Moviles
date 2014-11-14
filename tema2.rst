@@ -658,6 +658,10 @@ Actividad truncadora
 		}
 	}
 		
+Bases de datos y almacenamiento.
+------------------------------------------------------
+
+
 
 Servicios en dispositivos móviles.
 ------------------------------------------------------
@@ -673,8 +677,7 @@ Técnicas de animación y sonido.
 ------------------------------------------------------
 Descubrimiento de servicios.
 ------------------------------------------------------
-Bases de datos y almacenamiento.
-------------------------------------------------------
+
 Persistencia.
 ------------------------------------------------------
 Modelo de hilos.
