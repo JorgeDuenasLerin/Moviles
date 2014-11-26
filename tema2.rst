@@ -657,6 +657,23 @@ Actividad truncadora
 			return cad.substring(0, num);	
 		}
 	}
+	
+Ejercicio 
+------------------------------------------------------
+
+Crear una aplicación que permita simular un juego de apuestas a la ruleta.
+
+El usuario puede apostar de 1 a 100 euros y parte con un saldo inicial ficticio de 1000 euros.
+
+La ruleta tiene 37 números (del uno al 36 más el 0, que será un caso especial) y el usuario puede apostar de dos formas:
+
+* Puede apostar a par o impar: si apuesta por ejemplo 2 euros a "Par" y sale por ejemplo, el 18, ganará un 50% más, es decir los dos euros se multiplican por 0'5 y ganará un euro. Si pierde, pierde los dos euros.
+
+* Puede apostar a que el número está en la primera docena (del 1 al 12) en la segunda docena (del 13 al 24) o en la tercera docena (del 25 al 36). Si por ejemplo apostamos 3 euros a la primera docena y sale por ejemplo el 7 multiplicamos por 0,66 los 3 euros y obtendremos 2 euros de beneficio. Si perdemos perdemos los 3 euros que apostamos.
+
+* El 0 significa que la banca gana. No  importa si la apuesta se hizo a "Par" o a "Primera docena". Perderemos todo lo que apostamos.
+
+
 		
 Bases de datos y almacenamiento.
 ------------------------------------------------------
