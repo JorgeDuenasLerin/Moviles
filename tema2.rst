@@ -678,7 +678,67 @@ La ruleta tiene 37 números (del uno al 36 más el 0, que será un caso especial
 Bases de datos y almacenamiento.
 ------------------------------------------------------
 
+Android ofrece 5 posibilidades a la hora de almacenar datos:
 
+* Preferencias.
+* Almacenamiento interno.
+* Almacenamiento externo.
+* Bases de datos SQLite.
+* Almacenamiento en la nube.
+
+Preferencias compartidas
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Dentro de las preferencias se puede almacenar cualquier tipo de datos básicos: ``String``, ``int``, ``floats``, ``ints`` y ``longs``. Dentro de nuestra actividad podemos usar dos tipos de preferencias
+
+* Preferencias compartidas: lo usaremos cuando queramos manejar muchos ficheros de preferencias, debiendo indicar siempre un nombre de fichero.
+* Preferencias únicas. Si solo queremos un fichero de preferencias para la actividad no tendremos que indicar ningún nombre de fichero.
+
+Para escribir valores usaremos el objeto ``SharedPreferences`` de esta forma
+
+
+.. code-block:: java
+
+    public class Actividad1 extends Activity{
+        private static String ficheroPrefs="misPrefs.prf";
+        private MODO_FICHERO=MODE_PRIVATE
+        protected void onCreate(Bundle estado){
+            SharedPreferences prefs=getSharedPrefs(
+                    ficheroPrefs, MODO_FICHERO);
+            SharedPreferences.Editor editor=
+                    prefs.edit();
+            editor.putString("nombreUsuario", "pepe");
+            /* ¡NO HAY QUE OLVIDAR EL COMMIT!*/
+            editor.commit();
+        }
+
+Un fichero se puede crear de varias maneras:
+
+* ``MODE_PRIVATE``
+* ``MODE_WORLD_READABLE``
+* ``MODE_WORLD_WRITABLE``
+* ``MODE_MULTI_PROCESS``: Lo usaremos cuando queramos indicar que muchos ficheros van a cambiar a la vez el fichero en forma ``MODE_PRIVATE | MODE_MULTI_PROCESS``.
+
+
+Almacenamiento interno
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Los ficheros creados aquí son privados a nuestra aplicación. Ni siquiera el usuario puede acceder a ellos (salvo en caso de teléfonos *rooteados* )
+
+Para almacenar haremos algo como esto:
+
+.. code-block:: java
+
+    String fichero  =   "saludo.txt";
+    String mensaje  =   "Hola mundo";
+    FileOutputStream fos=openFileOutput(fichero, MODE_PRIVATE);
+    fos.write(mensaje.getBytes());
+    fos.close();
+    
+Almacenamiento externo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Implica solicitar permisos como ``READ_EXTERNAL_STORAGE `` o ``WRITE_EXTERNAL_STORAGE ``.
 
 Servicios en dispositivos móviles.
 ------------------------------------------------------
