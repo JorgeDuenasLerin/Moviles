@@ -778,15 +778,15 @@ El almacenamiento puede estar o no disponible, se debería comprobar con algo co
 	String estado =
 		Environment.getExternalStorageState();
 	if (Environment.MEDIA_MOUNTED.equals(state)) {
-        /* Podemos escribir y además leer*/
-    }
-
-    if (Environment.MEDIA_MOUNTED.equals(estado) ||
-        Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-        /* Podemos leer pero no escribir*/
-    }
-	
+		/* Podemos escribir y además leer*/
+		return SE_PUEDE_ESCRIBIR;
+	}
+	if (Environment.MEDIA_MOUNTED.equals(estado) ||
+	Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+		return SOLO_SE_PUEDE_LEER;
+	}
 	/* Si llegamos aquí no se puede hacer nada*/
+	return NO_SE_PUEDE_HACER_NADA;
 	
 Como vemos, la clave está en la clase ``Environment`` que nos ofrece diversos métodos y constantes para acceder a directorios de la tarjeta.
 
@@ -802,20 +802,20 @@ Por ejemplo, el código siguiente ilustra como conseguir crear un subdirectorio 
 
 	String miDir="mis_imgs";
 	File file = 
-	new File ( 	Environment.getExternalStoragePublicDirectory(
-		Environment.DIRECTORY_PICTURES
-	), 
-	miDir);
-    if (!file.mkdirs()) {
-        Log.e(LOG_TAG, "No se pudo crear "+miDir);
-    }
+		new File ( 
+		Environment.getExternalStoragePublicDirector
+			(Environment.DIRECTORY_PICTURES), 
+			miDir
+	);
+	if (!file.mkdirs()) {
+        Log.e("Error", "No se pudo crear "+miDir);
+	}
 
    
 Ejercicio
 ------------------------------------------------------
 
 En los juegos de apuestas, todo jugador siempre desea saber el punto en el que debió dar marcha atrás, sin embargo, no siempre es fácil recordar cual fue.
-
 
 Para facilitar esto se desea modificar el programa de simulación de la ruleta para que se vaya almacenando todo el historial de apuestas en un fichero llamado ``historial.txt``.
 

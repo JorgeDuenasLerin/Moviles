@@ -1431,18 +1431,18 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <h4>Almacenamiento externo<a class="headerlink" href="#almacenamiento-externo" title="Enlazar permanentemente con este título">¶</a></h4>
 <p>Implica solicitar permisos como <tt class="docutils literal"><span class="pre">READ_EXTERNAL_STORAGE</span></tt> o <tt class="docutils literal"><span class="pre">WRITE_EXTERNAL_STORAGE</span></tt>.</p>
 <p>El almacenamiento puede estar o no disponible, se debería comprobar con algo como:</p>
-<div class="highlight-java"><div class="highlight"><pre>    <span class="n">String</span> <span class="n">estado</span> <span class="o">=</span>
-            <span class="n">Environment</span><span class="o">.</span><span class="na">getExternalStorageState</span><span class="o">();</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">Environment</span><span class="o">.</span><span class="na">MEDIA_MOUNTED</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">state</span><span class="o">))</span> <span class="o">{</span>
-    <span class="cm">/* Podemos escribir y además leer*/</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">String</span> <span class="n">estado</span> <span class="o">=</span>
+        <span class="n">Environment</span><span class="o">.</span><span class="na">getExternalStorageState</span><span class="o">();</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">Environment</span><span class="o">.</span><span class="na">MEDIA_MOUNTED</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">state</span><span class="o">))</span> <span class="o">{</span>
+        <span class="cm">/* Podemos escribir y además leer*/</span>
+        <span class="k">return</span> <span class="n">SE_PUEDE_ESCRIBIR</span><span class="o">;</span>
 <span class="o">}</span>
-
 <span class="k">if</span> <span class="o">(</span><span class="n">Environment</span><span class="o">.</span><span class="na">MEDIA_MOUNTED</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">estado</span><span class="o">)</span> <span class="o">||</span>
-    <span class="n">Environment</span><span class="o">.</span><span class="na">MEDIA_MOUNTED_READ_ONLY</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">state</span><span class="o">))</span> <span class="o">{</span>
-    <span class="cm">/* Podemos leer pero no escribir*/</span>
+<span class="n">Environment</span><span class="o">.</span><span class="na">MEDIA_MOUNTED_READ_ONLY</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">state</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">SOLO_SE_PUEDE_LEER</span><span class="o">;</span>
 <span class="o">}</span>
-
-    <span class="cm">/* Si llegamos aquí no se puede hacer nada*/</span>
+<span class="cm">/* Si llegamos aquí no se puede hacer nada*/</span>
+<span class="k">return</span> <span class="n">NO_SE_PUEDE_HACER_NADA</span><span class="o">;</span>
 </pre></div>
 </div>
 <p>Como vemos, la clave está en la clase <tt class="docutils literal"><span class="pre">Environment</span></tt> que nos ofrece diversos métodos y constantes para acceder a directorios de la tarjeta.</p>
@@ -1451,14 +1451,15 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <p class="caption">Directorios estándar</p>
 </div>
 <p>Por ejemplo, el código siguiente ilustra como conseguir crear un subdirectorio en el directorio estándar de imágenes:</p>
-<div class="highlight-java"><div class="highlight"><pre>    <span class="n">String</span> <span class="n">miDir</span><span class="o">=</span><span class="s">&quot;mis_imgs&quot;</span><span class="o">;</span>
-    <span class="n">File</span> <span class="n">file</span> <span class="o">=</span>
-    <span class="k">new</span> <span class="nf">File</span> <span class="o">(</span>      <span class="n">Environment</span><span class="o">.</span><span class="na">getExternalStoragePublicDirectory</span><span class="o">(</span>
-            <span class="n">Environment</span><span class="o">.</span><span class="na">DIRECTORY_PICTURES</span>
-    <span class="o">),</span>
-    <span class="n">miDir</span><span class="o">);</span>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">String</span> <span class="n">miDir</span><span class="o">=</span><span class="s">&quot;mis_imgs&quot;</span><span class="o">;</span>
+<span class="n">File</span> <span class="n">file</span> <span class="o">=</span>
+        <span class="k">new</span> <span class="nf">File</span> <span class="o">(</span>
+        <span class="n">Environment</span><span class="o">.</span><span class="na">getExternalStoragePublicDirector</span>
+                <span class="o">(</span><span class="n">Environment</span><span class="o">.</span><span class="na">DIRECTORY_PICTURES</span><span class="o">),</span>
+                <span class="n">miDir</span>
+<span class="o">);</span>
 <span class="k">if</span> <span class="o">(!</span><span class="n">file</span><span class="o">.</span><span class="na">mkdirs</span><span class="o">())</span> <span class="o">{</span>
-    <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">LOG_TAG</span><span class="o">,</span> <span class="s">&quot;No se pudo crear &quot;</span><span class="o">+</span><span class="n">miDir</span><span class="o">);</span>
+<span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">&quot;Error&quot;</span><span class="o">,</span> <span class="s">&quot;No se pudo crear &quot;</span><span class="o">+</span><span class="n">miDir</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
