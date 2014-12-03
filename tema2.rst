@@ -720,6 +720,37 @@ Un fichero se puede crear de varias maneras:
 * ``MODE_MULTI_PROCESS``: Lo usaremos cuando queramos indicar que muchos ficheros van a cambiar a la vez el fichero en forma ``MODE_PRIVATE | MODE_MULTI_PROCESS``.
 
 
+Por ejemplo, supongamos una aplicación que desea guardar un texto como el nombre de usuario que está almacenado en un control ``EditText``. El código para almacenar sería algo así:
+
+.. code-block:: java
+
+
+	String ficheroPrefs="nombre_usuario";
+	String claveUltimoUsuario="ultimo_usuario";
+	
+	public void guardar(View control){
+    	EditText txtNombre=
+    			(EditText) findViewById(R.id.txtNombre);
+    	String cadena=
+    			txtNombre.getText().toString();
+    	SharedPreferences gestorPrefs;
+    	
+    	
+    	gestorPrefs=this.getSharedPreferences(
+    			ficheroPrefs, MODE_PRIVATE);
+    	
+    	SharedPreferences.Editor editor;
+    	editor=gestorPrefs.edit();
+    	
+    	editor.putString(claveUltimoUsuario, 
+    			cadena);
+    	
+    	/* Si no hay commit, no se cierra
+    	 * la transacción->No se almacenará
+    	 */
+    	editor.commit();
+    	Log.d("Almacen:", "Cadena almacenada");
+    }
 Almacenamiento interno
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -738,7 +769,59 @@ Para almacenar haremos algo como esto:
 Almacenamiento externo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Implica solicitar permisos como ``READ_EXTERNAL_STORAGE `` o ``WRITE_EXTERNAL_STORAGE ``.
+Implica solicitar permisos como ``READ_EXTERNAL_STORAGE`` o ``WRITE_EXTERNAL_STORAGE``.
+
+El almacenamiento puede estar o no disponible, se debería comprobar con algo como:
+
+.. code-block:: java
+
+	String estado =
+		Environment.getExternalStorageState();
+	if (Environment.MEDIA_MOUNTED.equals(state)) {
+        /* Podemos escribir y además leer*/
+    }
+
+    if (Environment.MEDIA_MOUNTED.equals(estado) ||
+        Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+        /* Podemos leer pero no escribir*/
+    }
+	
+	/* Si llegamos aquí no se puede hacer nada*/
+	
+Como vemos, la clave está en la clase ``Environment`` que nos ofrece diversos métodos y constantes para acceder a directorios de la tarjeta.
+
+.. figure:: imagenes/directorios.png
+   :figwidth: 50%
+   :align: center
+   
+   Directorios estándar
+   
+Por ejemplo, el código siguiente ilustra como conseguir crear un subdirectorio en el directorio estándar de imágenes:
+
+.. code-block:: java
+
+	String miDir="mis_imgs";
+	File file = 
+	new File ( 	Environment.getExternalStoragePublicDirectory(
+		Environment.DIRECTORY_PICTURES
+	), 
+	miDir);
+    if (!file.mkdirs()) {
+        Log.e(LOG_TAG, "No se pudo crear "+miDir);
+    }
+
+   
+Ejercicio
+------------------------------------------------------
+
+En los juegos de apuestas, todo jugador siempre desea saber el punto en el que debió dar marcha atrás, sin embargo, no siempre es fácil recordar cual fue.
+
+
+Para facilitar esto se desea modificar el programa de simulación de la ruleta para que se vaya almacenando todo el historial de apuestas en un fichero llamado ``historial.txt``.
+
+En dicho historial deberíamos ir viendo el saldo, el tipo de apuesta que hizo el usuario (si fue a par, si fue a la segunda docena...), el número que salió al apostar y el estado en que quedó el saldo. Estas operaciones deben almacenarse cada vez que el usuario hace una apuesta del tipo que sea.
+
+
 
 Servicios en dispositivos móviles.
 ------------------------------------------------------
