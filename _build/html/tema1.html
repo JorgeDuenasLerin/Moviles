@@ -1,0 +1,869 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Análisis de tecnologías para aplicaciones en dispositivos móviles: &mdash; documentación de Moviles - 1.0</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="documentación de Moviles - 1.0" href="index.html" />
+    <link rel="next" title="Programación de aplicaciones para dispositivos móviles" href="tema2.html" />
+    <link rel="prev" title="Prog. multimedia y de dispositivos móviles." href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="tema2.html" title="Programación de aplicaciones para dispositivos móviles"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Prog. multimedia y de dispositivos móviles."
+             accesskey="P">anterior</a> |</li>
+        <li><a href="index.html">documentación de Moviles - 1.0</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="analisis-de-tecnologias-para-aplicaciones-en-dispositivos-moviles">
+<h1>Análisis de tecnologías para aplicaciones en dispositivos móviles:<a class="headerlink" href="#analisis-de-tecnologias-para-aplicaciones-en-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="puntos-iniciales">
+<h2>Puntos iniciales<a class="headerlink" href="#puntos-iniciales" title="Enlazar permanentemente con este título">¶</a></h2>
+<ul>
+<li><p class="first">En primer lugar, en <a class="reference external" href="http://10.8.0.253">http://10.8.0.253</a> se puede encontrar un servidor.</p>
+</li>
+<li><p class="first">Los apuntes también se podrán encontrar a diario en <a class="reference external" href="http://oscarmaestre.github.io">http://oscarmaestre.github.io</a></p>
+</li>
+<li><p class="first">Existen fotocopias con la programación, criterios, etc... en la mesa del profesor. En cualquier caso, están colgadas en la página del centro <a class="reference external" href="http://www.iesmaestredecalatrava.es">http://www.iesmaestredecalatrava.es</a> (buscar el apartado &#8220;Presentaciones&#8221;</p>
+</li>
+<li><p class="first">Si se desea acceder a algún fichero individual de los apuntes puede hacerse en las página siguiente</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://github.com/OscarMaestre/Moviles">https://github.com/OscarMaestre/Moviles</a></li>
+<li><a class="reference external" href="https://github.com/OscarMaestre/ServiciosYProcesos">https://github.com/OscarMaestre/ServiciosYProcesos</a></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="sistemas-operativos-para-dispositivos-moviles-caracteristicas">
+<h2>Sistemas operativos para dispositivos móviles. Características.<a class="headerlink" href="#sistemas-operativos-para-dispositivos-moviles-caracteristicas" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El desarrollo para la telefonía móvil es un campo que se encuentra en plena expansión. El número de teléfonos no deja de crecer y las necesidades de programación de los mismos tampoco. En ese sentido existen diversas plataformas de desarrollo a tener en cuenta al empezar a programar.</p>
+<ul class="simple">
+<li>Android: es el más numeroso de lejos. La mayor parte del mercado usa esta plataforma. El hecho de que Google ofrezca <em>completamente gratis</em> el sistema operativo para los fabricantes y el entorno para los programadores lo ha hecho crecer hasta desbancar a su competidor. Google solo se ocupa de la venta de apps y ese es su nicho de beneficios.</li>
+<li>iOS: Utiliza una filosofía completamente distinta que es controlar todo el proceso desde el desarrollo hasta la distribución de aplicaciones. Ese control se hace por medio del pago de licencias y de la unicidad de la distribución.</li>
+<li>Windows Phone: es el sistema de Microsoft que ha lanzado más o menos recientemente y que aún está por ver si consigue una cuota de mercado significativa o no.</li>
+<li>FirefoxOS: se centra principalmente en mercados emergentes (con el objetivo a largo plazo de ganar cuota de mercado) su filosofía es la misma del software libre.</li>
+<li>Bada: Es la plataforma de Samsung creada exclusivamente para sus teléfonos. Es muy poco usada fuera de Corea del Sur.</li>
+<li>Symbian: surge de un antiguo sistema creado para las PDA, está prácticamente descatalogado en el desarrollo para telefonía móvil.</li>
+<li>Tizen: una plataforma relativamente nueva. Al igual que Android es gratis y además tiene el respaldo de Intel.</li>
+<li>Jolla: surge en los países nórdicos con una filosofía similar al software libre pero con la salvedad de que, de momento, solo se ejecuta en sus teléfonos (que son de gama alta)</li>
+</ul>
+<p>En cuanto a la tecnología hay diferencias sustanciales entre ellas:</p>
+<ul class="simple">
+<li>Android: pensado principalmente para ser programado en Java (aunque se puede llegar a usar C++ con un kit aparte).</li>
+<li>iOS: usa Objective-C que lo separa mucho del resto de plataformas. El entorno exige el pago de una licencia, el SO exige una licencia y el poner aplicaciones a la venta exige otra.</li>
+<li>Windows Phone: usa Visual Studio que es una herramienta muy potente y usa la plataforma .NET.</li>
+<li>FirefoxOS: usa HTML y Javascript.</li>
+<li>Symbian y otros también permiten el uso de HTML y JS.</li>
+<li>Tizen permite dos opciones: C++ o HTML/JS</li>
+<li>Jolla/Sailfish: usa C++.</li>
+<li>Bada usa C++.</li>
+</ul>
+<p>En este curso se usara Android con Java como lenguaje de desarrollo.</p>
+</div>
+<div class="section" id="limitaciones">
+<h2>Limitaciones<a class="headerlink" href="#limitaciones" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Programar un teléfono móvil implica preparar nuestro programa para situaciones que no son de importancia en los ordenadores de escritorio o que incluso no existen.</p>
+<ul class="simple">
+<li>Desconexión: un teléfono puede perder el fluido eléctrico sin aviso o perder la conexión de red de forma repentina.</li>
+<li>Seguridad: un teléfono puede ser accesible desde cualquier punto del planeta lo que puede poner en grave riesgo la privacidad del usuario.</li>
+<li>Memoria: la cantidad de memoria de estos dispositivos es mucho más reducida que los equipos de escritorio.</li>
+<li>Consumo batería: la cantidad de código que se ejecuta implica disminuir la cantidad de batería del usuario.</li>
+<li>Almacenamiento: la cantidad de espacio para almacenar ficheros en estos dispositivos es muy variable y a veces prácticamente inexistente.</li>
+</ul>
+</div>
+<div class="section" id="entornos-integrados-de-trabajo">
+<h2>Entornos integrados de trabajo.<a class="headerlink" href="#entornos-integrados-de-trabajo" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>En este apartado vamos a hablar de los distintos entornos que se pueden usar para programar teléfonos móviles.</p>
+<ul class="simple">
+<li>Eclipse.</li>
+<li>XCode para iOS.</li>
+<li>Android Studio.</li>
+<li>NetBeans.</li>
+<li>Visual Studio (para Windows Phone).</li>
+<li>¿Visual Kaffe?</li>
+<li>Línea de comandos.</li>
+<li>Appcelerator.</li>
+</ul>
+</div>
+<div class="section" id="android-studio">
+<h2>Android Studio<a class="headerlink" href="#android-studio" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Android Studio es el entorno oficial de programación de Google. Como tal, es probablemente la herramienta del futuro si bien tiene diversas desventajas.</p>
+<ul class="simple">
+<li>Aún está en fase beta y según los documentos de instalación aún puede cambiar mucho sin previo aviso.</li>
+<li>Requiere una máquina más potente que los otros: de no ser así el proceso de edición-compilación-ejecución se vuelve demasiado lento.</li>
+</ul>
+</div>
+<div class="section" id="eclipse">
+<h2>Eclipse<a class="headerlink" href="#eclipse" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Eclipse ha sido desde los comienzos la herramienta ofrecida por Google para programar en Android. De hecho, en su página se ofrece el &#8220;Android Developer Tools Bundle&#8221; que contiene absolutamente todo lo necesario para trabajar.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">Aún así, despues de descargarlo, aún tendremos que bajar e instalar la(s) plataforma(s) Android para las cuales queramos programar, lo que en sitios con una línea de baja velocidad aún requerirá un tiempo apreciable.</p>
+</div>
+<p>En este manual será la herramienta que se utilizará para los ejemplos.</p>
+</div>
+<div class="section" id="la-linea-de-comandos">
+<h2>La línea de comandos<a class="headerlink" href="#la-linea-de-comandos" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La línea de comandos es el entorno más ligero. Además ofrece grandes ventajas en cuanto a la automatización de tareas, y de hecho Google ofrece el kit de desarrollo adaptado a la línea de comandos. El inconveniente principal es que algunos desarrolladores no están muy acostumbrados a ella.</p>
+</div>
+<div class="section" id="el-primer-proyecto">
+<h2>El primer proyecto<a class="headerlink" href="#el-primer-proyecto" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando se instala el Android Developer Bundle y se arranca Eclipse podremos utilizar un pequeño asistente para crear la primera aplicación. Para ello, en el menú <tt class="docutils literal"><span class="pre">File-New</span></tt> elegiremos la opción <tt class="docutils literal"><span class="pre">Android</span> <span class="pre">Application</span> <span class="pre">Project</span></tt>, mostrándonos una ventana que debería ser parecida a la siguiente figura.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/asistente1.png" src="_images/asistente1.png" />
+<p class="caption">Datos iniciales de la aplicación Android</p>
+</div>
+<p>En ella deberemos prestar atención a los siguientes elementos:</p>
+<ul class="simple">
+<li><em>Minimum required SDK</em> : es la versión de Android mínima que necesitará en su móvil/tablet quien desee instalar la aplicación. Si se tiene la tentación de poner la versión 1.0 se debe tener en cuenta que también se dispondrán de menos clases y métodos para construir la app. La versión 8 (Android 2.1) es un valor razonable a día de hoy.</li>
+<li><em>Target SDK</em> : es la versión de Android para la cual hemos optimizado la aplicación. En todo este manual se usará la versión 19 de Android (o Android 4.4)</li>
+<li><em>Compile with</em> : Android tiene varias versiones y podemos utilizar una versión posterior para optimizar una aplicación orientada a un Android más antiguo. Sin embargo, normalmente no lo haremos y usaremos la misma versión que en el Target SDK, es decir, la 19.</li>
+<li><em>Theme</em> : las aplicaciones pueden tener diversos temas o &#8220;skins&#8221;. Google ofrece algunos estilos predeterminados, pero no haremos especial hincapie en el diseño, solo en la programación. Usaremos el estilo por defecto &#8220;Holo Light&#8221;.</li>
+</ul>
+<p>Despues de haber rellenado estos datos podremos ver algo como esto:</p>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/asistente2.png"><img alt="_images/asistente2.png" src="_images/asistente2.png" style="width: 315.5px; height: 269.5px;" /></a>
+<p class="caption">Opciones específicas del proyecto</p>
+<div class="legend">
+Aquí podremos indicar si queremos crear una biblioteca en lugar de una aplicación, si deseamos que se cree una actividad en blanco y si queremos ponerlo en el directorio de trabajo predeterminado. Se dejarán las opciones por defecto.</div>
+</div>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/asistente3.png"><img alt="_images/asistente3.png" src="_images/asistente3.png" style="width: 327.0px; height: 291.5px;" /></a>
+<p class="caption">Personalizando el icono</p>
+<div class="legend">
+Esta ventana permite elegir algunas opciones sobre el icono de la aplicación:</div>
+</div>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/asistente4.png"><img alt="_images/asistente4.png" src="_images/asistente4.png" style="width: 328.0px; height: 294.0px;" /></a>
+<p class="caption">Tipo de actividad</p>
+<div class="legend">
+Aquí se puede elegir qué tipo de actividad se desea. En general, usaremos una actividad en blanco.</div>
+</div>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/asistente5.png"><img alt="_images/asistente5.png" src="_images/asistente5.png" style="width: 326.5px; height: 292.5px;" /></a>
+<p class="caption">Datos de la actividad</p>
+<div class="legend">
+En este último paso se indicará el nombre de la clase que contendrá la actividad principal de la aplicación. Usaremos el nombre <tt class="docutils literal"><span class="pre">ActividadPrincipal</span></tt> y terminaremos el asistente.</div>
+</div>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/proyectovacio.png"><img alt="_images/proyectovacio.png" src="_images/proyectovacio.png" style="width: 513.5px; height: 479.0px;" /></a>
+<p class="caption">Un proyecto vacío de Android</p>
+<div class="legend">
+El asistente terminará y se nos mostrará el entorno de Eclipse.</div>
+</div>
+</div>
+<div class="section" id="descargando-plataformas">
+<h2>Descargando plataformas<a class="headerlink" href="#descargando-plataformas" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una vez hecho esto se debería instalar alguna versión del kit de desarrollo Android para empezar a programar. Para ello, se debe arrancar el gestor de plataformas Android mediante el menú de Eclipse <tt class="docutils literal"><span class="pre">Window-&gt;SDK</span> <span class="pre">Manager</span></tt></p>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/sdkmanager.png"><img alt="_images/sdkmanager.png" src="_images/sdkmanager.png" style="width: 397.5px; height: 278.0px;" /></a>
+<p class="caption">Administrador de plataformas Android</p>
+</div>
+<p>El SDK Manager hace unas cuantas recomendaciones bastante prácticas: normalmente intentará instalar la última versión de Android más algunas herramientas útiles.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
+<p class="last">Una de las herramientas que se descargará es <em>Intel x86 Emulator Accelerator</em> o HAXM. <a class="reference external" href="http://software.intel.com/en-us/android/articles/intel-hardware-accelerated-execution-manager">Esta herramienta de Intel</a> permite acelerar la ejecución del emulador de Android en microprocesadores Intel que tengan activada en su BIOS la opción de aceleración. Puede ser necesario habilitar esta opción en la BIOS (probablemente en alguna opción con el nombre <tt class="docutils literal"><span class="pre">Enable</span> <span class="pre">Intel</span> <span class="pre">VT-x</span></tt> o similar). El uso de HAXM es <strong>MUY RECOMENDABLE</strong>. Por otro lado, el SDK Manager descarga, pero no descomprime ni instala HAXM. Se debe buscar el ZIP en el directorio de instalación y ejecutarlo.</p>
+</div>
+<p>En líneas generales se necesitarán:</p>
+<ul class="simple">
+<li>Todos los archivos de la última plataforma</li>
+<li>El driver USB, que permitirá ejecutar nuestros programas en un móvil/tablet conectado por USB al equipo</li>
+<li>El driver HAXM</li>
+<li>La biblioteca de soporte de Android: permite que programas con una versión moderna se ejecuten en algunas plataformas más antiguas, entre otras cosas.</li>
+<li>Las <em>build-tools</em> o herramientas de compilación.</li>
+<li>Las <em>platform-tools</em> o herramientas específicas de la plataforma.</li>
+<li>Las <em>Android tools</em>, herramientas específicas de Android</li>
+</ul>
+</div>
+<div class="section" id="creando-emuladores">
+<h2>Creando emuladores<a class="headerlink" href="#creando-emuladores" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando se haya completado el paso anterior, se podrán crear <em>Android Virtual Devices</em> o AVDs o emuladores. Se pueden crear dispositivos con diferentes características como se muestra a continuación.</p>
+<p>En primer lugar, se debe elegir la opción <tt class="docutils literal"><span class="pre">Window-Android</span> <span class="pre">Virtual</span> <span class="pre">Device</span> <span class="pre">Manager</span></tt>, con lo que ser verá una herramienta que permite crear emuladores.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/avdmanager.png" src="_images/avdmanager.png" />
+<p class="caption">El Android Virtual Device Manager</p>
+</div>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/creandoavd.png" src="_images/creandoavd.png" />
+<p class="caption">Creando dispositivos</p>
+<div class="legend">
+Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em>. Se recomienda mantener estas opciones.</div>
+</div>
+</div>
+<div class="section" id="arrancando-el-programa">
+<h2>Arrancando el programa<a class="headerlink" href="#arrancando-el-programa" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Una vez que se tiene el emulador creado, se puede arrancar con el botón Start, y despues arrancar el proyecto vacío Android de Eclipse. Para ello, una posibilidad es hacer click con el botón derecho en el proyecto que vemos a la izquierda de Eclipse y elegir el menu <tt class="docutils literal"><span class="pre">Run</span> <span class="pre">As-Android</span> <span class="pre">Application</span></tt>. Debería arrancarse la aplicación en el emulador y ver el resultado.</p>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/ejecutandovacio.png"><img alt="_images/ejecutandovacio.png" src="_images/ejecutandovacio.png" style="width: 336.0px; height: 372.0px;" /></a>
+<p class="caption">Ejecutando el primer proyecto</p>
+</div>
+<div class="figure align-center" style="width: 50%">
+<a class="reference internal image-reference" href="_images/primeraapp.png"><img alt="_images/primeraapp.png" src="_images/primeraapp.png" style="width: 126.0px; height: 180.0px;" /></a>
+<p class="caption">Emulador ejecutando la primera app</p>
+</div>
+</div>
+<div class="section" id="modulos-para-el-desarrollo-de-aplicaciones-moviles">
+<h2>Módulos para el desarrollo de aplicaciones móviles.<a class="headerlink" href="#modulos-para-el-desarrollo-de-aplicaciones-moviles" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>En este curso, realmente solo necesitaremos Java para crear apps. Sin embargo, existen un montón de bibliotecas que permiten acelerar el desarrollo para diversos lenguajes y distintas tareas. Solo por nombrar algunos mencionaremos:</p>
+<ul class="simple">
+<li>Unity para desarrollar juegos.</li>
+<li>JQuery para Javascript.</li>
+<li>Bibliotecas para tareas muy específicas como la seguridad SSL y similares.</li>
+</ul>
+</div>
+<div class="section" id="emuladores">
+<h2>Emuladores.<a class="headerlink" href="#emuladores" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>A la hora de probar un app suele ser posible utilizar un emulador cargado en el sistema operativo que facilite la tarea de depurar la aplicación.</p>
+<p>En Android, Google proporciona un sistema completo de emulación basado en máquinas virtuales (no usa VirtualBox sino un programa similar llamado QEMU).</p>
+<p>El sistema de emulación permite crear dispositivos de características muy variadas para probar nuestra app en distintos entornos. Google denomina a estos dispositivos Android Virtual Devices (o AVDs)</p>
+<ul class="simple">
+<li>Se puede modificar el tamaño y la resolución.</li>
+<li>La memoria RAM y espacio en tarjeta SD.</li>
+<li>Se puede poner o quitar cámara.</li>
+<li>Existen dispositivos predefinidos por Google que permiten crear emuladores muy rápidamente.</li>
+<li>También se pueden clonar dispositivos para hacer solo una modificación de forma rápida.</li>
+<li>Una característica de interés es que <em>si se dispone de una tarjeta gráfica con aceleración</em> se puede activar una casilla llamada &#8220;Host GPU&#8221; que permite acelerar la emulación.</li>
+<li>Se puede obligar al emulador a que &#8220;recuerde&#8221; el estado en que se quedó para así continuar donde nos hubiésemos quedado el último día. Esta opción se llama instantánea o <em>snapshot</em>.</li>
+</ul>
+<p>Si el equipo de escritorio es un Intel se puede instalar el Hardware Accelerated eXecution Manager o HAXM que permite acelerar la emulación. En el directorio <tt class="docutils literal"><span class="pre">sdk/extras/intel</span></tt> se puede encontrar un archivo ZIP que contiene un EXE que instala el HAXM. Se recomienda encarecidamente instalarlo en casa y, si es necesario, habilitar la tecnología VT en la BIOS.</p>
+</div>
+<div class="section" id="ciclo-de-vida">
+<h2>Ciclo de vida<a class="headerlink" href="#ciclo-de-vida" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/ciclodevida.png" src="_images/ciclodevida.png" />
+<p class="caption">Pasos en la ejecución de una app (imagen tomada de Google).</p>
+</div>
+</div>
+<div class="section" id="configuraciones-y-perfiles">
+<h2>Configuraciones y perfiles<a class="headerlink" href="#configuraciones-y-perfiles" title="Enlazar permanentemente con este título">¶</a></h2>
+</div>
+<div class="section" id="tamanos-y-densidades">
+<h2>Tamaños y densidades<a class="headerlink" href="#tamanos-y-densidades" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Como ya se ha mencionado, la plataforma Android establece diversas categorías de dispositivo en función del tamaño y la densidad/resolución:</p>
+<ul class="simple">
+<li>En tamaños se distingue entre <em>small</em> , <em>normal</em>, <em>large</em> y <em>xlarge</em>.</li>
+<li>En densidades se distingue entre <em>ldpi</em>, <em>mdpi</em>, <em>hdpi</em> y <em>xhdpi</em>.</li>
+</ul>
+<div class="admonition tip">
+<p class="first admonition-title">Truco</p>
+<p class="last">Un cambio en la orientación del dispositivo <strong>también se considera un cambio en el tamaño del dispositivo</strong>.</p>
+</div>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/tamaniospantalla.png" src="_images/tamaniospantalla.png" />
+<p class="caption">Tamaños de pantalla (imagen tomada de Google)</p>
+</div>
+</div>
+<div class="section" id="directorios">
+<h2>Directorios<a class="headerlink" href="#directorios" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para que nuestra aplicación ofrezca soporte a todas estas variantes tan solo se deben utilizar distintos directorios <tt class="docutils literal"><span class="pre">layout</span></tt> dentro del subdirectorio <tt class="docutils literal"><span class="pre">res</span></tt>. Así, si queremos crear una configuración de interfaz diferente para pantallas grandes podemos crear un subdirectorio <tt class="docutils literal"><span class="pre">res/layout-large</span></tt> que contenga un interfaz diferente optimizada para pantallas grandes.</p>
+<p>Como puede verse, la clave consiste en utilizar directorios <tt class="docutils literal"><span class="pre">layout-xxx</span></tt> donde <em>xxx</em> pueden ser una serie de sufijos.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">res/layout</span></tt> es el directorio que se usará para el interfaz por defecto que asume orientación vertical.</li>
+<li><tt class="docutils literal"><span class="pre">res/layout-large</span></tt> para pantallas grandes.</li>
+<li><tt class="docutils literal"><span class="pre">res/layout-xlarge</span></tt> para pantallas muy grandes.</li>
+<li><tt class="docutils literal"><span class="pre">res/layout-large-land</span></tt> para pantallas muy grandes giradas para estar en horizontal (landscape).</li>
+</ul>
+</div>
+<div class="section" id="imagenes">
+<h2>Imágenes<a class="headerlink" href="#imagenes" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando se tiene la previsión de que la aplicación se va a ejecutar en muchos dispositivos diferentes se deben crear diferentes versiones de las imágenes usadas.</p>
+<p>Lo ideal es disponer de las imágenes en formato vectorial y utilizar las siguientes escalas:</p>
+<ul class="simple">
+<li>Para resoluciones <em>mdpi</em>, la imagen a escala 1.</li>
+<li>Para <em>ldpi</em>, la imagen a escala 0.75</li>
+<li>Para <em>hdpi</em>, se escala a 1.5</li>
+<li>Para <em>xhdpi</em>, la escala debe ser 2.</li>
+<li>Y así sucesivamente.</li>
+</ul>
+<p>Normalmente ya no es necesario poner nada para <em>ldpi</em> por dos motivos.</p>
+<ol class="arabic simple">
+<li>En la actualidad suponen un porcentaje muy pequeño de los dispositivos.</li>
+<li>Android puede hacer la escala automáticamente.</li>
+</ol>
+<p>Aunque en este manual se habla en general de Android 4 conviene no perder de vista las plataformas anteriores. Google mantiene una pequeña tabla con <a class="reference external" href="http://developer.android.com/about/dashboards/index.html">los porcentajes de uso de las diversas versiones de Android</a> ya que crear nuestra aplicación <em>exclusivamente para cierta versión y las posteriores</em> hará que nos autoexcluyamos de una porción del mercado que puede ser muy significativa.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/porcentajesuso.png" src="_images/porcentajesuso.png" />
+<p class="caption">Porcentajes de uso de Android (tomada de Google el 4-4-2014)</p>
+</div>
+</div>
+<div class="section" id="ejercicios">
+<h2>Ejercicios<a class="headerlink" href="#ejercicios" title="Enlazar permanentemente con este título">¶</a></h2>
+<ol class="arabic simple">
+<li>Crea una aplicación que se vea de tres formas distintas en función de que la pantalla sea normal, grande o muy grande</li>
+<li>Haz que la aplicación anterior muestre datos sobre la plataforma sobre la que se está ejecutando. (Pista, deberás implementar <em>forzosamente</em> un método <tt class="docutils literal"><span class="pre">protected</span> <span class="pre">void</span> <span class="pre">onStart()</span></tt>)</li>
+</ol>
+<p>Para resolver estos ejercicios necesitarás leer los apartados siguientes sobre directorios y recursos.</p>
+</div>
+<div class="section" id="solucion-ejercicio-1">
+<h2>Solución Ejercicio 1<a class="headerlink" href="#solucion-ejercicio-1" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="enunciado">
+<h3>Enunciado<a class="headerlink" href="#enunciado" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><em>Crea una aplicación que se vea de tres formas distintas en función de que la pantalla sea normal, grande o muy grande</em> .</p>
+<p>Para poder ver los resultados deberemos tener en primer lugar tres emuladores, que tengan, los tamaños que necesitamos.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/tamaniospantalla.png" src="_images/tamaniospantalla.png" />
+<p class="caption">Tamaños de pantalla reconocidos (imagen tomada de Google)</p>
+</div>
+</div>
+<div class="section" id="implementacion">
+<h3>Implementación<a class="headerlink" href="#implementacion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Una vez creados los AVDs crearemos el proyecto, en el cual Eclipse nos creará automáticamente el directorio <tt class="docutils literal"><span class="pre">res/layout</span></tt>. Crearemos dos directorios más:</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">res/layout-large</span></tt> donde pondremos los ficheros con la interfaz definido para pantallas grandes.</li>
+<li><tt class="docutils literal"><span class="pre">res/layout-xlarge</span></tt> para pantallas muy grandes. Si no se tiene memoria suficiente es posible que un emulador con estas características tarde mucho en arrancar e incluso que sufra &#8220;cuelgues&#8221;.</li>
+</ol>
+<p>Crearemos un interfaz cualquiera como por ejemplo este:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;RelativeLayout</span> <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+        <span class="na">xmlns:tools=</span><span class="s">&quot;http://schemas.android.com/tools&quot;</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:paddingBottom=</span><span class="s">&quot;@dimen/activity_vertical_margin&quot;</span>
+        <span class="na">android:paddingLeft=</span><span class="s">&quot;@dimen/activity_horizontal_margin&quot;</span>
+        <span class="na">android:paddingRight=</span><span class="s">&quot;@dimen/activity_horizontal_margin&quot;</span>
+        <span class="na">android:paddingTop=</span><span class="s">&quot;@dimen/activity_vertical_margin&quot;</span>
+        <span class="na">tools:context=</span><span class="s">&quot;com.example.adapptable.ActividadPrincipal$PlaceholderFragment&quot;</span> <span class="nt">&gt;</span>
+
+        <span class="nt">&lt;TextView</span>
+                <span class="na">android:id=</span><span class="s">&quot;@+id/textView1&quot;</span>
+                <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+                <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+                <span class="na">android:layout_alignParentBottom=</span><span class="s">&quot;true&quot;</span>
+                <span class="na">android:layout_alignParentRight=</span><span class="s">&quot;true&quot;</span>
+                <span class="na">android:text=</span><span class="s">&quot;@string/textoPlataformas&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/RelativeLayout&gt;</span>
+</pre></div>
+</div>
+<p>Como se puede apreciar, solo contiene un cuadro de texto que debe aparecer <strong>en la esquina inferior derecha</strong> del dispositivo.</p>
+<p>Una vez hecho esto, pondremos en los otros directorios alguna variación de este fichero, como por ejemplo estas dos:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;RelativeLayout</span> <span class="na">xmlns:android=</span>
+<span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+        <span class="na">xmlns:tools=</span><span class="s">&quot;http://schemas.android.com/tools&quot;</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:paddingBottom=</span><span class="s">&quot;@dimen/activity_vertical_margin&quot;</span>
+        <span class="na">android:paddingLeft=</span><span class="s">&quot;@dimen/activity_horizontal_margin&quot;</span>
+        <span class="na">android:paddingRight=</span><span class="s">&quot;@dimen/activity_horizontal_margin&quot;</span>
+        <span class="na">android:paddingTop=</span><span class="s">&quot;@dimen/activity_vertical_margin&quot;</span>
+        <span class="na">tools:context=</span>
+        <span class="s">&quot;com.example.adapptable.ActividadPrincipal$PlaceholderFragment&quot;</span> <span class="nt">&gt;</span>
+
+        <span class="nt">&lt;TextView</span>
+                <span class="na">android:id=</span><span class="s">&quot;@+id/textView1&quot;</span>
+                <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+                <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+                <span class="na">android:layout_centerHorizontal=</span><span class="s">&quot;true&quot;</span>
+                <span class="na">android:layout_centerVertical=</span><span class="s">&quot;true&quot;</span>
+                <span class="na">android:text=</span><span class="s">&quot;@string/textoPlataformas&quot;</span> <span class="nt">/&gt;</span>
+        <span class="c">&lt;!--El cuadro debe aparecer</span>
+<span class="c">        en el centro de la pantalla--&gt;</span>
+
+<span class="nt">&lt;/RelativeLayout&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;RelativeLayout</span> <span class="na">xmlns:android=</span>
+        <span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+        <span class="na">xmlns:tools=</span><span class="s">&quot;http://schemas.android.com/tools&quot;</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;match_parent&quot;</span>
+        <span class="na">android:paddingBottom=</span><span class="s">&quot;@dimen/activity_vertical_margin&quot;</span>
+        <span class="na">android:paddingLeft=</span><span class="s">&quot;@dimen/activity_horizontal_margin&quot;</span>
+        <span class="na">android:paddingRight=</span><span class="s">&quot;@dimen/activity_horizontal_margin&quot;</span>
+        <span class="na">android:paddingTop=</span><span class="s">&quot;@dimen/activity_vertical_margin&quot;</span>
+        <span class="na">tools:context=</span>
+        <span class="s">&quot;com.example.adapptable.ActividadPrincipal$PlaceholderFragment&quot;</span> <span class="nt">&gt;</span>
+
+        <span class="nt">&lt;TextView</span>
+                <span class="na">android:id=</span><span class="s">&quot;@+id/textView1&quot;</span>
+                <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+                <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+                <span class="na">android:layout_alignParentTop=</span><span class="s">&quot;true&quot;</span>
+                <span class="na">android:layout_centerHorizontal=</span><span class="s">&quot;true&quot;</span>
+                <span class="na">android:text=</span><span class="s">&quot;@string/textoPlataformas&quot;</span> <span class="nt">/&gt;</span>
+        <span class="c">&lt;!--El cuadro debe aparecer</span>
+<span class="c">        centrado en la parte superior--&gt;</span>
+<span class="nt">&lt;/RelativeLayout&gt;</span>
+</pre></div>
+</div>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/distintostamanios.png" src="_images/distintostamanios.png" />
+<p class="caption">Vista de la aplicación en una tablet.</p>
+</div>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/distintostamanios2.png" src="_images/distintostamanios2.png" />
+<p class="caption">Vista de la aplicación en un móvil.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>Directorios<a class="headerlink" href="#id1" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Como ya se ha introducido anteriormente ciertos elementos que pueden cambiar no deberían estar dentro del código, sino en <em>recursos</em> (es decir, en ficheros externos que puedan cargarse en tiempo de ejecución). Un ejemplo muy elemental son las cadenas: si queremos ofrecer soporte a varios idiomas, es mejor tener todas las cadenas en un fichero, de forma que si queremos traducir la aplicación, bastará con traducir dicho fichero y hacer que la aplicación cargue distintos ficheros en función el idioma.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/cadenasmultiples.png" src="_images/cadenasmultiples.png" />
+<p class="caption">Un mismo código fuente, distintas cadenas (Imagen de <a class="reference external" href="http://openclipart.org/user-detail/shokunin">shokunin</a> ).</p>
+</div>
+<p>Veamos un ejemplo muy simple. Supongamos que la aplicación saluda al usuario en el momento del arranque. Podríamos usar este código Java.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Actividad</span><span class="o">{</span>
+        <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">saludo</span><span class="o">=</span><span class="s">&quot;Hola&quot;</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Sin embargo, al hacerlo así, la traducción de la aplicación se vuelve muy compleja. Sin embargo, podemos almacenar las cadenas en un fichero de recursos como <tt class="docutils literal"><span class="pre">strings.xml</span></tt> de esta forma.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;string</span> <span class="na">id=</span><span class="s">&quot;saludo&quot;</span><span class="nt">&gt;</span>Hola<span class="nt">&lt;/string&gt;</span>
+</pre></div>
+</div>
+<p>Si ahora en el código Java cargamos la cadena (en pseudocódigo)...</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">saludar</span><span class="o">(){</span>
+        <span class="n">String</span> <span class="n">saludo</span><span class="o">=</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">saludo</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>...ahora la traducción es muy sencilla, ya que basta con tener otro fichero en la aplicación con las cadenas en inglés:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;string</span> <span class="na">id=</span><span class="s">&quot;saludo&quot;</span><span class="nt">&gt;</span>Hello<span class="nt">&lt;/string&gt;</span>
+</pre></div>
+</div>
+<p><em>Y no habrá que tocar nada del código Java</em>. De hecho, Android compilar los recursos para que sean fácilmente accesibles desde código Java. En este capítulo se analiza como usar los recursos.</p>
+</div>
+<div class="section" id="tipos-de-recursos">
+<h2>Tipos de recursos<a class="headerlink" href="#tipos-de-recursos" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Todos los recursos se definen en forma de XML y <em>deben</em> ir dentro de uno de estos subdirectorios que hay dentro de <tt class="docutils literal"><span class="pre">res</span></tt>:</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">res/animator</span></tt>: contiene los ficheros XML que especifican animaciones. Se verá más sobre animaciones más adelante.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">res/anim</span></tt>: aquí se pondrán unos tipos especiales de animación llamadas &#8220;tween animation&#8221; que permiten a Android generar la animación a partir de información tal como &#8220;punto inicial&#8221;, &#8220;punto final&#8221; y &#8220;duración de la animación&#8221;.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">res/color</span></tt>: define los colores de nuestra aplicación.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">res/drawable</span></tt>: para especificar los archivos de imagen usados (en formatos .png, .9.png, .jpg y .gif)</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">res/layout</span></tt>: para indicar la colocación de recursos en pantalla en los distintos tamaños de pantalla.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">res/menu</span></tt>: define los menús de aplicación.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">res/raw</span></tt>: recursos almacenados en formato binario. Pueden cargarse con <tt class="docutils literal"><span class="pre">Resources.openRawResource()</span></tt></p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">res/values</span></tt>: ficheros XML que contienen valores simples como números, cadenas o incluso colores. Aunque en realidad aquí se pueden usar los nombres de fichero que queramos la costumbre es usar estos nombres:</p>
+<blockquote>
+<div><ul class="simple">
+<li>arrays.xml: permite crear vectores de recursos.</li>
+<li>colors.xml: para colores.</li>
+<li>dimens.xml: para especificar tamaños.</li>
+<li>strings.xml: para cadenas.</li>
+<li>styles.xml: para estilos</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">res/xml</span></tt>: aquí se almacena cualquier otro fichero XML que se desee. Los ficheros en este directorio pueden cargarse usando <tt class="docutils literal"><span class="pre">Resources.getXML()</span></tt></p>
+</li>
+</ul>
+<p>Existe una última posibilidad para almacenar recursos, que es usar el directorio <tt class="docutils literal"><span class="pre">assets</span></tt> (no es <tt class="docutils literal"><span class="pre">res/assets</span></tt>) sin embargo, Android no compila dichos recursos automáticamente. Deben cargarse con la clase AssetsManager.</p>
+</div>
+<div class="section" id="indicando-recursos-alternativos">
+<h2>Indicando recursos alternativos<a class="headerlink" href="#indicando-recursos-alternativos" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Por ejemplo, ya sabemos que el archivo <tt class="docutils literal"><span class="pre">res/values/strings.xml</span></tt> contiene las cadenas que se mostrarán por defecto. Si esas cadenas están en español y deseamos indicar que se carguen otras cadenas para el idioma inglés se deben indicar modificadores para el directorio <tt class="docutils literal"><span class="pre">values</span></tt>.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">res/values-en/strings.xml</span></tt> indicaría el fichero de cadenas para el idioma inglés.</li>
+<li><tt class="docutils literal"><span class="pre">res/values-fr/strings.xml</span></tt> para francés.</li>
+<li>Se puede usar cualquier <a class="reference external" href="http://www.loc.gov/standards/iso639-2/php/code_list.php">código ISO 639-1</a> para indicar el idioma.</li>
+</ul>
+<p>Los modificadores se pueden añadir a cualquier subdirectorio de los vistos antes, además se pueden poner varios a la vez pero siempre respetando este orden:</p>
+<ol class="arabic">
+<li><p class="first">MCC (Mobile Country Code o código de país) y MNC (Mobile Network Code o código de red). Pueden consultarse las distintas redes y países en <a class="reference external" href="http://es.wikipedia.org/wiki/MCC/MNC">Wikipedia</a> . Por ejemplo para indicar un recurso específico de un teléfono Android usado en territorio español se usaría <tt class="docutils literal"><span class="pre">mcc214</span></tt> y para indicar específicamente un recurso en un Android que accede desde Movistar se usaría <tt class="docutils literal"><span class="pre">mcc214-mnc07</span></tt>.</p>
+</li>
+<li><p class="first">Idioma y región: se usa un código de páis ISO 639-1 que puede o no ir seguido de una &#8220;r&#8221; y un código de región. Así el modificador &#8220;en&#8221; indica idioma inglés y &#8220;fr&#8221; francés, pero &#8220;fr-rFR&#8221; indica francés de Francia y &#8220;fr-rCA&#8221; francés de Canadá. Pueden consultarse los códigos de país en <a class="reference external" href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">Wikipedia</a></p>
+</li>
+<li><p class="first">Dirección de lectura: <tt class="docutils literal"><span class="pre">ldrtl</span></tt> para cuando el idioma del dispositivo se lee de derecha a izquierda (right-to-left) y <tt class="docutils literal"><span class="pre">ldltr</span></tt> para lectura de izquierda a derecha. Obsérvese que ya podriamos indicar un fichero <tt class="docutils literal"><span class="pre">res/values-mcc214-fr-rCA/strings.xml</span></tt> para indicar los textos que debe usar un teléfono Android con su idioma puesto a francés (de Canadá) que sin embargo usa una red española. Sin embargo <tt class="docutils literal"><span class="pre">res/values-fr-mcc214/strings.xml</span></tt> estaría mal ya que aunque el idioma y el territorio son correctos los hemos puesto al revés (sería <tt class="docutils literal"><span class="pre">res/values-mcc214-fr</span></tt>)</p>
+</li>
+<li><p class="first">Anchura mínima del dispositivo: se usa <tt class="docutils literal"><span class="pre">swNdp</span></tt> donde N es el número mínimo de puntos que debe tener la anchura de la pantalla. También puede indicarse este valor en el <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt> con el atributo <tt class="docutils literal"><span class="pre">android:requiresSmallestWidthDp</span></tt>. Si indicamos varios directorios, Android escogerá siempre el valor de N más pequeño y cercano a la anchura del dispositivo <strong>independientemente de si la pantalla se gira o no</strong>. Algunos valores típicos son:</p>
+<blockquote>
+<div><ul class="simple">
+<li>sw320dp: para pantallas de 240x320 (ldpi), de 320x480 (mdpi) o de 480x800 (hdpi)</li>
+<li>sw480dp: para 480x800 (mdpi)</li>
+<li>sw600dp: para 600x1024 (mdpi)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Anchura disponible: el sufijo <tt class="docutils literal"><span class="pre">wNdp</span></tt> indica la anchura que la aplicación necesita <strong>teniendo en cuenta si la pantalla se gira</strong> (esta es la diferencia con respecto al anterior).</p>
+</li>
+<li><p class="first">Altura disponible: el sufijo <tt class="docutils literal"><span class="pre">hNdp</span></tt> indica la altura que la aplicación necesita.</p>
+</li>
+<li><p class="first">Tamaño de pantalla: pueden usarse los sufijos siguientes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">small</span></tt> de aproximadamente 320x426</li>
+<li><tt class="docutils literal"><span class="pre">normal</span></tt> aproximadamente 320x470</li>
+<li><tt class="docutils literal"><span class="pre">large</span></tt> de unos 480x640</li>
+<li><tt class="docutils literal"><span class="pre">xlarge</span></tt> con un tamaño de 720x960 (normalmente tablets)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Aspecto de la pantalla: <tt class="docutils literal"><span class="pre">long</span></tt>     para pantallas WQVGA, WVGA, FWVGA y <tt class="docutils literal"><span class="pre">notlong</span></tt> para QVGA, HVGA, and VGA. No tiene nada que ver con la orientación de la pantalla.</p>
+</li>
+<li><p class="first">Orientación de la pantalla: <tt class="docutils literal"><span class="pre">port</span></tt> (portrait) para cuando la pantalla está en vertical y <tt class="docutils literal"><span class="pre">land</span></tt> (landscape) para cuando está en horizontal.</p>
+</li>
+<li><p class="first">Modo del interfaz de usuario:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">car</span></tt> cuando el dispositivo está en un coche.</li>
+<li><tt class="docutils literal"><span class="pre">desk</span></tt> en un escritorio</li>
+<li><tt class="docutils literal"><span class="pre">television</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">appliance</span></tt> el dispositivo es una herramienta y no tiene pantalla.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Modo nocturno: <tt class="docutils literal"><span class="pre">night</span></tt> y <tt class="docutils literal"><span class="pre">notnight</span></tt> dependiendo de si el dispositivo está en modo nocturno o no.</p>
+</li>
+<li><p class="first">Densidad de pixeles: (la escala entre los principales tamaños es 3:4:6:8)</p>
+<blockquote>
+<div><ul class="simple">
+<li>ldpi: pantallas de baja densidad, aproximadamente 120dpi.</li>
+<li>mdpi: densidad media, unos 160dpi.</li>
+<li>hdpi: alta densidad, unos 240dpi.</li>
+<li>xhdpi: densidad &#8220;extra-alta&#8221;, unos 320dpi.</li>
+<li>nodpi: Usado para recursos para los que no queremos que Android haga el escalado.</li>
+<li>tvdpi: unos 213 (entre <tt class="docutils literal"><span class="pre">mdpi</span></tt> y <tt class="docutils literal"><span class="pre">hdpi</span></tt>)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Tipo de pantalla: <tt class="docutils literal"><span class="pre">finger</span></tt> para dispositivos táctiles y <tt class="docutils literal"><span class="pre">notouch</span></tt> para los demás.</p>
+</li>
+<li><p class="first">Disponibilidad de teclado:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">keysexposed</span></tt>: hay teclado hardware.</li>
+<li><tt class="docutils literal"><span class="pre">keyshidden</span></tt>: hay teclado hardware pero no está disponible y además <em>no hay teclado software</em>.</li>
+<li><tt class="docutils literal"><span class="pre">keyssoft</span></tt>: hay teclado software.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Método de entrada: <tt class="docutils literal"><span class="pre">nokeys</span></tt> cuando no hay teclado hardware, <tt class="docutils literal"><span class="pre">qwerty</span></tt> si hay un teclado hardware y <tt class="docutils literal"><span class="pre">12key</span></tt> para teclados hardware de 12 teclas.</p>
+</li>
+<li><p class="first">Disponibilidad de teclas de navegación:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">nonav</span></tt>: no se puede navegar con teclas.</li>
+<li><tt class="docutils literal"><span class="pre">dpad</span></tt>: hay un pad direccional.</li>
+<li><tt class="docutils literal"><span class="pre">trackball</span></tt>: hay un trackball.</li>
+<li><tt class="docutils literal"><span class="pre">wheel</span></tt>:  hay un ratón con rueda (poco habitual).</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Versión de la plataforma Android: <tt class="docutils literal"><span class="pre">v3</span></tt>, <tt class="docutils literal"><span class="pre">v4</span></tt>, <tt class="docutils literal"><span class="pre">v9</span></tt> etc...</p>
+</li>
+</ol>
+</div>
+<div class="section" id="ejercicio">
+<h2>Ejercicio<a class="headerlink" href="#ejercicio" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>¿Como debería llamarse un directorio que contuviera recursos específicos para un teléfono en portugués que esté usándose en Francia con el operador Bouygues Telecom y que fuera un dispositivo de una resolución hdpi?</p>
+<p>Respuesta: hay que ir nombrando el directorio con los sufijos correctos en el orden correcto. En este caso sería <tt class="docutils literal"><span class="pre">values-mcc208-mnc20-pt-hdpi</span></tt>.</p>
+</div>
+<div class="section" id="id3">
+<h2>Tamaños y densidades<a class="headerlink" href="#id3" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>En la tabla siguiente, tomada de la documentación oficial de Google pueden verse los tamaños y densidades aproximados de los distintos tipos de pantalla que podemos encontrar.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/tamaniospantalla.png" src="_images/tamaniospantalla.png" />
+<p class="caption">Tamaños de pantalla reconocidos (imagen tomada de Google)</p>
+</div>
+</div>
+<div class="section" id="accediendo-a-los-recursos">
+<h2>Accediendo a los recursos<a class="headerlink" href="#accediendo-a-los-recursos" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando se crea un recurso puede accederse al mismo por medio de la clase especial <tt class="docutils literal"><span class="pre">R</span></tt> la cual es creada por la herramienta <tt class="docutils literal"><span class="pre">aapt</span></tt>. Dicha herramienta toma todos los recursos y crea distintas subclases para facilitar el uso de dichos recursos. Las clases creadas son:</p>
+<ul class="simple">
+<li>R.drawable: para acceder a archivos de imagen.</li>
+<li>R.id: para acceder al id de un control.</li>
+<li>R.layout: para cargar disposiciones de controles.</li>
+<li>R.string: para acceder a cadenas.</li>
+</ul>
+<p>Aí, por ejemplo si un archivo de imagen ubicado en <tt class="docutils literal"><span class="pre">res/drawable/icono.png</span></tt> quiere ponerse de fondo en algún control se usará la sentencia:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">control</span><span class="o">.</span><span class="na">setBackgroundDrawableResource</span><span class="o">(</span>
+        <span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">icono</span><span class="o">);</span>
+</pre></div>
+</div>
+<p>Por otro lado, si deseamos usar un recurso XML en otro archivo XML se puede hacer usando la siguiente estructura:</p>
+<ol class="arabic simple">
+<li>Empezar siempre por <tt class="docutils literal"><span class="pre">&#64;</span></tt></li>
+<li>Si se desea acceder a un recurso en otro paquete poner el nombre seguido de <tt class="docutils literal"><span class="pre">:</span></tt>, como <tt class="docutils literal"><span class="pre">com.ejemplo:</span></tt>.</li>
+<li>Despues se indica el tipo de recurso, <tt class="docutils literal"><span class="pre">string</span></tt>, <tt class="docutils literal"><span class="pre">drawable</span></tt>...</li>
+<li>Despues se indica el nombre del recurso.</li>
+</ol>
+<p>Supongamos que tenemos un fichero genérico con distintas definiciones de recursos como este:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;resources&gt;</span>
+   <span class="nt">&lt;color</span> <span class="na">name=</span><span class="s">&quot;color_corporativo&quot;</span><span class="nt">&gt;</span>#f00<span class="nt">&lt;/color&gt;</span>
+   <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">&quot;saludo&quot;</span><span class="nt">&gt;</span>Hola<span class="nt">&lt;/string&gt;</span>
+<span class="nt">&lt;/resources&gt;</span>
+</pre></div>
+</div>
+<p>Y que deseamos usar este color y este texto en interfaz. El XML sería así:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;EditText</span>
+        <span class="na">xmlns:android=</span>
+          <span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;fill_parent&quot;</span>
+        <span class="na">android:textColor=</span><span class="s">&quot;@color/color_corporativo&quot;</span>
+        <span class="na">android:text=</span><span class="s">&quot;@string/saludo&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>Por último mencionar que Android dispone de muchos otros recursos a los cuales se puede acceder usando el prefijo <tt class="docutils literal"><span class="pre">android</span></tt>. Así, por ejemplo, Android define un interfaz para elementos en una lista que podemos usar con este código (obsérvese que Android llama a este interfaz <tt class="docutils literal"><span class="pre">simple_list_item_1</span></tt>):</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">setListAdapter</span><span class="o">(</span>
+        <span class="k">new</span> <span class="n">ArrayAdapter</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;(</span>
+                <span class="k">this</span><span class="o">,</span>
+                <span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">simple_list_item_1</span><span class="o">,</span>
+                <span class="n">vector</span>
+        <span class="o">)</span>
+<span class="o">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="gestion-de-cambios-durante-la-ejecucion">
+<h2>Gestión de cambios durante la ejecución<a class="headerlink" href="#gestion-de-cambios-durante-la-ejecucion" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Android puede decidir reiniciar nuestra app por diversos motivos:</p>
+<ul class="simple">
+<li>El usuario ha cambiado el idioma.</li>
+<li>La pantalla ha rotado por ejemplo de vertical a horizontal.</li>
+<li>Se ha conectado un teclado</li>
+<li>Etc...</li>
+</ul>
+<p>En estos casos, Android llamará a nuestro método <tt class="docutils literal"><span class="pre">onDestroy</span></tt> y despues a <tt class="docutils literal"><span class="pre">onCreate</span></tt>. Sin embargo, un usuario podría llegar a perder trabajo, por lo cual una actividad puede usar si lo desea dos métodos que Android llamará.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">onSaveInstanceState</span></tt>: podemos implementarlo para guardar el trabajo que haya hecho.</li>
+<li><tt class="docutils literal"><span class="pre">onRestoreInstanceState</span></tt>: Android puede usarlo para restaurar el estado.</li>
+</ul>
+<p>Sin embargo, ¿qué ocurre si esto implica grabar y cargar grandes cantidades de datos?: podría ocurrir que la aplicación se ralentizara, dando una pobre experiencia de usuario. En este caso hay dos opciones:</p>
+<ol class="arabic simple">
+<li>Retener un objeto en memoria durante la reinicialización.</li>
+<li>Gestionar el cambio por nosotros mismos tomando el control de Android.</li>
+</ol>
+<p>En cualquier caso, Android suele recordar automáticamente los elementos de la interfaz de usuario, por lo que lo que llamamos &#8220;reiniciar&#8221; la actividad en realidad no es un reinicio absoluto.</p>
+</div>
+<div class="section" id="reteniendo-objetos-en-memoria">
+<h2>Reteniendo objetos en memoria<a class="headerlink" href="#reteniendo-objetos-en-memoria" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>El método <tt class="docutils literal"><span class="pre">onCreate</span></tt> de una actividad siempre acepta un objeto <tt class="docutils literal"><span class="pre">Bundle</span></tt> en el que puede estar el estado anterior de nuestra actividad. Sin embargo, este objeto no está diseñado para almacenar grandes cantidades de datos.</p>
+<p>Por todo ello, la clase Fragment permite ejecutar <tt class="docutils literal"><span class="pre">setRetainInstance(true)</span></tt> en el método <tt class="docutils literal"><span class="pre">onCreate</span></tt> y así evitar la destrucción y re-creación de la actividad.</p>
+</div>
+<div class="section" id="gestionando-el-cambio">
+<h2>Gestionando el cambio<a class="headerlink" href="#gestionando-el-cambio" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Se puede implementar el método `` onConfigurationChanged()`` para gestonar los cambios por nosotros mismos.</p>
+<div class="admonition danger">
+<p class="first admonition-title">Peligro</p>
+<p class="last">Implementar este método debería ser <em>la última opción</em> ya que tendremos que reaplicar todos los cambios por nosotros mismos (cargar cadenas, interfaces, etc...)</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>Ejercicios<a class="headerlink" href="#id4" title="Enlazar permanentemente con este título">¶</a></h2>
+<ol class="arabic simple">
+<li>¿Qué diferencia hay entre <tt class="docutils literal"><span class="pre">sw320dp</span></tt> y <tt class="docutils literal"><span class="pre">w320dp</span></tt>?.</li>
+<li>Si una imagen mide 30x30 en el tamaño <tt class="docutils literal"><span class="pre">ldpi</span></tt>, ¿cuanto medirá en <tt class="docutils literal"><span class="pre">mdpi</span></tt>, <tt class="docutils literal"><span class="pre">hdpi</span></tt> y <tt class="docutils literal"><span class="pre">xhdpi</span></tt>?.</li>
+</ol>
+</div>
+<div class="section" id="solucion-ejercicio">
+<h2>Solución ejercicio<a class="headerlink" href="#solucion-ejercicio" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="id5">
+<h3>Enunciado<a class="headerlink" href="#id5" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><em>Si una imagen mide 30x30 en el tamaño ``ldpi``, ¿cuanto medirá en ``mdpi``, ``hdpi`` y ``xhdpi``?.</em></p>
+</div>
+<div class="section" id="solucion">
+<h3>Solución<a class="headerlink" href="#solucion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Dado que la escala es 3:4:6:8 el tamaño será:</p>
+<ul class="simple">
+<li>40x40 en <tt class="docutils literal"><span class="pre">mdpi</span></tt>.</li>
+<li>60x60 en <tt class="docutils literal"><span class="pre">hdpi</span></tt>.</li>
+<li>80x80 en <tt class="docutils literal"><span class="pre">xhdpi</span></tt>.</li>
+<li>Como plus, en las televisiones, el escalado es 1.33*mdpi por lo que una televisón el tamaño sería 54.2x54.2 (40*1.33)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Solución ejercicio<a class="headerlink" href="#id6" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="id7">
+<h3>Enunciado<a class="headerlink" href="#id7" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><em>¿Qué diferencia hay entre ``sw480dp`` y ``w480dp``?.</em></p>
+</div>
+<div class="section" id="id8">
+<h3>Solución<a class="headerlink" href="#id8" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La diferencia es que el primero exige que el dispositivo tenga una anchura mínima de 480 puntos. En el caso de un dispositivo de 320 de alto por 480 de ancho, la aplicación funcionará. Si el dispositivo se gira, con lo que tendría 480 de alto por 320 de alto, seguirá funcionando, ya que quizá el programador haya preparado el interfaz para auto-adaptarse a una anchura más pequeña.</p>
+<p>Sin embargo, <tt class="docutils literal"><span class="pre">w480dp</span></tt> funcionaría correctamente si el dispositivo está en una posición de 320 de alto por 480 de ancho, pero <em>no aceptará</em> el giro que deje el terminal en un tamaño de 320 de ancho por 480 de alto.</p>
+</div>
+</div>
+<div class="section" id="modificacion-de-aplicaciones-existentes">
+<h2>Modificación de aplicaciones existentes.<a class="headerlink" href="#modificacion-de-aplicaciones-existentes" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Cuando hay que modificar una aplicación existente se pueden tener dos situaciones:</p>
+<ol class="arabic simple">
+<li>Se dispone del código fuente: en ese caso se debería empezar por analizar el diagrama UML de la aplicación, el modelo E/R y toda la documentación de la que disponga el proyecto. Despues se debe leer el código por encima analizando primero el código de la interfaz (los ficheros XML de los directorios layout). A continuación se puede ejecutar en el simulador y analizar los logs y despues se puede empezar a ampliar/corregir la aplicación yendo método a método, e implementando las pruebas de unidad que se necesiten.</li>
+<li>No se dispone del código fuente: de entrada en un proyecto de tamaño mediano puede que ya sea imposible hacer ninguna modificación. Sin embargo, Java ofrece un &#8220;descompilador&#8221; que intenta reconstruir el código fuente a partir del fichero de aplicación.</li>
+</ol>
+</div>
+<div class="section" id="ejercicio-final">
+<h2>Ejercicio final<a class="headerlink" href="#ejercicio-final" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="id9">
+<h3>Enunciado<a class="headerlink" href="#id9" title="Enlazar permanentemente con este título">¶</a></h3>
+<p><em>Examina la documentación de Google sobre Android y analiza la aplicación de ejemplo.</em></p>
+</div>
+<div class="section" id="id10">
+<h3>Solución<a class="headerlink" href="#id10" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La aplicación de ejemplo sobre Fragments utiliza los fragmentos para construir una aplicación lectora de noticias. La idea general es tener dos fragmentos, uno donde se puede elegir el título de la noticia y otro donde se muestre la noticia completa.</p>
+<p>Usando Fragments se pueden diseñar dos interfaces de usuario:</p>
+<ul class="simple">
+<li>En uno de ellos, adaptado a tablets, los dos fragmentos aparecen a la vez en pantalla: cuando en uno se selecciona la noticia, en la misma pantalla se ve el texto de dicha noticia.</li>
+<li>En el otro interfaz, adaptado a móviles, se muestra una sola actividad con solo un fragmento. Cuando se selecciona una noticia <em>la actividad principal de selección desaparece</em> y queda oculta por la actividad que contiene el fragmento que muestra noticias. Esta solución es muy razonable al no poder mostrar tantas cosas en una pantalla tan pequeña.</li>
+</ul>
+<p>También merece la pena comentar el concepto de <em>backstack</em>. El <em>backstack</em> es la pila de actividades a través de la cual podemos retroceder usando el botón &#8220;Atrás&#8221; de Android. Podemos tomar el control de dicha <em>pila</em> para decidir si <em>apilamos</em> las noticias, o una noticia sustituye a otra.</p>
+</div>
+</div>
+<div class="section" id="fechas-del-examen">
+<h2>Fechas del examen<a class="headerlink" href="#fechas-del-examen" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Miércoles 15 de octubre 3 últimas horas (de 12&#8216;00 a 14&#8216;45)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Tabla de Contenidos</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Análisis de tecnologías para aplicaciones en dispositivos móviles:</a><ul>
+<li><a class="reference internal" href="#puntos-iniciales">Puntos iniciales</a></li>
+<li><a class="reference internal" href="#sistemas-operativos-para-dispositivos-moviles-caracteristicas">Sistemas operativos para dispositivos móviles. Características.</a></li>
+<li><a class="reference internal" href="#limitaciones">Limitaciones</a></li>
+<li><a class="reference internal" href="#entornos-integrados-de-trabajo">Entornos integrados de trabajo.</a></li>
+<li><a class="reference internal" href="#android-studio">Android Studio</a></li>
+<li><a class="reference internal" href="#eclipse">Eclipse</a></li>
+<li><a class="reference internal" href="#la-linea-de-comandos">La línea de comandos</a></li>
+<li><a class="reference internal" href="#el-primer-proyecto">El primer proyecto</a></li>
+<li><a class="reference internal" href="#descargando-plataformas">Descargando plataformas</a></li>
+<li><a class="reference internal" href="#creando-emuladores">Creando emuladores</a></li>
+<li><a class="reference internal" href="#arrancando-el-programa">Arrancando el programa</a></li>
+<li><a class="reference internal" href="#modulos-para-el-desarrollo-de-aplicaciones-moviles">Módulos para el desarrollo de aplicaciones móviles.</a></li>
+<li><a class="reference internal" href="#emuladores">Emuladores.</a></li>
+<li><a class="reference internal" href="#ciclo-de-vida">Ciclo de vida</a></li>
+<li><a class="reference internal" href="#configuraciones-y-perfiles">Configuraciones y perfiles</a></li>
+<li><a class="reference internal" href="#tamanos-y-densidades">Tamaños y densidades</a></li>
+<li><a class="reference internal" href="#directorios">Directorios</a></li>
+<li><a class="reference internal" href="#imagenes">Imágenes</a></li>
+<li><a class="reference internal" href="#ejercicios">Ejercicios</a></li>
+<li><a class="reference internal" href="#solucion-ejercicio-1">Solución Ejercicio 1</a><ul>
+<li><a class="reference internal" href="#enunciado">Enunciado</a></li>
+<li><a class="reference internal" href="#implementacion">Implementación</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">Directorios</a></li>
+<li><a class="reference internal" href="#tipos-de-recursos">Tipos de recursos</a></li>
+<li><a class="reference internal" href="#indicando-recursos-alternativos">Indicando recursos alternativos</a></li>
+<li><a class="reference internal" href="#ejercicio">Ejercicio</a></li>
+<li><a class="reference internal" href="#id3">Tamaños y densidades</a></li>
+<li><a class="reference internal" href="#accediendo-a-los-recursos">Accediendo a los recursos</a></li>
+<li><a class="reference internal" href="#gestion-de-cambios-durante-la-ejecucion">Gestión de cambios durante la ejecución</a></li>
+<li><a class="reference internal" href="#reteniendo-objetos-en-memoria">Reteniendo objetos en memoria</a></li>
+<li><a class="reference internal" href="#gestionando-el-cambio">Gestionando el cambio</a></li>
+<li><a class="reference internal" href="#id4">Ejercicios</a></li>
+<li><a class="reference internal" href="#solucion-ejercicio">Solución ejercicio</a><ul>
+<li><a class="reference internal" href="#id5">Enunciado</a></li>
+<li><a class="reference internal" href="#solucion">Solución</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">Solución ejercicio</a><ul>
+<li><a class="reference internal" href="#id7">Enunciado</a></li>
+<li><a class="reference internal" href="#id8">Solución</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#modificacion-de-aplicaciones-existentes">Modificación de aplicaciones existentes.</a></li>
+<li><a class="reference internal" href="#ejercicio-final">Ejercicio final</a><ul>
+<li><a class="reference internal" href="#id9">Enunciado</a></li>
+<li><a class="reference internal" href="#id10">Solución</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fechas-del-examen">Fechas del examen</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="index.html"
+                        title="capítulo anterior">Prog. multimedia y de dispositivos móviles.</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="tema2.html"
+                        title="próximo capítulo">Programación de aplicaciones para dispositivos móviles</a></p>
+  <h3>Esta página</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tema1.txt"
+           rel="nofollow">Mostrar el código</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Ir a" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Introduzca los términos de búsqueda o un nombre de módulo, clase o función.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="tema2.html" title="Programación de aplicaciones para dispositivos móviles"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Prog. multimedia y de dispositivos móviles."
+             >anterior</a> |</li>
+        <li><a href="index.html">documentación de Moviles - 1.0</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Oscar Gomez.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
