@@ -822,6 +822,7 @@ Para facilitar esto se desea modificar el programa de simulación de la ruleta p
 
 En dicho historial deberíamos ir viendo el saldo, el tipo de apuesta que hizo el usuario (si fue a par, si fue a la segunda docena...), el número que salió al apostar y el estado en que quedó el saldo. Estas operaciones deben almacenarse cada vez que el usuario hace una apuesta del tipo que sea.
 
+
 Bases de datos
 ------------------------------------------------------
 
@@ -872,34 +873,129 @@ Y la clase contrato Java asociada a esta entidad sería:
                     NOMBRE_COL_NOMBRE="nombre";
     }
     
+    
+    
+Bases de datos SQLite
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Supongamos que deseamos crear una base de datos sobre seguros de coches. Un primer elemento necesario sería una tabla donde se almacenen las marcas (cada una llevará un ID).
+
+.. code-block:: sql
+
+	create table marcas (
+		id	integer primary key,
+		marca	char(30)
+	);
+	
+	insert into marcas values (1, 'Ford');
+	insert into marcas values (2, 'Renault');
+
 Para manejar la creación y procesado de esta base de datos Android ofrece la clase ``SQLiteOpenHelper`` de la cual se puede heredar de esta manera:
 
 .. code-block:: java
 
     public class BD extends SQLiteOpenHelper {
     
-            private String sqlCreacion="create table marcas\n" + 
-                            "    (\n" + 
-                            "        id integer primary key,\n" + 
-                            "        nombre varchar(40)\n" + 
-                            "    );\n" + 
-                            "    \n" + 
-                            "    insert into marca values (1, \"Ford\");\n" + 
-                            "    insert into marca values (2, \"Renault\");";
-            public BD(Context context, String name, CursorFactory factory, int version) {
+            private String sqlCreacion=
+                "create table marcas(id integer primary key," + 
+                    "nombre varchar(40));\n" ;
+            private String insert1="insert into marca values (1, \"Ford\")";
+            private String insert2="insert into marca values (2, \"Renault\");";
+            public BD(Context context, String name,
+                CursorFactory factory, int version) {
                     super(context, name, factory, version);
             }
     
             @Override
             public void onCreate(SQLiteDatabase db) {
                     db.execSQL(sqlCreacion);
+                    db.execSQL(insert1);
+                    db.execSQL(insert2);
     
             }
     }
-    
-    
+
+Y podemos crear un objeto de la clase BD simplemente instanciándolo
+
+.. WARNING::
+
+   Cuando se hacen pruebas en el simulador es posible que el fichero de base de datos no aparezca hasta que no   intentemos leer o escribir datos de él. Aparte de eso, el fichero suele estar en el directorio ``/data/data/<paquete>`` *pero las ubicaciones pueden cambiar*.
+
+Datos y cursores
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+Un objeto del tipo ``SQLiteOpenHelper`` nos puede devolver un objeto ``SQLiteDatabase`` que tiene los métodos necesarios para acceder a cursores, hacer consultas y recorrer los datos. El código siguiente muestra un ejemplo:
+
+.. code-block:: java
+
+    BD gestorBD=new BD(this, "seguros.db", null, 1);
+    SQLiteDatabase bd=gestorBD.getReadableDatabase();
+    Cursor cursor=bd.rawQuery("select id, nombre from marcas", null);
+    cursor.moveToFirst();
+    int posID=cursor.getColumnIndex(MarcasContrato.NOMBRE_COL_ID);
+    int posNombreMarca=
+        cursor.getColumnIndex(MarcasContrato.NOMBRE_COL_NOMBRE);
+    while (!cursor.isAfterLast()){
+        String numero=cursor.getString(posID);
+        String marca=cursor.getString(posNombreMarca);
+        Log.d("Marca:", numero+":"+marca);
+        cursor.moveToNext();
+    }
+    cursor.close();
+    
+	
+Ejercicio: ampliación de la BD
+------------------------------------------------------
+Ampliar la base de datos para que exista una tabla "Modelos" que incluya un par de modelos de cada marca (tiene que haber claves ajenas).
+
+* Marca: Ford, Modelo: Focus
+* Marca: Ford, Modelo: Mondeo
+* Marca: Renault, Modelo: Megane
+* Marca: Renault, Modelo: Kangoo
+
+Hacer un programa que recupere todos los modelos de coche junto con sus marcas y los muestre en pantalla.
+
+Solución a la ampliación de la BD
+------------------------------------------------------
+
+En primer lugar, habría que crear el SQL que permita tener la segunda tabla con la clave ajena:
+
+.. code-block:: sql
+
+    create table marcas
+    (
+        id integer primary key,
+        nombre varchar(40)
+    );
+    
+    insert into marcas values (1, "Ford");
+    insert into marcas values (2, "Renault");
+    
+    create table modelos
+    (
+        id_modelo integer primary key,
+        id_marca integer, 
+        nombre varchar(40),
+        foreign key (id_marca) references marcas (id)
+    );
+    insert into modelos values(1, 1, 'Focus');
+    insert into modelos values(2, 1, 'Mondeo');
+    insert into modelos values(3, 2, 'Megane');
+    insert into modelos values(4, 2, 'Kangoo');
+    
+En lugar de insertar todo el código SQL **se puede crear el archivo de base de datos en un ordenador** e insertarlo en el proyecto despues, por desgracia Android no ofrece un soporte cómodo para hacer esto, ya que una vez instalada la app tenemos que copiar el fichero de base de datos al terminal para despues abrirlo.
+
+Creación dinámica del interfaz
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Un problema fundamental en este ejercicio es que no sabemos a priori cuantos controles poner en la aplicación: **el interfaz se tiene que crear dinámicamente**
+
+
+
+   
+
+
+	
 Servicios en dispositivos móviles.
 ------------------------------------------------------
 Proveedores de contenido.

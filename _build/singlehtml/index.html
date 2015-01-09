@@ -1509,29 +1509,98 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <span class="o">}</span>
 </pre></div>
 </div>
+<div class="section" id="bases-de-datos-sqlite">
+<h4>Bases de datos SQLite<a class="headerlink" href="#bases-de-datos-sqlite" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Supongamos que deseamos crear una base de datos sobre seguros de coches. Un primer elemento necesario sería una tabla donde se almacenen las marcas (cada una llevará un ID).</p>
+<div class="highlight-sql"><div class="highlight"><pre><span class="k">create</span> <span class="k">table</span> <span class="n">marcas</span> <span class="p">(</span>
+        <span class="n">id</span>      <span class="nb">integer</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+        <span class="n">marca</span>   <span class="nb">char</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">marcas</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Ford&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">marcas</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Renault&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
 <p>Para manejar la creación y procesado de esta base de datos Android ofrece la clase <tt class="docutils literal"><span class="pre">SQLiteOpenHelper</span></tt> de la cual se puede heredar de esta manera:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BD</span> <span class="kd">extends</span> <span class="n">SQLiteOpenHelper</span> <span class="o">{</span>
 
-        <span class="kd">private</span> <span class="n">String</span> <span class="n">sqlCreacion</span><span class="o">=</span><span class="s">&quot;create table marcas\n&quot;</span> <span class="o">+</span>
-                        <span class="s">&quot;    (\n&quot;</span> <span class="o">+</span>
-                        <span class="s">&quot;        id integer primary key,\n&quot;</span> <span class="o">+</span>
-                        <span class="s">&quot;        nombre varchar(40)\n&quot;</span> <span class="o">+</span>
-                        <span class="s">&quot;    );\n&quot;</span> <span class="o">+</span>
-                        <span class="s">&quot;    \n&quot;</span> <span class="o">+</span>
-                        <span class="s">&quot;    insert into marca values (1, \&quot;Ford\&quot;);\n&quot;</span> <span class="o">+</span>
-                        <span class="s">&quot;    insert into marca values (2, \&quot;Renault\&quot;);&quot;</span><span class="o">;</span>
-        <span class="kd">public</span> <span class="nf">BD</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">CursorFactory</span> <span class="n">factory</span><span class="o">,</span> <span class="kt">int</span> <span class="n">version</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">sqlCreacion</span><span class="o">=</span>
+            <span class="s">&quot;create table marcas(id integer primary key,&quot;</span> <span class="o">+</span>
+                <span class="s">&quot;nombre varchar(40));\n&quot;</span> <span class="o">;</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">insert1</span><span class="o">=</span><span class="s">&quot;insert into marca values (1, \&quot;Ford\&quot;)&quot;</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">insert2</span><span class="o">=</span><span class="s">&quot;insert into marca values (2, \&quot;Renault\&quot;);&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nf">BD</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span>
+            <span class="n">CursorFactory</span> <span class="n">factory</span><span class="o">,</span> <span class="kt">int</span> <span class="n">version</span><span class="o">)</span> <span class="o">{</span>
                 <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">factory</span><span class="o">,</span> <span class="n">version</span><span class="o">);</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">sqlCreacion</span><span class="o">);</span>
+                <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">insert1</span><span class="o">);</span>
+                <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">insert2</span><span class="o">);</span>
 
         <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
 </div>
+<p>Y podemos crear un objeto de la clase BD simplemente instanciándolo</p>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
+<p class="last">Cuando se hacen pruebas en el simulador es posible que el fichero de base de datos no aparezca hasta que no   intentemos leer o escribir datos de él. Aparte de eso, el fichero suele estar en el directorio <tt class="docutils literal"><span class="pre">/data/data/&lt;paquete&gt;</span></tt> <em>pero las ubicaciones pueden cambiar</em>.</p>
+</div>
+<p>Un objeto del tipo <tt class="docutils literal"><span class="pre">SQLiteOpenHelper</span></tt> nos puede devolver un objeto <tt class="docutils literal"><span class="pre">SQLiteDatabase</span></tt> que tiene los métodos necesarios para acceder a cursores, hacer consultas y recorrer los datos. El código siguiente muestra un ejemplo:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">BD</span> <span class="n">gestorBD</span><span class="o">=</span><span class="k">new</span> <span class="n">BD</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;seguros.db&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+<span class="n">SQLiteDatabase</span> <span class="n">bd</span><span class="o">=</span><span class="n">gestorBD</span><span class="o">.</span><span class="na">getReadableDatabase</span><span class="o">();</span>
+<span class="n">Cursor</span> <span class="n">cursor</span><span class="o">=</span><span class="n">bd</span><span class="o">.</span><span class="na">rawQuery</span><span class="o">(</span><span class="s">&quot;select id, nombre from marcas&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="n">cursor</span><span class="o">.</span><span class="na">moveToFirst</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">(!</span><span class="n">cursor</span><span class="o">.</span><span class="na">isAfterLast</span><span class="o">()){</span>
+    <span class="n">String</span> <span class="n">numero</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">marca</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;Marca:&quot;</span><span class="o">,</span> <span class="n">numero</span><span class="o">+</span><span class="s">&quot;:&quot;</span><span class="o">+</span><span class="n">marca</span><span class="o">);</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="na">moveToNext</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ejercicio-ampliacion-de-la-bd">
+<h3>Ejercicio: ampliación de la BD<a class="headerlink" href="#ejercicio-ampliacion-de-la-bd" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Ampliar la base de datos para que exista una tabla &#8220;Modelos&#8221; que incluya un par de modelos de cada marca (tiene que haber claves ajenas).</p>
+<ul class="simple">
+<li>Marca: Ford, Modelo: Focus</li>
+<li>Marca: Ford, Modelo: Mondeo</li>
+<li>Marca: Renault, Modelo: Megane</li>
+<li>Marca: Renault, Modelo: Kangoo</li>
+</ul>
+<p>Hacer un programa que recupere todos los modelos de coche junto con sus marcas y los muestre en pantalla.</p>
+</div>
+<div class="section" id="solucion-a-la-ampliacion-de-la-bd">
+<h3>Solución a la ampliación de la BD<a class="headerlink" href="#solucion-a-la-ampliacion-de-la-bd" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En primer lugar, habría que crear el SQL que permita tener la segunda tabla con la clave ajena:</p>
+<div class="highlight-sql"><div class="highlight"><pre><span class="k">create</span> <span class="k">table</span> <span class="n">marcas</span>
+<span class="p">(</span>
+    <span class="n">id</span> <span class="nb">integer</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">nombre</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">marcas</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="ss">&quot;Ford&quot;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">marcas</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="ss">&quot;Renault&quot;</span><span class="p">);</span>
+
+<span class="k">create</span> <span class="k">table</span> <span class="n">modelos</span>
+<span class="p">(</span>
+    <span class="n">id_modelo</span> <span class="nb">integer</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">id_marca</span> <span class="nb">integer</span><span class="p">,</span>
+    <span class="n">nombre</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span>
+    <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">id_marca</span><span class="p">)</span> <span class="k">references</span> <span class="n">marcas</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">modelos</span> <span class="k">values</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Focus&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">modelos</span> <span class="k">values</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Mondeo&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">modelos</span> <span class="k">values</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Megane&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">modelos</span> <span class="k">values</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Kangoo&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>En lugar de insertar todo el código SQL <strong>se puede crear el archivo de base de datos en un ordenador</strong> e insertarlo en el proyecto despues, por desgracia Android no ofrece un soporte cómodo para hacer esto, ya que una vez instalada la app tenemos que copiar el fichero de base de datos al terminal para despues abrirlo.</p>
 </div>
 <div class="section" id="servicios-en-dispositivos-moviles">
 <h3>Servicios en dispositivos móviles.<a class="headerlink" href="#servicios-en-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h3>
@@ -1731,6 +1800,8 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <li class="toctree-l2"><a class="reference internal" href="index.html#bases-de-datos-y-almacenamiento">Bases de datos y almacenamiento.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#id5">Ejercicio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#bases-de-datos">Bases de datos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#ejercicio-ampliacion-de-la-bd">Ejercicio: ampliación de la BD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#solucion-a-la-ampliacion-de-la-bd">Solución a la ampliación de la BD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#servicios-en-dispositivos-moviles">Servicios en dispositivos móviles.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#proveedores-de-contenido">Proveedores de contenido.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#gestion-de-recursos-y-notificaciones">Gestión de recursos y notificaciones.</a></li>
