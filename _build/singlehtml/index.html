@@ -1487,6 +1487,51 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <div class="figure align-center" style="width: 50%">
 <img alt="Diagrama E/R de la BD Automóviles" src="_images/diagrama-bd-automoviles.png" />
 </div>
+<p>Con esto el SQL que necesitaríamos por ejemplo para la tabla <tt class="docutils literal"><span class="pre">Marcas</span></tt> sería algo así:</p>
+<div class="highlight-sql"><div class="highlight"><pre><span class="k">create</span> <span class="k">table</span> <span class="n">marcas</span>
+<span class="p">(</span>
+    <span class="n">id</span> <span class="nb">integer</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">nombre</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">marca</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="ss">&quot;Ford&quot;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">marca</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="ss">&quot;Renault&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Y la clase contrato Java asociada a esta entidad sería:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MarcasContrato</span> <span class="kd">implements</span> <span class="n">BaseColumns</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span>
+                <span class="n">NOMBRE_TABLA</span><span class="o">=</span><span class="s">&quot;marcas&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span>
+                <span class="n">NOMBRE_COL_ID</span><span class="o">=</span><span class="s">&quot;id&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span>
+                <span class="n">NOMBRE_COL_NOMBRE</span><span class="o">=</span><span class="s">&quot;nombre&quot;</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Para manejar la creación y procesado de esta base de datos Android ofrece la clase <tt class="docutils literal"><span class="pre">SQLiteOpenHelper</span></tt> de la cual se puede heredar de esta manera:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BD</span> <span class="kd">extends</span> <span class="n">SQLiteOpenHelper</span> <span class="o">{</span>
+
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">sqlCreacion</span><span class="o">=</span><span class="s">&quot;create table marcas\n&quot;</span> <span class="o">+</span>
+                        <span class="s">&quot;    (\n&quot;</span> <span class="o">+</span>
+                        <span class="s">&quot;        id integer primary key,\n&quot;</span> <span class="o">+</span>
+                        <span class="s">&quot;        nombre varchar(40)\n&quot;</span> <span class="o">+</span>
+                        <span class="s">&quot;    );\n&quot;</span> <span class="o">+</span>
+                        <span class="s">&quot;    \n&quot;</span> <span class="o">+</span>
+                        <span class="s">&quot;    insert into marca values (1, \&quot;Ford\&quot;);\n&quot;</span> <span class="o">+</span>
+                        <span class="s">&quot;    insert into marca values (2, \&quot;Renault\&quot;);&quot;</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nf">BD</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">CursorFactory</span> <span class="n">factory</span><span class="o">,</span> <span class="kt">int</span> <span class="n">version</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">factory</span><span class="o">,</span> <span class="n">version</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">db</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">db</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">sqlCreacion</span><span class="o">);</span>
+
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="servicios-en-dispositivos-moviles">
 <h3>Servicios en dispositivos móviles.<a class="headerlink" href="#servicios-en-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h3>

@@ -751,6 +751,7 @@ Por ejemplo, supongamos una aplicación que desea guardar un texto como el nombr
     	editor.commit();
     	Log.d("Almacen:", "Cadena almacenada");
     }
+    
 Almacenamiento interno
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -821,6 +822,82 @@ Para facilitar esto se desea modificar el programa de simulación de la ruleta p
 
 En dicho historial deberíamos ir viendo el saldo, el tipo de apuesta que hizo el usuario (si fue a par, si fue a la segunda docena...), el número que salió al apostar y el estado en que quedó el saldo. Estas operaciones deben almacenarse cada vez que el usuario hace una apuesta del tipo que sea.
 
+Bases de datos
+------------------------------------------------------
+
+En Android es perfectamente posible utilizar bases de datos relacionales con prácticamente todas sus características: tablas, claves primarias y ajenas, consultas, etc... El corazón de este sistema es `SQLite <http://sqlite.org>` un gestor de bases de datos pensado para dispositivos reducidos y con versiones para prácticamente todas las plataformas.
+
+Para operar con bases de datos la documentación oficial de Google aconseja utilizar *clases contrato*. En dichas clases se almacenarán los nombres de las tablas, campos y demás, con el fin de facilitar el mantenimiento. Aunque no es obligatorio es muy aconsejable implementar el interfaz ``BaseColumns``. De hecho hay muchos casos en los que Android espera clases que implementen dicho interfaz.
+
+Supongamos que deseamos almacenar información técnica sobre modelos de automóvil y los costes asociados de un seguro: supongamos que hay coches de muchas marcas y modelos, y que para cada uno de ellos se puede contratar un seguro de uno de estos tipos (aunque se desea poder tener más tipos de seguro en el futuro):
+
+* Seguro obligatorio.
+* Seguro lunas+incendio sin franquicia.
+* Seguro lunas+incendio con franquicia.
+* Seguro todo riesgo.
+
+No todos los seguros se ofrecen para todos los coches y de hecho podría haber coches para los cuales la compañía no ofrece ningún seguro. No todos los tipos de seguro tienen el mismo coste para todos los coches. Todo seguro tiene una validez medida en días y siempre es la misma para un cierto tipo de seguro. Por ejemplo, todos los seguros obligatorios tienen una validez de 365 días y todos los "todo riesgo" de 90. Los seguros del tipo "lunas+incendio" tienen todos una validez de 180 días.
+
+Toda marca tiene un nombre y un código único, todo modelo tiene un nombre único y una cilindrada. Todo seguro tiene un un código único y una descripción.
+
+.. figure:: imagenes/diagrama-bd-automoviles.png
+   :figwidth: 50%  
+   :align: center
+   :alt:  Diagrama E/R de la BD Automóviles
+   
+   
+Con esto el SQL que necesitaríamos por ejemplo para la tabla ``Marcas`` sería algo así:
+
+.. code-block:: sql
+
+    create table marcas
+    (
+        id integer primary key,
+        nombre varchar(40)
+    );
+    
+    insert into marca values (1, "Ford");
+    insert into marca values (2, "Renault");
+
+Y la clase contrato Java asociada a esta entidad sería:
+
+.. code-block:: java
+
+    public class MarcasContrato implements BaseColumns {
+            public static final String 
+                    NOMBRE_TABLA="marcas";
+            public static final String 
+                    NOMBRE_COL_ID="id";
+            public static final String 
+                    NOMBRE_COL_NOMBRE="nombre";
+    }
+    
+Para manejar la creación y procesado de esta base de datos Android ofrece la clase ``SQLiteOpenHelper`` de la cual se puede heredar de esta manera:
+
+.. code-block:: java
+
+    public class BD extends SQLiteOpenHelper {
+    
+            private String sqlCreacion="create table marcas\n" + 
+                            "    (\n" + 
+                            "        id integer primary key,\n" + 
+                            "        nombre varchar(40)\n" + 
+                            "    );\n" + 
+                            "    \n" + 
+                            "    insert into marca values (1, \"Ford\");\n" + 
+                            "    insert into marca values (2, \"Renault\");";
+            public BD(Context context, String name, CursorFactory factory, int version) {
+                    super(context, name, factory, version);
+            }
+    
+            @Override
+            public void onCreate(SQLiteDatabase db) {
+                    db.execSQL(sqlCreacion);
+    
+            }
+    }
+    
+    
 
 
 Servicios en dispositivos móviles.
