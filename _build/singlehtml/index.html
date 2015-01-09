@@ -1470,6 +1470,56 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <p>En los juegos de apuestas, todo jugador siempre desea saber el punto en el que debió dar marcha atrás, sin embargo, no siempre es fácil recordar cual fue.</p>
 <p>Para facilitar esto se desea modificar el programa de simulación de la ruleta para que se vaya almacenando todo el historial de apuestas en un fichero llamado <tt class="docutils literal"><span class="pre">historial.txt</span></tt>.</p>
 <p>En dicho historial deberíamos ir viendo el saldo, el tipo de apuesta que hizo el usuario (si fue a par, si fue a la segunda docena...), el número que salió al apostar y el estado en que quedó el saldo. Estas operaciones deben almacenarse cada vez que el usuario hace una apuesta del tipo que sea.</p>
+<div class="section" id="bases-de-datos-sqlite">
+<h4>Bases de datos SQLite<a class="headerlink" href="#bases-de-datos-sqlite" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Supongamos que deseamos crear una base de datos sobre seguros de coches. Un primer elemento necesario sería una tabla donde se almacenen las marcas (cada una llevará un ID).</p>
+<div class="highlight-sql"><div class="highlight"><pre><span class="k">create</span> <span class="k">table</span> <span class="n">marcas</span> <span class="p">(</span>
+        <span class="n">id</span>              <span class="nb">integer</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+        <span class="n">marca</span>   <span class="nb">char</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">marcas</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Ford&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">marcas</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Renault&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>En Android la clave para gestionar bases de datos está en la clase <tt class="docutils literal"><span class="pre">SQLiteOpenHelper</span></tt>.</p>
+<p>En el ejemplo siguiente se puede ver un ejemplo de creación:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GestorBD</span> <span class="kd">extends</span> <span class="n">SQLiteOpenHelper</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">sqlCreacion</span><span class="o">=</span><span class="s">&quot;create table marcas (\r\n&quot;</span> <span class="o">+</span>
+                        <span class="s">&quot;               id              integer primary key,\r\n&quot;</span> <span class="o">+</span>
+                        <span class="s">&quot;               marca   char(30)\r\n&quot;</span> <span class="o">+</span>
+                        <span class="s">&quot;       )&quot;</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">insertDatos1</span><span class="o">=</span><span class="s">&quot;insert into marcas values (1, &#39;Ford&#39;)&quot;</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">insertDatos2</span><span class="o">=</span><span class="s">&quot;insert into marcas values (2, &#39;Renault&#39;)&quot;</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="nf">GestorBD</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">CursorFactory</span> <span class="n">factory</span><span class="o">,</span>
+                        <span class="kt">int</span> <span class="n">version</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">factory</span><span class="o">,</span> <span class="n">version</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">bd</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">bd</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">sqlCreacion</span><span class="o">);</span>
+                <span class="n">bd</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">insertDatos1</span><span class="o">);</span>
+                <span class="n">bd</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">insertDatos2</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onUpgrade</span><span class="o">(</span><span class="n">SQLiteDatabase</span> <span class="n">arg0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">arg1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">arg2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>Ejercicio<a class="headerlink" href="#id6" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Ampliar la base de datos para que exista una tabla &#8220;Modelos&#8221; que incluya un par de modelos de cada marca (tiene que haber claves ajenas).</p>
+<ul class="simple">
+<li>Marca: Ford, Modelo: Focus</li>
+<li>Marca: Ford, Modelo: Mondeo</li>
+<li>Marca: Renault, Modelo: Megane</li>
+<li>Marca: Renault, Modelo: Kangoo</li>
+</ul>
+<p>Hacer un programa que recupere todos los modelos de coche junto con sus marcas y los muestre en pantalla.</p>
 </div>
 <div class="section" id="servicios-en-dispositivos-moviles">
 <h3>Servicios en dispositivos móviles.<a class="headerlink" href="#servicios-en-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h3>
@@ -1668,6 +1718,7 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <li class="toctree-l2"><a class="reference internal" href="index.html#id4">Ejercicio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#bases-de-datos-y-almacenamiento">Bases de datos y almacenamiento.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#id5">Ejercicio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id6">Ejercicio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#servicios-en-dispositivos-moviles">Servicios en dispositivos móviles.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#proveedores-de-contenido">Proveedores de contenido.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#gestion-de-recursos-y-notificaciones">Gestión de recursos y notificaciones.</a></li>

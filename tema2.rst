@@ -821,8 +821,63 @@ Para facilitar esto se desea modificar el programa de simulación de la ruleta p
 
 En dicho historial deberíamos ir viendo el saldo, el tipo de apuesta que hizo el usuario (si fue a par, si fue a la segunda docena...), el número que salió al apostar y el estado en que quedó el saldo. Estas operaciones deben almacenarse cada vez que el usuario hace una apuesta del tipo que sea.
 
+Bases de datos SQLite
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Supongamos que deseamos crear una base de datos sobre seguros de coches. Un primer elemento necesario sería una tabla donde se almacenen las marcas (cada una llevará un ID).
 
+.. code-block:: sql
+
+	create table marcas (
+		id 		integer primary key,
+		marca	char(30)
+	);
+	
+	insert into marcas values (1, 'Ford');
+	insert into marcas values (2, 'Renault');
+
+En Android la clave para gestionar bases de datos está en la clase ``SQLiteOpenHelper``.
+
+En el ejemplo siguiente se puede ver un ejemplo de creación:
+
+.. code-block:: java
+
+	public class GestorBD extends SQLiteOpenHelper {
+		private String sqlCreacion="create table marcas (\r\n" + 
+				"		id 		integer primary key,\r\n" + 
+				"		marca	char(30)\r\n" + 
+				"	)";
+		private String insertDatos1="insert into marcas values (1, 'Ford')";
+		private String insertDatos2="insert into marcas values (2, 'Renault')";
+		
+		public GestorBD(Context context, String name, CursorFactory factory,
+				int version) {
+			super(context, name, factory, version);
+		}
+		@Override
+		public void onCreate(SQLiteDatabase bd) {
+			bd.execSQL(sqlCreacion);
+			bd.execSQL(insertDatos1);
+			bd.execSQL(insertDatos2);
+		}
+		@Override
+		public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
+		}
+	}
+	
+Ejercicio
+------------------------------------------------------
+Ampliar la base de datos para que exista una tabla "Modelos" que incluya un par de modelos de cada marca (tiene que haber claves ajenas).
+
+* Marca: Ford, Modelo: Focus
+* Marca: Ford, Modelo: Mondeo
+* Marca: Renault, Modelo: Megane
+* Marca: Renault, Modelo: Kangoo
+
+Hacer un programa que recupere todos los modelos de coche junto con sus marcas y los muestre en pantalla.
+
+	
+	
 Servicios en dispositivos móviles.
 ------------------------------------------------------
 Proveedores de contenido.
