@@ -1549,17 +1549,24 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <p class="first admonition-title">Advertencia</p>
 <p class="last">Cuando se hacen pruebas en el simulador es posible que el fichero de base de datos no aparezca hasta que no   intentemos leer o escribir datos de él. Aparte de eso, el fichero suele estar en el directorio <tt class="docutils literal"><span class="pre">/data/data/&lt;paquete&gt;</span></tt> <em>pero las ubicaciones pueden cambiar</em>.</p>
 </div>
+</div>
+<div class="section" id="datos-y-cursores">
+<h4>Datos y cursores<a class="headerlink" href="#datos-y-cursores" title="Enlazar permanentemente con este título">¶</a></h4>
 <p>Un objeto del tipo <tt class="docutils literal"><span class="pre">SQLiteOpenHelper</span></tt> nos puede devolver un objeto <tt class="docutils literal"><span class="pre">SQLiteDatabase</span></tt> que tiene los métodos necesarios para acceder a cursores, hacer consultas y recorrer los datos. El código siguiente muestra un ejemplo:</p>
 <div class="highlight-java"><div class="highlight"><pre><span class="n">BD</span> <span class="n">gestorBD</span><span class="o">=</span><span class="k">new</span> <span class="n">BD</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;seguros.db&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
 <span class="n">SQLiteDatabase</span> <span class="n">bd</span><span class="o">=</span><span class="n">gestorBD</span><span class="o">.</span><span class="na">getReadableDatabase</span><span class="o">();</span>
 <span class="n">Cursor</span> <span class="n">cursor</span><span class="o">=</span><span class="n">bd</span><span class="o">.</span><span class="na">rawQuery</span><span class="o">(</span><span class="s">&quot;select id, nombre from marcas&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
 <span class="n">cursor</span><span class="o">.</span><span class="na">moveToFirst</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">posID</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="na">getColumnIndex</span><span class="o">(</span><span class="n">MarcasContrato</span><span class="o">.</span><span class="na">NOMBRE_COL_ID</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">posNombreMarca</span><span class="o">=</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="na">getColumnIndex</span><span class="o">(</span><span class="n">MarcasContrato</span><span class="o">.</span><span class="na">NOMBRE_COL_NOMBRE</span><span class="o">);</span>
 <span class="k">while</span> <span class="o">(!</span><span class="n">cursor</span><span class="o">.</span><span class="na">isAfterLast</span><span class="o">()){</span>
-    <span class="n">String</span> <span class="n">numero</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
-    <span class="n">String</span> <span class="n">marca</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">numero</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">posID</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">marca</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">posNombreMarca</span><span class="o">);</span>
     <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;Marca:&quot;</span><span class="o">,</span> <span class="n">numero</span><span class="o">+</span><span class="s">&quot;:&quot;</span><span class="o">+</span><span class="n">marca</span><span class="o">);</span>
     <span class="n">cursor</span><span class="o">.</span><span class="na">moveToNext</span><span class="o">();</span>
 <span class="o">}</span>
+<span class="n">cursor</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
 </pre></div>
 </div>
 </div>
@@ -1601,6 +1608,137 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 </pre></div>
 </div>
 <p>En lugar de insertar todo el código SQL <strong>se puede crear el archivo de base de datos en un ordenador</strong> e insertarlo en el proyecto despues, por desgracia Android no ofrece un soporte cómodo para hacer esto, ya que una vez instalada la app tenemos que copiar el fichero de base de datos al terminal para despues abrirlo.</p>
+<div class="section" id="creacion-dinamica-del-interfaz">
+<h4>Creación dinámica del interfaz<a class="headerlink" href="#creacion-dinamica-del-interfaz" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Un problema fundamental en este ejercicio es que no sabemos a priori cuantos controles poner en la aplicación: <strong>el interfaz se tiene que crear dinámicamente</strong></p>
+<p>Supongamos que simplemente deseamos crear un ListView en el que se muestren simplemente los modelos de coche. Se pueden utilizar un par de clases útiles para conseguir lo que queramos de la forma siguiente:</p>
+<ul class="simple">
+<li>Metemos los nombres en un vector de Strings.</li>
+<li>Crearemos un fichero de layout para indicar como se mostrará cada modelo. Este layout debe tener un TextView (Android encontrará automáticamente el TextView y en él insertará cada nombre de modelo).</li>
+<li>Usamos la clase <tt class="docutils literal"><span class="pre">ArrayAdapter</span></tt>, que &#8220;convierte&#8221; cada elemento de nuestro <em>array</em> en un elemento del ListView. Le indicaremos el fichero de layout que debe crearse <em>para cada modelo individual</em>.</li>
+<li>Indicamos al ListView que use ese <tt class="docutils literal"><span class="pre">ArrayAdapter</span></tt>.</li>
+</ul>
+<p>Para conseguir que la clase BD nos devuelve un vector de Strings le podemos añadir el siguiente método:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">String</span><span class="o">[]</span> <span class="nf">getArrayModelos</span><span class="o">(){</span>
+    <span class="n">String</span><span class="o">[]</span> <span class="n">vectorResultado</span><span class="o">;</span>
+    <span class="n">SQLiteDatabase</span> <span class="n">bd</span><span class="o">=</span><span class="k">this</span><span class="o">.</span><span class="na">getReadableDatabase</span><span class="o">();</span>
+    <span class="n">Cursor</span> <span class="n">cursor</span><span class="o">=</span><span class="n">bd</span><span class="o">.</span><span class="na">rawQuery</span><span class="o">(</span><span class="s">&quot;select nombre from modelos&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="n">vectorResultado</span><span class="o">=</span><span class="k">new</span> <span class="n">String</span><span class="o">[</span><span class="n">cursor</span><span class="o">.</span><span class="na">getCount</span><span class="o">()];</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="na">moveToFirst</span><span class="o">();</span>
+    <span class="kt">int</span> <span class="n">pos</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(!</span><span class="n">cursor</span><span class="o">.</span><span class="na">isAfterLast</span><span class="o">()){</span>
+            <span class="n">vectorResultado</span><span class="o">[</span><span class="n">pos</span><span class="o">]=</span><span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;D&quot;</span><span class="o">,</span>  <span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="na">moveToNext</span><span class="o">();</span>
+            <span class="n">pos</span><span class="o">++;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">vectorResultado</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Y para que ahora la Actividad cree el interfaz dinámicamente podemos hacer algo como esto:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+    <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_actividad_principal</span><span class="o">);</span>
+
+    <span class="cm">/* Recuperamos los modelos*/</span>
+    <span class="n">String</span><span class="o">[]</span> <span class="n">modelosCoche</span><span class="o">=</span><span class="n">gestorBD</span><span class="o">.</span><span class="na">getArrayModelos</span><span class="o">();</span>
+    <span class="cm">/* Cada modelo de coche se insertará en el fichero</span>
+<span class="cm">     * de layout que tiene un textview donde</span>
+<span class="cm">     * se pondrá el nombre del modelo */</span>
+    <span class="n">ArrayAdapter</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">adaptador</span><span class="o">=</span>
+                    <span class="k">new</span> <span class="nf">ArrayAdapter</span><span class="o">(</span><span class="k">this</span><span class="o">,</span>
+                                    <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">modelo</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvNombreModelo</span><span class="o">,</span>
+                                    <span class="n">modelosCoche</span><span class="o">);</span>
+    <span class="cm">/* El Listview de nuestro interfaz cargará</span>
+<span class="cm">     * los datos a partir de ese adaptador */</span>
+    <span class="n">ListView</span> <span class="n">lvModelos</span><span class="o">=(</span><span class="n">ListView</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">lvModelos</span><span class="o">);</span>
+    <span class="n">lvModelos</span><span class="o">.</span><span class="na">setAdapter</span><span class="o">(</span><span class="n">adaptador</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="respondiendo-al-evento-click">
+<h4>Respondiendo al evento click<a class="headerlink" href="#respondiendo-al-evento-click" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Un problema que ocurre es que aunque alguien haga click en algún modelo no ocurre nada. Para conseguir que la actividad procese el evento podemos hacer que la actividad implemente el interfaz <tt class="docutils literal"><span class="pre">AdapterView.OnItemClickListener</span></tt>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
+<p class="last">Al hacer esto debemos asegurarnos de poner a <tt class="docutils literal"><span class="pre">false</span></tt> el atributo <tt class="docutils literal"><span class="pre">Focusable</span></tt> de los controles. En concreto deberemos ir al fichero de layout que sirve de plantilla para cada control y si por ejemplo hay un <tt class="docutils literal"><span class="pre">EditText</span></tt> (que podría apoderarse del evento click) modificar su <tt class="docutils literal"><span class="pre">Focusable</span></tt> como hemos dicho. Se debe hacer esto para todos los controles.</p>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+    <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_actividad_principal</span><span class="o">);</span>
+
+    <span class="cm">/* Recuperamos los modelos*/</span>
+    <span class="n">String</span><span class="o">[]</span> <span class="n">modelosCoche</span><span class="o">=</span><span class="n">gestorBD</span><span class="o">.</span><span class="na">getArrayModelos</span><span class="o">();</span>
+    <span class="cm">/* Cada modelo de coche se insertará en el fichero</span>
+<span class="cm">     * de layout que tiene un textview donde</span>
+<span class="cm">     * se pondrá el nombre del modelo */</span>
+    <span class="n">ArrayAdapter</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">adaptador</span><span class="o">=</span>
+                    <span class="k">new</span> <span class="nf">ArrayAdapter</span><span class="o">(</span><span class="k">this</span><span class="o">,</span>
+                                    <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">modelo</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvNombreModelo</span><span class="o">,</span>
+                                    <span class="n">modelosCoche</span><span class="o">);</span>
+    <span class="cm">/* El Listview de nuestro interfaz cargará</span>
+<span class="cm">     * los datos a partir de ese adaptador */</span>
+    <span class="n">ListView</span> <span class="n">lvModelos</span><span class="o">=(</span><span class="n">ListView</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">lvModelos</span><span class="o">);</span>
+    <span class="n">lvModelos</span><span class="o">.</span><span class="na">setAdapter</span><span class="o">(</span><span class="n">adaptador</span><span class="o">);</span>
+    <span class="cm">/* Activar la gestión de eventos*/</span>
+    <span class="n">lvModelos</span><span class="o">.</span><span class="na">setOnItemClickListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="n">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">padre</span><span class="o">,</span> <span class="n">View</span> <span class="n">control</span><span class="o">,</span> <span class="kt">int</span> <span class="n">posicion</span><span class="o">,</span>
+                    <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;Click en &quot;</span><span class="o">+</span><span class="n">posicion</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Esto se muestra en el emulador de esta forma</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="Contenedores Android" src="_images/ListViewDinamico.png" />
+</div>
+</div>
+<div class="section" id="creacion-dinamica-de-controles-avanzada">
+<h4>Creación dinámica de controles avanzada<a class="headerlink" href="#creacion-dinamica-de-controles-avanzada" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>El <tt class="docutils literal"><span class="pre">ArrayAdapter</span></tt> es útil pero solo sirve cuando manejamos cadenas, lo cual es un dato simple. Sin embargo, si queremos representar algo más complejo (por ejemplo, el nombre de modelo y el código de modelo) se necesita una clase más avanzada, que además pueda recuperar datos directamente de un <tt class="docutils literal"><span class="pre">Cursor</span></tt>: la clase <tt class="docutils literal"><span class="pre">SimpleCursorAdapter</span></tt></p>
+<p>Esta clase espera que pasemos cuatro cosas:
+* La clase padre: normalmente <tt class="docutils literal"><span class="pre">this</span></tt>
+* Un vector con los nombres de las columnas que vamos a extraer de la consulta.
+* Un vector con los <tt class="docutils literal"><span class="pre">id</span></tt> de recursos de controles donde se va a meter el valor de cada columna.
+* Flags que puedan modificar el comportamiento de la clase (normalmente usaremos 0).</p>
+<p>El problema principal es que esta clase <strong>espera que nuestro cursor tenga algún campo llamado _id</strong> que actúe como identificador así que tendremos que reescribir nuestro SQL y pasarlo de esto
+.. code-block:: sql</p>
+<blockquote>
+<div>select id_modelo, nombre from modelos</div></blockquote>
+<p>a esto</p>
+<div class="highlight-sql"><div class="highlight"><pre><span class="k">select</span> <span class="n">id_modelo</span> <span class="k">as</span> <span class="n">_id</span><span class="p">,</span> <span class="n">nombre</span> <span class="k">from</span> <span class="n">modelos</span>
+</pre></div>
+</div>
+<p>Así que ahora un método que podría rellenar controles dinámicamente sería este:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">rellenarControles</span><span class="o">(){</span>
+    <span class="n">SQLiteDatabase</span> <span class="n">bd</span><span class="o">=</span><span class="n">gestorBD</span><span class="o">.</span><span class="na">getReadableDatabase</span><span class="o">();</span>
+    <span class="n">Cursor</span> <span class="n">cursor</span><span class="o">=</span><span class="n">bd</span><span class="o">.</span><span class="na">rawQuery</span><span class="o">(</span><span class="s">&quot;select id_modelo as _id, nombre from modelos&quot;</span><span class="o">,</span><span class="kc">null</span><span class="o">);</span>
+    <span class="n">String</span><span class="o">[]</span> <span class="n">nombresColumnas</span><span class="o">={</span>
+                    <span class="n">BaseColumns</span><span class="o">.</span><span class="na">_ID</span><span class="o">,</span>
+                    <span class="n">ModelosContrato</span><span class="o">.</span><span class="na">NOMBRE_COL_NOMBRE</span>
+    <span class="o">};</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">idTextViews</span><span class="o">={</span>
+                    <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvIdModelo</span><span class="o">,</span>
+                    <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tvModelo</span>
+    <span class="o">};</span>
+    <span class="n">SimpleCursorAdapter</span> <span class="n">adaptador</span><span class="o">=</span>
+                    <span class="k">new</span> <span class="nf">SimpleCursorAdapter</span><span class="o">(</span><span class="k">this</span><span class="o">,</span>
+                                    <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">modelos_avanzados</span><span class="o">,</span><span class="n">cursor</span><span class="o">,</span>
+                                    <span class="n">nombresColumnas</span><span class="o">,</span> <span class="n">idTextViews</span><span class="o">,</span><span class="mi">0</span><span class="o">);</span>
+    <span class="n">ListView</span> <span class="n">lvModelos</span><span class="o">=(</span><span class="n">ListView</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">lvModelos</span><span class="o">);</span>
+    <span class="n">lvModelos</span><span class="o">.</span><span class="na">setAdapter</span><span class="o">(</span><span class="n">adaptador</span><span class="o">);</span>
+    <span class="n">lvModelos</span><span class="o">.</span><span class="na">setOnItemClickListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
+<p class="last">El código para cargar datos o crear controles puede ser lento y podría llegar a bloquear el interfaz. Es recomendable delegar todo el código que pueda ser lento a una <tt class="docutils literal"><span class="pre">AsyncTask</span></tt></p>
+</div>
+</div>
 </div>
 <div class="section" id="servicios-en-dispositivos-moviles">
 <h3>Servicios en dispositivos móviles.<a class="headerlink" href="#servicios-en-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h3>

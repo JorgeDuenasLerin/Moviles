@@ -986,16 +986,161 @@ En primer lugar, habría que crear el SQL que permita tener la segunda tabla con
     
 En lugar de insertar todo el código SQL **se puede crear el archivo de base de datos en un ordenador** e insertarlo en el proyecto despues, por desgracia Android no ofrece un soporte cómodo para hacer esto, ya que una vez instalada la app tenemos que copiar el fichero de base de datos al terminal para despues abrirlo.
 
+
+
+
+
 Creación dinámica del interfaz
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Un problema fundamental en este ejercicio es que no sabemos a priori cuantos controles poner en la aplicación: **el interfaz se tiene que crear dinámicamente**
 
+Supongamos que simplemente deseamos crear un ListView en el que se muestren simplemente los modelos de coche. Se pueden utilizar un par de clases útiles para conseguir lo que queramos de la forma siguiente:
+
+* Metemos los nombres en un vector de Strings.
+* Crearemos un fichero de layout para indicar como se mostrará cada modelo. Este layout debe tener un TextView (Android encontrará automáticamente el TextView y en él insertará cada nombre de modelo).
+* Usamos la clase ``ArrayAdapter``, que "convierte" cada elemento de nuestro *array* en un elemento del ListView. Le indicaremos el fichero de layout que debe crearse *para cada modelo individual*.
+* Indicamos al ListView que use ese ``ArrayAdapter``.
 
 
+Para conseguir que la clase BD nos devuelve un vector de Strings le podemos añadir el siguiente método:
+
+.. code-block:: java
+
+    public String[] getArrayModelos(){
+    	String[] vectorResultado;
+    	SQLiteDatabase bd=this.getReadableDatabase();
+        Cursor cursor=bd.rawQuery("select nombre from modelos", null);
+        vectorResultado=new String[cursor.getCount()];
+        cursor.moveToFirst();
+        int pos=0;
+        while (!cursor.isAfterLast()){
+        	vectorResultado[pos]=cursor.getString(0);
+        	Log.d("D",  cursor.getString(0));
+        	cursor.moveToNext();
+        	pos++;
+        }
+    	return vectorResultado;
+    }
+    
+Y para que ahora la Actividad cree el interfaz dinámicamente podemos hacer algo como esto:
+
+.. code-block:: java
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_actividad_principal);
+        
+        /* Recuperamos los modelos*/
+        String[] modelosCoche=gestorBD.getArrayModelos();
+        /* Cada modelo de coche se insertará en el fichero
+         * de layout que tiene un textview donde
+         * se pondrá el nombre del modelo */
+        ArrayAdapter<String> adaptador=
+        		new ArrayAdapter(this, 
+        				R.layout.modelo, R.id.tvNombreModelo, 
+        				modelosCoche);
+        /* El Listview de nuestro interfaz cargará
+         * los datos a partir de ese adaptador */
+        ListView lvModelos=(ListView) this.findViewById(R.id.lvModelos);
+        lvModelos.setAdapter(adaptador);
+    }    
+
+Respondiendo al evento click
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Un problema que ocurre es que aunque alguien haga click en algún modelo no ocurre nada. Para conseguir que la actividad procese el evento podemos hacer que la actividad implemente el interfaz ``AdapterView.OnItemClickListener``.
+
+.. WARNING::
+
+   Al hacer esto debemos asegurarnos de poner a ``false`` el atributo ``Focusable`` de los controles. En concreto deberemos ir al fichero de layout que sirve de plantilla para cada control y si por ejemplo hay un ``EditText`` (que podría apoderarse del evento click) modificar su ``Focusable`` como hemos dicho. Se debe hacer esto para todos los controles.
+
+.. code-block:: java
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_actividad_principal);
+        
+        /* Recuperamos los modelos*/
+        String[] modelosCoche=gestorBD.getArrayModelos();
+        /* Cada modelo de coche se insertará en el fichero
+         * de layout que tiene un textview donde
+         * se pondrá el nombre del modelo */
+        ArrayAdapter<String> adaptador=
+        		new ArrayAdapter(this, 
+        				R.layout.modelo, R.id.tvNombreModelo, 
+        				modelosCoche);
+        /* El Listview de nuestro interfaz cargará
+         * los datos a partir de ese adaptador */
+        ListView lvModelos=(ListView) this.findViewById(R.id.lvModelos);
+        lvModelos.setAdapter(adaptador);
+        /* Activar la gestión de eventos*/
+        lvModelos.setOnItemClickListener(this);
+    }
+    public void onItemClick(AdapterView<?> padre, View control, int posicion,
+			long id) {
+	Toast.makeText(this, "Click en "+posicion, Toast.LENGTH_SHORT).show();		
+    }
+
+Esto se muestra en el emulador de esta forma
+
+.. figure:: imagenes/ListViewDinamico.png
+   :figwidth: 50%  
+   :align: center
+   :alt: Contenedores Android
    
 
+Creación dinámica de controles avanzada
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-	
+El ``ArrayAdapter`` es útil pero solo sirve cuando manejamos cadenas, lo cual es un dato simple. Sin embargo, si queremos representar algo más complejo (por ejemplo, el nombre de modelo y el código de modelo) se necesita una clase más avanzada, que además pueda recuperar datos directamente de un ``Cursor``: la clase ``SimpleCursorAdapter``
+
+Esta clase espera que pasemos cuatro cosas:
+* La clase padre: normalmente ``this``
+* Un vector con los nombres de las columnas que vamos a extraer de la consulta.
+* Un vector con los ``id`` de recursos de controles donde se va a meter el valor de cada columna.
+* Flags que puedan modificar el comportamiento de la clase (normalmente usaremos 0).
+
+El problema principal es que esta clase **espera que nuestro cursor tenga algún campo llamado _id** que actúe como identificador así que tendremos que reescribir nuestro SQL y pasarlo de esto
+.. code-block:: sql
+
+    select id_modelo, nombre from modelos
+    
+a esto
+
+
+.. code-block:: sql
+
+    select id_modelo as _id, nombre from modelos
+
+Así que ahora un método que podría rellenar controles dinámicamente sería este:
+
+.. code-block:: java
+
+    public void rellenarControles(){
+    	SQLiteDatabase bd=gestorBD.getReadableDatabase();
+    	Cursor cursor=bd.rawQuery("select id_modelo as _id, nombre from modelos",null);
+    	String[] nombresColumnas={
+    			BaseColumns._ID, 
+    			ModelosContrato.NOMBRE_COL_NOMBRE
+    	};
+    	int[] idTextViews={
+    			R.id.tvIdModelo, 
+    			R.id.tvModelo
+    	};
+    	SimpleCursorAdapter adaptador=
+    			new SimpleCursorAdapter(this, 
+    					R.layout.modelos_avanzados,cursor,
+    					nombresColumnas, idTextViews,0);
+    	ListView lvModelos=(ListView) this.findViewById(R.id.lvModelos);
+        lvModelos.setAdapter(adaptador);
+        lvModelos.setOnItemClickListener(this);
+    }
+    
+    
+.. WARNING::
+
+   El código para cargar datos o crear controles puede ser lento y podría llegar a bloquear el interfaz. Es recomendable delegar todo el código que pueda ser lento a una ``AsyncTask``
+
 Servicios en dispositivos móviles.
 ------------------------------------------------------
 Proveedores de contenido.
