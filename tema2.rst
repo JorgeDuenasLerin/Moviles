@@ -1145,6 +1145,10 @@ Servicios en dispositivos móviles.
 ------------------------------------------------------
 Proveedores de contenido.
 ------------------------------------------------------
+
+Para poder echar un vistazo a un proveedor de contenidos muy utilizado, el de los contactos necesitaremos crear algunos contactos de prueba. Para leer desde proveedores de contenidos puede ser necesario activar permisos en el ``AndroidManifest.xml``. Por ejemplo, para poder leer contactos es necesario el permiso ``READ_CONTACTS``
+
+
  
 Gestión de recursos y notificaciones.
 ------------------------------------------------------
