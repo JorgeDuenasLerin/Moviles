@@ -1148,6 +1148,89 @@ Proveedores de contenido.
 
 Para poder echar un vistazo a un proveedor de contenidos muy utilizado, el de los contactos necesitaremos crear algunos contactos de prueba. Para leer desde proveedores de contenidos puede ser necesario activar permisos en el ``AndroidManifest.xml``. Por ejemplo, para poder leer contactos es necesario el permiso ``READ_CONTACTS``
 
+Fundamentos
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Un proveedor de contenidos es una clase Java que permite acceder a datos **como si esos datos estuvieran en una tabla** (aunque no estén). Para acceder a estos datos *se necesita la URI correcta* que habrá que buscar en la documentación.
+
+Una URI es más o menos como una tabla. Se podrán acceder a sus datos haciendo "consultas", cuyos resultados podremos recorrer con un cursos y extraer los campos que deseemos.
+
+
+Un ejemplo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+La siguiente clase accede a diversa información de contactos. La URI de contactos es algo como "content://com.android.contacts/data".
+
+Sin embargo, poner las URI directamente como un String es muy arriesgado, ya que la URI puede cambiar. Para evitar esto Android ofrece clases con constantes que permiten que nuestro código acceda a URIs sin que tengamos que preocuparnos por problemas futuros debidos a cambios en la URI. En Android la URI para los contactos es ``ContactsContract.Data.CONTENT_URI``.
+
+Esta "tabla" tiene diversos campos, que podemos extraer mediante sus "nombres de contrato", es decir constantes que nos protegen contra posibles cambios de nombre de campo que pueda haber en el futuro.
+
+Un problema que ocurre a menudo es que la estructura de los proveedores de contenido puede ser muy extraña. Por ejemplo, a nivel interno, Android ofrece en esta tabla de datos filas para cada trozo de información de un contacto. Es decir, si hay un contacto llamado "Pepe Perez" con teléfono "555-123456", **veremos dos filas**, una para cada trozo.
+
+Al recorrer la tabla de datos podemos examinar la columna MIMETYPE, que nos dirá lo que hay almacenado en DATA1, la columna que contiene la información relevante. En realidad hay alias que ofrecen nombres más significativos que DATA1, pero aún así no se debe olvidar consultar el MIMETYPE.
+
+El ejemplo siguiente extrae todos los "trozos de datos" y nos muestra solo los email.
+
+
+.. code-block:: java
+
+public class GestorContactos {
+	Uri uriContactos;
+	public GestorContactos(ContentResolver cr){
+		uriContactos=
+				ContactsContract.Data.CONTENT_URI;
+		Log.d("DEBUG", "Gestor contactos construido");
+		Log.d("DEBUG", "La URI es:"+
+				uriContactos.toString());
+		
+		String[] campos={
+			ContactsContract.Data.DISPLAY_NAME	
+		};
+		Cursor cursor=
+				cr.query(uriContactos, campos,
+						null, null, null);
+		int numDatos=cursor.getCount();
+		Log.d("DEBUG", "Num datos:"
+				+numDatos);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()){
+			int posData1=
+					cursor.getColumnIndex(
+							ContactsContract.Data.DATA1);
+			int posTipo=
+					cursor.getColumnIndex(
+							ContactsContract.Data.MIMETYPE
+							);
+			String tipo=
+					cursor.getString(posTipo);
+			if (
+				tipo.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE))
+			{
+				String data1=cursor.getString(posData1);
+				Log.d("DEBUG", 
+						"El data 1/email:"+data1);
+			}
+			cursor.moveToNext();
+		}
+	}
+}
+
+Otra forma de acceder a la información es la siguiente:
+
+Ejercicio: proveedor de diccionario
+------------------------------------------------------
+
+
+Sabiendo que Android ofrece un proveedor para el diccionario del usuario, añadir algunas palabras a dicho diccionario.
+
+
+	
+Solución al diccionario
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+En realidad la clase ``UserDictionary.Words`` ofrece un método ``addWord`` que resuelve esta tarea. Sin embargo, probaremos a hacerlo manejando directamente el proveedor de contenidos.
+
+
 
  
 Gestión de recursos y notificaciones.
