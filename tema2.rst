@@ -1174,46 +1174,46 @@ El ejemplo siguiente extrae todos los "trozos de datos" y nos muestra solo los e
 
 .. code-block:: java
 
-public class GestorContactos {
-	Uri uriContactos;
-	public GestorContactos(ContentResolver cr){
-		uriContactos=
-				ContactsContract.Data.CONTENT_URI;
-		Log.d("DEBUG", "Gestor contactos construido");
-		Log.d("DEBUG", "La URI es:"+
-				uriContactos.toString());
-		
-		String[] campos={
-			ContactsContract.Data.DISPLAY_NAME	
-		};
-		Cursor cursor=
-				cr.query(uriContactos, campos,
-						null, null, null);
-		int numDatos=cursor.getCount();
-		Log.d("DEBUG", "Num datos:"
-				+numDatos);
-		cursor.moveToFirst();
-		while (!cursor.isAfterLast()){
-			int posData1=
-					cursor.getColumnIndex(
-							ContactsContract.Data.DATA1);
-			int posTipo=
-					cursor.getColumnIndex(
-							ContactsContract.Data.MIMETYPE
-							);
-			String tipo=
-					cursor.getString(posTipo);
-			if (
-				tipo.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE))
-			{
-				String data1=cursor.getString(posData1);
-				Log.d("DEBUG", 
-						"El data 1/email:"+data1);
+	public class GestorContactos {
+		Uri uriContactos;
+		public GestorContactos(ContentResolver cr){
+			uriContactos=
+					ContactsContract.Data.CONTENT_URI;
+			Log.d("DEBUG", "Gestor contactos construido");
+			Log.d("DEBUG", "La URI es:"+
+					uriContactos.toString());
+			
+			String[] campos={
+				ContactsContract.Data.DISPLAY_NAME	
+			};
+			Cursor cursor=
+					cr.query(uriContactos, campos,
+							null, null, null);
+			int numDatos=cursor.getCount();
+			Log.d("DEBUG", "Num datos:"
+					+numDatos);
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast()){
+				int posData1=
+						cursor.getColumnIndex(
+								ContactsContract.Data.DATA1);
+				int posTipo=
+						cursor.getColumnIndex(
+								ContactsContract.Data.MIMETYPE
+								);
+				String tipo=
+						cursor.getString(posTipo);
+				if (
+					tipo.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE))
+				{
+					String data1=cursor.getString(posData1);
+					Log.d("DEBUG", 
+							"El data 1/email:"+data1);
+				}
+				cursor.moveToNext();
 			}
-			cursor.moveToNext();
 		}
 	}
-}
 
 Otra forma de acceder a la información es la siguiente:
 

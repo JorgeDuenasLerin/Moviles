@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.24)  21 JAN 2015 14:37
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.24)  21 JAN 2015 14:38
 entering extended mode
 **Moviles.tex
 (D:\oscar\Moviles\_build\latex\Moviles.tex
@@ -1349,29 +1349,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 2408--2411
 
  []
 
-[57]
-! FancyVerb Error:
-  Empty verbatim environment
-.
-\FV@Error ... {FancyVerb Error:
-\space \space #1
-}
-                                                  
-l.2443 \end{Verbatim}
-                     
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 2495--2498
-[]\T1/ptm/m/n/12 ContactsContract.Data.MIMETYPE
- []
-
-
-Overfull \hbox (100.01047pt too wide) in paragraph at lines 2504--2506
-[]\T1/ptm/m/n/12 tipo.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITE
-M_TYPE)) 
- []
-
-[58] [59] [60]
+[57] [58] [59] [60]
 Overfull \vbox (38.3303pt too high) has occurred while \output is active []
 
 
@@ -1390,19 +1368,19 @@ Overfull \vbox (31.51228pt too high) has occurred while \output is active []
 [66]
 Cap\'{\i }tulo 5.
 (D:\oscar\Moviles\_build\latex\Moviles.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2677.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2630.
  [67
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2677.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2630.
 
 (D:\oscar\Moviles\_build\latex\Moviles.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2677.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2677.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2630.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2630.
 
 Package rerunfilecheck Info: File `Moviles.out' has not changed.
 (rerunfilecheck)             Checksum: A979385F3416E2A66A06CEB68FDAADFF;7876.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2677.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2630.
  ) 
 Here is how much of TeX's memory you used:
  9853 strings out of 493921
@@ -1411,7 +1389,7 @@ Here is how much of TeX's memory you used:
  12590 multiletter control sequences out of 15000+200000
  73919 words of font info for 89 fonts, out of 3000000 for 9000
  842 hyphenation exceptions out of 8191
- 39i,12n,51p,725b,648s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,12n,51p,725b,629s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Progra
 m Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files (
 x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files (x86)/MiKT
@@ -1420,7 +1398,7 @@ onts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
 e1/urw/helvetic/uhvbo8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/
 times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8
 a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Moviles.pdf (73 pages, 1205028 bytes).
+Output written on Moviles.pdf (73 pages, 1203764 bytes).
 PDF statistics:
  1022 PDF objects out of 1200 (max. 8388607)
  262 named destinations out of 1000 (max. 500000)
