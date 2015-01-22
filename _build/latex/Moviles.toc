@@ -76,29 +76,30 @@
 \contentsline {section}{\numberline {2.14}Soluci\IeC {\'o}n a la ampliaci\IeC {\'o}n de la BD}{53}{section.2.14}
 \contentsline {subsection}{\numberline {2.14.1}Creaci\IeC {\'o}n din\IeC {\'a}mica del interfaz}{54}{subsection.2.14.1}
 \contentsline {subsection}{\numberline {2.14.2}Respondiendo al evento click}{55}{subsection.2.14.2}
-\contentsline {subsection}{\numberline {2.14.3}Creaci\IeC {\'o}n din\IeC {\'a}mica de controles avanzada}{56}{subsection.2.14.3}
-\contentsline {section}{\numberline {2.15}Servicios en dispositivos m\IeC {\'o}viles.}{57}{section.2.15}
-\contentsline {section}{\numberline {2.16}Proveedores de contenido.}{57}{section.2.16}
-\contentsline {subsection}{\numberline {2.16.1}Fundamentos}{57}{subsection.2.16.1}
-\contentsline {subsection}{\numberline {2.16.2}Un ejemplo}{57}{subsection.2.16.2}
+\contentsline {subsection}{\numberline {2.14.3}Creaci\IeC {\'o}n din\IeC {\'a}mica de controles avanzada}{57}{subsection.2.14.3}
+\contentsline {section}{\numberline {2.15}Servicios en dispositivos m\IeC {\'o}viles.}{58}{section.2.15}
+\contentsline {section}{\numberline {2.16}Proveedores de contenido.}{58}{section.2.16}
+\contentsline {subsection}{\numberline {2.16.1}Fundamentos}{58}{subsection.2.16.1}
+\contentsline {subsection}{\numberline {2.16.2}Un ejemplo}{58}{subsection.2.16.2}
 \contentsline {section}{\numberline {2.17}Ejercicio: proveedor de diccionario}{59}{section.2.17}
-\contentsline {subsection}{\numberline {2.17.1}Soluci\IeC {\'o}n al diccionario}{59}{subsection.2.17.1}
+\contentsline {subsection}{\numberline {2.17.1}Soluci\IeC {\'o}n al diccionario}{60}{subsection.2.17.1}
 \contentsline {section}{\numberline {2.18}Gesti\IeC {\'o}n de recursos y notificaciones.}{61}{section.2.18}
-\contentsline {section}{\numberline {2.19}Contexto gr\IeC {\'a}fico. Im\IeC {\'a}genes.}{61}{section.2.19}
-\contentsline {section}{\numberline {2.20}Eventos del teclado.}{61}{section.2.20}
-\contentsline {section}{\numberline {2.21}T\IeC {\'e}cnicas de animaci\IeC {\'o}n y sonido.}{61}{section.2.21}
-\contentsline {section}{\numberline {2.22}Descubrimiento de servicios.}{61}{section.2.22}
-\contentsline {section}{\numberline {2.23}Persistencia.}{61}{section.2.23}
-\contentsline {section}{\numberline {2.24}Modelo de hilos.}{61}{section.2.24}
-\contentsline {section}{\numberline {2.25}Comunicaciones: clases asociadas. Tipos de conexiones.}{61}{section.2.25}
-\contentsline {section}{\numberline {2.26}Gesti\IeC {\'o}n de la comunicaci\IeC {\'o}n inal\IeC {\'a}mbrica.}{61}{section.2.26}
-\contentsline {section}{\numberline {2.27}Seguridad y permisos.}{61}{section.2.27}
-\contentsline {section}{\numberline {2.28}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajes texto.}{61}{section.2.28}
-\contentsline {section}{\numberline {2.29}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajer\IeC {\'\i }a multimedia. Sincronizaci\IeC {\'o}n de contenido.}{61}{section.2.29}
-\contentsline {section}{\numberline {2.30}Manejo de conexiones HTTP y HTTPS.}{61}{section.2.30}
-\contentsline {section}{\numberline {2.31}Empaquetado y despliegue de aplicaciones para dispositivos m\IeC {\'o}viles.}{61}{section.2.31}
-\contentsline {section}{\numberline {2.32}Centros de distribuci\IeC {\'o}n de aplicaciones.}{61}{section.2.32}
-\contentsline {section}{\numberline {2.33}Documentaci\IeC {\'o}n de aplicaciones de dispositivos m\IeC {\'o}viles.}{61}{section.2.33}
+\contentsline {section}{\numberline {2.19}T\IeC {\'e}cnicas de animaci\IeC {\'o}n y sonido.}{61}{section.2.19}
+\contentsline {subsection}{\numberline {2.19.1}Ejercicio: contador}{61}{subsection.2.19.1}
+\contentsline {section}{\numberline {2.20}Contexto gr\IeC {\'a}fico. Im\IeC {\'a}genes.}{62}{section.2.20}
+\contentsline {section}{\numberline {2.21}Eventos del teclado.}{62}{section.2.21}
+\contentsline {section}{\numberline {2.22}Descubrimiento de servicios.}{62}{section.2.22}
+\contentsline {section}{\numberline {2.23}Persistencia.}{62}{section.2.23}
+\contentsline {section}{\numberline {2.24}Modelo de hilos.}{62}{section.2.24}
+\contentsline {section}{\numberline {2.25}Comunicaciones: clases asociadas. Tipos de conexiones.}{62}{section.2.25}
+\contentsline {section}{\numberline {2.26}Gesti\IeC {\'o}n de la comunicaci\IeC {\'o}n inal\IeC {\'a}mbrica.}{62}{section.2.26}
+\contentsline {section}{\numberline {2.27}Seguridad y permisos.}{62}{section.2.27}
+\contentsline {section}{\numberline {2.28}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajes texto.}{62}{section.2.28}
+\contentsline {section}{\numberline {2.29}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajer\IeC {\'\i }a multimedia. Sincronizaci\IeC {\'o}n de contenido.}{62}{section.2.29}
+\contentsline {section}{\numberline {2.30}Manejo de conexiones HTTP y HTTPS.}{62}{section.2.30}
+\contentsline {section}{\numberline {2.31}Empaquetado y despliegue de aplicaciones para dispositivos m\IeC {\'o}viles.}{62}{section.2.31}
+\contentsline {section}{\numberline {2.32}Centros de distribuci\IeC {\'o}n de aplicaciones.}{62}{section.2.32}
+\contentsline {section}{\numberline {2.33}Documentaci\IeC {\'o}n de aplicaciones de dispositivos m\IeC {\'o}viles.}{62}{section.2.33}
 \contentsline {chapter}{\numberline {3}An\IeC {\'a}lisis de motores de juegos}{63}{chapter.3}
 \contentsline {section}{\numberline {3.1}Animaci\IeC {\'o}n 2D y 3D.}{63}{section.3.1}
 \contentsline {section}{\numberline {3.2}Arquitectura del juego. Componentes.}{63}{section.3.2}

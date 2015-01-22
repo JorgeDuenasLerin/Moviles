@@ -1228,19 +1228,93 @@ Sabiendo que Android ofrece un proveedor para el diccionario del usuario, añadi
 Solución al diccionario
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-En realidad la clase ``UserDictionary.Words`` ofrece un método ``addWord`` que resuelve esta tarea. Sin embargo, probaremos a hacerlo manejando directamente el proveedor de contenidos.
+En realidad la clase ``UserDictionary.Words`` ofrece un método ``addWord`` que resuelve esta tarea. Sin embargo, probaremos a hacerlo manejando directamente el proveedor de contenidos. En concreto, para poder insertar valores se tiene que hacer uso de otra clase llamada ``ContentValues``, dentro de la cual se pondrá la información que se desea almacenar en el proveedor.
 
+La clase ``UserDictionary.Words`` requiere pasar lo siguiente:
 
+* La palabra a incluir en el diccionario.
+* La frecuencia con la que pensamos que aparece, siendo 1 el valor "muy poco probable que aparezca" y el 255 el "aparece con mucha frecuencia".
+* A partir de la versión 16 de Android el programador puede, si lo desea, pasar un "atajo" es decir, una abreviatura que Android luego puede expandir automáticamente.
 
+El código siguiente ilustra como insertar un valor:
+
+.. code-block:: java
+
+    public class GestorDiccionario {
+            ContentResolver cr;
+            Uri uriDiccionario;
+            public GestorDiccionario(ContentResolver cr){
+                    this.cr=cr;
+                    uriDiccionario=android.provider.UserDictionary.Words.CONTENT_URI;
+                    Log.d("DEBUG", "La URI es:"+uriDiccionario.toString());
+            }
+            public void insertarPalabra(String palabra, String atajo){
+                    /* Este objeto "empaqueta" los valores que queremoa
+                     * insertar en una URI
+                     */
+                    ContentValues objetoValores=new ContentValues();
+                    /* La frecuencia puede ir de 1 a 255 (siendo el 255 "muy frecuente"
+                     * En principio suponemos que nuestra palabra es poco frecuente
+                     */
+                    objetoValores.put(UserDictionary.Words.FREQUENCY, 1);
+                    objetoValores.put(UserDictionary.Words.WORD, palabra);
+                    /* Los atajos solo se pueden insertar a partir
+                     * de la version 16 de Android
+                     */
+                    if (Build.VERSION.SDK_INT>=16)
+                    {
+                            objetoValores.put(UserDictionary.Words.SHORTCUT, atajo);
+                    }
+                    cr.insert(uriDiccionario, objetoValores);	
+            }	
+    }    
  
 Gestión de recursos y notificaciones.
 ------------------------------------------------------
+
+Técnicas de animación y sonido.
+------------------------------------------------------
+A partir de su versión 3 (API 11) Android ofrece una enorme variedad de posibilidades para animar elementos. Aunque se puede hacer desde código, el método recomendado es usar XML. Una animación definida en XML puede aplicarse a cualquier elemento.
+
+Una animación puede ser de tres tipos:
+
+1. Animación de un valor: elemento ``<animator>``
+2. Animación de un objeto: elemento ``<objectAnimator>``
+3. Agrupamiento de animaciones de valor o de objeto: elemento ``<set>``
+
+La animación de un valor es tan simple como esto en Java:
+
+.. code-block:: java
+
+    ValueAnimator animacion = ValueAnimator.ofInt(100,200)
+    animation.setDuration(1000);
+    animation.start();
+    
+O en XML:
+
+.. code-block:: xml
+
+    <animator android:valueFrom="100"
+        android:valueTo="200"
+        android:duration="1000">
+    </animator>
+
+Las animaciones XML se almacenarán en el directorio ``res/animator/<nombre_archivo>.xml``. Un problema es que la animación de un valor no hace nada: **hay que implementar listeners**. Si nuestra clase implementa el interfaz ``ValueAnimator.AnimatorUpdateListener`` y de él implementa el método ``onAnimationUpdate(ValueAnimator animacion)``, este método se ejecutará automáticamente cada vez que toque "mostrar un nuevo cuadro de animación". Este problema se resuelve con los ``ObjectAnimator``
+
+Ejercicio: contador
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Implementa un programa que tenga un boton y un cuadro de texto con un número. Cuando el usuario haga click en el botón el contador irá de 0 a 100. Usa animaciones de valores Java y luego hazlo con XML.
+
+
+
+
+
 Contexto gráfico. Imágenes.
 ------------------------------------------------------
 Eventos del teclado.
 ------------------------------------------------------
-Técnicas de animación y sonido.
-------------------------------------------------------
+
 Descubrimiento de servicios.
 ------------------------------------------------------
 
