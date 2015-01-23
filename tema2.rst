@@ -1304,7 +1304,7 @@ Las animaciones XML se almacenarán en el directorio ``res/animator/<nombre_arch
 Ejercicio: contador
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Implementa un programa que tenga un boton y un cuadro de texto con un número. Cuando el usuario haga click en el botón el contador irá de 0 a 100. Usa animaciones de valores Java y luego hazlo con XML.
+Implementa un programa que tenga un boton y un cuadro de texto con un número. Cuando el usuario haga click en el botón el contador irá de 0 a 100. Usa animaciones de valores con XML.
 
 
 
