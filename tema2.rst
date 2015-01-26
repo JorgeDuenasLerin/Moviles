@@ -1312,6 +1312,169 @@ Implementa un programa que tenga un boton y un cuadro de texto con un número. C
 
 Contexto gráfico. Imágenes.
 ------------------------------------------------------
+
+¿Qué es OpenGL?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Android 1.0 solo soportaba OpenGL 1.0.
+* Android 2.2 (API 11) soportaba OpenGL 2.0.
+* Android 4.3 (API 18) soportaba OpenGL 3.0.
+* Android 5.0 (API 21) soporta OpenGL 3.1.
+
+Para poder usar OpenGL el hardware debe proporcionar soporte, por lo que no todos los Android 4.4 (por ejemplo) permitirán usar gráficos OpenGL.
+
+Usando OpenGL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+En primer lugar se debe añadir al ``AndroidManifest`` esta línea, (por ejemplo, justo encima de ``<application>``):
+
+.. code-block:: xml
+    
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    
+En segundo lugar vamos a necesitar dos objetos
+
+1. En algún punto del interfaz se debe añadir un objeto de la clase ``GlSurfaceView``.Los gráficos se dibujarán en este objeto. A este objeto lo llamaremos "Superficie".
+2. Se debe programar una clase que herede de ``GLSurfaceView.Renderer``. Esta clase será la encargada de dibujar en la superficie definida antes. A este objeto lo llamaremos "Renderer".
+
+Empecemos por crear una clase Java como la que mostramos aquí. Esta será nuestra superficie:
+
+.. code-block:: java
+
+    import android.content.Context;
+    import android.opengl.GLSurfaceView;
+    import android.util.AttributeSet;
+    
+    public class VistaGL extends GLSurfaceView {
+            public VistaGL(Context context, AttributeSet attrs) {
+                    super(context);
+            }
+    }
+
+Ahora creamos el objeto encargado de realizar los dibujos:
+
+.. code-block:: java
+
+    import javax.microedition.khronos.egl.EGLConfig;
+    import javax.microedition.khronos.opengles.GL10;
+    
+    import android.opengl.GLES20;
+    import android.opengl.GLSurfaceView;
+    
+    public class Dibujador implements GLSurfaceView.Renderer {
+            @Override
+            public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+            }
+            @Override
+            public void onSurfaceChanged(GL10 gl, int ancho, int alto) {
+            }
+            @Override
+            public void onDrawFrame(GL10 gl) {
+            }
+    }
+
+Toda clase que implemente el interfaz ``GLSurfaceView.Renderer`` tiene que implementar esos tres métodos:
+
+1. El método ``onSurfaceCreated`` se ejecutará una sola vez, al crear la superficie.
+2. El método ``onSurfaceChange`` se ejecutará cuando haya algún cambio en la geometría de la superficie (habitualmente si rotamos la pantalla).
+3. El método ``onDrawFrame`` se ejecuta continuamente (será aquí donde implementemos cambios en el dibujo, animaciones etc...)
+
+Ahora hay que indicar a la superficie qué objeto se va a encargar de hacer los dibujos. Modificamos el código de la superficie:
+
+.. code-block:: java
+
+    public class VistaGL extends GLSurfaceView {
+            Dibujador dibujador;
+            public VistaGL(Context context, AttributeSet attrs) {
+                    super(context);
+                    dibujador=new Dibujador();
+                    this.setRenderer(dibujador);
+            }
+    }
+
+
+Aún no hemos añadido nada al interfaz de nuestra aplicación. Nuestra clase ``VistaGL`` puede añadirse como si fuera un control más, solo tenemos que revisar Eclipse y veremos que nuestra clase es seleccionable y se puede añadir, como si fuera un objeto predeterminado. Si no está pulsaremos el botón "Refresh".
+
+.. figure:: imagenes/nuevocontroleclipse.png
+   :figwidth: 50%  
+   :align: center
+   :alt: Contenedores Android
+   
+Dibujando algo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Nuestro "Dibujador" de momento va a hacer bastante poco. Se limitará a "borrar" la "pantalla" (nuestra vista) y rellenarla con un color cualquiera.
+
+Los colores se crean mezclando cantidades de rojo, verde y azul en cantidades que van desde 0.0f (nada de ese color) hasta 1.0f (el máximo de ese color). También hay que indicar como de transparente va a ser ese color, lo que se denomina "canal alfa" y va desde 0.0f (no es transparente) hasta 1.0f (completamente transparente).
+
+El patrón de trabajo será el siguiente:
+
+1. Cuando se cree la superficie, la borramos rellenando con un color que será el "color de fondo".
+2. Cuando la superficie se redibuje, redibujamos de acuerdo a las coordenadas que se nos indiquen. Normalmente se redibuja a partir de la coordenada (0,0), no dibujaremos nada desplazado.
+3. Cuando toque dibujar un nuevo frame, indicaremos que se redibuje lo que hubiera en el buffer (que es el color de borrado inicial).
+
+.. code-block:: java
+    
+    public class Dibujador implements GLSurfaceView.Renderer {
+            @Override
+            public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+                    GLES20.glClearColor(0.5f, 0.5f, 0.5f, 0.0f);
+            }
+            @Override
+            public void onSurfaceChanged(GL10 gl, int ancho, int alto) {
+                    GLES20.glViewport(0,0, ancho, alto);
+            }
+            @Override
+            public void onDrawFrame(GL10 gl) {
+                    
+            }
+    }
+
+Conceptos matemáticos
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Un eje de coordenadas típico sería así (imagen tomada del `sitio web Open.gl <http://open.go>`_ )
+
+.. figure:: imagenes/opengl/ejes.png
+   :figwidth: 50%  
+   :align: center
+   :alt: Ejes de coordenadas
+   
+   Ejes de coordenadas
+   
+Si quisiéramos dibujar un triángulo podríamos hacerlo de esta forma:
+
+.. figure:: imagenes/opengl/triangulo.png
+   :figwidth: 50%  
+   :align: center
+   :alt: Un triángulo dibujado
+   
+   Un triángulo dibujado
+   
+Dado que en OpenGL *todo es un triángulo* podemos pedirle al sistema que nos dibuje un triángulo como el indicado. Para ello, hay que indicar las coordenadas de cada vértice. Sin embargo, OpenGL trabaja con un sistema de coordenadas en 3D, por lo que habrá que tener en cuenta también la coordenada Z. El siguiente dibujo ayuda a ilustrar como funciona:
+
+.. figure:: imagenes/opengl/perspectiva.png
+   :figwidth: 50%  
+   :align: center
+   :alt: La perspectiva en 3D
+   
+   La perspectiva en 3D
+   
+   
+Por desgracia, aparte de la geometría, OpenGL es un sistema enormemente complejo, donde dibujar una figura requiere dar varios pasos. El siguiente dibujo (tomado de `http://www.open.gl <http://Open.gl>`_ ) ilustra el funcionamiento:
+
+.. figure:: imagenes/opengl/cauce.png
+   :figwidth: 50%  
+   :align: center
+   :alt: Un cauce OpenGL
+   
+   Un cauce OpenGL
+   
+Es decir, que dibujar un gráfico completo puede implicar estos pasos
+
+1. Indicar los vértices
+2. Indicar las líneas que lo componen.
+3. Indicar 
+
 Eventos del teclado.
 ------------------------------------------------------
 

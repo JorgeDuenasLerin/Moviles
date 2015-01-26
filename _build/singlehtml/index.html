@@ -1882,6 +1882,131 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 </div>
 <div class="section" id="contexto-grafico-imagenes">
 <h3>Contexto gráfico. Imágenes.<a class="headerlink" href="#contexto-grafico-imagenes" title="Enlazar permanentemente con este título">¶</a></h3>
+<div class="section" id="que-es-opengl">
+<h4>¿Qué es OpenGL?<a class="headerlink" href="#que-es-opengl" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li>Android 1.0 solo soportaba OpenGL 1.0.</li>
+<li>Android 2.2 (API 11) soportaba OpenGL 2.0.</li>
+<li>Android 4.3 (API 18) soportaba OpenGL 3.0.</li>
+<li>Android 5.0 (API 21) soporta OpenGL 3.1.</li>
+</ul>
+<p>Para poder usar OpenGL el hardware debe proporcionar soporte, por lo que no todos los Android 4.4 (por ejemplo) permitirán usar gráficos OpenGL.</p>
+</div>
+<div class="section" id="usando-opengl">
+<h4>Usando OpenGL<a class="headerlink" href="#usando-opengl" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>En primer lugar se debe añadir al <tt class="docutils literal"><span class="pre">AndroidManifest</span></tt> esta línea, (por ejemplo, justo encima de <tt class="docutils literal"><span class="pre">&lt;application&gt;</span></tt>):</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;uses-feature</span> <span class="na">android:glEsVersion=</span><span class="s">&quot;0x00020000&quot;</span> <span class="na">android:required=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>En segundo lugar vamos a necesitar dos objetos</p>
+<ol class="arabic simple">
+<li>En algún punto del interfaz se debe añadir un objeto de la clase <tt class="docutils literal"><span class="pre">GlSurfaceView</span></tt>.Los gráficos se dibujarán en este objeto. A este objeto lo llamaremos &#8220;Superficie&#8221;.</li>
+<li>Se debe programar una clase que herede de <tt class="docutils literal"><span class="pre">GLSurfaceView.Renderer</span></tt>. Esta clase será la encargada de dibujar en la superficie definida antes. A este objeto lo llamaremos &#8220;Renderer&#8221;.</li>
+</ol>
+<p>Empecemos por crear una clase Java como la que mostramos aquí. Esta será nuestra superficie:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">android.content.Context</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.opengl.GLSurfaceView</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.util.AttributeSet</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VistaGL</span> <span class="kd">extends</span> <span class="n">GLSurfaceView</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nf">VistaGL</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Ahora creamos el objeto encargado de realizar los dibujos:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">javax.microedition.khronos.egl.EGLConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.microedition.khronos.opengles.GL10</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">android.opengl.GLES20</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.opengl.GLSurfaceView</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dibujador</span> <span class="kd">implements</span> <span class="n">GLSurfaceView</span><span class="o">.</span><span class="na">Renderer</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSurfaceCreated</span><span class="o">(</span><span class="n">GL10</span> <span class="n">gl</span><span class="o">,</span> <span class="n">EGLConfig</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSurfaceChanged</span><span class="o">(</span><span class="n">GL10</span> <span class="n">gl</span><span class="o">,</span> <span class="kt">int</span> <span class="n">ancho</span><span class="o">,</span> <span class="kt">int</span> <span class="n">alto</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDrawFrame</span><span class="o">(</span><span class="n">GL10</span> <span class="n">gl</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Toda clase que implemente el interfaz <tt class="docutils literal"><span class="pre">GLSurfaceView.Renderer</span></tt> tiene que implementar esos tres métodos:</p>
+<ol class="arabic simple">
+<li>El método <tt class="docutils literal"><span class="pre">onSurfaceCreated</span></tt> se ejecutará una sola vez, al crear la superficie.</li>
+<li>El método <tt class="docutils literal"><span class="pre">onSurfaceChange</span></tt> se ejecutará cuando haya algún cambio en la geometría de la superficie (habitualmente si rotamos la pantalla).</li>
+<li>El método <tt class="docutils literal"><span class="pre">onDrawFrame</span></tt> se ejecuta continuamente (será aquí donde implementemos cambios en el dibujo, animaciones etc...)</li>
+</ol>
+<p>Ahora hay que indicar a la superficie qué objeto se va a encargar de hacer los dibujos. Modificamos el código de la superficie:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">VistaGL</span> <span class="kd">extends</span> <span class="n">GLSurfaceView</span> <span class="o">{</span>
+        <span class="n">Dibujador</span> <span class="n">dibujador</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nf">VistaGL</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+                <span class="n">dibujador</span><span class="o">=</span><span class="k">new</span> <span class="n">Dibujador</span><span class="o">();</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">setRenderer</span><span class="o">(</span><span class="n">dibujador</span><span class="o">);</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Aún no hemos añadido nada al interfaz de nuestra aplicación. Nuestra clase <tt class="docutils literal"><span class="pre">VistaGL</span></tt> puede añadirse como si fuera un control más, solo tenemos que revisar Eclipse y veremos que nuestra clase es seleccionable y se puede añadir, como si fuera un objeto predeterminado. Si no está pulsaremos el botón &#8220;Refresh&#8221;.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="Contenedores Android" src="_images/nuevocontroleclipse.png" />
+</div>
+</div>
+<div class="section" id="dibujando-algo">
+<h4>Dibujando algo<a class="headerlink" href="#dibujando-algo" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Nuestro &#8220;Dibujador&#8221; de momento va a hacer bastante poco. Se limitará a &#8220;borrar&#8221; la &#8220;pantalla&#8221; (nuestra vista) y rellenarla con un color cualquiera.</p>
+<p>Los colores se crean mezclando cantidades de rojo, verde y azul en cantidades que van desde 0.0f (nada de ese color) hasta 1.0f (el máximo de ese color). También hay que indicar como de transparente va a ser ese color, lo que se denomina &#8220;canal alfa&#8221; y va desde 0.0f (no es transparente) hasta 1.0f (completamente transparente).</p>
+<p>El patrón de trabajo será el siguiente:</p>
+<ol class="arabic simple">
+<li>Cuando se cree la superficie, la borramos rellenando con un color que será el &#8220;color de fondo&#8221;.</li>
+<li>Cuando la superficie se redibuje, redibujamos de acuerdo a las coordenadas que se nos indiquen. Normalmente se redibuja a partir de la coordenada (0,0), no dibujaremos nada desplazado.</li>
+<li>Cuando toque dibujar un nuevo frame, indicaremos que se redibuje lo que hubiera en el buffer (que es el color de borrado inicial).</li>
+</ol>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dibujador</span> <span class="kd">implements</span> <span class="n">GLSurfaceView</span><span class="o">.</span><span class="na">Renderer</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSurfaceCreated</span><span class="o">(</span><span class="n">GL10</span> <span class="n">gl</span><span class="o">,</span> <span class="n">EGLConfig</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">GLES20</span><span class="o">.</span><span class="na">glClearColor</span><span class="o">(</span><span class="mf">0.5f</span><span class="o">,</span> <span class="mf">0.5f</span><span class="o">,</span> <span class="mf">0.5f</span><span class="o">,</span> <span class="mf">0.0f</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSurfaceChanged</span><span class="o">(</span><span class="n">GL10</span> <span class="n">gl</span><span class="o">,</span> <span class="kt">int</span> <span class="n">ancho</span><span class="o">,</span> <span class="kt">int</span> <span class="n">alto</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">GLES20</span><span class="o">.</span><span class="na">glViewport</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span> <span class="n">ancho</span><span class="o">,</span> <span class="n">alto</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDrawFrame</span><span class="o">(</span><span class="n">GL10</span> <span class="n">gl</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conceptos-matematicos">
+<h4>Conceptos matemáticos<a class="headerlink" href="#conceptos-matematicos" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Un eje de coordenadas típico sería así (imagen tomada del <a class="reference external" href="http://open.go">sitio web Open.gl</a> )</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="Ejes de coordenadas" src="_images/ejes.png" />
+<p class="caption">Ejes de coordenadas</p>
+</div>
+<p>Si quisiéramos dibujar un triángulo podríamos hacerlo de esta forma:</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="Un triángulo dibujado" src="_images/triangulo.png" />
+<p class="caption">Un triángulo dibujado</p>
+</div>
+<p>Dado que en OpenGL <em>todo es un triángulo</em> podemos pedirle al sistema que nos dibuje un triángulo como el indicado. Para ello, hay que indicar las coordenadas de cada vértice. Sin embargo, OpenGL trabaja con un sistema de coordenadas en 3D, por lo que habrá que tener en cuenta también la coordenada Z. El siguiente dibujo ayuda a ilustrar como funciona:</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="La perspectiva en 3D" src="_images/perspectiva.png" />
+<p class="caption">La perspectiva en 3D</p>
+</div>
+<p>Por desgracia, aparte de la geometría, OpenGL es un sistema enormemente complejo, donde dibujar una figura requiere dar varios pasos. El siguiente dibujo (tomado de <a class="reference external" href="http://Open.gl">http://www.open.gl</a> ) ilustra el funcionamiento:</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="Un cauce OpenGL" src="_images/cauce.png" />
+<p class="caption">Un cauce OpenGL</p>
+</div>
+</div>
 </div>
 <div class="section" id="eventos-del-teclado">
 <h3>Eventos del teclado.<a class="headerlink" href="#eventos-del-teclado" title="Enlazar permanentemente con este título">¶</a></h3>
