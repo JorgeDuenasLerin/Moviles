@@ -1308,7 +1308,163 @@ Implementa un programa que tenga un boton y un cuadro de texto con un número. C
 
 
 
+Imagenes y fotos
+------------------------------------------------------
 
+En primer lugar, para usar la cámara deberemos añadir esto al ``AndroidManifest.xml``. Si estamos probando nuestros programas con un emulador también debemos asegurarnos de que el emulador tiene una, aunque sea emulada. También es posible que el emulador exija disponer de una tarjeta SD, por lo que pondremos una (y también daremos el permiso ``WRITE_EXTERNAL_STORAGE``). El código para el ``AndroidManifest.xml`` es este.
+
+.. code-block:: xml
+
+    <uses-feature android:name="android.hardware.camera"
+                  android:required="true" />
+    <uses-sdk...
+
+Esto hará que la aplicación solo se pueda utilizar en dispositivos que tengan cámara (la mayoría). Dado que Android permite "reutilizar" trabajo mediante los ``Intent`` lo que haremos será lanzar la aplicación de cámara, la cual nos devolverá una imagen. El objetivo final es insertar la imagen tomada dentro de un control ``ImageView``, que permite cargar gráficos.
+
+El código es más o menos el siguiente:
+
+.. code-block:: java
+
+    Uri uriAlmacenado;
+    public void tomarFoto(View control) throws IOException{
+        int CODIGO_PETICION_FOTO=10;
+        
+        /* Actividad que pretendemos lanzar*/
+        Intent intento=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        /* Obtenemos un "gestor de paquetes" que
+         * nos pueda decir si hay software de 
+         * captura de fotos
+         */
+        PackageManager gestorPaquetes=
+                        this.getPackageManager();
+        if (intento.resolveActivity(gestorPaquetes)==null){
+                /* !No hay software de captura!*/
+                return ;
+        }
+        /* Averiguamos el directorio donde guardar las fotos*/
+        File directorio=
+                        Environment.getExternalStoragePublicDirectory(
+                                        Environment.DIRECTORY_PICTURES);
+        /* Si ya existía lo sobreescribiremos*/
+        String nombreArchivo="fotodeprueba";
+        ficheroTemp=File.createTempFile(
+                        nombreArchivo,".jpg",
+                        directorio);
+        
+        String ruta="file:"+ficheroTemp.getAbsolutePath();
+        uriAlmacenado=Uri.fromFile(ficheroTemp);
+        intento.putExtra(
+                        MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(ficheroTemp)
+        );
+        /* Si llegamos aquí es porque se puede
+         * tomar una foto. Lanzamos la actividad */
+        this.startActivityForResult(
+                        intento, CODIGO_PETICION_FOTO);
+    }
+
+    @Override
+    protected void onActivityResult(int codigo_pet, 
+                    int codigo_resultado, Intent intento) {
+            if ((codigo_pet==10) && (codigo_resultado==RESULT_OK) ){
+                    ImageView controlImagen;
+                    controlImagen=(ImageView) findViewById(R.id.imgFotoTomada);
+                    
+                    String ruta=uriAlmacenado.getPath();
+                    Bitmap imagen=BitmapFactory.decodeFile(ruta);
+                    controlImagen.setImageBitmap(imagen);
+                    Toast.makeText(this, "Imagen tomada", Toast.LENGTH_SHORT).show();
+            }
+            ficheroTemp.delete();
+            
+public void tomarFoto(View control) throws IOException{
+		int CODIGO_PETICION_FOTO=10;
+		
+		/* Actividad que pretendemos lanzar*/
+		Intent intento=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		/* Obtenemos un "gestor de paquetes" que
+		 * nos pueda decir si hay software de 
+		 * captura de fotos
+		 */
+		PackageManager gestorPaquetes=
+				this.getPackageManager();
+		if (intento.resolveActivity(gestorPaquetes)==null){
+			/* !No hay software de captura!*/
+			return ;
+		}
+		/* Averiguamos el directorio donde guardar las fotos*/
+		File directorio=
+				Environment.getExternalStoragePublicDirectory(
+						Environment.DIRECTORY_PICTURES);
+		/* Si ya existía lo sobreescribiremos*/
+		String nombreArchivo="fotodeprueba";
+		ficheroTemp=File.createTempFile(
+				nombreArchivo,".jpg",
+				directorio);
+		
+		String ruta="file:"+ficheroTemp.getAbsolutePath();
+		uriAlmacenado=Uri.fromFile(ficheroTemp);
+		intento.putExtra(
+				MediaStore.EXTRA_OUTPUT,
+				Uri.fromFile(ficheroTemp)
+		);
+		/* Si llegamos aquí es porque se puede
+		 * tomar una foto. Lanzamos la actividad */
+		this.startActivityForResult(
+				intento, CODIGO_PETICION_FOTO);
+	}
+
+	@Override
+	protected void onActivityResult(int codigo_pet, 
+			int codigo_resultado, Intent intento) {
+		if ((codigo_pet==10) && (codigo_resultado==RESULT_OK) ){
+			ImageView controlImagen;
+			controlImagen=(ImageView) findViewById(R.id.imgFotoTomada);
+			
+			String ruta=uriAlmacenado.getPath();
+			Bitmap imagen=BitmapFactory.decodeFile(ruta);
+			controlImagen.setImageBitmap(imagen);
+			Toast.makeText(this, "Imagen tomada", Toast.LENGTH_SHORT).show();
+		}
+		ficheroTemp.delete();
+	}
+    }
+    
+Es importante saber lo siguiente:
+
+* El fichero siempre tiene el mismo nombre, así que nos arriesgamos a sobreescribir el fichero. De todas formas no es algo demasiado importante, ya que el fichero se guarda automáticamente en la galería. Sin embargo, si deseamos crear varios ficheros seguidos habría que utilizar algún sistema para no tener siempre el mismo nombre (tal vez algo como "foto1", "foto2", etc...)
+* El emulador falla a menudo: es recomendable crear uno desde cero que tenga la camara (emulada al menos) y que tenga una tarjeta SD.
+* No hay que olvidar activar los permisos.
+* Es responsabilidad del programador saber cuales son sus archivos (tal vez apuntanto sus nombres en una base de datos).
+* Cargar imágenes consume mucha memoria y a veces demasiada, lo que puede dar lugar a excepciones. Se puede mejorar mucho el consumo cargando una imagen escalada. Averigua como hacerlo (Pista: usa ``BitmapOptions``).
+
+Vídeos
+------------------------------------------------------
+
+El proceso de captura de vídeos es bastante parecido. Un nuevo control que usaremos en este punto es ``VideoView`` que permite mostrar vídeo en pantalla. Además, los vídeos van por defecto a la galería por lo que no es necesario indicar tantos parámetros como con las fotos. El código sería más o menos así:
+
+.. code-block:: java
+
+    public void capturarVideo(View control){
+        Intent intento=new Intent
+                        (MediaStore.ACTION_VIDEO_CAPTURE);
+        startActivityForResult(intento, 20);
+    }
+
+    @Override
+    protected void onActivityResult(int peticion, 
+        int respuesta, Intent intento) {
+        // TODO Auto-generated method stub
+        if (peticion==20){
+                if (respuesta==RESULT_OK){
+                        Uri video=intento.getData();
+                        VideoView vid=
+                                        (VideoView) findViewById(R.id.vidMuestra);
+                        vid.setVideoURI(video);
+                        vid.start();
+                }
+        }
+    }    
 
 Contexto gráfico. Imágenes.
 ------------------------------------------------------
