@@ -1306,7 +1306,64 @@ Ejercicio: contador
 
 Implementa un programa que tenga un boton y un cuadro de texto con un número. Cuando el usuario haga click en el botón el contador irá de 0 a 100. Usa animaciones de valores con XML.
 
+La solución pasa por dar los siguientes pasos:
 
+1. Crear el XML que defina la animación.
+2. En algún punto del código "inflarla" (crear un objeto a partir del XML) e indicar un objeto que reciba las actualizaciones en la animación (un objeto que implemente el interfaz ``AnimatorUpdateListener``.
+3. Indicar en una clase el ``implements AnimatorUpdateListener``
+4. Implementar el método ``onAnimationUpdate``.
+
+
+Fabriquemos el XML
+
+.. code-block:: xml
+
+	<?xml version="1.0" encoding="utf-8"?>
+	<animator 
+		xmlns:android="http://schemas.android.com/apk/res/android" 
+		android:valueFrom="0"
+		android:valueTo="100"
+		android:valueType="intType"
+		android:duration="1500"
+		> 
+	</animator>
+   
+La animación se "infla" así:
+
+.. code-block:: java
+
+	public void animarNumero(View control){
+		Toast mensaje=Toast.makeText(this, 
+				"Boton pulsado", Toast.LENGTH_SHORT);
+		mensaje.show();
+		if (Build.VERSION.SDK_INT>=11){
+			ValueAnimator animador=
+				(ValueAnimator) 
+					AnimatorInflater.loadAnimator
+						(
+						this, R.animator.animador_contador
+					);
+		animador.addUpdateListener(this);
+		animador.start();
+	}	
+
+Al comienzo de nuestra clase pondremos 
+.. code-block:: java
+
+	implements AnimatorUpdateListener
+	
+E implementaremos el método siguiente:
+
+.. code-block:: java
+
+	public void onAnimationUpdate(
+			ValueAnimator animador) {
+		Integer valorActual=(Integer) 
+				animador.getAnimatedValue();
+		txtNumero.setText(
+			valorActual.toString()
+		);		
+	}
 
 Imagenes y fotos
 ------------------------------------------------------
