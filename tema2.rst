@@ -1495,6 +1495,48 @@ Es importante saber lo siguiente:
 * Es responsabilidad del programador saber cuales son sus archivos (tal vez apuntanto sus nombres en una base de datos).
 * Cargar imágenes consume mucha memoria y a veces demasiada, lo que puede dar lugar a excepciones. Se puede mejorar mucho el consumo cargando una imagen escalada. Averigua como hacerlo (Pista: usa ``BitmapOptions``).
 
+
+Solución al escalado
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Por desgracia al cargar una imagen es muy posible que obtengamos un error, ya que las imágenes suelen consumir muchísima memoria. Por ello, antes de cargar una imagen usaremos objetos del tipo ``BitmapFactory.Option`` en la cual haremos un *preprocesado*.
+
+Este preprocesado consistirá en averiguar el tamaño de la imagen y compararlo con el tamaño del control donde queremos insertar la imagen. Como normalmente el control será mucho más pequeño solicitaremos a Android que cargue una imagen **a escala** lo que reduce muchísimo el consumo de RAM.
+
+El código es más o menos el siguiente:
+
+.. code-block:: java
+
+	private Bitmap cargarImagen(String rutaFoto) {
+		Bitmap imagen=null;
+		BitmapFactory.Options opciones;
+		opciones=new BitmapFactory.Options();
+		/* Activamos el cálculo del tamaño para
+		 * poder trabajar antes de cargar
+		 */
+		opciones.inJustDecodeBounds=true;
+		/* Esto todavía no carga la imagen*/
+		BitmapFactory.decodeFile(rutaFoto, opciones);
+		/* Averiguamos la anchura y altura*/
+		int altura=opciones.outHeight;
+		int anchura=opciones.outWidth;
+		String mensaje="Ancho:"+anchura+
+				" altura:"+altura;
+		ImageView img=(ImageView) 
+				this.findViewById(R.id.imageView1);
+		/* Calculamos una escala de reducción (ojo, esto es muy aproximado)*/
+		int escala=Math.round(
+				anchura/img.getWidth() 
+				);
+		/* Y ahora sí cargamos la imagen*/
+		opciones.inSampleSize=escala;
+		opciones.inJustDecodeBounds=false;
+		imagen=BitmapFactory.decodeFile(
+				rutaFoto, opciones);
+		img.setImageBitmap(imagen);
+		return imagen;
+	}	
+
 Vídeos
 ------------------------------------------------------
 

@@ -2081,6 +2081,43 @@ ficheroTemp.delete();</p>
 <li>Es responsabilidad del programador saber cuales son sus archivos (tal vez apuntanto sus nombres en una base de datos).</li>
 <li>Cargar imágenes consume mucha memoria y a veces demasiada, lo que puede dar lugar a excepciones. Se puede mejorar mucho el consumo cargando una imagen escalada. Averigua como hacerlo (Pista: usa <tt class="docutils literal"><span class="pre">BitmapOptions</span></tt>).</li>
 </ul>
+<div class="section" id="solucion-al-escalado">
+<h4>Solución al escalado<a class="headerlink" href="#solucion-al-escalado" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Por desgracia al cargar una imagen es muy posible que obtengamos un error, ya que las imágenes suelen consumir muchísima memoria. Por ello, antes de cargar una imagen usaremos objetos del tipo <tt class="docutils literal"><span class="pre">BitmapFactory.Option</span></tt> en la cual haremos un <em>preprocesado</em>.</p>
+<p>Este preprocesado consistirá en averiguar el tamaño de la imagen y compararlo con el tamaño del control donde queremos insertar la imagen. Como normalmente el control será mucho más pequeño solicitaremos a Android que cargue una imagen <strong>a escala</strong> lo que reduce muchísimo el consumo de RAM.</p>
+<p>El código es más o menos el siguiente:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="n">Bitmap</span> <span class="nf">cargarImagen</span><span class="o">(</span><span class="n">String</span> <span class="n">rutaFoto</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Bitmap</span> <span class="n">imagen</span><span class="o">=</span><span class="kc">null</span><span class="o">;</span>
+        <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span> <span class="n">opciones</span><span class="o">;</span>
+        <span class="n">opciones</span><span class="o">=</span><span class="k">new</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span><span class="o">();</span>
+        <span class="cm">/* Activamos el cálculo del tamaño para</span>
+<span class="cm">         * poder trabajar antes de cargar</span>
+<span class="cm">         */</span>
+        <span class="n">opciones</span><span class="o">.</span><span class="na">inJustDecodeBounds</span><span class="o">=</span><span class="kc">true</span><span class="o">;</span>
+        <span class="cm">/* Esto todavía no carga la imagen*/</span>
+        <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeFile</span><span class="o">(</span><span class="n">rutaFoto</span><span class="o">,</span> <span class="n">opciones</span><span class="o">);</span>
+        <span class="cm">/* Averiguamos la anchura y altura*/</span>
+        <span class="kt">int</span> <span class="n">altura</span><span class="o">=</span><span class="n">opciones</span><span class="o">.</span><span class="na">outHeight</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">anchura</span><span class="o">=</span><span class="n">opciones</span><span class="o">.</span><span class="na">outWidth</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">mensaje</span><span class="o">=</span><span class="s">&quot;Ancho:&quot;</span><span class="o">+</span><span class="n">anchura</span><span class="o">+</span>
+                        <span class="s">&quot; altura:&quot;</span><span class="o">+</span><span class="n">altura</span><span class="o">;</span>
+        <span class="n">ImageView</span> <span class="n">img</span><span class="o">=(</span><span class="n">ImageView</span><span class="o">)</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">imageView1</span><span class="o">);</span>
+        <span class="cm">/* Calculamos una escala de reducción (ojo, esto es muy aproximado)*/</span>
+        <span class="kt">int</span> <span class="n">escala</span><span class="o">=</span><span class="n">Math</span><span class="o">.</span><span class="na">round</span><span class="o">(</span>
+                        <span class="n">anchura</span><span class="o">/</span><span class="n">img</span><span class="o">.</span><span class="na">getWidth</span><span class="o">()</span>
+                        <span class="o">);</span>
+        <span class="cm">/* Y ahora sí cargamos la imagen*/</span>
+        <span class="n">opciones</span><span class="o">.</span><span class="na">inSampleSize</span><span class="o">=</span><span class="n">escala</span><span class="o">;</span>
+        <span class="n">opciones</span><span class="o">.</span><span class="na">inJustDecodeBounds</span><span class="o">=</span><span class="kc">false</span><span class="o">;</span>
+        <span class="n">imagen</span><span class="o">=</span><span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeFile</span><span class="o">(</span>
+                        <span class="n">rutaFoto</span><span class="o">,</span> <span class="n">opciones</span><span class="o">);</span>
+        <span class="n">img</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">imagen</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">imagen</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="videos">
 <h3>Vídeos<a class="headerlink" href="#videos" title="Enlazar permanentemente con este título">¶</a></h3>

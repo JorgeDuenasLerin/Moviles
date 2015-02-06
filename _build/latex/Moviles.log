@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.24)  3 FEB 2015 13:13
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.24)  6 FEB 2015 09:52
 entering extended mode
 **Moviles.tex
 (D:\oscar\Moviles\_build\latex\Moviles.tex
@@ -1381,94 +1381,94 @@ Underfull \hbox (badness 7379) in paragraph at lines 2813--2817
 \T1/ptm/m/n/12 gen.setImageBitmap(imagen); Toast.makeText(this, ``Ima-gen
  []
 
-[65] [66] <nuevocontroleclipse.png, id=953, 483.8075pt x 357.335pt>
+[65] [66] [67] <nuevocontroleclipse.png, id=959, 483.8075pt x 357.335pt>
 File: nuevocontroleclipse.png Graphic file (type png)
 
 <use nuevocontroleclipse.png>
-Package pdftex.def Info: nuevocontroleclipse.png used on input line 2985.
+Package pdftex.def Info: nuevocontroleclipse.png used on input line 3026.
 (pdftex.def)             Requested size: 483.80632pt x 357.33412pt.
 File: nuevocontroleclipse.png Graphic file (type png)
  <use nuevocontroleclipse.png>
-Package pdftex.def Info: nuevocontroleclipse.png used on input line 2985.
+Package pdftex.def Info: nuevocontroleclipse.png used on input line 3026.
 (pdftex.def)             Requested size: 452.96788pt x 334.56999pt.
- [67] [68 <D:/oscar/Moviles/_build/latex/nuevocontroleclipse.png (PNG copy)>]
-<ejes.png, id=970, 301.125pt x 175.65625pt>
+ [68] [69 <D:/oscar/Moviles/_build/latex/nuevocontroleclipse.png (PNG copy)>]
+<ejes.png, id=976, 301.125pt x 175.65625pt>
 File: ejes.png Graphic file (type png)
  <use ejes.png>
-Package pdftex.def Info: ejes.png used on input line 3033.
+Package pdftex.def Info: ejes.png used on input line 3074.
 (pdftex.def)             Requested size: 301.12425pt x 175.6558pt.
 File: ejes.png Graphic file (type png)
  <use ejes.png>
-Package pdftex.def Info: ejes.png used on input line 3033.
+Package pdftex.def Info: ejes.png used on input line 3074.
 (pdftex.def)             Requested size: 301.12425pt x 175.6558pt.
 
-<triangulo.png, id=971, 301.125pt x 175.65625pt>
+<triangulo.png, id=977, 301.125pt x 175.65625pt>
 File: triangulo.png Graphic file (type png)
  <use triangulo.png>
-Package pdftex.def Info: triangulo.png used on input line 3041.
+Package pdftex.def Info: triangulo.png used on input line 3082.
 (pdftex.def)             Requested size: 301.12425pt x 175.6558pt.
 File: triangulo.png Graphic file (type png)
 
 <use triangulo.png>
-Package pdftex.def Info: triangulo.png used on input line 3041.
+Package pdftex.def Info: triangulo.png used on input line 3082.
 (pdftex.def)             Requested size: 301.12425pt x 175.6558pt.
- <perspectiva.png, id=972, 425.59pt x 357.335pt>
+ <perspectiva.png, id=978, 425.59pt x 357.335pt>
 File: perspectiva.png Graphic file (type png)
 
 <use perspectiva.png>
-Package pdftex.def Info: perspectiva.png used on input line 3049.
+Package pdftex.def Info: perspectiva.png used on input line 3090.
 (pdftex.def)             Requested size: 425.58894pt x 357.33412pt.
 File: perspectiva.png Graphic file (type png)
  <use perspectiva.png>
-Package pdftex.def Info: perspectiva.png used on input line 3049.
+Package pdftex.def Info: perspectiva.png used on input line 3090.
 (pdftex.def)             Requested size: 425.58894pt x 357.33412pt.
-
-<cauce.png, id=974, 748.7975pt x 381.425pt>
+ [70 <D:/oscar/Moviles/_build/latex/ejes.png> <D:/oscar/Moviles/_build/latex/tr
+iangulo.png>]
+<cauce.png, id=987, 748.7975pt x 381.425pt>
 File: cauce.png Graphic file (type png)
  <use cauce.png>
-Package pdftex.def Info: cauce.png used on input line 3057.
+Package pdftex.def Info: cauce.png used on input line 3098.
 (pdftex.def)             Requested size: 748.79567pt x 381.42406pt.
 File: cauce.png Graphic file (type png)
  <use cauce.png>
-Package pdftex.def Info: cauce.png used on input line 3057.
+Package pdftex.def Info: cauce.png used on input line 3098.
 (pdftex.def)             Requested size: 452.96788pt x 230.73663pt.
 
-[69 <D:/oscar/Moviles/_build/latex/ejes.png>] [70 <D:/oscar/Moviles/_build/late
-x/triangulo.png> <D:/oscar/Moviles/_build/latex/perspectiva.png>] [71 <D:/oscar
-/Moviles/_build/latex/cauce.png>] [72]
-Cap\'{\i }tulo 3.
-[73
+[71 <D:/oscar/Moviles/_build/latex/perspectiva.png>] [72 <D:/oscar/Moviles/_bui
+ld/latex/cauce.png>] [73] [74
 
-] [74
+]
+Cap\'{\i }tulo 3.
+[75] [76
 
 ]
 Cap\'{\i }tulo 4.
-[75]
+[77]
 Overfull \vbox (31.51228pt too high) has occurred while \output is active []
 
 
-[76]
+[78]
 Cap\'{\i }tulo 5.
 (D:\oscar\Moviles\_build\latex\Moviles.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3197.
- [77
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3238.
+ [79
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 3197.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 3238.
 
 (D:\oscar\Moviles\_build\latex\Moviles.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3197.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3197.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3238.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3238.
 
 Package rerunfilecheck Info: File `Moviles.out' has not changed.
 (rerunfilecheck)             Checksum: 303929B3F7FE6E2C4387BAB2911D4A22;7999.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3197.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3238.
  ) 
 Here is how much of TeX's memory you used:
- 9929 strings out of 493921
- 140477 string characters out of 3144876
- 237961 words of memory out of 3000000
- 12623 multiletter control sequences out of 15000+200000
+ 9933 strings out of 493921
+ 140536 string characters out of 3144876
+ 238019 words of memory out of 3000000
+ 12624 multiletter control sequences out of 15000+200000
  73919 words of font info for 89 fonts, out of 3000000 for 9000
  842 hyphenation exceptions out of 8191
  39i,12n,51p,725b,629s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1480,9 +1480,9 @@ onts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
 e1/urw/helvetic/uhvbo8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/
 times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8
 a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Moviles.pdf (83 pages, 1331444 bytes).
+Output written on Moviles.pdf (85 pages, 1335661 bytes).
 PDF statistics:
- 1117 PDF objects out of 1200 (max. 8388607)
- 301 named destinations out of 1000 (max. 500000)
+ 1127 PDF objects out of 1200 (max. 8388607)
+ 304 named destinations out of 1000 (max. 500000)
  958 words of extra memory for PDF output out of 10000 (max. 10000000)
 
