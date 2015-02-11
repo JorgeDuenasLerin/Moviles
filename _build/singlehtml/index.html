@@ -2145,6 +2145,20 @@ ficheroTemp.delete();</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="localizacion">
+<h3>Localización<a class="headerlink" href="#localizacion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A la hora de usar servicios de localización, Android ofrece dos posibilidades:</p>
+<ol class="arabic simple">
+<li>Cálculo de localización basado en la red: la posición puede ser menos exacta, pero se consume mucha menos batería.</li>
+<li>Cálculo basado en las coordenadas GPS: es mucho más preciso pero la batería se agota más rápidamente.</li>
+</ol>
+<p>La clave para acceder al servicio está en lo siguiente:</p>
+<ul class="simple">
+<li>Objeto <tt class="docutils literal"><span class="pre">LocationManager</span></tt>, se obtiene llamando a <tt class="docutils literal"><span class="pre">getSystemService</span></tt></li>
+<li>Interfaz <tt class="docutils literal"><span class="pre">LocationListener</span></tt>: es el que deben respetar los objetos que esperen ser avisados de cambios en la posición.</li>
+<li>Proveedores disponibles: el terminal puede tener la posibilidad de acceder a coordenadas</li>
+</ul>
+</div>
 <div class="section" id="contexto-grafico-imagenes">
 <h3>Contexto gráfico. Imágenes.<a class="headerlink" href="#contexto-grafico-imagenes" title="Enlazar permanentemente con este título">¶</a></h3>
 <div class="section" id="que-es-opengl">
@@ -2471,6 +2485,7 @@ ficheroTemp.delete();</p>
 <li class="toctree-l2"><a class="reference internal" href="index.html#tecnicas-de-animacion-y-sonido">Técnicas de animación y sonido.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#imagenes-y-fotos">Imagenes y fotos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#videos">Vídeos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#localizacion">Localización</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#contexto-grafico-imagenes">Contexto gráfico. Imágenes.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#eventos-del-teclado">Eventos del teclado.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#descubrimiento-de-servicios">Descubrimiento de servicios.</a></li>

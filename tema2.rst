@@ -1565,6 +1565,24 @@ El proceso de captura de vídeos es bastante parecido. Un nuevo control que usar
         }
     }    
 
+	
+Localización
+------------------------------------------------------
+
+
+A la hora de usar servicios de localización, Android ofrece dos posibilidades:
+
+1. Cálculo de localización basado en la red: la posición puede ser menos exacta, pero se consume mucha menos batería.
+
+2. Cálculo basado en las coordenadas GPS: es mucho más preciso pero la batería se agota más rápidamente.
+
+La clave para acceder al servicio está en lo siguiente:
+
+* Objeto ``LocationManager``, se obtiene llamando a ``getSystemService``
+* Interfaz ``LocationListener``: es el que deben respetar los objetos que esperen ser avisados de cambios en la posición.
+* Proveedores disponibles: el terminal puede tener la posibilidad de acceder a coordenadas
+	
+	
 Contexto gráfico. Imágenes.
 ------------------------------------------------------
 

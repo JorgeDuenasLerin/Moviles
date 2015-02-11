@@ -56,44 +56,45 @@
 \BOOKMARK [1][-]{section.2.19}{T\351cnicas de animaci\363n y sonido.}{chapter.2}% 56
 \BOOKMARK [1][-]{section.2.20}{Imagenes y fotos}{chapter.2}% 57
 \BOOKMARK [1][-]{section.2.21}{V\355deos}{chapter.2}% 58
-\BOOKMARK [1][-]{section.2.22}{Contexto gr\341fico. Im\341genes.}{chapter.2}% 59
-\BOOKMARK [1][-]{section.2.23}{Eventos del teclado.}{chapter.2}% 60
-\BOOKMARK [1][-]{section.2.24}{Descubrimiento de servicios.}{chapter.2}% 61
-\BOOKMARK [1][-]{section.2.25}{Persistencia.}{chapter.2}% 62
-\BOOKMARK [1][-]{section.2.26}{Modelo de hilos.}{chapter.2}% 63
-\BOOKMARK [1][-]{section.2.27}{Comunicaciones: clases asociadas. Tipos de conexiones.}{chapter.2}% 64
-\BOOKMARK [1][-]{section.2.28}{Gesti\363n de la comunicaci\363n inal\341mbrica.}{chapter.2}% 65
-\BOOKMARK [1][-]{section.2.29}{Seguridad y permisos.}{chapter.2}% 66
-\BOOKMARK [1][-]{section.2.30}{Env\355o y recepci\363n de mensajes texto.}{chapter.2}% 67
-\BOOKMARK [1][-]{section.2.31}{Env\355o y recepci\363n de mensajer\355a multimedia. Sincronizaci\363n de contenido.}{chapter.2}% 68
-\BOOKMARK [1][-]{section.2.32}{Manejo de conexiones HTTP y HTTPS.}{chapter.2}% 69
-\BOOKMARK [1][-]{section.2.33}{Empaquetado y despliegue de aplicaciones para dispositivos m\363viles.}{chapter.2}% 70
-\BOOKMARK [1][-]{section.2.34}{Centros de distribuci\363n de aplicaciones.}{chapter.2}% 71
-\BOOKMARK [1][-]{section.2.35}{Documentaci\363n de aplicaciones de dispositivos m\363viles.}{chapter.2}% 72
-\BOOKMARK [0][-]{chapter.3}{An\341lisis de motores de juegos}{}% 73
-\BOOKMARK [1][-]{section.3.1}{Animaci\363n 2D y 3D.}{chapter.3}% 74
-\BOOKMARK [1][-]{section.3.2}{Arquitectura del juego. Componentes.}{chapter.3}% 75
-\BOOKMARK [1][-]{section.3.3}{Motores de juegos: Tipos y utilizaci\363n.}{chapter.3}% 76
-\BOOKMARK [1][-]{section.3.4}{\301reas de especializaci\363n, librer\355as utilizadas y lenguajes de programaci\363n}{chapter.3}% 77
-\BOOKMARK [1][-]{section.3.5}{Componentes de un motor de juegos.}{chapter.3}% 78
-\BOOKMARK [1][-]{section.3.6}{Librer\355as que proporcionan las funciones b\341sicas de un Motor 2D/3D.}{chapter.3}% 79
-\BOOKMARK [1][-]{section.3.7}{APIs gr\341ficos 3D.}{chapter.3}% 80
-\BOOKMARK [1][-]{section.3.8}{Estudio de juegos existentes.}{chapter.3}% 81
-\BOOKMARK [1][-]{section.3.9}{Aplicaci\363n de modificaciones sobre juegos existentes.}{chapter.3}% 82
-\BOOKMARK [0][-]{chapter.4}{Desarrollo de juegos 2D y 3D}{}% 83
-\BOOKMARK [1][-]{section.4.1}{Entornos de desarrollo para juegos.}{chapter.4}% 84
-\BOOKMARK [1][-]{section.4.2}{Integraci\363n del motor de juegos en entornos de desarrollo.}{chapter.4}% 85
-\BOOKMARK [1][-]{section.4.3}{Conceptos avanzados de programaci\363n 3D.}{chapter.4}% 86
-\BOOKMARK [1][-]{section.4.4}{Fases de desarrollo:}{chapter.4}% 87
-\BOOKMARK [1][-]{section.4.5}{Propiedades de los objetos: luz, texturas, reflejos, sombras.}{chapter.4}% 88
-\BOOKMARK [1][-]{section.4.6}{Aplicaci\363n de las funciones del motor gr\341fico. Renderizaci\363n.}{chapter.4}% 89
-\BOOKMARK [1][-]{section.4.7}{Aplicaci\363n de las funciones del grafo de escena.}{chapter.4}% 90
-\BOOKMARK [1][-]{section.4.8}{Tipos de nodos y su utilizaci\363n.}{chapter.4}% 91
-\BOOKMARK [1][-]{section.4.9}{Asociaci\363n de sonidos a los eventos del juego.}{chapter.4}% 92
-\BOOKMARK [1][-]{section.4.10}{An\341lisis de ejecuci\363n. Optimizaci\363n del c\363digo.}{chapter.4}% 93
-\BOOKMARK [1][-]{section.4.11}{Documentaci\363n de la fase de dise\361o y de desarrollo.}{chapter.4}% 94
-\BOOKMARK [0][-]{chapter.5}{Sistemas basados en localizaci\363n}{}% 95
-\BOOKMARK [1][-]{section.5.1}{Tecnolog\355as de localizaci\363n \(GPS, A-GPS,...\).}{chapter.5}% 96
-\BOOKMARK [1][-]{section.5.2}{Servicios de localizaci\363n, mapas y geocodificaci\363n.}{chapter.5}% 97
-\BOOKMARK [1][-]{section.5.3}{Emuladores para simular las ubicaciones.}{chapter.5}% 98
-\BOOKMARK [1][-]{section.5.4}{Visualizaci\363n la informaci\363n geolocalizada.}{chapter.5}% 99
+\BOOKMARK [1][-]{section.2.22}{Localizaci\363n}{chapter.2}% 59
+\BOOKMARK [1][-]{section.2.23}{Contexto gr\341fico. Im\341genes.}{chapter.2}% 60
+\BOOKMARK [1][-]{section.2.24}{Eventos del teclado.}{chapter.2}% 61
+\BOOKMARK [1][-]{section.2.25}{Descubrimiento de servicios.}{chapter.2}% 62
+\BOOKMARK [1][-]{section.2.26}{Persistencia.}{chapter.2}% 63
+\BOOKMARK [1][-]{section.2.27}{Modelo de hilos.}{chapter.2}% 64
+\BOOKMARK [1][-]{section.2.28}{Comunicaciones: clases asociadas. Tipos de conexiones.}{chapter.2}% 65
+\BOOKMARK [1][-]{section.2.29}{Gesti\363n de la comunicaci\363n inal\341mbrica.}{chapter.2}% 66
+\BOOKMARK [1][-]{section.2.30}{Seguridad y permisos.}{chapter.2}% 67
+\BOOKMARK [1][-]{section.2.31}{Env\355o y recepci\363n de mensajes texto.}{chapter.2}% 68
+\BOOKMARK [1][-]{section.2.32}{Env\355o y recepci\363n de mensajer\355a multimedia. Sincronizaci\363n de contenido.}{chapter.2}% 69
+\BOOKMARK [1][-]{section.2.33}{Manejo de conexiones HTTP y HTTPS.}{chapter.2}% 70
+\BOOKMARK [1][-]{section.2.34}{Empaquetado y despliegue de aplicaciones para dispositivos m\363viles.}{chapter.2}% 71
+\BOOKMARK [1][-]{section.2.35}{Centros de distribuci\363n de aplicaciones.}{chapter.2}% 72
+\BOOKMARK [1][-]{section.2.36}{Documentaci\363n de aplicaciones de dispositivos m\363viles.}{chapter.2}% 73
+\BOOKMARK [0][-]{chapter.3}{An\341lisis de motores de juegos}{}% 74
+\BOOKMARK [1][-]{section.3.1}{Animaci\363n 2D y 3D.}{chapter.3}% 75
+\BOOKMARK [1][-]{section.3.2}{Arquitectura del juego. Componentes.}{chapter.3}% 76
+\BOOKMARK [1][-]{section.3.3}{Motores de juegos: Tipos y utilizaci\363n.}{chapter.3}% 77
+\BOOKMARK [1][-]{section.3.4}{\301reas de especializaci\363n, librer\355as utilizadas y lenguajes de programaci\363n}{chapter.3}% 78
+\BOOKMARK [1][-]{section.3.5}{Componentes de un motor de juegos.}{chapter.3}% 79
+\BOOKMARK [1][-]{section.3.6}{Librer\355as que proporcionan las funciones b\341sicas de un Motor 2D/3D.}{chapter.3}% 80
+\BOOKMARK [1][-]{section.3.7}{APIs gr\341ficos 3D.}{chapter.3}% 81
+\BOOKMARK [1][-]{section.3.8}{Estudio de juegos existentes.}{chapter.3}% 82
+\BOOKMARK [1][-]{section.3.9}{Aplicaci\363n de modificaciones sobre juegos existentes.}{chapter.3}% 83
+\BOOKMARK [0][-]{chapter.4}{Desarrollo de juegos 2D y 3D}{}% 84
+\BOOKMARK [1][-]{section.4.1}{Entornos de desarrollo para juegos.}{chapter.4}% 85
+\BOOKMARK [1][-]{section.4.2}{Integraci\363n del motor de juegos en entornos de desarrollo.}{chapter.4}% 86
+\BOOKMARK [1][-]{section.4.3}{Conceptos avanzados de programaci\363n 3D.}{chapter.4}% 87
+\BOOKMARK [1][-]{section.4.4}{Fases de desarrollo:}{chapter.4}% 88
+\BOOKMARK [1][-]{section.4.5}{Propiedades de los objetos: luz, texturas, reflejos, sombras.}{chapter.4}% 89
+\BOOKMARK [1][-]{section.4.6}{Aplicaci\363n de las funciones del motor gr\341fico. Renderizaci\363n.}{chapter.4}% 90
+\BOOKMARK [1][-]{section.4.7}{Aplicaci\363n de las funciones del grafo de escena.}{chapter.4}% 91
+\BOOKMARK [1][-]{section.4.8}{Tipos de nodos y su utilizaci\363n.}{chapter.4}% 92
+\BOOKMARK [1][-]{section.4.9}{Asociaci\363n de sonidos a los eventos del juego.}{chapter.4}% 93
+\BOOKMARK [1][-]{section.4.10}{An\341lisis de ejecuci\363n. Optimizaci\363n del c\363digo.}{chapter.4}% 94
+\BOOKMARK [1][-]{section.4.11}{Documentaci\363n de la fase de dise\361o y de desarrollo.}{chapter.4}% 95
+\BOOKMARK [0][-]{chapter.5}{Sistemas basados en localizaci\363n}{}% 96
+\BOOKMARK [1][-]{section.5.1}{Tecnolog\355as de localizaci\363n \(GPS, A-GPS,...\).}{chapter.5}% 97
+\BOOKMARK [1][-]{section.5.2}{Servicios de localizaci\363n, mapas y geocodificaci\363n.}{chapter.5}% 98
+\BOOKMARK [1][-]{section.5.3}{Emuladores para simular las ubicaciones.}{chapter.5}% 99
+\BOOKMARK [1][-]{section.5.4}{Visualizaci\363n la informaci\363n geolocalizada.}{chapter.5}% 100
