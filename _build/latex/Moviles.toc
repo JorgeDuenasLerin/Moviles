@@ -95,19 +95,19 @@
 \contentsline {subsection}{\numberline {2.23.2}Usando OpenGL}{67}{subsection.2.23.2}
 \contentsline {subsection}{\numberline {2.23.3}Dibujando algo}{69}{subsection.2.23.3}
 \contentsline {subsection}{\numberline {2.23.4}Conceptos matem\IeC {\'a}ticos}{70}{subsection.2.23.4}
-\contentsline {section}{\numberline {2.24}Eventos del teclado.}{73}{section.2.24}
-\contentsline {section}{\numberline {2.25}Descubrimiento de servicios.}{73}{section.2.25}
-\contentsline {section}{\numberline {2.26}Persistencia.}{73}{section.2.26}
-\contentsline {section}{\numberline {2.27}Modelo de hilos.}{73}{section.2.27}
-\contentsline {section}{\numberline {2.28}Comunicaciones: clases asociadas. Tipos de conexiones.}{73}{section.2.28}
-\contentsline {section}{\numberline {2.29}Gesti\IeC {\'o}n de la comunicaci\IeC {\'o}n inal\IeC {\'a}mbrica.}{73}{section.2.29}
-\contentsline {section}{\numberline {2.30}Seguridad y permisos.}{73}{section.2.30}
-\contentsline {section}{\numberline {2.31}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajes texto.}{73}{section.2.31}
-\contentsline {section}{\numberline {2.32}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajer\IeC {\'\i }a multimedia. Sincronizaci\IeC {\'o}n de contenido.}{73}{section.2.32}
-\contentsline {section}{\numberline {2.33}Manejo de conexiones HTTP y HTTPS.}{73}{section.2.33}
-\contentsline {section}{\numberline {2.34}Empaquetado y despliegue de aplicaciones para dispositivos m\IeC {\'o}viles.}{73}{section.2.34}
-\contentsline {section}{\numberline {2.35}Centros de distribuci\IeC {\'o}n de aplicaciones.}{73}{section.2.35}
-\contentsline {section}{\numberline {2.36}Documentaci\IeC {\'o}n de aplicaciones de dispositivos m\IeC {\'o}viles.}{73}{section.2.36}
+\contentsline {section}{\numberline {2.24}Eventos del teclado.}{71}{section.2.24}
+\contentsline {section}{\numberline {2.25}Descubrimiento de servicios.}{71}{section.2.25}
+\contentsline {section}{\numberline {2.26}Persistencia.}{71}{section.2.26}
+\contentsline {section}{\numberline {2.27}Modelo de hilos.}{71}{section.2.27}
+\contentsline {section}{\numberline {2.28}Comunicaciones: clases asociadas. Tipos de conexiones.}{74}{section.2.28}
+\contentsline {section}{\numberline {2.29}Gesti\IeC {\'o}n de la comunicaci\IeC {\'o}n inal\IeC {\'a}mbrica.}{74}{section.2.29}
+\contentsline {section}{\numberline {2.30}Seguridad y permisos.}{74}{section.2.30}
+\contentsline {section}{\numberline {2.31}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajes texto.}{74}{section.2.31}
+\contentsline {section}{\numberline {2.32}Env\IeC {\'\i }o y recepci\IeC {\'o}n de mensajer\IeC {\'\i }a multimedia. Sincronizaci\IeC {\'o}n de contenido.}{74}{section.2.32}
+\contentsline {section}{\numberline {2.33}Manejo de conexiones HTTP y HTTPS.}{74}{section.2.33}
+\contentsline {section}{\numberline {2.34}Empaquetado y despliegue de aplicaciones para dispositivos m\IeC {\'o}viles.}{74}{section.2.34}
+\contentsline {section}{\numberline {2.35}Centros de distribuci\IeC {\'o}n de aplicaciones.}{74}{section.2.35}
+\contentsline {section}{\numberline {2.36}Documentaci\IeC {\'o}n de aplicaciones de dispositivos m\IeC {\'o}viles.}{74}{section.2.36}
 \contentsline {chapter}{\numberline {3}An\IeC {\'a}lisis de motores de juegos}{75}{chapter.3}
 \contentsline {section}{\numberline {3.1}Animaci\IeC {\'o}n 2D y 3D.}{75}{section.3.1}
 \contentsline {section}{\numberline {3.2}Arquitectura del juego. Componentes.}{75}{section.3.2}

@@ -2304,6 +2304,47 @@ ficheroTemp.delete();</p>
 </div>
 <div class="section" id="modelo-de-hilos">
 <h3>Modelo de hilos.<a class="headerlink" href="#modelo-de-hilos" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Tenemos varias clases para trabajar en segundo plano
+* AsyncTask: se usa si el hilo en segundo plano necesita modificar el interfaz de usuario.
+* Interfaz <tt class="docutils literal"><span class="pre">Runnable</span></tt>: usada cuando no hay que modificar el interfaz de usuario.</p>
+<p>Si se necesita trabajar con tareas temporizadas, es decir que se ejecuten cada x milisegundos se puede usar la clase <tt class="docutils literal"><span class="pre">TimerTask</span></tt> y heredar de ella.</p>
+<p>Por desgracia si se ejecutan tareas periódicamente puede que sin querer las lancemos demasiado deprisa y las tareas se acumulen porque el sistema operativo no da abasto a dar servicio a los hilos. En ese caso, la aplicación se colgará en poco tiempo.</p>
+<p>Problema: ¿como conseguir que un proceso se ejecute continuamente, manejando distintos datos entre una ejecución y otra y sin caer en la trampa de lanzar demasiados procesos?</p>
+<p>Objeción: ¿por qué no usar un <tt class="docutils literal"><span class="pre">while</span> <span class="pre">(true)</span></tt> con un <tt class="docutils literal"><span class="pre">sleep</span></tt> dentro del bucle?. Los bucles <tt class="docutils literal"><span class="pre">while(true)</span></tt> obligan al procesador a trabajar para procesar el bucle (aunque sabemos que a veces estará detenido). Técnicamente la solución funcionaría pero gastamos la batería del usuario sin necesidad.</p>
+<p>La solución no tendrá demasiada precisión temporal pero al menos logrará ejecutar tareas contínuamente creando solamente un hilo nuevo cada vez. Por ejemplo, supongamos que necesitamos descargar un dato de un sitio web con una periodicidad aproximada de 5000 milisegundos. El código siguiente ilustra el &#8220;truco&#8221;:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/* Este objeto permite programar el inicio</span>
+<span class="cm">de una tarea*/</span>
+<span class="n">Handler</span> <span class="n">gestorTareas</span><span class="o">=</span><span class="k">new</span> <span class="n">Handler</span><span class="o">();</span>
+<span class="cm">/* Este hilo se dedicará a descargar el</span>
+<span class="cm">dato y no sabemos si tardará 1 segundo ahora</span>
+<span class="cm">y 20 al siguiente, o si tardará 2 ahora y 1</span>
+<span class="cm">la próxima vez*/</span>
+<span class="n">HiloDescarga</span> <span class="n">h</span><span class="o">=</span>
+        <span class="k">new</span> <span class="nf">HiloDescarga</span><span class="o">(</span>
+                <span class="s">&quot;http://...&quot;</span><span class="o">,</span>
+                <span class="n">gestorTareas</span><span class="o">);</span>
+<span class="cm">/* La tarea se ejecutará por primera</span>
+<span class="cm">vez en 5000 milisegundos..*/</span>
+<span class="n">gestorTareas</span><span class="o">.</span><span class="na">postDelayed</span><span class="o">(</span><span class="n">h</span><span class="o">,</span> <span class="mi">5000</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HiloDescarga</span>
+        <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+        <span class="n">Handler</span> <span class="n">gestorTareas</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nf">HiloDescarga</span><span class="o">(</span>
+                        <span class="n">String</span> <span class="n">url</span><span class="o">,</span>
+                        <span class="n">Handler</span> <span class="n">gestorTareas</span><span class="o">){</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">gestorTareas</span><span class="o">=</span><span class="n">gestorTareas</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                <span class="cm">/* Hacer algo que puede tardar mucho*/</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;Depurando&quot;</span><span class="o">,</span>
+                        <span class="s">&quot;Tardando....&quot;</span><span class="o">);</span>
+                <span class="n">gestorTareas</span><span class="o">.</span><span class="na">postDelayed</span><span class="o">(</span>
+                        <span class="k">this</span><span class="o">,</span> <span class="mi">5000</span><span class="o">);</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="comunicaciones-clases-asociadas-tipos-de-conexiones">
 <h3>Comunicaciones: clases asociadas. Tipos de conexiones.<a class="headerlink" href="#comunicaciones-clases-asociadas-tipos-de-conexiones" title="Enlazar permanentemente con este título">¶</a></h3>

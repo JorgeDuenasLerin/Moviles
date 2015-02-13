@@ -1759,6 +1759,58 @@ Persistencia.
 Modelo de hilos.
 ------------------------------------------------------
 
+Tenemos varias clases para trabajar en segundo plano
+* AsyncTask: se usa si el hilo en segundo plano necesita modificar el interfaz de usuario.
+* Interfaz ``Runnable``: usada cuando no hay que modificar el interfaz de usuario.
+
+Si se necesita trabajar con tareas temporizadas, es decir que se ejecuten cada x milisegundos se puede usar la clase ``TimerTask`` y heredar de ella.
+
+Por desgracia si se ejecutan tareas periódicamente puede que sin querer las lancemos demasiado deprisa y las tareas se acumulen porque el sistema operativo no da abasto a dar servicio a los hilos. En ese caso, la aplicación se colgará en poco tiempo.
+
+Problema: ¿como conseguir que un proceso se ejecute continuamente, manejando distintos datos entre una ejecución y otra y sin caer en la trampa de lanzar demasiados procesos?
+
+Objeción: ¿por qué no usar un ``while (true)`` con un ``sleep`` dentro del bucle?. Los bucles ``while(true)`` obligan al procesador a trabajar para procesar el bucle (aunque sabemos que a veces estará detenido). Técnicamente la solución funcionaría pero gastamos la batería del usuario sin necesidad.
+
+La solución no tendrá demasiada precisión temporal pero al menos logrará ejecutar tareas contínuamente creando solamente un hilo nuevo cada vez. Por ejemplo, supongamos que necesitamos descargar un dato de un sitio web con una periodicidad aproximada de 5000 milisegundos. El código siguiente ilustra el "truco":
+
+.. code-block:: java
+
+	
+
+	/* Este objeto permite programar el inicio
+	de una tarea*/
+	Handler gestorTareas=new Handler();
+	/* Este hilo se dedicará a descargar el 
+	dato y no sabemos si tardará 1 segundo ahora
+	y 20 al siguiente, o si tardará 2 ahora y 1 
+	la próxima vez*/
+	HiloDescarga h=
+		new HiloDescarga(
+			"http://...", 
+			gestorTareas);
+	/* La tarea se ejecutará por primera
+	vez en 5000 milisegundos..*/
+	gestorTareas.postDelayed(h, 5000);
+	public class HiloDescarga 
+		implements Runnable {
+		Handler gestorTareas;
+		public HiloDescarga(
+				String url, 
+				Handler gestorTareas){
+			this.gestorTareas=gestorTareas;
+		}
+		@Override
+		public void run() {
+			/* Hacer algo que puede tardar mucho*/
+			Log.d("Depurando", 
+				"Tardando....");
+			gestorTareas.postDelayed(
+				this, 5000);	
+		}
+	}	
+
+
+
 Comunicaciones: clases asociadas. Tipos de conexiones.
 ------------------------------------------------------
 Gestión de la comunicación inalámbrica.
