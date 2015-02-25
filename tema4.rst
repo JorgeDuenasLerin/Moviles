@@ -73,6 +73,172 @@ Cuando el usuario toca la pantalla se tiene que procesar la posición donde toca
        
     }
 
+Ejemplo completo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: java
+
+	
+	public class MyGdxGame extends ApplicationAdapter {
+		SpriteBatch batch;
+		Rectangle rCubo;
+		Rectangle rGota;
+		Texture imagenCubo, imagenGota;
+		OrthographicCamera camara;
+		Array<Rectangle> gotas; 
+		Vector3 posTocada;
+		int ANCHURA=800;
+		int ALTURA=480;
+		Sound sonidoGota;
+		long instanteUltimaGota=0;
+		Music ruidoLluvia;
+		Random generadorNumeros=new Random();
+		
+		public void generarGota(){
+			int x=generadorNumeros.nextInt(800);
+			int y=480;
+			Rectangle rGota=new Rectangle();
+			rGota.x=x;
+			rGota.y=y;
+			rGota.width=32;
+			rGota.height=32;
+			gotas.add(rGota);
+		}
+		public void create () {
+			gotas=new Array<Rectangle>();
+			sonidoGota=Gdx.audio.newSound(
+					Gdx.files.internal("sonidogota.wav")
+					);
+			ruidoLluvia=Gdx.audio.newMusic(
+					Gdx.files.internal("sonidolluvia.mp3")
+					);
+			rCubo=new Rectangle();
+			rCubo.x=200;
+			rCubo.y=20;
+			rCubo.width=32;
+			rCubo.height=32;
+			rGota=new Rectangle();
+			rGota.x=300;
+			rGota.y=440;
+			rGota.width=32;
+			rGota.height=32;
+			ruidoLluvia.play();
+			ruidoLluvia.setLooping(true);
+			batch = new SpriteBatch();
+			imagenCubo=new Texture(
+					Gdx.files.internal("imagencubo.png")
+					);
+			imagenGota=new Texture(
+					Gdx.files.internal("imagengota.png")
+					);
+			camara=new OrthographicCamera();		
+			camara.setToOrtho(false,ANCHURA,ALTURA);
+			batch.setProjectionMatrix(camara.combined);
+		}
+
+		public void actualizarPosicionGotas(){
+			Iterator<Rectangle> puntero=gotas.iterator();
+			while (puntero.hasNext()){
+				Rectangle elemento=puntero.next();
+				elemento.y=elemento.y-
+						(200*Gdx.graphics.getDeltaTime());
+				batch.draw(imagenGota, 
+						elemento.x, elemento.y);
+				if (elemento.y<0){
+					puntero.remove();
+				}
+				if (elemento.overlaps(rCubo)){
+					sonidoGota.play();
+					puntero.remove();
+				}
+			}
+		}
+		@Override
+		public void render () {
+			Gdx.gl.glClearColor(0.5f, 0.5f, 0.8f, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			batch.begin();
+			batch.draw(imagenCubo, rCubo.x, rCubo.y);
+			actualizarPosicionGotas();
+			batch.end();
+			
+			/* Si han pasado más de 500ms
+			 * desde la generación de la última
+			 * gota, generamos una nueva
+			 * y nos apuntamos el instante actual
+			 */
+			long tiempoActual=TimeUtils.millis();
+			long diferencia=tiempoActual-instanteUltimaGota;
+			if ( diferencia>500 ){
+				this.generarGota();
+				this.instanteUltimaGota=TimeUtils.millis();
+				
+			}
+			
+			if (Gdx.input.isTouched()){
+				posTocada=new Vector3();
+				posTocada.x=Gdx.input.getX();
+				posTocada.y=Gdx.input.getY();
+				Vector3 posCorregida=
+						camara.unproject(posTocada);
+				rCubo.x=posCorregida.x;
+				if (rCubo.x>(ANCHURA-32)){
+					rCubo.x=(ANCHURA-32);
+				}			
+			}
+		}
+	}
+	
+Hojas de sprites
+------------------------------------------------------
+
+La carga de ficheros individuales es un proceso muy lento para el móvil/tablet, por lo que suele ser mucho más efectivo cargar un solo fichero con todos los gráficos y luego "trocearlo" en memoria. Este proceso implica usar objetos ``TextureRegion`` mas o menos de esta forma:
+
+.. code-block:: java
+
+	public class Laberinto extends ApplicationAdapter {
+		SpriteBatch batch;
+		Texture	ficheroHoja;
+		TextureRegion hojaSprites;
+		TextureRegion trozos[][];
+		OrthographicCamera camara;
+		@Override
+		public void create () {
+			camara=new OrthographicCamera();
+			camara.setToOrtho(false, 800, 480);
+			batch = new SpriteBatch();
+			batch.setProjectionMatrix(camara.combined);
+			ficheroHoja=new Texture(
+					Gdx.files.internal("hojasprites.png")
+			);
+			hojaSprites=new TextureRegion();
+			hojaSprites.setRegion(ficheroHoja);
+			trozos=hojaSprites.split(32, 32);
+		}
+		public void dibujarFondoCesped(){
+			for (int x=32; x<800-32; x=x+32){
+				for (int y=32; y<480-32; y=y+32){
+					batch.draw(trozos[2][6], x, y);
+				}
+			}
+		}
+		public void dibujarBordePiedra(){
+			for (int x=0; x<800; x=x+32){
+				batch.draw(trozos[3][6], x, 0);
+			}
+		}
+		@Override
+		public void render () {
+			Gdx.gl.glClearColor(1, 0, 0, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			batch.begin();
+			dibujarBordePiedra();
+			dibujarFondoCesped();
+			batch.end();
+		}
+	}
+	
+	
 Motores de juegos: Tipos y utilización.
 ------------------------------------------------------------------------------
 
