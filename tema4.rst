@@ -238,24 +238,110 @@ La carga de ficheros individuales es un proceso muy lento para el móvil/tablet,
 		}
 	}
 	
+Animaciones
+------------
+
+Usando la clase ``Animation`` podemos crear animaciones. La clase ``Animation`` necesita dos cosas para ser construida:
+
+* El tiempo que pasará entre frame y frame.
+* Un vector de elementos ``TextureRegion`` que la animación irá reproduciendo.
+
+A continuación se muestra como crear las animaciones de un juego sencillo:
+
+.. code-block:: java
+
+	public void crearAnimaciones(){
+		TextureRegion[] cuadrosImagenAba=
+				new TextureRegion[3];
+		cuadrosImagenAba[0]=trozos[0][0];
+		cuadrosImagenAba[1]=trozos[0][1];
+		cuadrosImagenAba[2]=trozos[0][2];
+		animAba=new Animation(
+			intervaloAnimaciones,cuadrosImagenAba);
+		TextureRegion[] cuadrosImagenIzq=
+				new TextureRegion[3];
+		cuadrosImagenIzq[0]=trozos[1][0];
+		cuadrosImagenIzq[1]=trozos[1][1];
+		cuadrosImagenIzq[2]=trozos[1][2];
+		animIzq=new Animation(	
+			intervaloAnimaciones,cuadrosImagenIzq);
+		TextureRegion[] cuadrosImagenDer=
+				new TextureRegion[3];
+		cuadrosImagenDer[0]=trozos[2][0];
+		cuadrosImagenDer[1]=trozos[2][1];
+		cuadrosImagenDer[2]=trozos[2][2];
+		animDer=new Animation(
+			intervaloAnimaciones,cuadrosImagenDer);
+		TextureRegion[] cuadrosImagenArr=
+				new TextureRegion[3];
+		cuadrosImagenArr[0]=trozos[3][0];
+		cuadrosImagenArr[1]=trozos[3][1];
+		cuadrosImagenArr[2]=trozos[3][2];
+		animArr=new Animation(
+			intervaloAnimaciones,cuadrosImagenArr);
+	}
 	
-Motores de juegos: Tipos y utilización.
-------------------------------------------------------------------------------
+	
+Enemigos
+------------------------------------------------------
+Todos los enemigos de un juego suelen actuar de acuerdo a tres posibles comportamientos
 
-Áreas de especialización, librerías utilizadas y lenguajes de programación.
-------------------------------------------------------------------------------
+* Movimientos cíclicos. Pueden ser más o menos complejos y/o fáciles de adivinar por el jugador.
+* Enemigos perfectos, que persiguen al jugador a la perfección complicando muchísimo la dificultad del juego.
+* Enemigos "lo bastante inteligentes", como para hacer el juego atractivo sin caer en la dificultad excesiva.
 
-Componentes de un motor de juegos.
-------------------------------------------------------------------------------
+En este curso manejaremos enemigos cíclicos. Supongamos un enemigo que traza un rectángulo siguiendo un trazado derecha-arriba-izquierda-abajo.
 
-Librerías que proporcionan las funciones básicas de un Motor 2D/3D.
-------------------------------------------------------------------------------
+El código siguiente ilustra como crear este movimiento:
 
-APIs gráficos 3D.
-------------------------------------------------------------------------------
+.. code-block:: java
 
-Estudio de juegos existentes.
-------------------------------------------------------------------------------
+	public class Enemigo {
+		public int direccion;
+		public final int ARRIBA=0;
+		public final int ABAJO=1;
+		public final int IZQUIERDA=2;
+		public final int DERECHA=3;
+		public int x_actual, y_actual;
+		private int x0, y0, x1, y1;
+		public Enemigo(int x0, int y0, int x1, int y1){
+			this.x0=x0; this.y0=y0;
+			this.x1=x1; this.y1=y1;
+			this.x_actual=x0;
+			this.y_actual=y0;
+			this.direccion=DERECHA;
+		}
+		public void avanzar(){
+			if (this.direccion==DERECHA){
+				this.x_actual+=1;
+				if (this.x_actual==this.x1){
+					this.direccion=ARRIBA;
+				}
+			}
+			if (this.direccion==ARRIBA){
+				this.y_actual+=1;
+				if (this.y_actual==this.y1){
+					this.direccion=IZQUIERDA;
+				}
+			}
+			if (this.direccion==IZQUIERDA){
+				this.x_actual-=1;
+				if (this.x_actual==this.x0){
+					this.direccion=ABAJO;
+				}
+			}
+			if (this.direccion==ABAJO){
+				this.y_actual-=1;
+				if (this.y_actual==this.y0){
+					this.direccion=DERECHA;
+				}
+			}
+		}	
+	}
+	
+Ejercicio: movimiento de enemigos
+------------------------------------------------------
 
-Aplicación de modificaciones sobre juegos existentes
-------------------------------------------------------------------------------
+Crear enemigos que puedan moverse en L y en triángulo. Crear un juego en el que haya varios enemigos donde cada uno se mueva realizando distintos recorridos.
+
+	

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.24)  25 FEB 2015 14:41
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.24)  4 MAR 2015 14:37
 entering extended mode
 **Moviles.tex
 (D:\oscar\Moviles\_build\latex\Moviles.tex
@@ -1465,7 +1465,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3312.
 Here is how much of TeX's memory you used:
  9936 strings out of 493921
  140514 string characters out of 3144876
- 238062 words of memory out of 3000000
+ 238059 words of memory out of 3000000
  12626 multiletter control sequences out of 15000+200000
  73919 words of font info for 89 fonts, out of 3000000 for 9000
  842 hyphenation exceptions out of 8191
@@ -1478,7 +1478,7 @@ onts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
 e1/urw/helvetic/uhvbo8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/
 times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8
 a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Moviles.pdf (85 pages, 1339583 bytes).
+Output written on Moviles.pdf (85 pages, 1339582 bytes).
 PDF statistics:
  1135 PDF objects out of 1200 (max. 8388607)
  307 named destinations out of 1000 (max. 500000)
