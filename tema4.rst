@@ -345,3 +345,75 @@ Ejercicio: movimiento de enemigos
 Crear enemigos que puedan moverse en L y en triángulo. Crear un juego en el que haya varios enemigos donde cada uno se mueva realizando distintos recorridos.
 
 	
+	
+	
+Movimiento del protagonista
+------------------------------------------------------
+
+
+La siguiente clase ilustra como puede moverse el protagonista de nuestro juego:
+
+.. code-block:: java
+
+	public class Protagonista {
+		private float x_actual=0;
+		private float y_actual=0;
+		private float x_objetivo=0;
+		private float y_objetivo=0;
+		private float incr_x=0;
+		private float incr_y=0;
+		boolean enMovimiento=false;
+		private int X_ES_EJE_MAYOR=0;
+		private int Y_ES_EJE_MAYOR=1;
+		public void moverseHacia(Vector3 pos){
+			x_objetivo= pos.x;
+			y_objetivo= pos.y;
+			enMovimiento=true;
+			calcularIncrementos();
+		}
+		public void calcularIncrementos(){
+			float dif_x=(x_actual-x_objetivo);
+			float dif_y=(y_actual-y_objetivo);
+			float abs_dif_x=Math.abs(dif_x);
+			float abs_dif_y=Math.abs(dif_y);
+			if (abs_dif_x>abs_dif_y){
+				if (dif_x>0){
+					incr_x=1;
+				} else {
+					incr_x=-1;
+				}
+				incr_y=(y_actual-y_objetivo) 
+						/ (x_actual-x_objetivo);
+			} else {
+				if (dif_y>0){
+					incr_y=1;
+				} else {
+					incr_y=-1;
+				}
+				incr_x=(x_actual-x_objetivo) 
+						/ (y_actual-y_objetivo);
+			}
+		}
+		public int getX(){
+			return (int) this.x_actual;
+		}
+		public int getY(){
+			return (int) this.y_actual;
+		}
+		public void avanzar(){
+			if (enMovimiento==false) return ;
+			if ( (x_actual==x_objetivo) && 
+					y_actual==y_objetivo) {
+				enMovimiento=false;
+				return ;
+			}
+			x_actual=x_actual+incr_x;
+			if (x_actual>=x_objetivo){
+				incr_x=0;
+			}
+			y_actual=y_actual+incr_y;
+			if (y_actual>=y_objetivo){
+				incr_y=0;
+			}
+		}	
+	}

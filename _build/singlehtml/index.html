@@ -2374,6 +2374,430 @@ ficheroTemp.delete();</p>
 <h3>Documentación de aplicaciones de dispositivos móviles.<a class="headerlink" href="#documentacion-de-aplicaciones-de-dispositivos-moviles" title="Enlazar permanentemente con este título">¶</a></h3>
 </div>
 </div>
+<span id="document-tema3"></span><div class="section" id="utilizacion-de-librerias-multimedia-integradas">
+<h2>Utilización de librerías multimedia integradas<a class="headerlink" href="#utilizacion-de-librerias-multimedia-integradas" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="conceptos-sobre-aplicaciones-multimedia">
+<h3>Conceptos sobre aplicaciones multimedia.<a class="headerlink" href="#conceptos-sobre-aplicaciones-multimedia" title="Enlazar permanentemente con este título">¶</a></h3>
+</div>
+<div class="section" id="arquitectura-del-api-utilizado">
+<h3>Arquitectura del API utilizado.<a class="headerlink" href="#arquitectura-del-api-utilizado" title="Enlazar permanentemente con este título">¶</a></h3>
+</div>
+<div class="section" id="fuentes-de-datos-multimedia-clases">
+<h3>Fuentes de datos multimedia. Clases.<a class="headerlink" href="#fuentes-de-datos-multimedia-clases" title="Enlazar permanentemente con este título">¶</a></h3>
+</div>
+<div class="section" id="datos-basados-en-el-tiempo">
+<h3>Datos basados en el tiempo.<a class="headerlink" href="#datos-basados-en-el-tiempo" title="Enlazar permanentemente con este título">¶</a></h3>
+</div>
+<div class="section" id="procesamiento-de-objetos-multimedia-clases-estados-metodos-y-eventos">
+<h3>Procesamiento de objetos multimedia. Clases. Estados, métodos y eventos.<a class="headerlink" href="#procesamiento-de-objetos-multimedia-clases-estados-metodos-y-eventos" title="Enlazar permanentemente con este título">¶</a></h3>
+</div>
+<div class="section" id="reproduccion-de-objetos-multimedia-clases-estados-metodos-y-eventos">
+<h3>Reproducción de objetos multimedia. Clases. Estados, métodos y eventos.<a class="headerlink" href="#reproduccion-de-objetos-multimedia-clases-estados-metodos-y-eventos" title="Enlazar permanentemente con este título">¶</a></h3>
+</div>
+<div class="section" id="depuracion-y-documentacion-de-los-programas">
+<h3>Depuración y documentación de los programas.<a class="headerlink" href="#depuracion-y-documentacion-de-los-programas" title="Enlazar permanentemente con este título">¶</a></h3>
+</div>
+</div>
+<span id="document-tema4"></span><div class="section" id="analisis-de-motores-de-juegos">
+<h2>Análisis de motores de juegos:<a class="headerlink" href="#analisis-de-motores-de-juegos" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="introduccion-la-biblioteca-gdx">
+<h3>Introducción: la biblioteca Gdx<a class="headerlink" href="#introduccion-la-biblioteca-gdx" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En la actualidad existen diversos frameworks y bibliotecas para crear juegos, como por ejemplo</p>
+<ul class="simple">
+<li>AndEngine</li>
+<li>Unity</li>
+<li>DirectX</li>
+<li>OpenGL</li>
+</ul>
+<p>En este curso se usará la biblioteca <strong>LibGDX</strong> para desarrollar pequeños juegos para plataformas Android.</p>
+</div>
+<div class="section" id="animacion-2d-y-3d">
+<h3>Animación 2D y 3D.<a class="headerlink" href="#animacion-2d-y-3d" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El concepto de animación es bastante sencillo, ya que la idea base se reduce a mostrar un gráfico en pantalla, borrarlo y volver a dibujarlo en una posición ligeramente distinta. Si se hace a la velocidad suficiente se logra transmitir la sensación de movimiento. A estos gráficos animados se les denomina <em>sprites</em> . Normalmente la animación implica varias cosas</p>
+<ul class="simple">
+<li>Se debe tener presente el tiempo: normalmente un gráfico animado evoluciona a lo largo del tiempo.</li>
+<li>Una cosa es el gráfico mostrado en pantalla y otro el rectángulo que lo encierra. Normalmente, los motores gráficos separan dichos conceptos y nos ofrecen una abstracción del tipo &#8220;Rectángulo&#8221; que incorpora método como &#8220;chocaCon(otroRectángulo)&#8221; que nos permiten <em>detectar colisiones</em>.</li>
+<li>Puede ser necesario almacenar muchos rectángulos que representen muchos objetos a mostrar en pantalla. Se debe utilizar una clase que permita recorrer rápidamente todos los posibles elementos a dibujar así como eliminarlos sin suponer una gran penalización de tiempo. La clase Java <tt class="docutils literal"><span class="pre">Array</span></tt> nos permitirá hacer esto. La clase <tt class="docutils literal"><span class="pre">Array</span></tt> se recorre mediante objetos <tt class="docutils literal"><span class="pre">Iterator</span></tt>-</li>
+<li>Un juego puede ejecutarse en dispositivos de distinta resolución. Sería útil disponer de un &#8220;mundo virtual&#8221; que tenga un tamaño que nos convenga y que luego la biblioteca se encargue de recalcular las coordenadas (LibGdx lo permite.)</li>
+</ul>
+</div>
+<div class="section" id="arquitectura-del-juego-componentes">
+<h3>Arquitectura del juego. Componentes.<a class="headerlink" href="#arquitectura-del-juego-componentes" title="Enlazar permanentemente con este título">¶</a></h3>
+<div class="section" id="creacion-del-proyecto">
+<h4>Creación del proyecto<a class="headerlink" href="#creacion-del-proyecto" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>En LibGDX se crea el proyecto inicial mediante la herramienta <tt class="docutils literal"><span class="pre">gdx-setup.jar</span></tt>. Este programa crea un proyecto vacío de tipo Gradle que despues podremos importar en Eclipse. Cabe destacar que LibGDX permite crear juegos multiplataforma, aunque aquí se trabajará solo con proyecto Android.</p>
+</div>
+<div class="section" id="recursos">
+<h4>Recursos<a class="headerlink" href="#recursos" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Todos los recursos del juego (animaciones, sonidos), deben almacenarse en el directorio <tt class="docutils literal"><span class="pre">assets</span></tt> del proyecto. Despues los gráficos se crearán mediante un constructor y los sonidos/músicas con un un método</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/* Carga de un gráfico */</span>
+<span class="n">Texture</span> <span class="n">graficos</span><span class="o">=</span><span class="k">new</span> <span class="n">Texture</span><span class="o">(</span><span class="n">Gdx</span><span class="o">.</span><span class="na">files</span><span class="o">.</span><span class="na">internal</span><span class="o">(</span><span class="s">&quot;sprites.png&quot;</span><span class="o">));</span>
+<span class="cm">/* Carga de un sonido o música */</span>
+<span class="n">Sound</span> <span class="n">sonidoGota</span><span class="o">=</span> <span class="n">Gdx</span><span class="o">.</span><span class="na">audio</span><span class="o">.</span><span class="na">newSound</span><span class="o">(</span><span class="n">Gdx</span><span class="o">.</span><span class="na">files</span><span class="o">.</span><span class="na">internal</span><span class="o">(</span><span class="s">&quot;gota.wav&quot;</span><span class="o">));</span>
+<span class="n">Music</span> <span class="n">musicaFondo</span><span class="o">=</span><span class="n">Gdx</span><span class="o">.</span><span class="na">audio</span><span class="o">.</span><span class="na">newMusic</span><span class="o">(</span><span class="n">Gdx</span><span class="o">.</span><span class="na">files</span><span class="o">.</span><span class="na">internal</span><span class="o">(</span><span class="s">&quot;musica.mp3&quot;</span><span class="o">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="camara">
+<h4>Camara<a class="headerlink" href="#camara" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>La cámara permite establecer un &#8220;tamaño de mundo virtual&#8221;, que es muy cómodo de manejar, ya que con ayuda de otra clase llamada <tt class="docutils literal"><span class="pre">SpriteBatch</span></tt> permite auto-adaptar el tamaño de los gráficos a la resolución real del dispositivo. La cámara usada en LibGDX se pone en marcha así:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="n">sonidoGota</span><span class="o">=</span> <span class="n">Gdx</span><span class="o">.</span><span class="na">audio</span><span class="o">.</span><span class="na">newSound</span><span class="o">(</span><span class="n">Gdx</span><span class="o">.</span><span class="na">files</span><span class="o">.</span><span class="na">internal</span><span class="o">(</span><span class="s">&quot;gota.wav&quot;</span><span class="o">));</span>
+<span class="o">...</span>
+<span class="n">camara</span><span class="o">=</span><span class="k">new</span> <span class="n">OrthographicCamera</span><span class="o">();</span>
+<span class="cm">/*La y positiva no apunta hacia abajo</span>
+<span class="cm">y el &quot;mundo&quot; mide 800x480*/</span>
+<span class="n">camara</span><span class="o">.</span><span class="na">setToOrtho</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="mi">800</span><span class="o">,</span> <span class="mi">480</span><span class="o">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sonidos-y-musica">
+<h4>Sonidos y música<a class="headerlink" href="#sonidos-y-musica" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Un sonido puede hacerse escuchar con el método <tt class="docutils literal"><span class="pre">play()</span></tt>. Una música puede ponerse en segundo plano sonando todo el tiempo con el método <tt class="docutils literal"><span class="pre">setLooping(true)</span></tt> y ejecutando despues el método <tt class="docutils literal"><span class="pre">play</span></tt>.</p>
+</div>
+<div class="section" id="interaccion-con-el-usuario">
+<h4>Interacción con el usuario<a class="headerlink" href="#interaccion-con-el-usuario" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Cuando el usuario toca la pantalla se tiene que procesar la posición donde toca, ya que si se está usando un &#8220;mundo virtual&#8221;, las coordenadas tienen que &#8220;volver a convertirse a coordenadas del mundo real&#8221;. Un método típico es actuar así:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="k">if</span> <span class="o">(</span><span class="n">Gdx</span><span class="o">.</span><span class="na">input</span><span class="o">.</span><span class="na">isTouched</span><span class="o">()){</span>
+   <span class="cm">/* Traduciendo a coordenadas &quot;reales&quot; */</span>
+    <span class="n">posicion</span><span class="o">=</span><span class="k">new</span> <span class="n">Vector3</span><span class="o">();</span>
+    <span class="n">posicion</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">Gdx</span><span class="o">.</span><span class="na">input</span><span class="o">.</span><span class="na">getX</span><span class="o">(),</span> <span class="n">Gdx</span><span class="o">.</span><span class="na">input</span><span class="o">.</span><span class="na">getY</span><span class="o">(),</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="n">camara</span><span class="o">.</span><span class="na">unproject</span><span class="o">(</span><span class="n">posicion</span><span class="o">);</span>
+
+ <span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ejemplo-completo">
+<h4>Ejemplo completo<a class="headerlink" href="#ejemplo-completo" title="Enlazar permanentemente con este título">¶</a></h4>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyGdxGame</span> <span class="kd">extends</span> <span class="n">ApplicationAdapter</span> <span class="o">{</span>
+        <span class="n">SpriteBatch</span> <span class="n">batch</span><span class="o">;</span>
+        <span class="n">Rectangle</span> <span class="n">rCubo</span><span class="o">;</span>
+        <span class="n">Rectangle</span> <span class="n">rGota</span><span class="o">;</span>
+        <span class="n">Texture</span> <span class="n">imagenCubo</span><span class="o">,</span> <span class="n">imagenGota</span><span class="o">;</span>
+        <span class="n">OrthographicCamera</span> <span class="n">camara</span><span class="o">;</span>
+        <span class="n">Array</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">&gt;</span> <span class="n">gotas</span><span class="o">;</span>
+        <span class="n">Vector3</span> <span class="n">posTocada</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">ANCHURA</span><span class="o">=</span><span class="mi">800</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">ALTURA</span><span class="o">=</span><span class="mi">480</span><span class="o">;</span>
+        <span class="n">Sound</span> <span class="n">sonidoGota</span><span class="o">;</span>
+        <span class="kt">long</span> <span class="n">instanteUltimaGota</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="n">Music</span> <span class="n">ruidoLluvia</span><span class="o">;</span>
+        <span class="n">Random</span> <span class="n">generadorNumeros</span><span class="o">=</span><span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">generarGota</span><span class="o">(){</span>
+                <span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="n">generadorNumeros</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">800</span><span class="o">);</span>
+                <span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="mi">480</span><span class="o">;</span>
+                <span class="n">Rectangle</span> <span class="n">rGota</span><span class="o">=</span><span class="k">new</span> <span class="n">Rectangle</span><span class="o">();</span>
+                <span class="n">rGota</span><span class="o">.</span><span class="na">x</span><span class="o">=</span><span class="n">x</span><span class="o">;</span>
+                <span class="n">rGota</span><span class="o">.</span><span class="na">y</span><span class="o">=</span><span class="n">y</span><span class="o">;</span>
+                <span class="n">rGota</span><span class="o">.</span><span class="na">width</span><span class="o">=</span><span class="mi">32</span><span class="o">;</span>
+                <span class="n">rGota</span><span class="o">.</span><span class="na">height</span><span class="o">=</span><span class="mi">32</span><span class="o">;</span>
+                <span class="n">gotas</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">rGota</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">create</span> <span class="o">()</span> <span class="o">{</span>
+                <span class="n">gotas</span><span class="o">=</span><span class="k">new</span> <span class="n">Array</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">&gt;();</span>
+                <span class="n">sonidoGota</span><span class="o">=</span><span class="n">Gdx</span><span class="o">.</span><span class="na">audio</span><span class="o">.</span><span class="na">newSound</span><span class="o">(</span>
+                                <span class="n">Gdx</span><span class="o">.</span><span class="na">files</span><span class="o">.</span><span class="na">internal</span><span class="o">(</span><span class="s">&quot;sonidogota.wav&quot;</span><span class="o">)</span>
+                                <span class="o">);</span>
+                <span class="n">ruidoLluvia</span><span class="o">=</span><span class="n">Gdx</span><span class="o">.</span><span class="na">audio</span><span class="o">.</span><span class="na">newMusic</span><span class="o">(</span>
+                                <span class="n">Gdx</span><span class="o">.</span><span class="na">files</span><span class="o">.</span><span class="na">internal</span><span class="o">(</span><span class="s">&quot;sonidolluvia.mp3&quot;</span><span class="o">)</span>
+                                <span class="o">);</span>
+                <span class="n">rCubo</span><span class="o">=</span><span class="k">new</span> <span class="n">Rectangle</span><span class="o">();</span>
+                <span class="n">rCubo</span><span class="o">.</span><span class="na">x</span><span class="o">=</span><span class="mi">200</span><span class="o">;</span>
+                <span class="n">rCubo</span><span class="o">.</span><span class="na">y</span><span class="o">=</span><span class="mi">20</span><span class="o">;</span>
+                <span class="n">rCubo</span><span class="o">.</span><span class="na">width</span><span class="o">=</span><span class="mi">32</span><span class="o">;</span>
+                <span class="n">rCubo</span><span class="o">.</span><span class="na">height</span><span class="o">=</span><span class="mi">32</span><span class="o">;</span>
+                <span class="n">rGota</span><span class="o">=</span><span class="k">new</span> <span class="n">Rectangle</span><span class="o">();</span>
+                <span class="n">rGota</span><span class="o">.</span><span class="na">x</span><span class="o">=</span><span class="mi">300</span><span class="o">;</span>
+                <span class="n">rGota</span><span class="o">.</span><span class="na">y</span><span class="o">=</span><span class="mi">440</span><span class="o">;</span>
+                <span class="n">rGota</span><span class="o">.</span><span class="na">width</span><span class="o">=</span><span class="mi">32</span><span class="o">;</span>
+                <span class="n">rGota</span><span class="o">.</span><span class="na">height</span><span class="o">=</span><span class="mi">32</span><span class="o">;</span>
+                <span class="n">ruidoLluvia</span><span class="o">.</span><span class="na">play</span><span class="o">();</span>
+                <span class="n">ruidoLluvia</span><span class="o">.</span><span class="na">setLooping</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+                <span class="n">batch</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SpriteBatch</span><span class="o">();</span>
+                <span class="n">imagenCubo</span><span class="o">=</span><span class="k">new</span> <span class="n">Texture</span><span class="o">(</span>
+                                <span class="n">Gdx</span><span class="o">.</span><span class="na">files</span><span class="o">.</span><span class="na">internal</span><span class="o">(</span><span class="s">&quot;imagencubo.png&quot;</span><span class="o">)</span>
+                                <span class="o">);</span>
+                <span class="n">imagenGota</span><span class="o">=</span><span class="k">new</span> <span class="n">Texture</span><span class="o">(</span>
+                                <span class="n">Gdx</span><span class="o">.</span><span class="na">files</span><span class="o">.</span><span class="na">internal</span><span class="o">(</span><span class="s">&quot;imagengota.png&quot;</span><span class="o">)</span>
+                                <span class="o">);</span>
+                <span class="n">camara</span><span class="o">=</span><span class="k">new</span> <span class="n">OrthographicCamera</span><span class="o">();</span>
+                <span class="n">camara</span><span class="o">.</span><span class="na">setToOrtho</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span><span class="n">ANCHURA</span><span class="o">,</span><span class="n">ALTURA</span><span class="o">);</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">setProjectionMatrix</span><span class="o">(</span><span class="n">camara</span><span class="o">.</span><span class="na">combined</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actualizarPosicionGotas</span><span class="o">(){</span>
+                <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Rectangle</span><span class="o">&gt;</span> <span class="n">puntero</span><span class="o">=</span><span class="n">gotas</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">puntero</span><span class="o">.</span><span class="na">hasNext</span><span class="o">()){</span>
+                        <span class="n">Rectangle</span> <span class="n">elemento</span><span class="o">=</span><span class="n">puntero</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+                        <span class="n">elemento</span><span class="o">.</span><span class="na">y</span><span class="o">=</span><span class="n">elemento</span><span class="o">.</span><span class="na">y</span><span class="o">-</span>
+                                        <span class="o">(</span><span class="mi">200</span><span class="o">*</span><span class="n">Gdx</span><span class="o">.</span><span class="na">graphics</span><span class="o">.</span><span class="na">getDeltaTime</span><span class="o">());</span>
+                        <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">imagenGota</span><span class="o">,</span>
+                                        <span class="n">elemento</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">elemento</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">elemento</span><span class="o">.</span><span class="na">y</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">){</span>
+                                <span class="n">puntero</span><span class="o">.</span><span class="na">remove</span><span class="o">();</span>
+                        <span class="o">}</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">elemento</span><span class="o">.</span><span class="na">overlaps</span><span class="o">(</span><span class="n">rCubo</span><span class="o">)){</span>
+                                <span class="n">sonidoGota</span><span class="o">.</span><span class="na">play</span><span class="o">();</span>
+                                <span class="n">puntero</span><span class="o">.</span><span class="na">remove</span><span class="o">();</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">render</span> <span class="o">()</span> <span class="o">{</span>
+                <span class="n">Gdx</span><span class="o">.</span><span class="na">gl</span><span class="o">.</span><span class="na">glClearColor</span><span class="o">(</span><span class="mf">0.5f</span><span class="o">,</span> <span class="mf">0.5f</span><span class="o">,</span> <span class="mf">0.8f</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+                <span class="n">Gdx</span><span class="o">.</span><span class="na">gl</span><span class="o">.</span><span class="na">glClear</span><span class="o">(</span><span class="n">GL20</span><span class="o">.</span><span class="na">GL_COLOR_BUFFER_BIT</span><span class="o">);</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">begin</span><span class="o">();</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">imagenCubo</span><span class="o">,</span> <span class="n">rCubo</span><span class="o">.</span><span class="na">x</span><span class="o">,</span> <span class="n">rCubo</span><span class="o">.</span><span class="na">y</span><span class="o">);</span>
+                <span class="n">actualizarPosicionGotas</span><span class="o">();</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">end</span><span class="o">();</span>
+
+                <span class="cm">/* Si han pasado más de 500ms</span>
+<span class="cm">                 * desde la generación de la última</span>
+<span class="cm">                 * gota, generamos una nueva</span>
+<span class="cm">                 * y nos apuntamos el instante actual</span>
+<span class="cm">                 */</span>
+                <span class="kt">long</span> <span class="n">tiempoActual</span><span class="o">=</span><span class="n">TimeUtils</span><span class="o">.</span><span class="na">millis</span><span class="o">();</span>
+                <span class="kt">long</span> <span class="n">diferencia</span><span class="o">=</span><span class="n">tiempoActual</span><span class="o">-</span><span class="n">instanteUltimaGota</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span> <span class="n">diferencia</span><span class="o">&gt;</span><span class="mi">500</span> <span class="o">){</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">generarGota</span><span class="o">();</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">instanteUltimaGota</span><span class="o">=</span><span class="n">TimeUtils</span><span class="o">.</span><span class="na">millis</span><span class="o">();</span>
+
+                <span class="o">}</span>
+
+                <span class="k">if</span> <span class="o">(</span><span class="n">Gdx</span><span class="o">.</span><span class="na">input</span><span class="o">.</span><span class="na">isTouched</span><span class="o">()){</span>
+                        <span class="n">posTocada</span><span class="o">=</span><span class="k">new</span> <span class="n">Vector3</span><span class="o">();</span>
+                        <span class="n">posTocada</span><span class="o">.</span><span class="na">x</span><span class="o">=</span><span class="n">Gdx</span><span class="o">.</span><span class="na">input</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>
+                        <span class="n">posTocada</span><span class="o">.</span><span class="na">y</span><span class="o">=</span><span class="n">Gdx</span><span class="o">.</span><span class="na">input</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
+                        <span class="n">Vector3</span> <span class="n">posCorregida</span><span class="o">=</span>
+                                        <span class="n">camara</span><span class="o">.</span><span class="na">unproject</span><span class="o">(</span><span class="n">posTocada</span><span class="o">);</span>
+                        <span class="n">rCubo</span><span class="o">.</span><span class="na">x</span><span class="o">=</span><span class="n">posCorregida</span><span class="o">.</span><span class="na">x</span><span class="o">;</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">rCubo</span><span class="o">.</span><span class="na">x</span><span class="o">&gt;(</span><span class="n">ANCHURA</span><span class="o">-</span><span class="mi">32</span><span class="o">)){</span>
+                                <span class="n">rCubo</span><span class="o">.</span><span class="na">x</span><span class="o">=(</span><span class="n">ANCHURA</span><span class="o">-</span><span class="mi">32</span><span class="o">);</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="hojas-de-sprites">
+<h3>Hojas de sprites<a class="headerlink" href="#hojas-de-sprites" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La carga de ficheros individuales es un proceso muy lento para el móvil/tablet, por lo que suele ser mucho más efectivo cargar un solo fichero con todos los gráficos y luego &#8220;trocearlo&#8221; en memoria. Este proceso implica usar objetos <tt class="docutils literal"><span class="pre">TextureRegion</span></tt> mas o menos de esta forma:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Laberinto</span> <span class="kd">extends</span> <span class="n">ApplicationAdapter</span> <span class="o">{</span>
+        <span class="n">SpriteBatch</span> <span class="n">batch</span><span class="o">;</span>
+        <span class="n">Texture</span> <span class="n">ficheroHoja</span><span class="o">;</span>
+        <span class="n">TextureRegion</span> <span class="n">hojaSprites</span><span class="o">;</span>
+        <span class="n">TextureRegion</span> <span class="n">trozos</span><span class="o">[][];</span>
+        <span class="n">OrthographicCamera</span> <span class="n">camara</span><span class="o">;</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">create</span> <span class="o">()</span> <span class="o">{</span>
+                <span class="n">camara</span><span class="o">=</span><span class="k">new</span> <span class="n">OrthographicCamera</span><span class="o">();</span>
+                <span class="n">camara</span><span class="o">.</span><span class="na">setToOrtho</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="mi">800</span><span class="o">,</span> <span class="mi">480</span><span class="o">);</span>
+                <span class="n">batch</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SpriteBatch</span><span class="o">();</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">setProjectionMatrix</span><span class="o">(</span><span class="n">camara</span><span class="o">.</span><span class="na">combined</span><span class="o">);</span>
+                <span class="n">ficheroHoja</span><span class="o">=</span><span class="k">new</span> <span class="n">Texture</span><span class="o">(</span>
+                                <span class="n">Gdx</span><span class="o">.</span><span class="na">files</span><span class="o">.</span><span class="na">internal</span><span class="o">(</span><span class="s">&quot;hojasprites.png&quot;</span><span class="o">)</span>
+                <span class="o">);</span>
+                <span class="n">hojaSprites</span><span class="o">=</span><span class="k">new</span> <span class="n">TextureRegion</span><span class="o">();</span>
+                <span class="n">hojaSprites</span><span class="o">.</span><span class="na">setRegion</span><span class="o">(</span><span class="n">ficheroHoja</span><span class="o">);</span>
+                <span class="n">trozos</span><span class="o">=</span><span class="n">hojaSprites</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="mi">32</span><span class="o">,</span> <span class="mi">32</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarFondoCesped</span><span class="o">(){</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">32</span><span class="o">;</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">800</span><span class="o">-</span><span class="mi">32</span><span class="o">;</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">+</span><span class="mi">32</span><span class="o">){</span>
+                        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="mi">32</span><span class="o">;</span> <span class="n">y</span><span class="o">&lt;</span><span class="mi">480</span><span class="o">-</span><span class="mi">32</span><span class="o">;</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="mi">32</span><span class="o">){</span>
+                                <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">trozos</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">6</span><span class="o">],</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarBordePiedra</span><span class="o">(){</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">800</span><span class="o">;</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">+</span><span class="mi">32</span><span class="o">){</span>
+                        <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">trozos</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">6</span><span class="o">],</span> <span class="n">x</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">render</span> <span class="o">()</span> <span class="o">{</span>
+                <span class="n">Gdx</span><span class="o">.</span><span class="na">gl</span><span class="o">.</span><span class="na">glClearColor</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+                <span class="n">Gdx</span><span class="o">.</span><span class="na">gl</span><span class="o">.</span><span class="na">glClear</span><span class="o">(</span><span class="n">GL20</span><span class="o">.</span><span class="na">GL_COLOR_BUFFER_BIT</span><span class="o">);</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">begin</span><span class="o">();</span>
+                <span class="n">dibujarBordePiedra</span><span class="o">();</span>
+                <span class="n">dibujarFondoCesped</span><span class="o">();</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">end</span><span class="o">();</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="animaciones">
+<h3>Animaciones<a class="headerlink" href="#animaciones" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Usando la clase <tt class="docutils literal"><span class="pre">Animation</span></tt> podemos crear animaciones. La clase <tt class="docutils literal"><span class="pre">Animation</span></tt> necesita dos cosas para ser construida:</p>
+<ul class="simple">
+<li>El tiempo que pasará entre frame y frame.</li>
+<li>Un vector de elementos <tt class="docutils literal"><span class="pre">TextureRegion</span></tt> que la animación irá reproduciendo.</li>
+</ul>
+<p>A continuación se muestra como crear las animaciones de un juego sencillo:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">crearAnimaciones</span><span class="o">(){</span>
+        <span class="n">TextureRegion</span><span class="o">[]</span> <span class="n">cuadrosImagenAba</span><span class="o">=</span>
+                        <span class="k">new</span> <span class="n">TextureRegion</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+        <span class="n">cuadrosImagenAba</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">0</span><span class="o">];</span>
+        <span class="n">cuadrosImagenAba</span><span class="o">[</span><span class="mi">1</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">1</span><span class="o">];</span>
+        <span class="n">cuadrosImagenAba</span><span class="o">[</span><span class="mi">2</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">2</span><span class="o">];</span>
+        <span class="n">animAba</span><span class="o">=</span><span class="k">new</span> <span class="n">Animation</span><span class="o">(</span>
+                <span class="n">intervaloAnimaciones</span><span class="o">,</span><span class="n">cuadrosImagenAba</span><span class="o">);</span>
+        <span class="n">TextureRegion</span><span class="o">[]</span> <span class="n">cuadrosImagenIzq</span><span class="o">=</span>
+                        <span class="k">new</span> <span class="n">TextureRegion</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+        <span class="n">cuadrosImagenIzq</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="mi">0</span><span class="o">];</span>
+        <span class="n">cuadrosImagenIzq</span><span class="o">[</span><span class="mi">1</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="mi">1</span><span class="o">];</span>
+        <span class="n">cuadrosImagenIzq</span><span class="o">[</span><span class="mi">2</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="mi">2</span><span class="o">];</span>
+        <span class="n">animIzq</span><span class="o">=</span><span class="k">new</span> <span class="n">Animation</span><span class="o">(</span>
+                <span class="n">intervaloAnimaciones</span><span class="o">,</span><span class="n">cuadrosImagenIzq</span><span class="o">);</span>
+        <span class="n">TextureRegion</span><span class="o">[]</span> <span class="n">cuadrosImagenDer</span><span class="o">=</span>
+                        <span class="k">new</span> <span class="n">TextureRegion</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+        <span class="n">cuadrosImagenDer</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">0</span><span class="o">];</span>
+        <span class="n">cuadrosImagenDer</span><span class="o">[</span><span class="mi">1</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">1</span><span class="o">];</span>
+        <span class="n">cuadrosImagenDer</span><span class="o">[</span><span class="mi">2</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">2</span><span class="o">];</span>
+        <span class="n">animDer</span><span class="o">=</span><span class="k">new</span> <span class="n">Animation</span><span class="o">(</span>
+                <span class="n">intervaloAnimaciones</span><span class="o">,</span><span class="n">cuadrosImagenDer</span><span class="o">);</span>
+        <span class="n">TextureRegion</span><span class="o">[]</span> <span class="n">cuadrosImagenArr</span><span class="o">=</span>
+                        <span class="k">new</span> <span class="n">TextureRegion</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+        <span class="n">cuadrosImagenArr</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">0</span><span class="o">];</span>
+        <span class="n">cuadrosImagenArr</span><span class="o">[</span><span class="mi">1</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">1</span><span class="o">];</span>
+        <span class="n">cuadrosImagenArr</span><span class="o">[</span><span class="mi">2</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">2</span><span class="o">];</span>
+        <span class="n">animArr</span><span class="o">=</span><span class="k">new</span> <span class="n">Animation</span><span class="o">(</span>
+                <span class="n">intervaloAnimaciones</span><span class="o">,</span><span class="n">cuadrosImagenArr</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="enemigos">
+<h3>Enemigos<a class="headerlink" href="#enemigos" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Todos los enemigos de un juego suelen actuar de acuerdo a tres posibles comportamientos</p>
+<ul class="simple">
+<li>Movimientos cíclicos. Pueden ser más o menos complejos y/o fáciles de adivinar por el jugador.</li>
+<li>Enemigos perfectos, que persiguen al jugador a la perfección complicando muchísimo la dificultad del juego.</li>
+<li>Enemigos &#8220;lo bastante inteligentes&#8221;, como para hacer el juego atractivo sin caer en la dificultad excesiva.</li>
+</ul>
+<p>En este curso manejaremos enemigos cíclicos. Supongamos un enemigo que traza un rectángulo siguiendo un trazado derecha-arriba-izquierda-abajo.</p>
+<p>El código siguiente ilustra como crear este movimiento:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Enemigo</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="n">direccion</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">ARRIBA</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">ABAJO</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">IZQUIERDA</span><span class="o">=</span><span class="mi">2</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">DERECHA</span><span class="o">=</span><span class="mi">3</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="n">x_actual</span><span class="o">,</span> <span class="n">y_actual</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">x0</span><span class="o">,</span> <span class="n">y0</span><span class="o">,</span> <span class="n">x1</span><span class="o">,</span> <span class="n">y1</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nf">Enemigo</span><span class="o">(</span><span class="kt">int</span> <span class="n">x0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">x1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y1</span><span class="o">){</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">x0</span><span class="o">=</span><span class="n">x0</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="na">y0</span><span class="o">=</span><span class="n">y0</span><span class="o">;</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">x1</span><span class="o">=</span><span class="n">x1</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="na">y1</span><span class="o">=</span><span class="n">y1</span><span class="o">;</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">x_actual</span><span class="o">=</span><span class="n">x0</span><span class="o">;</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">y_actual</span><span class="o">=</span><span class="n">y0</span><span class="o">;</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">direccion</span><span class="o">=</span><span class="n">DERECHA</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">avanzar</span><span class="o">(){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">direccion</span><span class="o">==</span><span class="n">DERECHA</span><span class="o">){</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">x_actual</span><span class="o">+=</span><span class="mi">1</span><span class="o">;</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">x_actual</span><span class="o">==</span><span class="k">this</span><span class="o">.</span><span class="na">x1</span><span class="o">){</span>
+                                <span class="k">this</span><span class="o">.</span><span class="na">direccion</span><span class="o">=</span><span class="n">ARRIBA</span><span class="o">;</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">direccion</span><span class="o">==</span><span class="n">ARRIBA</span><span class="o">){</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">y_actual</span><span class="o">+=</span><span class="mi">1</span><span class="o">;</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">y_actual</span><span class="o">==</span><span class="k">this</span><span class="o">.</span><span class="na">y1</span><span class="o">){</span>
+                                <span class="k">this</span><span class="o">.</span><span class="na">direccion</span><span class="o">=</span><span class="n">IZQUIERDA</span><span class="o">;</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">direccion</span><span class="o">==</span><span class="n">IZQUIERDA</span><span class="o">){</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">x_actual</span><span class="o">-=</span><span class="mi">1</span><span class="o">;</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">x_actual</span><span class="o">==</span><span class="k">this</span><span class="o">.</span><span class="na">x0</span><span class="o">){</span>
+                                <span class="k">this</span><span class="o">.</span><span class="na">direccion</span><span class="o">=</span><span class="n">ABAJO</span><span class="o">;</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">direccion</span><span class="o">==</span><span class="n">ABAJO</span><span class="o">){</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">y_actual</span><span class="o">-=</span><span class="mi">1</span><span class="o">;</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">y_actual</span><span class="o">==</span><span class="k">this</span><span class="o">.</span><span class="na">y0</span><span class="o">){</span>
+                                <span class="k">this</span><span class="o">.</span><span class="na">direccion</span><span class="o">=</span><span class="n">DERECHA</span><span class="o">;</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ejercicio-movimiento-de-enemigos">
+<h3>Ejercicio: movimiento de enemigos<a class="headerlink" href="#ejercicio-movimiento-de-enemigos" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Crear enemigos que puedan moverse en L y en triángulo. Crear un juego en el que haya varios enemigos donde cada uno se mueva realizando distintos recorridos.</p>
+</div>
+<div class="section" id="movimiento-del-protagonista">
+<h3>Movimiento del protagonista<a class="headerlink" href="#movimiento-del-protagonista" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>La siguiente clase ilustra como puede moverse el protagonista de nuestro juego:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Protagonista</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">x_actual</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">y_actual</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">x_objetivo</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">y_objetivo</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">incr_x</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">incr_y</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kt">boolean</span> <span class="n">enMovimiento</span><span class="o">=</span><span class="kc">false</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">X_ES_EJE_MAYOR</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">Y_ES_EJE_MAYOR</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">moverseHacia</span><span class="o">(</span><span class="n">Vector3</span> <span class="n">pos</span><span class="o">){</span>
+                <span class="n">x_objetivo</span><span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="na">x</span><span class="o">;</span>
+                <span class="n">y_objetivo</span><span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="na">y</span><span class="o">;</span>
+                <span class="n">enMovimiento</span><span class="o">=</span><span class="kc">true</span><span class="o">;</span>
+                <span class="n">calcularIncrementos</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">calcularIncrementos</span><span class="o">(){</span>
+                <span class="kt">float</span> <span class="n">dif_x</span><span class="o">=(</span><span class="n">x_actual</span><span class="o">-</span><span class="n">x_objetivo</span><span class="o">);</span>
+                <span class="kt">float</span> <span class="n">dif_y</span><span class="o">=(</span><span class="n">y_actual</span><span class="o">-</span><span class="n">y_objetivo</span><span class="o">);</span>
+                <span class="kt">float</span> <span class="n">abs_dif_x</span><span class="o">=</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">dif_x</span><span class="o">);</span>
+                <span class="kt">float</span> <span class="n">abs_dif_y</span><span class="o">=</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">dif_y</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">abs_dif_x</span><span class="o">&gt;</span><span class="n">abs_dif_y</span><span class="o">){</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">dif_x</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">){</span>
+                                <span class="n">incr_x</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>
+                        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                                <span class="n">incr_x</span><span class="o">=-</span><span class="mi">1</span><span class="o">;</span>
+                        <span class="o">}</span>
+                        <span class="n">incr_y</span><span class="o">=(</span><span class="n">y_actual</span><span class="o">-</span><span class="n">y_objetivo</span><span class="o">)</span>
+                                        <span class="o">/</span> <span class="o">(</span><span class="n">x_actual</span><span class="o">-</span><span class="n">x_objetivo</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">dif_y</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">){</span>
+                                <span class="n">incr_y</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>
+                        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                                <span class="n">incr_y</span><span class="o">=-</span><span class="mi">1</span><span class="o">;</span>
+                        <span class="o">}</span>
+                        <span class="n">incr_x</span><span class="o">=(</span><span class="n">x_actual</span><span class="o">-</span><span class="n">x_objetivo</span><span class="o">)</span>
+                                        <span class="o">/</span> <span class="o">(</span><span class="n">y_actual</span><span class="o">-</span><span class="n">y_objetivo</span><span class="o">);</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getX</span><span class="o">(){</span>
+                <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">x_actual</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getY</span><span class="o">(){</span>
+                <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">y_actual</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">avanzar</span><span class="o">(){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">enMovimiento</span><span class="o">==</span><span class="kc">false</span><span class="o">)</span> <span class="k">return</span> <span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span> <span class="o">(</span><span class="n">x_actual</span><span class="o">==</span><span class="n">x_objetivo</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+                                <span class="n">y_actual</span><span class="o">==</span><span class="n">y_objetivo</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">enMovimiento</span><span class="o">=</span><span class="kc">false</span><span class="o">;</span>
+                        <span class="k">return</span> <span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">x_actual</span><span class="o">=</span><span class="n">x_actual</span><span class="o">+</span><span class="n">incr_x</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">x_actual</span><span class="o">&gt;=</span><span class="n">x_objetivo</span><span class="o">){</span>
+                        <span class="n">incr_x</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">y_actual</span><span class="o">=</span><span class="n">y_actual</span><span class="o">+</span><span class="n">incr_y</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">y_actual</span><span class="o">&gt;=</span><span class="n">y_objetivo</span><span class="o">){</span>
+                        <span class="n">incr_y</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analisis-de-motores-de-juegos">
@@ -2541,6 +2965,27 @@ ficheroTemp.delete();</p>
 <li class="toctree-l2"><a class="reference internal" href="index.html#empaquetado-y-despliegue-de-aplicaciones-para-dispositivos-moviles">Empaquetado y despliegue de aplicaciones para dispositivos móviles.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#centros-de-distribucion-de-aplicaciones">Centros de distribución de aplicaciones.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#documentacion-de-aplicaciones-de-dispositivos-moviles">Documentación de aplicaciones de dispositivos móviles.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-tema3">Utilización de librerías multimedia integradas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#conceptos-sobre-aplicaciones-multimedia">Conceptos sobre aplicaciones multimedia.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#arquitectura-del-api-utilizado">Arquitectura del API utilizado.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#fuentes-de-datos-multimedia-clases">Fuentes de datos multimedia. Clases.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#datos-basados-en-el-tiempo">Datos basados en el tiempo.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#procesamiento-de-objetos-multimedia-clases-estados-metodos-y-eventos">Procesamiento de objetos multimedia. Clases. Estados, métodos y eventos.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#reproduccion-de-objetos-multimedia-clases-estados-metodos-y-eventos">Reproducción de objetos multimedia. Clases. Estados, métodos y eventos.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#depuracion-y-documentacion-de-los-programas">Depuración y documentación de los programas.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-tema4">Análisis de motores de juegos:</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduccion-la-biblioteca-gdx">Introducción: la biblioteca Gdx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#animacion-2d-y-3d">Animación 2D y 3D.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#arquitectura-del-juego-componentes">Arquitectura del juego. Componentes.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#hojas-de-sprites">Hojas de sprites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#animaciones">Animaciones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#enemigos">Enemigos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#ejercicio-movimiento-de-enemigos">Ejercicio: movimiento de enemigos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#movimiento-del-protagonista">Movimiento del protagonista</a></li>
 </ul>
 </li>
 </ul>

@@ -108,30 +108,53 @@
 \contentsline {section}{\numberline {2.34}Empaquetado y despliegue de aplicaciones para dispositivos m\IeC {\'o}viles.}{74}{section.2.34}
 \contentsline {section}{\numberline {2.35}Centros de distribuci\IeC {\'o}n de aplicaciones.}{74}{section.2.35}
 \contentsline {section}{\numberline {2.36}Documentaci\IeC {\'o}n de aplicaciones de dispositivos m\IeC {\'o}viles.}{74}{section.2.36}
-\contentsline {chapter}{\numberline {3}An\IeC {\'a}lisis de motores de juegos}{75}{chapter.3}
-\contentsline {section}{\numberline {3.1}Animaci\IeC {\'o}n 2D y 3D.}{75}{section.3.1}
-\contentsline {section}{\numberline {3.2}Arquitectura del juego. Componentes.}{75}{section.3.2}
-\contentsline {section}{\numberline {3.3}Motores de juegos: Tipos y utilizaci\IeC {\'o}n.}{75}{section.3.3}
-\contentsline {section}{\numberline {3.4}\IeC {\'A}reas de especializaci\IeC {\'o}n, librer\IeC {\'\i }as utilizadas y lenguajes de programaci\IeC {\'o}n}{75}{section.3.4}
-\contentsline {section}{\numberline {3.5}Componentes de un motor de juegos.}{75}{section.3.5}
-\contentsline {section}{\numberline {3.6}Librer\IeC {\'\i }as que proporcionan las funciones b\IeC {\'a}sicas de un Motor 2D/3D.}{75}{section.3.6}
-\contentsline {section}{\numberline {3.7}APIs gr\IeC {\'a}ficos 3D.}{75}{section.3.7}
-\contentsline {section}{\numberline {3.8}Estudio de juegos existentes.}{75}{section.3.8}
-\contentsline {section}{\numberline {3.9}Aplicaci\IeC {\'o}n de modificaciones sobre juegos existentes.}{75}{section.3.9}
-\contentsline {chapter}{\numberline {4}Desarrollo de juegos 2D y 3D}{77}{chapter.4}
-\contentsline {section}{\numberline {4.1}Entornos de desarrollo para juegos.}{78}{section.4.1}
-\contentsline {section}{\numberline {4.2}Integraci\IeC {\'o}n del motor de juegos en entornos de desarrollo.}{78}{section.4.2}
-\contentsline {section}{\numberline {4.3}Conceptos avanzados de programaci\IeC {\'o}n 3D.}{78}{section.4.3}
-\contentsline {section}{\numberline {4.4}Fases de desarrollo:}{78}{section.4.4}
-\contentsline {section}{\numberline {4.5}Propiedades de los objetos: luz, texturas, reflejos, sombras.}{78}{section.4.5}
-\contentsline {section}{\numberline {4.6}Aplicaci\IeC {\'o}n de las funciones del motor gr\IeC {\'a}fico. Renderizaci\IeC {\'o}n.}{78}{section.4.6}
-\contentsline {section}{\numberline {4.7}Aplicaci\IeC {\'o}n de las funciones del grafo de escena.}{78}{section.4.7}
-\contentsline {section}{\numberline {4.8}Tipos de nodos y su utilizaci\IeC {\'o}n.}{78}{section.4.8}
-\contentsline {section}{\numberline {4.9}Asociaci\IeC {\'o}n de sonidos a los eventos del juego.}{78}{section.4.9}
-\contentsline {section}{\numberline {4.10}An\IeC {\'a}lisis de ejecuci\IeC {\'o}n. Optimizaci\IeC {\'o}n del c\IeC {\'o}digo.}{78}{section.4.10}
-\contentsline {section}{\numberline {4.11}Documentaci\IeC {\'o}n de la fase de dise\IeC {\~n}o y de desarrollo.}{78}{section.4.11}
-\contentsline {chapter}{\numberline {5}Sistemas basados en localizaci\IeC {\'o}n}{79}{chapter.5}
-\contentsline {section}{\numberline {5.1}Tecnolog\IeC {\'\i }as de localizaci\IeC {\'o}n (GPS, A-GPS,...).}{79}{section.5.1}
-\contentsline {section}{\numberline {5.2}Servicios de localizaci\IeC {\'o}n, mapas y geocodificaci\IeC {\'o}n.}{79}{section.5.2}
-\contentsline {section}{\numberline {5.3}Emuladores para simular las ubicaciones.}{79}{section.5.3}
-\contentsline {section}{\numberline {5.4}Visualizaci\IeC {\'o}n la informaci\IeC {\'o}n geolocalizada.}{79}{section.5.4}
+\contentsline {chapter}{\numberline {3}Utilizaci\IeC {\'o}n de librer\IeC {\'\i }as multimedia integradas}{75}{chapter.3}
+\contentsline {section}{\numberline {3.1}Conceptos sobre aplicaciones multimedia.}{75}{section.3.1}
+\contentsline {section}{\numberline {3.2}Arquitectura del API utilizado.}{75}{section.3.2}
+\contentsline {section}{\numberline {3.3}Fuentes de datos multimedia. Clases.}{75}{section.3.3}
+\contentsline {section}{\numberline {3.4}Datos basados en el tiempo.}{75}{section.3.4}
+\contentsline {section}{\numberline {3.5}Procesamiento de objetos multimedia. Clases. Estados, m\IeC {\'e}todos y eventos.}{75}{section.3.5}
+\contentsline {section}{\numberline {3.6}Reproducci\IeC {\'o}n de objetos multimedia. Clases. Estados, m\IeC {\'e}todos y eventos.}{75}{section.3.6}
+\contentsline {section}{\numberline {3.7}Depuraci\IeC {\'o}n y documentaci\IeC {\'o}n de los programas.}{75}{section.3.7}
+\contentsline {chapter}{\numberline {4}An\IeC {\'a}lisis de motores de juegos:}{77}{chapter.4}
+\contentsline {section}{\numberline {4.1}Introducci\IeC {\'o}n: la biblioteca Gdx}{77}{section.4.1}
+\contentsline {section}{\numberline {4.2}Animaci\IeC {\'o}n 2D y 3D.}{77}{section.4.2}
+\contentsline {section}{\numberline {4.3}Arquitectura del juego. Componentes.}{78}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Creaci\IeC {\'o}n del proyecto}{78}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Recursos}{78}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Camara}{78}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Sonidos y m\IeC {\'u}sica}{78}{subsection.4.3.4}
+\contentsline {subsection}{\numberline {4.3.5}Interacci\IeC {\'o}n con el usuario}{79}{subsection.4.3.5}
+\contentsline {subsection}{\numberline {4.3.6}Ejemplo completo}{79}{subsection.4.3.6}
+\contentsline {section}{\numberline {4.4}Hojas de sprites}{81}{section.4.4}
+\contentsline {section}{\numberline {4.5}Animaciones}{82}{section.4.5}
+\contentsline {section}{\numberline {4.6}Enemigos}{83}{section.4.6}
+\contentsline {section}{\numberline {4.7}Ejercicio: movimiento de enemigos}{84}{section.4.7}
+\contentsline {section}{\numberline {4.8}Movimiento del protagonista}{84}{section.4.8}
+\contentsline {chapter}{\numberline {5}An\IeC {\'a}lisis de motores de juegos}{87}{chapter.5}
+\contentsline {section}{\numberline {5.1}Animaci\IeC {\'o}n 2D y 3D.}{87}{section.5.1}
+\contentsline {section}{\numberline {5.2}Arquitectura del juego. Componentes.}{87}{section.5.2}
+\contentsline {section}{\numberline {5.3}Motores de juegos: Tipos y utilizaci\IeC {\'o}n.}{87}{section.5.3}
+\contentsline {section}{\numberline {5.4}\IeC {\'A}reas de especializaci\IeC {\'o}n, librer\IeC {\'\i }as utilizadas y lenguajes de programaci\IeC {\'o}n}{87}{section.5.4}
+\contentsline {section}{\numberline {5.5}Componentes de un motor de juegos.}{87}{section.5.5}
+\contentsline {section}{\numberline {5.6}Librer\IeC {\'\i }as que proporcionan las funciones b\IeC {\'a}sicas de un Motor 2D/3D.}{87}{section.5.6}
+\contentsline {section}{\numberline {5.7}APIs gr\IeC {\'a}ficos 3D.}{87}{section.5.7}
+\contentsline {section}{\numberline {5.8}Estudio de juegos existentes.}{87}{section.5.8}
+\contentsline {section}{\numberline {5.9}Aplicaci\IeC {\'o}n de modificaciones sobre juegos existentes.}{87}{section.5.9}
+\contentsline {chapter}{\numberline {6}Desarrollo de juegos 2D y 3D}{89}{chapter.6}
+\contentsline {section}{\numberline {6.1}Entornos de desarrollo para juegos.}{90}{section.6.1}
+\contentsline {section}{\numberline {6.2}Integraci\IeC {\'o}n del motor de juegos en entornos de desarrollo.}{90}{section.6.2}
+\contentsline {section}{\numberline {6.3}Conceptos avanzados de programaci\IeC {\'o}n 3D.}{90}{section.6.3}
+\contentsline {section}{\numberline {6.4}Fases de desarrollo:}{90}{section.6.4}
+\contentsline {section}{\numberline {6.5}Propiedades de los objetos: luz, texturas, reflejos, sombras.}{90}{section.6.5}
+\contentsline {section}{\numberline {6.6}Aplicaci\IeC {\'o}n de las funciones del motor gr\IeC {\'a}fico. Renderizaci\IeC {\'o}n.}{90}{section.6.6}
+\contentsline {section}{\numberline {6.7}Aplicaci\IeC {\'o}n de las funciones del grafo de escena.}{90}{section.6.7}
+\contentsline {section}{\numberline {6.8}Tipos de nodos y su utilizaci\IeC {\'o}n.}{90}{section.6.8}
+\contentsline {section}{\numberline {6.9}Asociaci\IeC {\'o}n de sonidos a los eventos del juego.}{90}{section.6.9}
+\contentsline {section}{\numberline {6.10}An\IeC {\'a}lisis de ejecuci\IeC {\'o}n. Optimizaci\IeC {\'o}n del c\IeC {\'o}digo.}{90}{section.6.10}
+\contentsline {section}{\numberline {6.11}Documentaci\IeC {\'o}n de la fase de dise\IeC {\~n}o y de desarrollo.}{90}{section.6.11}
+\contentsline {chapter}{\numberline {7}Sistemas basados en localizaci\IeC {\'o}n}{91}{chapter.7}
+\contentsline {section}{\numberline {7.1}Tecnolog\IeC {\'\i }as de localizaci\IeC {\'o}n (GPS, A-GPS,...).}{91}{section.7.1}
+\contentsline {section}{\numberline {7.2}Servicios de localizaci\IeC {\'o}n, mapas y geocodificaci\IeC {\'o}n.}{91}{section.7.2}
+\contentsline {section}{\numberline {7.3}Emuladores para simular las ubicaciones.}{91}{section.7.3}
+\contentsline {section}{\numberline {7.4}Visualizaci\IeC {\'o}n la informaci\IeC {\'o}n geolocalizada.}{91}{section.7.4}
