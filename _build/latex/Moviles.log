@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.24)  6 MAR 2015 10:37
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.9.24)  10 MAR 2015 12:48
 entering extended mode
 **Moviles.tex
 (D:\oscar\Moviles\_build\latex\Moviles.tex
@@ -1458,38 +1458,54 @@ Underfull \vbox (badness 10000) detected at line 3699
 Overfull \vbox (0.79599pt too high) detected at line 3699
  []
 
-[85] [86]
-Cap\'{\i }tulo 5.
-[87
+[85] [86] [87]
+Underfull \vbox (badness 10000) detected at line 3919
+ []
 
-] [88
+
+Overfull \vbox (0.79599pt too high) detected at line 3919
+ []
+
+[88]
+Underfull \vbox (badness 10000) detected at line 3919
+ []
+
+
+Overfull \vbox (0.98212pt too high) detected at line 3919
+ []
+
+[89] [90]
+Cap\'{\i }tulo 5.
+[91
+
+] [92
 
 ]
 Cap\'{\i }tulo 6.
-[89]
+[93]
 Overfull \vbox (31.51228pt too high) has occurred while \output is active []
 
 
-[90]
+[94]
 Cap\'{\i }tulo 7.
 No file Moviles.ind.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3786.
-[91
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4006.
+[95
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 3786.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 4006.
  (D:\oscar\Moviles\_build\latex\Moviles.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3786.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3786.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4006.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4006.
 
 Package rerunfilecheck Info: File `Moviles.out' has not changed.
 (rerunfilecheck)             Checksum: 80171734EAF61B08132B02C33D90AD3F;9482.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3786.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 4006.
  ) 
 Here is how much of TeX's memory you used:
- 10013 strings out of 493921
- 141952 string characters out of 3144876
- 249013 words of memory out of 3000000
+ 10017 strings out of 493921
+ 141980 string characters out of 3144876
+ 270872 words of memory out of 3000000
  12668 multiletter control sequences out of 15000+200000
  73919 words of font info for 89 fonts, out of 3000000 for 9000
  842 hyphenation exceptions out of 8191
@@ -1502,9 +1518,9 @@ onts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
 e1/urw/helvetic/uhvbo8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/
 times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8
 a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Moviles.pdf (97 pages, 1374719 bytes).
+Output written on Moviles.pdf (101 pages, 1383218 bytes).
 PDF statistics:
- 1282 PDF objects out of 1440 (max. 8388607)
- 342 named destinations out of 1000 (max. 500000)
+ 1299 PDF objects out of 1440 (max. 8388607)
+ 346 named destinations out of 1000 (max. 500000)
  1102 words of extra memory for PDF output out of 10000 (max. 10000000)
 

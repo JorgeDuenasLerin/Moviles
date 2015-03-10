@@ -417,3 +417,220 @@ La siguiente clase ilustra como puede moverse el protagonista de nuestro juego:
 			}
 		}	
 	}
+
+En realidad este protagonista "traza una curva", lo cual no es un movimiento muy correcto. Para poder mover correctamente el protagonista se necesitan varias cosas:
+
+* Se necesita saber si el incr_x o el incr_y serán positivos o negativos.
+* Se necesita calcular cuanto vale cada incremento **POR SEPARADO** si uno de ellos vale 1, el otro valdrá una fracción (como 0.33). Esto implica que si el muñeco avanza un paso en las x da solo un tercio de paso en las y.
+
+Esta clase ilustra un movimiento mucho mejor.
+
+.. code-block:: java
+
+	public class Protagonista {
+		private float x_actual=0;
+		private float y_actual=0;
+		private float x_objetivo=0;
+		private float y_objetivo=0;
+		private float incr_x=0;
+		private float incr_y=0;
+		boolean enMovimiento=false;
+		private int X_ES_EJE_MAYOR=0;
+		private int Y_ES_EJE_MAYOR=1;
+		public void moverseHacia(Vector3 pos){
+			x_objetivo= pos.x;
+			y_objetivo= pos.y;
+			enMovimiento=true;
+			calcularIncrementos();
+		}
+		public void calcularIncrementos(){
+			int signo_x=0,signo_y=0;
+			if (x_objetivo<x_actual){
+				signo_x=-1;
+			} else {
+				signo_x=1;
+			}
+			if (y_objetivo<y_actual){
+				signo_y=-1;
+			} else {
+				signo_y=1;
+			}
+			double dif_x=Math.abs(x_actual-x_objetivo);
+			double dif_y=Math.abs(y_actual-y_objetivo);
+			if (dif_x>dif_y){
+				incr_x=1*signo_x;
+				incr_y=(float) ((dif_y/dif_x)*signo_y);
+			} else {
+				incr_y=1*signo_y;
+				incr_x=(float) ((dif_x/dif_y)*signo_x);
+			}
+		}
+		public int getX(){
+			return (int) this.x_actual;
+		}
+		public int getY(){
+			return (int) this.y_actual;
+		}
+		public void avanzar(){
+			if (enMovimiento==false) return ;
+			float dif_x=Math.abs(x_actual-x_objetivo);
+			float dif_y=Math.abs(y_actual-y_objetivo);
+			if ( (dif_x<=0.5) && (dif_y<=0.5) ){
+				enMovimiento=false;
+				return ;
+			}
+			x_actual=x_actual+incr_x;
+			y_actual=y_actual+incr_y;
+		}	
+	}
+	
+Esta clase Laberinto.java contiene el código principal del juego tal y como lo tenemos:
+
+.. code-block:: java
+
+	public class Laberinto extends ApplicationAdapter {
+		SpriteBatch batch;
+		Texture	ficheroHoja;
+		TextureRegion hojaSprites;
+		TextureRegion trozos[][];
+		OrthographicCamera camara;
+		Animation animAba, animArr, animIzq,animDer;
+		float intervaloAnimaciones=0.1f;
+		float tiempoTranscurrido;
+		Enemigo enemigo;
+		Protagonista protagonista;
+		Vector3 posTocada, posFinal;
+		@Override
+		public void create () {
+			protagonista=new Protagonista();
+			posTocada=new Vector3();
+			posFinal=new Vector3();
+			camara=new OrthographicCamera();
+			camara.setToOrtho(false, 800, 480);
+			batch = new SpriteBatch();
+			batch.setProjectionMatrix(camara.combined);
+			ficheroHoja=new Texture(
+					Gdx.files.internal("hojasprites.png")
+			);
+			hojaSprites=new TextureRegion();
+			hojaSprites.setRegion(ficheroHoja);
+			trozos=hojaSprites.split(32, 32);
+			crearAnimaciones();
+			crearEnemigos();
+		}
+		public void crearEnemigos(){
+			enemigo=new Enemigo(100,100, 350,350);
+		}
+		public void crearAnimaciones(){
+			TextureRegion[] cuadrosImagenAba=
+					new TextureRegion[3];
+			cuadrosImagenAba[0]=trozos[0][0];
+			cuadrosImagenAba[1]=trozos[0][1];
+			cuadrosImagenAba[2]=trozos[0][2];
+			animAba=new Animation(
+					intervaloAnimaciones,cuadrosImagenAba);
+			TextureRegion[] cuadrosImagenIzq=
+					new TextureRegion[3];
+			cuadrosImagenIzq[0]=trozos[1][0];
+			cuadrosImagenIzq[1]=trozos[1][1];
+			cuadrosImagenIzq[2]=trozos[1][2];
+			animIzq=new Animation(
+					intervaloAnimaciones,cuadrosImagenIzq);
+			TextureRegion[] cuadrosImagenDer=
+					new TextureRegion[3];
+			cuadrosImagenDer[0]=trozos[2][0];
+			cuadrosImagenDer[1]=trozos[2][1];
+			cuadrosImagenDer[2]=trozos[2][2];
+			animDer=new Animation(
+					intervaloAnimaciones,cuadrosImagenDer);
+			TextureRegion[] cuadrosImagenArr=
+					new TextureRegion[3];
+			cuadrosImagenArr[0]=trozos[3][0];
+			cuadrosImagenArr[1]=trozos[3][1];
+			cuadrosImagenArr[2]=trozos[3][2];
+			animArr=new Animation(
+					intervaloAnimaciones,cuadrosImagenArr);
+			
+			
+		}
+		public void dibujarFondoCesped(){
+			for (int x=32; x<800-32; x=x+32){
+				for (int y=32; y<480-32; y=y+32){
+					batch.draw(trozos[2][6], x, y);
+				}
+			}
+		}
+		public void dibujarBordePiedra(){
+			for (int x=0; x<800; x=x+32){
+				batch.draw(trozos[3][6], x, 0);
+				batch.draw(trozos[3][6], x, 480-32);
+			}
+			for (int y=0; y<480;y=y+32){
+				batch.draw(trozos[3][6],0,y); 
+				batch.draw(trozos[3][6],800-32,y);
+			}
+		}
+		
+		public void dibujarHorizontal(TextureRegion img, 
+				int x0, int y0, int xfinal, int yfinal, int incr_x){
+			for (int x=x0; x<xfinal; x=x+incr_x){
+				batch.draw(img, x, y0);
+			}
+		}
+		public void dibujarVertical(TextureRegion img, 
+				int x0, int y0, int xfinal, int yfinal, int incr_y){
+			for (int y=y0; y<yfinal; y=y+incr_y){
+				batch.draw(img, x0, y);
+			}
+		}
+		public void dibujarEnemigos(float tiempo){
+			enemigo.avanzar();
+			TextureRegion cuadro=null;
+			if (enemigo.direccion==enemigo.DERECHA){
+				cuadro=animDer.getKeyFrame(tiempo, true);
+			}
+			if (enemigo.direccion==enemigo.IZQUIERDA){
+				cuadro=animIzq.getKeyFrame(tiempo, true);
+			}
+			if (enemigo.direccion==enemigo.ABAJO){
+				cuadro=animAba.getKeyFrame(tiempo, true);
+			}
+			if (enemigo.direccion==enemigo.ARRIBA){
+				cuadro=animArr.getKeyFrame(tiempo, true);
+			}
+			batch.draw(cuadro, 
+					enemigo.x_actual,enemigo.y_actual);
+		}
+		public void dibujarProtagonista(){
+			protagonista.avanzar();
+			batch.draw(
+					trozos[0][4],
+					protagonista.getX(),
+					protagonista.getY() );
+		}
+		@Override
+		public void render () {
+			tiempoTranscurrido+=
+					Gdx.graphics.getDeltaTime();
+			Gdx.gl.glClearColor(1, 0, 0, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			batch.begin();
+			dibujarBordePiedra();
+			dibujarFondoCesped();
+			dibujarHorizontal(trozos[1][6], 64,64, 640,64, 32);
+			dibujarVertical(trozos[1][6], 64,64, 64,320, 32);
+			dibujarEnemigos(tiempoTranscurrido);
+			dibujarProtagonista();
+			batch.end();
+			
+			if (Gdx.input.isTouched()){
+				posTocada=new Vector3();
+				posTocada.x=Gdx.input.getX();
+				posTocada.y=Gdx.input.getY();
+				posFinal=camara.unproject(posTocada);
+				protagonista.moverseHacia(posFinal);
+			}		
+		}
+	}
+		
+	

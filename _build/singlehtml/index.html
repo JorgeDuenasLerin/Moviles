@@ -2796,6 +2796,217 @@ ficheroTemp.delete();</p>
 <span class="o">}</span>
 </pre></div>
 </div>
+<p>En realidad este protagonista &#8220;traza una curva&#8221;, lo cual no es un movimiento muy correcto. Para poder mover correctamente el protagonista se necesitan varias cosas:</p>
+<ul class="simple">
+<li>Se necesita saber si el incr_x o el incr_y serán positivos o negativos.</li>
+<li>Se necesita calcular cuanto vale cada incremento <strong>POR SEPARADO</strong> si uno de ellos vale 1, el otro valdrá una fracción (como 0.33). Esto implica que si el muñeco avanza un paso en las x da solo un tercio de paso en las y.</li>
+</ul>
+<p>Esta clase ilustra un movimiento mucho mejor.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Protagonista</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">x_actual</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">y_actual</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">x_objetivo</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">y_objetivo</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">incr_x</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span> <span class="n">incr_y</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kt">boolean</span> <span class="n">enMovimiento</span><span class="o">=</span><span class="kc">false</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">X_ES_EJE_MAYOR</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">Y_ES_EJE_MAYOR</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">moverseHacia</span><span class="o">(</span><span class="n">Vector3</span> <span class="n">pos</span><span class="o">){</span>
+                <span class="n">x_objetivo</span><span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="na">x</span><span class="o">;</span>
+                <span class="n">y_objetivo</span><span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="na">y</span><span class="o">;</span>
+                <span class="n">enMovimiento</span><span class="o">=</span><span class="kc">true</span><span class="o">;</span>
+                <span class="n">calcularIncrementos</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">calcularIncrementos</span><span class="o">(){</span>
+                <span class="kt">int</span> <span class="n">signo_x</span><span class="o">=</span><span class="mi">0</span><span class="o">,</span><span class="n">signo_y</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">x_objetivo</span><span class="o">&lt;</span><span class="n">x_actual</span><span class="o">){</span>
+                        <span class="n">signo_x</span><span class="o">=-</span><span class="mi">1</span><span class="o">;</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="n">signo_x</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">y_objetivo</span><span class="o">&lt;</span><span class="n">y_actual</span><span class="o">){</span>
+                        <span class="n">signo_y</span><span class="o">=-</span><span class="mi">1</span><span class="o">;</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="n">signo_y</span><span class="o">=</span><span class="mi">1</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="kt">double</span> <span class="n">dif_x</span><span class="o">=</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">x_actual</span><span class="o">-</span><span class="n">x_objetivo</span><span class="o">);</span>
+                <span class="kt">double</span> <span class="n">dif_y</span><span class="o">=</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">y_actual</span><span class="o">-</span><span class="n">y_objetivo</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">dif_x</span><span class="o">&gt;</span><span class="n">dif_y</span><span class="o">){</span>
+                        <span class="n">incr_x</span><span class="o">=</span><span class="mi">1</span><span class="o">*</span><span class="n">signo_x</span><span class="o">;</span>
+                        <span class="n">incr_y</span><span class="o">=(</span><span class="kt">float</span><span class="o">)</span> <span class="o">((</span><span class="n">dif_y</span><span class="o">/</span><span class="n">dif_x</span><span class="o">)*</span><span class="n">signo_y</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="n">incr_y</span><span class="o">=</span><span class="mi">1</span><span class="o">*</span><span class="n">signo_y</span><span class="o">;</span>
+                        <span class="n">incr_x</span><span class="o">=(</span><span class="kt">float</span><span class="o">)</span> <span class="o">((</span><span class="n">dif_x</span><span class="o">/</span><span class="n">dif_y</span><span class="o">)*</span><span class="n">signo_x</span><span class="o">);</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getX</span><span class="o">(){</span>
+                <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">x_actual</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getY</span><span class="o">(){</span>
+                <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">y_actual</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">avanzar</span><span class="o">(){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">enMovimiento</span><span class="o">==</span><span class="kc">false</span><span class="o">)</span> <span class="k">return</span> <span class="o">;</span>
+                <span class="kt">float</span> <span class="n">dif_x</span><span class="o">=</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">x_actual</span><span class="o">-</span><span class="n">x_objetivo</span><span class="o">);</span>
+                <span class="kt">float</span> <span class="n">dif_y</span><span class="o">=</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">y_actual</span><span class="o">-</span><span class="n">y_objetivo</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span> <span class="o">(</span><span class="n">dif_x</span><span class="o">&lt;=</span><span class="mf">0.5</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">dif_y</span><span class="o">&lt;=</span><span class="mf">0.5</span><span class="o">)</span> <span class="o">){</span>
+                        <span class="n">enMovimiento</span><span class="o">=</span><span class="kc">false</span><span class="o">;</span>
+                        <span class="k">return</span> <span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">x_actual</span><span class="o">=</span><span class="n">x_actual</span><span class="o">+</span><span class="n">incr_x</span><span class="o">;</span>
+                <span class="n">y_actual</span><span class="o">=</span><span class="n">y_actual</span><span class="o">+</span><span class="n">incr_y</span><span class="o">;</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Esta clase Laberinto.java contiene el código principal del juego tal y como lo tenemos:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Laberinto</span> <span class="kd">extends</span> <span class="n">ApplicationAdapter</span> <span class="o">{</span>
+        <span class="n">SpriteBatch</span> <span class="n">batch</span><span class="o">;</span>
+        <span class="n">Texture</span> <span class="n">ficheroHoja</span><span class="o">;</span>
+        <span class="n">TextureRegion</span> <span class="n">hojaSprites</span><span class="o">;</span>
+        <span class="n">TextureRegion</span> <span class="n">trozos</span><span class="o">[][];</span>
+        <span class="n">OrthographicCamera</span> <span class="n">camara</span><span class="o">;</span>
+        <span class="n">Animation</span> <span class="n">animAba</span><span class="o">,</span> <span class="n">animArr</span><span class="o">,</span> <span class="n">animIzq</span><span class="o">,</span><span class="n">animDer</span><span class="o">;</span>
+        <span class="kt">float</span> <span class="n">intervaloAnimaciones</span><span class="o">=</span><span class="mf">0.1f</span><span class="o">;</span>
+        <span class="kt">float</span> <span class="n">tiempoTranscurrido</span><span class="o">;</span>
+        <span class="n">Enemigo</span> <span class="n">enemigo</span><span class="o">;</span>
+        <span class="n">Protagonista</span> <span class="n">protagonista</span><span class="o">;</span>
+        <span class="n">Vector3</span> <span class="n">posTocada</span><span class="o">,</span> <span class="n">posFinal</span><span class="o">;</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">create</span> <span class="o">()</span> <span class="o">{</span>
+                <span class="n">protagonista</span><span class="o">=</span><span class="k">new</span> <span class="n">Protagonista</span><span class="o">();</span>
+                <span class="n">posTocada</span><span class="o">=</span><span class="k">new</span> <span class="n">Vector3</span><span class="o">();</span>
+                <span class="n">posFinal</span><span class="o">=</span><span class="k">new</span> <span class="n">Vector3</span><span class="o">();</span>
+                <span class="n">camara</span><span class="o">=</span><span class="k">new</span> <span class="n">OrthographicCamera</span><span class="o">();</span>
+                <span class="n">camara</span><span class="o">.</span><span class="na">setToOrtho</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="mi">800</span><span class="o">,</span> <span class="mi">480</span><span class="o">);</span>
+                <span class="n">batch</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SpriteBatch</span><span class="o">();</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">setProjectionMatrix</span><span class="o">(</span><span class="n">camara</span><span class="o">.</span><span class="na">combined</span><span class="o">);</span>
+                <span class="n">ficheroHoja</span><span class="o">=</span><span class="k">new</span> <span class="n">Texture</span><span class="o">(</span>
+                                <span class="n">Gdx</span><span class="o">.</span><span class="na">files</span><span class="o">.</span><span class="na">internal</span><span class="o">(</span><span class="s">&quot;hojasprites.png&quot;</span><span class="o">)</span>
+                <span class="o">);</span>
+                <span class="n">hojaSprites</span><span class="o">=</span><span class="k">new</span> <span class="n">TextureRegion</span><span class="o">();</span>
+                <span class="n">hojaSprites</span><span class="o">.</span><span class="na">setRegion</span><span class="o">(</span><span class="n">ficheroHoja</span><span class="o">);</span>
+                <span class="n">trozos</span><span class="o">=</span><span class="n">hojaSprites</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="mi">32</span><span class="o">,</span> <span class="mi">32</span><span class="o">);</span>
+                <span class="n">crearAnimaciones</span><span class="o">();</span>
+                <span class="n">crearEnemigos</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">crearEnemigos</span><span class="o">(){</span>
+                <span class="n">enemigo</span><span class="o">=</span><span class="k">new</span> <span class="n">Enemigo</span><span class="o">(</span><span class="mi">100</span><span class="o">,</span><span class="mi">100</span><span class="o">,</span> <span class="mi">350</span><span class="o">,</span><span class="mi">350</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">crearAnimaciones</span><span class="o">(){</span>
+                <span class="n">TextureRegion</span><span class="o">[]</span> <span class="n">cuadrosImagenAba</span><span class="o">=</span>
+                                <span class="k">new</span> <span class="n">TextureRegion</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+                <span class="n">cuadrosImagenAba</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">0</span><span class="o">];</span>
+                <span class="n">cuadrosImagenAba</span><span class="o">[</span><span class="mi">1</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">1</span><span class="o">];</span>
+                <span class="n">cuadrosImagenAba</span><span class="o">[</span><span class="mi">2</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">2</span><span class="o">];</span>
+                <span class="n">animAba</span><span class="o">=</span><span class="k">new</span> <span class="n">Animation</span><span class="o">(</span>
+                                <span class="n">intervaloAnimaciones</span><span class="o">,</span><span class="n">cuadrosImagenAba</span><span class="o">);</span>
+                <span class="n">TextureRegion</span><span class="o">[]</span> <span class="n">cuadrosImagenIzq</span><span class="o">=</span>
+                                <span class="k">new</span> <span class="n">TextureRegion</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+                <span class="n">cuadrosImagenIzq</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="mi">0</span><span class="o">];</span>
+                <span class="n">cuadrosImagenIzq</span><span class="o">[</span><span class="mi">1</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="mi">1</span><span class="o">];</span>
+                <span class="n">cuadrosImagenIzq</span><span class="o">[</span><span class="mi">2</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="mi">2</span><span class="o">];</span>
+                <span class="n">animIzq</span><span class="o">=</span><span class="k">new</span> <span class="n">Animation</span><span class="o">(</span>
+                                <span class="n">intervaloAnimaciones</span><span class="o">,</span><span class="n">cuadrosImagenIzq</span><span class="o">);</span>
+                <span class="n">TextureRegion</span><span class="o">[]</span> <span class="n">cuadrosImagenDer</span><span class="o">=</span>
+                                <span class="k">new</span> <span class="n">TextureRegion</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+                <span class="n">cuadrosImagenDer</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">0</span><span class="o">];</span>
+                <span class="n">cuadrosImagenDer</span><span class="o">[</span><span class="mi">1</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">1</span><span class="o">];</span>
+                <span class="n">cuadrosImagenDer</span><span class="o">[</span><span class="mi">2</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">2</span><span class="o">];</span>
+                <span class="n">animDer</span><span class="o">=</span><span class="k">new</span> <span class="n">Animation</span><span class="o">(</span>
+                                <span class="n">intervaloAnimaciones</span><span class="o">,</span><span class="n">cuadrosImagenDer</span><span class="o">);</span>
+                <span class="n">TextureRegion</span><span class="o">[]</span> <span class="n">cuadrosImagenArr</span><span class="o">=</span>
+                                <span class="k">new</span> <span class="n">TextureRegion</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+                <span class="n">cuadrosImagenArr</span><span class="o">[</span><span class="mi">0</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">0</span><span class="o">];</span>
+                <span class="n">cuadrosImagenArr</span><span class="o">[</span><span class="mi">1</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">1</span><span class="o">];</span>
+                <span class="n">cuadrosImagenArr</span><span class="o">[</span><span class="mi">2</span><span class="o">]=</span><span class="n">trozos</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">2</span><span class="o">];</span>
+                <span class="n">animArr</span><span class="o">=</span><span class="k">new</span> <span class="n">Animation</span><span class="o">(</span>
+                                <span class="n">intervaloAnimaciones</span><span class="o">,</span><span class="n">cuadrosImagenArr</span><span class="o">);</span>
+
+
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarFondoCesped</span><span class="o">(){</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">32</span><span class="o">;</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">800</span><span class="o">-</span><span class="mi">32</span><span class="o">;</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">+</span><span class="mi">32</span><span class="o">){</span>
+                        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="mi">32</span><span class="o">;</span> <span class="n">y</span><span class="o">&lt;</span><span class="mi">480</span><span class="o">-</span><span class="mi">32</span><span class="o">;</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="mi">32</span><span class="o">){</span>
+                                <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">trozos</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">6</span><span class="o">],</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarBordePiedra</span><span class="o">(){</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">800</span><span class="o">;</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">+</span><span class="mi">32</span><span class="o">){</span>
+                        <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">trozos</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">6</span><span class="o">],</span> <span class="n">x</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+                        <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">trozos</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">6</span><span class="o">],</span> <span class="n">x</span><span class="o">,</span> <span class="mi">480</span><span class="o">-</span><span class="mi">32</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">y</span><span class="o">&lt;</span><span class="mi">480</span><span class="o">;</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="mi">32</span><span class="o">){</span>
+                        <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">trozos</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">6</span><span class="o">],</span><span class="mi">0</span><span class="o">,</span><span class="n">y</span><span class="o">);</span>
+                        <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">trozos</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">6</span><span class="o">],</span><span class="mi">800</span><span class="o">-</span><span class="mi">32</span><span class="o">,</span><span class="n">y</span><span class="o">);</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarHorizontal</span><span class="o">(</span><span class="n">TextureRegion</span> <span class="n">img</span><span class="o">,</span>
+                        <span class="kt">int</span> <span class="n">x0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">xfinal</span><span class="o">,</span> <span class="kt">int</span> <span class="n">yfinal</span><span class="o">,</span> <span class="kt">int</span> <span class="n">incr_x</span><span class="o">){</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="n">x0</span><span class="o">;</span> <span class="n">x</span><span class="o">&lt;</span><span class="n">xfinal</span><span class="o">;</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">+</span><span class="n">incr_x</span><span class="o">){</span>
+                        <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">img</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">y0</span><span class="o">);</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarVertical</span><span class="o">(</span><span class="n">TextureRegion</span> <span class="n">img</span><span class="o">,</span>
+                        <span class="kt">int</span> <span class="n">x0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">xfinal</span><span class="o">,</span> <span class="kt">int</span> <span class="n">yfinal</span><span class="o">,</span> <span class="kt">int</span> <span class="n">incr_y</span><span class="o">){</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="n">y0</span><span class="o">;</span> <span class="n">y</span><span class="o">&lt;</span><span class="n">yfinal</span><span class="o">;</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">incr_y</span><span class="o">){</span>
+                        <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">img</span><span class="o">,</span> <span class="n">x0</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarEnemigos</span><span class="o">(</span><span class="kt">float</span> <span class="n">tiempo</span><span class="o">){</span>
+                <span class="n">enemigo</span><span class="o">.</span><span class="na">avanzar</span><span class="o">();</span>
+                <span class="n">TextureRegion</span> <span class="n">cuadro</span><span class="o">=</span><span class="kc">null</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">enemigo</span><span class="o">.</span><span class="na">direccion</span><span class="o">==</span><span class="n">enemigo</span><span class="o">.</span><span class="na">DERECHA</span><span class="o">){</span>
+                        <span class="n">cuadro</span><span class="o">=</span><span class="n">animDer</span><span class="o">.</span><span class="na">getKeyFrame</span><span class="o">(</span><span class="n">tiempo</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">enemigo</span><span class="o">.</span><span class="na">direccion</span><span class="o">==</span><span class="n">enemigo</span><span class="o">.</span><span class="na">IZQUIERDA</span><span class="o">){</span>
+                        <span class="n">cuadro</span><span class="o">=</span><span class="n">animIzq</span><span class="o">.</span><span class="na">getKeyFrame</span><span class="o">(</span><span class="n">tiempo</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">enemigo</span><span class="o">.</span><span class="na">direccion</span><span class="o">==</span><span class="n">enemigo</span><span class="o">.</span><span class="na">ABAJO</span><span class="o">){</span>
+                        <span class="n">cuadro</span><span class="o">=</span><span class="n">animAba</span><span class="o">.</span><span class="na">getKeyFrame</span><span class="o">(</span><span class="n">tiempo</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">enemigo</span><span class="o">.</span><span class="na">direccion</span><span class="o">==</span><span class="n">enemigo</span><span class="o">.</span><span class="na">ARRIBA</span><span class="o">){</span>
+                        <span class="n">cuadro</span><span class="o">=</span><span class="n">animArr</span><span class="o">.</span><span class="na">getKeyFrame</span><span class="o">(</span><span class="n">tiempo</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span><span class="n">cuadro</span><span class="o">,</span>
+                                <span class="n">enemigo</span><span class="o">.</span><span class="na">x_actual</span><span class="o">,</span><span class="n">enemigo</span><span class="o">.</span><span class="na">y_actual</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarProtagonista</span><span class="o">(){</span>
+                <span class="n">protagonista</span><span class="o">.</span><span class="na">avanzar</span><span class="o">();</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">draw</span><span class="o">(</span>
+                                <span class="n">trozos</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">4</span><span class="o">],</span>
+                                <span class="n">protagonista</span><span class="o">.</span><span class="na">getX</span><span class="o">(),</span>
+                                <span class="n">protagonista</span><span class="o">.</span><span class="na">getY</span><span class="o">()</span> <span class="o">);</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">render</span> <span class="o">()</span> <span class="o">{</span>
+                <span class="n">tiempoTranscurrido</span><span class="o">+=</span>
+                                <span class="n">Gdx</span><span class="o">.</span><span class="na">graphics</span><span class="o">.</span><span class="na">getDeltaTime</span><span class="o">();</span>
+                <span class="n">Gdx</span><span class="o">.</span><span class="na">gl</span><span class="o">.</span><span class="na">glClearColor</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+                <span class="n">Gdx</span><span class="o">.</span><span class="na">gl</span><span class="o">.</span><span class="na">glClear</span><span class="o">(</span><span class="n">GL20</span><span class="o">.</span><span class="na">GL_COLOR_BUFFER_BIT</span><span class="o">);</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">begin</span><span class="o">();</span>
+                <span class="n">dibujarBordePiedra</span><span class="o">();</span>
+                <span class="n">dibujarFondoCesped</span><span class="o">();</span>
+                <span class="n">dibujarHorizontal</span><span class="o">(</span><span class="n">trozos</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="mi">6</span><span class="o">],</span> <span class="mi">64</span><span class="o">,</span><span class="mi">64</span><span class="o">,</span> <span class="mi">640</span><span class="o">,</span><span class="mi">64</span><span class="o">,</span> <span class="mi">32</span><span class="o">);</span>
+                <span class="n">dibujarVertical</span><span class="o">(</span><span class="n">trozos</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="mi">6</span><span class="o">],</span> <span class="mi">64</span><span class="o">,</span><span class="mi">64</span><span class="o">,</span> <span class="mi">64</span><span class="o">,</span><span class="mi">320</span><span class="o">,</span> <span class="mi">32</span><span class="o">);</span>
+                <span class="n">dibujarEnemigos</span><span class="o">(</span><span class="n">tiempoTranscurrido</span><span class="o">);</span>
+                <span class="n">dibujarProtagonista</span><span class="o">();</span>
+                <span class="n">batch</span><span class="o">.</span><span class="na">end</span><span class="o">();</span>
+
+                <span class="k">if</span> <span class="o">(</span><span class="n">Gdx</span><span class="o">.</span><span class="na">input</span><span class="o">.</span><span class="na">isTouched</span><span class="o">()){</span>
+                        <span class="n">posTocada</span><span class="o">=</span><span class="k">new</span> <span class="n">Vector3</span><span class="o">();</span>
+                        <span class="n">posTocada</span><span class="o">.</span><span class="na">x</span><span class="o">=</span><span class="n">Gdx</span><span class="o">.</span><span class="na">input</span><span class="o">.</span><span class="na">getX</span><span class="o">();</span>
+                        <span class="n">posTocada</span><span class="o">.</span><span class="na">y</span><span class="o">=</span><span class="n">Gdx</span><span class="o">.</span><span class="na">input</span><span class="o">.</span><span class="na">getY</span><span class="o">();</span>
+                        <span class="n">posFinal</span><span class="o">=</span><span class="n">camara</span><span class="o">.</span><span class="na">unproject</span><span class="o">(</span><span class="n">posTocada</span><span class="o">);</span>
+                        <span class="n">protagonista</span><span class="o">.</span><span class="na">moverseHacia</span><span class="o">(</span><span class="n">posFinal</span><span class="o">);</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
