@@ -633,4 +633,478 @@ Esta clase Laberinto.java contiene el código principal del juego tal y como lo 
 		}
 	}
 		
+Ampliación: baldosas y obstáculos
+---------------------------------
+
+En nuestro juego necesitamos tener obstáculos que impidan al jugador moverse y baldosas, las cuales al ser pisadas desaparecen. El objetivo del protagonista es pisar todas las baldosas para avanzar en el juego.
+
+Clase Laberinto
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: java
+
+	public class Laberinto extends ApplicationAdapter {
+		private final int ANCHO=800;
+		private final int ALTO=480;
+		SpriteBatch batch;
+		Texture	ficheroHoja;
+		TextureRegion hojaSprites;
+		TextureRegion trozos[][];
+		Escenario escenario;
+		OrthographicCamera camara;
+		Animation animAba, animArr, animIzq,animDer;
+		float intervaloAnimaciones=0.1f;
+		float tiempoTranscurrido;
+		Enemigo enemigo;
+		Protagonista protagonista;
+		Vector3 posTocada, posFinal;
+		@Override
+		public void create () {
+			protagonista=new Protagonista(32,32);
+			posTocada=new Vector3();
+			posFinal=new Vector3();
+			camara=new OrthographicCamera();
+			camara.setToOrtho(false, 800, 480);
+			batch = new SpriteBatch();
+			batch.setProjectionMatrix(camara.combined);
+			ficheroHoja=new Texture(
+					Gdx.files.internal("hojasprites.png")
+			);
+			hojaSprites=new TextureRegion();
+			hojaSprites.setRegion(ficheroHoja);
+			trozos=hojaSprites.split(32, 32);
+			crearAnimaciones();
+			crearEnemigos();
+			crearEscenario();
+		}
+		public void crearEscenario(){
+			escenario=new Escenario();
+			/* Se añade el cesped*/
+			for (int x=0; x<ANCHO; x=x+32){
+				for (int y=0;y<ALTO; y=y+32){
+					Rectangle r=new Rectangle();
+					r.x=x;
+					r.y=y;
+					r.height=32;
+					r.width=32;
+					TextureRegion cesped=trozos[2][6];
+					escenario.addDecorado(r, cesped);
+				}
+			}
+			for (int x=100;x<300; x=x+32){
+				Rectangle r=new Rectangle();
+				r.x=x;
+				r.y=150;
+				r.height=32;
+				r.width=32;
+				TextureRegion seto=trozos[1][6];
+				escenario.addObstaculo(r, seto);
+			}
+			Rectangle rBaldosa1=new Rectangle();
+			rBaldosa1.x=150;
+			rBaldosa1.y=220;
+			rBaldosa1.width=32;
+			rBaldosa1.height=32;
+			escenario.addBaldosa(rBaldosa1, trozos[3][6]);
+			Rectangle rBaldosa2=new Rectangle();
+			rBaldosa2.x=450;
+			rBaldosa2.y=220;
+			rBaldosa2.width=32;
+			rBaldosa2.height=32;
+			escenario.addBaldosa(rBaldosa2, trozos[3][6]);
+			
+			
+		}
+		public void crearEnemigos(){
+			enemigo=new Enemigo(100,100, 350,350, 32,32);
+		}
+		public void crearAnimaciones(){
+			TextureRegion[] cuadrosImagenAba=
+					new TextureRegion[3];
+			cuadrosImagenAba[0]=trozos[0][0];
+			cuadrosImagenAba[1]=trozos[0][1];
+			cuadrosImagenAba[2]=trozos[0][2];
+			animAba=new Animation(
+					intervaloAnimaciones,cuadrosImagenAba);
+			TextureRegion[] cuadrosImagenIzq=
+					new TextureRegion[3];
+			cuadrosImagenIzq[0]=trozos[1][0];
+			cuadrosImagenIzq[1]=trozos[1][1];
+			cuadrosImagenIzq[2]=trozos[1][2];
+			animIzq=new Animation(
+					intervaloAnimaciones,cuadrosImagenIzq);
+			TextureRegion[] cuadrosImagenDer=
+					new TextureRegion[3];
+			cuadrosImagenDer[0]=trozos[2][0];
+			cuadrosImagenDer[1]=trozos[2][1];
+			cuadrosImagenDer[2]=trozos[2][2];
+			animDer=new Animation(
+					intervaloAnimaciones,cuadrosImagenDer);
+			TextureRegion[] cuadrosImagenArr=
+					new TextureRegion[3];
+			cuadrosImagenArr[0]=trozos[3][0];
+			cuadrosImagenArr[1]=trozos[3][1];
+			cuadrosImagenArr[2]=trozos[3][2];
+			animArr=new Animation(
+					intervaloAnimaciones,cuadrosImagenArr);
+			
+			
+		}
+		public void dibujarEnemigos(float tiempo){
+			enemigo.avanzar();
+			TextureRegion cuadro=null;
+			if (enemigo.direccion==enemigo.DERECHA){
+				cuadro=animDer.getKeyFrame(tiempo, true);
+			}
+			if (enemigo.direccion==enemigo.IZQUIERDA){
+				cuadro=animIzq.getKeyFrame(tiempo, true);
+			}
+			if (enemigo.direccion==enemigo.ABAJO){
+				cuadro=animAba.getKeyFrame(tiempo, true);
+			}
+			if (enemigo.direccion==enemigo.ARRIBA){
+				cuadro=animArr.getKeyFrame(tiempo, true);
+			}
+			batch.draw(cuadro, 
+					enemigo.x_actual,enemigo.y_actual);
+		}
+		public void dibujarProtagonista(){
+			protagonista.avanzar(escenario);
+			batch.draw(
+					trozos[0][4],
+					protagonista.getX(),
+					protagonista.getY() );
+			Rectangle rEnemigo=enemigo.getRectangulo();
+			if (protagonista.colisionaConEnemigo(rEnemigo)){
+				protagonista.moverInicio();
+			}
+			Rectangle rProtagonista;
+			rProtagonista=protagonista.getRectangulo();
+			int restantes=escenario.pisaBaldosa(rProtagonista);
+			if (restantes==0){
+				BitmapFont fuentePorDefecto;
+				fuentePorDefecto=new BitmapFont();
+				fuentePorDefecto.scale(3);
+				String mensaje="Enhorabuena!";
+				fuentePorDefecto.draw(
+						batch, mensaje, ANCHO/2-100, ALTO/2);
+				protagonista.parar();
+			}
+		}
+		@Override
+		public void render () {
+			tiempoTranscurrido+=
+					Gdx.graphics.getDeltaTime();
+			Gdx.gl.glClearColor(1, 0, 0, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			batch.begin();
+			escenario.dibujar(batch);
+			dibujarEnemigos(tiempoTranscurrido);
+			dibujarProtagonista();
+			batch.end();
+			
+			if (Gdx.input.isTouched()){
+				posTocada=new Vector3();
+				posTocada.x=Gdx.input.getX();
+				posTocada.y=Gdx.input.getY();
+				posFinal=camara.unproject(posTocada);
+				protagonista.moverseHacia(posFinal);
+			}	
+		}
+	}
 	
+Clase Protagonista
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: java
+
+	public class Protagonista {
+		private float x_actual=0;
+		private float y_actual=0;
+		private float x_objetivo=0;
+		private float y_objetivo=0;
+		private float incr_x=0;
+		private float incr_y=0;
+		boolean enMovimiento=false;
+		private Rectangle rProtagonista=new Rectangle();
+		public Protagonista(int ancho, int alto){
+			rProtagonista.height=alto;
+			rProtagonista.width=ancho;
+			rProtagonista.x=x_actual;
+			rProtagonista.y=y_actual;
+		}
+		
+		public Rectangle getRectangulo(){
+			return rProtagonista;
+		}
+		public void parar(){
+			this.enMovimiento=false;
+		}
+		public void moverInicio(){
+			this.enMovimiento=false;
+			this.x_actual=0;
+			this.y_actual=0;
+		}
+		public void moverseHacia(Vector3 pos){
+			x_objetivo= pos.x;
+			y_objetivo= pos.y;
+			enMovimiento=true;
+			calcularIncrementos();
+			
+		}
+		public boolean colisionaConEnemigo(Rectangle r){
+			if (rProtagonista.overlaps(r)){
+				return true;
+			}
+			return false;
+		}
+		public void calcularIncrementos(){
+			int signo_x=0,signo_y=0;
+			if (x_objetivo<x_actual){
+				signo_x=-1;
+			} else {
+				signo_x=1;
+			}
+			if (y_objetivo<y_actual){
+				signo_y=-1;
+			} else {
+				signo_y=1;
+			}
+			double dif_x=Math.abs(x_actual-x_objetivo);
+			double dif_y=Math.abs(y_actual-y_objetivo);
+			if (dif_x>dif_y){
+				incr_x=1*signo_x;
+				incr_y=(float) ((dif_y/dif_x)*signo_y);
+			} else {
+				incr_y=1*signo_y;
+				incr_x=(float) ((dif_x/dif_y)*signo_x);
+			}
+		}
+		public int getX(){
+			return (int) this.x_actual;
+		}
+		public int getY(){
+			return (int) this.y_actual;
+		}
+		public void avanzar(Escenario escenario){
+			if (enMovimiento==false) return ;
+			float dif_x=Math.abs(x_actual-x_objetivo);
+			float dif_y=Math.abs(y_actual-y_objetivo);
+			if ( (dif_x<=0.5) && (dif_y<=0.5) ){
+				enMovimiento=false;
+				return ;
+			}
+			x_actual=x_actual+incr_x;
+			y_actual=y_actual+incr_y;
+			rProtagonista.x=x_actual;
+			rProtagonista.y=y_actual;
+			if (escenario.colisionaConObstaculo(rProtagonista)){
+				x_actual=x_actual-incr_x;
+				y_actual=y_actual-incr_y;
+				rProtagonista.x=x_actual;
+				rProtagonista.y=y_actual;
+				this.enMovimiento=false;
+			}		
+		}	
+	}
+	
+Clase Enemigo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: java
+
+	public class Enemigo {
+		public int direccion;
+		public final int ARRIBA=0;
+		public final int ABAJO=1;
+		public final int IZQUIERDA=2;
+		public final int DERECHA=3;
+		public int x_actual, y_actual;
+		private int x0, y0, x1, y1;
+		private Rectangle rEnemigo;
+		public Enemigo(int x0, int y0, int x1, int y1, 
+				int ancho, int alto){
+			rEnemigo=new Rectangle();
+			rEnemigo.height=alto;
+			rEnemigo.width=ancho;
+			rEnemigo.x=x_actual;
+			rEnemigo.y=y_actual;
+			this.x0=x0; this.y0=y0;
+			this.x1=x1; this.y1=y1;
+			this.x_actual=x0;
+			this.y_actual=y0;
+			this.direccion=DERECHA;
+		}
+		public void avanzar(){
+			if (this.direccion==DERECHA){
+				this.x_actual+=4;
+				if (this.x_actual>=this.x1){
+					this.direccion=ARRIBA;
+				}
+			}
+			if (this.direccion==ARRIBA){
+				this.y_actual+=1;
+				if (this.y_actual>=this.y1){
+					this.direccion=IZQUIERDA;
+				}
+			}
+			if (this.direccion==IZQUIERDA){
+				this.x_actual-=4;
+				if (this.x_actual<=this.x0){
+					this.direccion=ABAJO;
+				}
+			}
+			if (this.direccion==ABAJO){
+				this.y_actual-=1;
+				if (this.y_actual<=this.y0){
+					this.direccion=DERECHA;
+				}
+			}	
+			rEnemigo.x=x_actual;
+			rEnemigo.y=y_actual;
+		}
+		public Rectangle getRectangulo(){
+			return rEnemigo;
+		}
+	}
+	
+	
+Clase Escenario
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: java
+
+	public class Escenario {
+		Array<ElementoDecorado> obstaculos;
+		Array<ElementoDecorado> decorado;
+		Array<ElementoDecorado> baldosas;
+		public Escenario(){
+			obstaculos=new Array<ElementoDecorado>();
+			decorado=new Array<ElementoDecorado>();
+			baldosas=new Array<ElementoDecorado>();
+		}
+		public void addBaldosa(Rectangle r, 
+				TextureRegion dibujo){
+			ElementoDecorado ed=
+					new ElementoDecorado(r,dibujo, false);
+			decorado.add(ed);
+			baldosas.add(ed);
+		}
+		public void addObstaculo
+			(Rectangle r, TextureRegion dibujo){
+			ElementoDecorado ed=
+					new ElementoDecorado(r, dibujo, true);
+			obstaculos.add(ed);
+			decorado.add(ed);
+		}
+		public void addDecorado(Rectangle r,
+				TextureRegion dibujo){
+			ElementoDecorado ed=
+					new ElementoDecorado(r, dibujo, false);
+			decorado.add(ed);
+		}
+		public void dibujar(Batch batch){
+			TextureRegion dibujo;
+			Rectangle rectangulo;
+			for (int i=0; i<decorado.size; i++){
+				rectangulo=decorado.get(i).getRectangulo();
+				dibujo=decorado.get(i).getDibujo();
+				batch.draw(
+						dibujo, rectangulo.x, rectangulo.y);
+			}
+		}
+		public boolean colisionaConObstaculo
+					(Rectangle prota)
+		{
+			Rectangle rectangulo;
+			for (int i=0; i<obstaculos.size; i++){
+				rectangulo=obstaculos.get(i).getRectangulo();
+				if (prota.overlaps(rectangulo)) return true;
+			}
+			return false;
+		}
+		/* Destruye las baldosas pisadas y nos dice
+		 * cuantas quedan */
+		public int pisaBaldosa(Rectangle prota){
+			Rectangle rectangulo;
+			for (int i=0;i<baldosas.size;i++){
+				ElementoDecorado baldosa=baldosas.get(i);
+				rectangulo=baldosas.get(i).getRectangulo();
+				if (prota.overlaps(rectangulo)){
+					decorado.removeValue(baldosa, false);
+					baldosas.removeIndex(i);
+				}
+			}
+			return baldosas.size;
+		}
+	}	
+
+Clase ElementoDecorado
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: java
+
+	public class Escenario {
+		Array<ElementoDecorado> obstaculos;
+		Array<ElementoDecorado> decorado;
+		Array<ElementoDecorado> baldosas;
+		public Escenario(){
+			obstaculos=new Array<ElementoDecorado>();
+			decorado=new Array<ElementoDecorado>();
+			baldosas=new Array<ElementoDecorado>();
+		}
+		public void addBaldosa(Rectangle r, 
+				TextureRegion dibujo){
+			ElementoDecorado ed=
+					new ElementoDecorado(r,dibujo, false);
+			decorado.add(ed);
+			baldosas.add(ed);
+		}
+		public void addObstaculo
+			(Rectangle r, TextureRegion dibujo){
+			ElementoDecorado ed=
+					new ElementoDecorado(r, dibujo, true);
+			obstaculos.add(ed);
+			decorado.add(ed);
+		}
+		public void addDecorado(Rectangle r,
+				TextureRegion dibujo){
+			ElementoDecorado ed=
+					new ElementoDecorado(r, dibujo, false);
+			decorado.add(ed);
+		}
+		public void dibujar(Batch batch){
+			TextureRegion dibujo;
+			Rectangle rectangulo;
+			for (int i=0; i<decorado.size; i++){
+				rectangulo=decorado.get(i).getRectangulo();
+				dibujo=decorado.get(i).getDibujo();
+				batch.draw(
+						dibujo, rectangulo.x, rectangulo.y);
+			}
+		}
+		public boolean colisionaConObstaculo
+					(Rectangle prota)
+		{
+			Rectangle rectangulo;
+			for (int i=0; i<obstaculos.size; i++){
+				rectangulo=obstaculos.get(i).getRectangulo();
+				if (prota.overlaps(rectangulo)) return true;
+			}
+			return false;
+		}
+		/* Destruye las baldosas pisadas y nos dice
+		 * cuantas quedan */
+		public int pisaBaldosa(Rectangle prota){
+			Rectangle rectangulo;
+			for (int i=0;i<baldosas.size;i++){
+				ElementoDecorado baldosa=baldosas.get(i);
+				rectangulo=baldosas.get(i).getRectangulo();
+				if (prota.overlaps(rectangulo)){
+					decorado.removeValue(baldosa, false);
+					baldosas.removeIndex(i);
+				}
+			}
+			return baldosas.size;
+		}
+	}	
