@@ -3478,6 +3478,141 @@ ficheroTemp.delete();</p>
 </div>
 </div>
 </div>
+<span id="document-cap1opengl"></span><div class="section" id="opengl-fundamentos">
+<h2>OpenGL: fundamentos<a class="headerlink" href="#opengl-fundamentos" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="introduccion-a-opengl">
+<h3>Introducción a OpenGL<a class="headerlink" href="#introduccion-a-opengl" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Debido a la amplia utilización de gráficos en dispositivos electrónicos ha crecido la necesidad de disponer de hardware especializado que pueda acelerar el dibujado de imágenes en dispositivos electrónicos. Este hardware especializado ofrece un conjunto de funciones ya programadas para poder realizar el dibujado. En PC&#8217;s existen dos grandes conjuntos de funciones o APIs</p>
+<ul class="simple">
+<li>OpenGL: arrancó como un estándar &#8220;de facto&#8221; y a día de hoy se sigue considerando el API a seguir.</li>
+<li>DirectX: en el mundo Microsoft se ha convertido en un gran competidor.</li>
+</ul>
+<p>En el desarrollo para móviles Android, OpenGL sigue siendo el único gran estándar y será el que se vea en este curso.</p>
+<p>A fecha de hoy existen dos grandes versiones de OpenGL</p>
+<ul class="simple">
+<li>OpenGL: el estándar para dispositivos con capacidades de gama media/alta. Dentro de OpenGL la versión más actual es la 4.4.</li>
+<li>OpenGL ES: para &#8220;sistemas embebidos&#8221; (Embedded Systems), una versión reducida para móviles y tablets. La versión más actual es la 3.0, aunque en este curso se verá la 2.0, ya que en la actualidad apenas hay dispositivos que soporten la 3.0.</li>
+</ul>
+</div>
+<div class="section" id="probando-los-programas-opengl">
+<h3>Probando los programas OpenGL<a class="headerlink" href="#probando-los-programas-opengl" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Cuando se crean programas pueden probarse de dos formas</p>
+<ol class="arabic simple">
+<li>Disponiendo de un dispositivo Android con capacidades de aceleración OpenGL.</li>
+<li>Utilizando un emulador al cual se le ha activado &#8220;Use Host GPU&#8221;.</li>
+</ol>
+<p>En la imagen adjunta puede verse que a la hora de crear un emulador se puede activar una casilla con ese nombre. En realidad no importa si nuestro PC no tiene tarjeta gráfica aceleradora ya que en ese caso, el driver del PC &#8220;emulará&#8221; el comportamiento de una aceleradora. Es decir, puede que vaya lento, pero funcionará.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/hostgpu.png" src="_images/hostgpu.png" />
+<p class="caption">Activando la aceleración gráfica</p>
+</div>
+</div>
+<div class="section" id="inicializando-opengl">
+<h3>Inicializando OpenGL<a class="headerlink" href="#inicializando-opengl" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>OpenGL 2.0 está disponible en la mayor parte de dispositivos actuales, aunque podría ocurrir que un usuario que ejecutara nuestra aplicación no dispusiera de él. Para controlar esta situación se pueden hacer dos cosas:</p>
+<ol class="arabic simple">
+<li>Que nuestra aplicación exija ejecutarse en un entorno que disponga de OpenGL.</li>
+<li>Comprobar que versión de OpenGL está disponible y en función de la versión actuar de una forma u otra.</li>
+</ol>
+<p>La segunda es la más flexible pero implicaría crear diferentes versiones de nuestro programa para OpenGL 2.0, para 1.0 y para el caso de que no hubiera ninguna.</p>
+<p>Por ejemplo, podemos ejecutar este método para determinar qué versión de OpenGL tiene el hardware en el que se ejecuta nuestra app.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="n">String</span> <span class="nf">getVersionOpenGL</span><span class="o">(){</span>
+        <span class="n">ActivityManager</span> <span class="n">manager</span><span class="o">=</span>
+                        <span class="o">(</span><span class="n">ActivityManager</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">ACTIVITY_SERVICE</span><span class="o">);</span>
+        <span class="n">ConfigurationInfo</span> <span class="n">configInfo</span><span class="o">=</span>
+                        <span class="n">manager</span><span class="o">.</span><span class="na">getDeviceConfigurationInfo</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">configInfo</span><span class="o">.</span><span class="na">getGlEsVersion</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>¡Cuidado, este código siempre devuelve 0.0 en los emuladores!.</p>
+<p>Por otra parte, en este curso nos limitaremos a la primera opción comentada: exigir que el hardware en el que se ejecute tenga al menos OpenGL 2.0 y si no denegar incluso la instalación. Esto puede conseguirse añadiendo al <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt> la línea siguiente:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;uses-feature</span> <span class="na">android:glEsVersion=</span><span class="s">&quot;0x00002000&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="clases-necesarias">
+<h3>Clases necesarias<a class="headerlink" href="#clases-necesarias" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En Android necesitaremos al menos dos clases:</p>
+<ol class="arabic simple">
+<li>Una de ellas actuará como contenedor, es decir será el control donde se dibuje todo. Este &#8220;contenedor&#8221; puede ser la clase SurfaceView o la TextureView.</li>
+<li>La otra clase será la que se encargue del &#8220;contenido&#8221;, es decir de dibujar los elementos gráficos. Esta clase la programaremos nosotros y tendrá que implementar el interface <tt class="docutils literal"><span class="pre">Renderer</span></tt>.</li>
+</ol>
+<div class="section" id="diferencias-entre-surfaceview-y-textureview">
+<h4>Diferencias entre SurfaceView y TextureView<a class="headerlink" href="#diferencias-entre-surfaceview-y-textureview" title="Enlazar permanentemente con este título">¶</a></h4>
+<ul class="simple">
+<li>La clase <tt class="docutils literal"><span class="pre">TextureView</span></tt> solo está disponible a partir de Android 4.0, mientras que SurfaceView está en todas.</li>
+<li>La clase <tt class="docutils literal"><span class="pre">SurfaceView</span></tt> crea un &#8220;agujero&#8221; en la gestión visual de los controles por lo que hay que implementar métodos que controlen si por ejemplo, la pantalla se rota.</li>
+</ul>
+<p>En líneas generales, lo más recomendable hoy por por hoy es usar <tt class="docutils literal"><span class="pre">TextureView</span></tt>, sin embargo, también veremos en el ejemplo siguiente como usar <tt class="docutils literal"><span class="pre">SurfaceView</span></tt></p>
+</div>
+</div>
+<div class="section" id="un-ejemplo-basico-borrar-la-pantalla">
+<h3>Un ejemplo básico: borrar la pantalla<a class="headerlink" href="#un-ejemplo-basico-borrar-la-pantalla" title="Enlazar permanentemente con este título">¶</a></h3>
+<div class="section" id="interfaz-de-la-app-basica">
+<h4>Interfaz de la app básica<a class="headerlink" href="#interfaz-de-la-app-basica" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Empezaremos creando una aplicación Android en la cual habrá solo un control SurfaceView que ocupe toda la pantalla:</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/ejemploopengl1.png" src="_images/ejemploopengl1.png" />
+<p class="caption">Interfaz de una app OpenGL</p>
+</div>
+<p>Como se puede apreciar, el <tt class="docutils literal"><span class="pre">id</span></tt> que se le ha puesto ha sido <tt class="docutils literal"><span class="pre">superficie</span></tt>. También indicaremos en el <tt class="docutils literal"><span class="pre">AndroidManifest.xml</span></tt> que nuestro programa exigirá usar OpenGL ES 2.0.</p>
+</div>
+<div class="section" id="una-clase-hija-de-surfaceview">
+<h4>Una clase hija de <tt class="docutils literal"><span class="pre">SurfaceView</span></tt><a class="headerlink" href="#una-clase-hija-de-surfaceview" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Despues añadiremos esta clase</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Superficie</span> <span class="kd">extends</span> <span class="n">GLSurfaceView</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nf">Superficie</span><span class="o">(</span><span class="n">Context</span> <span class="n">contexto</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">attrs</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kd">super</span><span class="o">(</span><span class="n">contexto</span><span class="o">,</span> <span class="n">attrs</span><span class="o">);</span>
+
+                <span class="cm">/* Se indica el número de bits para</span>
+<span class="cm">                 * R,G,B,Alpha, tamaño de buffer y de stencil</span>
+<span class="cm">                 */</span>
+                <span class="n">setEGLConfigChooser</span><span class="o">(</span><span class="mi">8</span> <span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">16</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+                <span class="cm">/* Es importante informar de la version</span>
+<span class="cm">                 * de OpenGL que usa nuestra clase */</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">setEGLContextClientVersion</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>El &#8220;buffer de profundidad&#8221; se utiliza para que OpenGL pueda almacenar qué pixeles &#8220;quedan detrás&#8221; de otros y así ahorrarse el redibujado de los mismos. Aunque en este ejemplo no lo usaremos viene bien ir darle un tamaño y así ir asentando cosas que usaremos el futuro.</p>
+<p>El &#8220;tamaño del buffer de stencil&#8221; se utiliza para tener aún más control sobre lo que se dibuja y lo que no, para hacer por ejemplo &#8220;recortes&#8221; y similares. No se usa muy a menudo pero puede ser útil</p>
+</div>
+<div class="section" id="la-clase-que-dibuja-renderer">
+<h4>La clase que dibuja: <tt class="docutils literal"><span class="pre">Renderer</span></tt><a class="headerlink" href="#la-clase-que-dibuja-renderer" title="Enlazar permanentemente con este título">¶</a></h4>
+<p>Despues añadimos esta clase al proyecto:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MiRenderer</span> <span class="kd">implements</span> <span class="n">Renderer</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDrawFrame</span><span class="o">(</span><span class="n">GL10</span> <span class="n">arg0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">glClear</span><span class="o">(</span><span class="n">GL_COLOR_BUFFER_BIT</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSurfaceChanged</span><span class="o">(</span><span class="n">GL10</span> <span class="n">arg0</span><span class="o">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">glViewport</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="n">width</span><span class="o">,</span><span class="n">height</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSurfaceCreated</span><span class="o">(</span><span class="n">GL10</span> <span class="n">arg0</span><span class="o">,</span> <span class="n">EGLConfig</span> <span class="n">arg1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">glClearColor</span><span class="o">(</span><span class="mf">1.0f</span><span class="o">,</span> <span class="mf">0.0f</span><span class="o">,</span><span class="mf">0.0f</span><span class="o">,</span><span class="mf">0.0f</span><span class="o">);</span>
+
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Sabemos que las clases que implementan <tt class="docutils literal"><span class="pre">Renderer</span></tt> se ocupan de hacer el dibujado pero ¿qué hacen estos métodos?</p>
+<ul class="simple">
+<li>El <tt class="docutils literal"><span class="pre">onSurfaceCreated</span></tt> se ejecuta al arrancar. Lo que hace establecer el &#8220;color de borrado&#8221; a RGBA (100%, 0%, 0%, 0%). La &#8220;A&#8221; es el &#8220;canal Alfa&#8221; o &#8220;transparencia&#8221; (en este caso el color es opaco). <strong>Recuérdese que cuando la pantalla se rota todo se &#8220;recrea&#8221; así que en realidad este método puede ejecutarse más de una vez</strong>.</li>
+<li>El <tt class="docutils literal"><span class="pre">onSurfaceChanged</span></tt> se ejecuta cuando alguien cambia el tamaño de la superficie (tal vez porque se rotó la pantalla). Cuando algo cambie, la clase invoca el método <tt class="docutils literal"><span class="pre">glViewPort</span></tt> que sitúa el &#8220;contenedor&#8221; en la coordenada (0,0) (abajo a la izquierda) y establece su anchura y altura. Normalmente nuestro método será siempre así.</li>
+<li>El <tt class="docutils literal"><span class="pre">onDrawFrame</span></tt> se ejecuta muchas veces por segundo y se dedicará a actualizar el dibujo, escenario o pantalla. En nuestro caso simplemente borra la pantalla con el &#8220;color de borrado&#8221;. Este color se indica activando un cierto bit determinado por la constante <tt class="docutils literal"><span class="pre">GL_COLOR_BUFFER_BIT</span></tt>.</li>
+</ul>
+<p>Si ejecutamos esto, obtendremos esto en el teléfono.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/rojoopengl.png" src="_images/rojoopengl.png" />
+<p class="caption">Una aplicación OpenGL que borra la pantalla</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -3586,6 +3721,14 @@ ficheroTemp.delete();</p>
 <li class="toctree-l2"><a class="reference internal" href="index.html#ejercicio-movimiento-de-enemigos">Ejercicio: movimiento de enemigos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#movimiento-del-protagonista">Movimiento del protagonista</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#ampliacion-baldosas-y-obstaculos">Ampliación: baldosas y obstáculos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-cap1opengl">OpenGL: fundamentos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduccion-a-opengl">Introducción a OpenGL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#probando-los-programas-opengl">Probando los programas OpenGL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#inicializando-opengl">Inicializando OpenGL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#clases-necesarias">Clases necesarias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#un-ejemplo-basico-borrar-la-pantalla">Un ejemplo básico: borrar la pantalla</a></li>
 </ul>
 </li>
 </ul>

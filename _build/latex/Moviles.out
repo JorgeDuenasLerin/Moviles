@@ -89,3 +89,9 @@
 \BOOKMARK [1][-]{section.4.7}{Ejercicio: movimiento de enemigos}{chapter.4}% 89
 \BOOKMARK [1][-]{section.4.8}{Movimiento del protagonista}{chapter.4}% 90
 \BOOKMARK [1][-]{section.4.9}{Ampliaci\363n: baldosas y obst\341culos}{chapter.4}% 91
+\BOOKMARK [0][-]{chapter.5}{OpenGL: fundamentos}{}% 92
+\BOOKMARK [1][-]{section.5.1}{Introducci\363n a OpenGL}{chapter.5}% 93
+\BOOKMARK [1][-]{section.5.2}{Probando los programas OpenGL}{chapter.5}% 94
+\BOOKMARK [1][-]{section.5.3}{Inicializando OpenGL}{chapter.5}% 95
+\BOOKMARK [1][-]{section.5.4}{Clases necesarias}{chapter.5}% 96
+\BOOKMARK [1][-]{section.5.5}{Un ejemplo b\341sico: borrar la pantalla}{chapter.5}% 97

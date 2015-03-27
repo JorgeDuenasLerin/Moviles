@@ -137,3 +137,13 @@
 \contentsline {subsection}{\numberline {4.9.3}Clase Enemigo}{95}{subsection.4.9.3}
 \contentsline {subsection}{\numberline {4.9.4}Clase Escenario}{96}{subsection.4.9.4}
 \contentsline {subsection}{\numberline {4.9.5}Clase ElementoDecorado}{98}{subsection.4.9.5}
+\contentsline {chapter}{\numberline {5}OpenGL: fundamentos}{101}{chapter.5}
+\contentsline {section}{\numberline {5.1}Introducci\IeC {\'o}n a OpenGL}{101}{section.5.1}
+\contentsline {section}{\numberline {5.2}Probando los programas OpenGL}{101}{section.5.2}
+\contentsline {section}{\numberline {5.3}Inicializando OpenGL}{102}{section.5.3}
+\contentsline {section}{\numberline {5.4}Clases necesarias}{102}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Diferencias entre SurfaceView y TextureView}{103}{subsection.5.4.1}
+\contentsline {section}{\numberline {5.5}Un ejemplo b\IeC {\'a}sico: borrar la pantalla}{103}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Interfaz de la app b\IeC {\'a}sica}{103}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Una clase hija de \texttt {SurfaceView}}{103}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.5.3}La clase que dibuja: \texttt {Renderer}}{105}{subsection.5.5.3}
