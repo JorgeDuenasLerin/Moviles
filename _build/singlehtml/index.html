@@ -274,8 +274,8 @@ Una vez arrancado se podrá crear un nuevo dispositivo con el botón <em>New</em
 <li>En tamaños se distingue entre <em>small</em> , <em>normal</em>, <em>large</em> y <em>xlarge</em>.</li>
 <li>En densidades se distingue entre <em>ldpi</em>, <em>mdpi</em>, <em>hdpi</em> y <em>xhdpi</em>.</li>
 </ul>
-<div class="admonition tip">
-<p class="first admonition-title">Truco</p>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
 <p class="last">Un cambio en la orientación del dispositivo <strong>también se considera un cambio en el tamaño del dispositivo</strong>.</p>
 </div>
 <div class="figure align-center" style="width: 50%">
@@ -3613,6 +3613,151 @@ ficheroTemp.delete();</p>
 </div>
 </div>
 </div>
+<span id="document-cap2opengl"></span><div class="section" id="opengl-vertices-y-shaders">
+<h2>OpenGL: vértices y shaders<a class="headerlink" href="#opengl-vertices-y-shaders" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En OpenGL todos los dibujos se componen a partir de dos elementos básicos:</p>
+<ul class="simple">
+<li>Vértices: son puntos del espacio.</li>
+<li>Shaders: son &#8220;pequeños programas&#8221; que dibujan polígonos uniendo vértices.</li>
+</ul>
+<p>Aparte de eso, no solo nos interesará dibujar, sino también poder interactuar con la pantalla o conocer algunos conceptos sobre gráficos en OpenGL. En las secciones siguientes se profundizará en los detalles.</p>
+</div>
+<div class="section" id="ejes-de-coordenadas">
+<h3>Ejes de coordenadas<a class="headerlink" href="#ejes-de-coordenadas" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Si dibujamos un eje de coordenadas y dibujamos un rectángulo sabremos que cada vértice tendrá unas coordenadas.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/ejerectangulo.png" src="_images/ejerectangulo.png" />
+<p class="caption">Un rectángulo cualquiera</p>
+</div>
+<p>Sin embargo OpenGL solo puede dibujar triángulos. Este problema se resuelve fácilmente dividiendo el rectángulo.</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/ejerectangulotriangulos.png" src="_images/ejerectangulotriangulos.png" />
+<p class="caption">Un rectángulo hecho triángulos</p>
+</div>
+<p>Cojamos la clase <tt class="docutils literal"><span class="pre">Renderer</span></tt> anterior y añadamos los vértices. Obsérvese que aún no nos movemos en 3D por lo que todo vértice tiene dos componentes.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MiRenderer</span> <span class="kd">implements</span> <span class="n">Renderer</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">NUM_COMPONENTES</span><span class="o">=</span><span class="mi">2</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span><span class="o">[]</span> <span class="n">vertices</span><span class="o">={</span>
+                        <span class="c1">//Primer triangulo</span>
+                        <span class="mi">2</span><span class="n">f</span><span class="o">,</span> <span class="mi">2</span><span class="n">f</span><span class="o">,</span>
+                        <span class="mi">6</span><span class="n">f</span><span class="o">,</span><span class="mi">10</span><span class="n">f</span><span class="o">,</span>
+                        <span class="mi">2</span><span class="n">f</span><span class="o">,</span><span class="mi">10</span><span class="n">f</span><span class="o">,</span>
+                        <span class="c1">//Segundo triangulo</span>
+                        <span class="mi">2</span><span class="n">f</span><span class="o">,</span><span class="mi">2</span><span class="n">f</span><span class="o">,</span>
+                        <span class="mi">6</span><span class="n">f</span><span class="o">,</span><span class="mi">2</span><span class="n">f</span><span class="o">,</span>
+                        <span class="mi">6</span><span class="n">f</span><span class="o">,</span><span class="mi">10</span><span class="n">f</span>
+        <span class="o">};</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDrawFrame</span><span class="o">(</span><span class="n">GL10</span> <span class="n">arg0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="o">....</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Obsérvese en qué orden ponemos los vértices. <strong>Hemos dibujado los triángulos en sentido anti-horario.</strong> Es muy útil dibujar siempre en el mismo orden, ya que más adelante se podrán hacer optimizaciones. Al orden en que se dibuja algo se le denomina &#8220;winding order&#8221;.</p>
+<p>Si ahora añadimos elementos como una línea divisoria o dos puntos para indicar las raquetas tendremos algo así:</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/esquemajuego.png" src="_images/esquemajuego.png" />
+<p class="caption">Esquema general</p>
+</div>
+<p>Y el código sería así:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MiRenderer</span> <span class="kd">implements</span> <span class="n">Renderer</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">NUM_COMPONENTES</span><span class="o">=</span><span class="mi">2</span><span class="o">;</span>
+
+        <span class="kd">private</span> <span class="kt">float</span><span class="o">[]</span> <span class="n">vertices</span><span class="o">={</span>
+                        <span class="c1">//Primer triangulo</span>
+                        <span class="mi">2</span><span class="n">f</span><span class="o">,</span> <span class="mi">2</span><span class="n">f</span><span class="o">,</span>
+                        <span class="mi">6</span><span class="n">f</span><span class="o">,</span><span class="mi">10</span><span class="n">f</span><span class="o">,</span>
+                        <span class="mi">2</span><span class="n">f</span><span class="o">,</span><span class="mi">10</span><span class="n">f</span><span class="o">,</span>
+                        <span class="c1">//Segundo triangulo</span>
+                        <span class="mi">2</span><span class="n">f</span><span class="o">,</span><span class="mi">2</span><span class="n">f</span><span class="o">,</span>
+                        <span class="mi">6</span><span class="n">f</span><span class="o">,</span><span class="mi">2</span><span class="n">f</span><span class="o">,</span>
+                        <span class="mi">6</span><span class="n">f</span><span class="o">,</span><span class="mi">10</span><span class="n">f</span><span class="o">,</span>
+                        <span class="c1">//Linea divisoria</span>
+                        <span class="mi">2</span><span class="n">f</span><span class="o">,</span><span class="mi">6</span><span class="n">f</span><span class="o">,</span>
+                        <span class="mi">6</span><span class="n">f</span><span class="o">,</span><span class="mi">6</span><span class="n">f</span><span class="o">,</span>
+                        <span class="c1">//Pomo de abajo</span>
+                        <span class="mi">4</span><span class="n">f</span><span class="o">,</span><span class="mi">3</span><span class="n">f</span><span class="o">,</span>
+                        <span class="c1">//Pomo de arriba</span>
+                        <span class="mi">4</span><span class="n">f</span><span class="o">,</span><span class="mi">9</span><span class="n">f</span>
+
+        <span class="o">};</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDrawFrame</span><span class="o">(</span><span class="n">GL10</span> <span class="n">arg0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="o">...</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="enviando-los-datos-a-opengl">
+<h3>Enviando los datos a OpenGL<a class="headerlink" href="#enviando-los-datos-a-opengl" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En este punto hay un problema, porque OpenGL no está escrito en Java. Sin embargo,podemos usar métodos JNI que existen en Android y que permite &#8220;enviar&#8221; datos al driver OpenGL. De hecho este vector sabemos que tiene 10 elementos y que en Java cada float tiene 32 bits o lo que es lo mismo, 4 bytes.</p>
+<p>Para enviar un vector de floats a OpenGL se puede usar la clase <tt class="docutils literal"><span class="pre">FloatBuffer</span></tt> en la cual también indicaremos como se deben ordenar los bits (normalmente usaremos el orden nativo del dispositivo). En el código siguiente hemos creado un método que recibe un vector de floats Java y crea un <tt class="docutils literal"><span class="pre">FloatBuffer</span></tt> al estilo de lo que necesita OpenGL.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MiRenderer</span> <span class="kd">implements</span> <span class="n">Renderer</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">NUM_COMPONENTES</span><span class="o">=</span><span class="mi">2</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kt">float</span><span class="o">[]</span> <span class="n">vertices</span><span class="o">={</span>
+                <span class="o">...</span>
+        <span class="o">};</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">BYTES_POR_FLOAT</span><span class="o">=</span><span class="mi">4</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="n">FloatBuffer</span> <span class="n">datosVertices</span><span class="o">;</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">FloatBuffer</span> <span class="nf">crearBuffer</span><span class="o">(</span><span class="kt">float</span><span class="o">[]</span> <span class="n">datos</span><span class="o">){</span>
+                <span class="kt">int</span> <span class="n">totalBytes</span><span class="o">=</span><span class="n">datos</span><span class="o">.</span><span class="na">length</span><span class="o">*</span><span class="n">BYTES_POR_FLOAT</span><span class="o">;</span>
+                <span class="n">ByteBuffer</span> <span class="n">temp</span><span class="o">=</span><span class="n">ByteBuffer</span><span class="o">.</span><span class="na">allocateDirect</span><span class="o">(</span><span class="n">totalBytes</span><span class="o">);</span>
+                <span class="n">ByteOrder</span> <span class="n">orden</span><span class="o">=</span><span class="n">ByteOrder</span><span class="o">.</span><span class="na">nativeOrder</span><span class="o">();</span>
+                <span class="k">return</span> <span class="n">temp</span><span class="o">.</span><span class="na">asFloatBuffer</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="cm">/* ..codigo omitido*/</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSurfaceCreated</span><span class="o">(</span><span class="n">GL10</span> <span class="n">arg0</span><span class="o">,</span> <span class="n">EGLConfig</span> <span class="n">arg1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">glClearColor</span><span class="o">(</span><span class="mf">1.0f</span><span class="o">,</span> <span class="mf">0.0f</span><span class="o">,</span><span class="mf">0.0f</span><span class="o">,</span><span class="mf">0.0f</span><span class="o">);</span>
+                <span class="n">datosVertices</span><span class="o">=</span><span class="n">crearBuffer</span><span class="o">(</span><span class="n">vertices</span><span class="o">);</span>
+        <span class="o">}</span>
+<span class="o">}</span> <span class="c1">//Fin de la clase</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="el-flujo-de-opengl">
+<h3>El flujo de OpenGL<a class="headerlink" href="#el-flujo-de-opengl" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Para dibujar algo, OpenGL ejecuta muchos procesos intermedios. Por ejemplo, primero se dibujan los vértices, luego se unen para crear polígonos, luego se rellenan polígonos, etc... En la figura siguiente se pueden ver las etapas</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/openglpipeline.png" src="_images/openglpipeline.png" />
+<p class="caption">Etapas de OpenGL</p>
+</div>
+<p>Así por ejemplo, para cada vértice <strong>tenemos que ejecutar un pequeño programa que lo dibuje</strong>. A este pequeño programa se le denomina un &#8220;vertex shader&#8221;. Para cada polígono formado uniendo vértices se le tiene que asignar un color. De este &#8220;rellenado&#8221; se ocupan los programa llamados &#8220;fragment shaders&#8221;.</p>
+<p>Por desgracia estos programas tienen su propia sintaxis que no es como la de Java, por lo que habrá que aprender un nuevo lenguaje (llamado GLSL &#8220;GL Shading Language&#8221;, aunque es muy parecido a C).</p>
+<p>Por ejemplo, un fragment shader típico suele ser así:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">attribute</span> <span class="n">vec4</span> <span class="n">posicion</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+        <span class="n">gl_Position</span><span class="o">=</span><span class="n">posicion</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>En la primera línea se define un <em>atributo</em> (<tt class="docutils literal"><span class="pre">attribute</span></tt>) llamado &#8220;posicion&#8221; que es del tipo `` vec4``. En OpenGL el tipo <tt class="docutils literal"><span class="pre">vec4</span></tt> es un vector de 4 posiciones, siendo las tres primeras las coordenadas <em>(x,y,z)</em> del punto. El último se usará más adelante.</p>
+<p>El programa principal lo único que hacer es dibujar el punto (asignando nuestro &#8220;posicion&#8221; a la variable global &#8220;gl_Position&#8221;). Por así decirlo, para modificar la posición de un vértice hay que modificar su &#8220;gl_Position&#8221;.</p>
+<p>Este &#8220;miniprograma&#8221; tendrá que ejecutarse para cada vértice, sin embargo esto no será suficiente. Tendremos que construir los triángulos usando &#8220;fragment shaders&#8221; y colorear dichos triángulos.</p>
+<p>Recordemos que a OpenGL le estamos pasando floats, que en Java tienen 32 bits, sin embargo en OpenGL podemos decidir no utilizar la misma precisión a fin de acelerar el programa (y utilizar por ejemplo menos de 32 bits para algo). En nuestro fragment shader indicaremos un color de rellenado pero en él no usaremos la máxima precisión para el color, sino algo un poco menor. Un ejemplo de fragment shader sería este:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">precision</span> <span class="n">medium_p</span> <span class="kt">float</span><span class="p">;</span>
+<span class="n">uniform</span> <span class="n">vec4</span> <span class="n">un_color</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+        <span class="n">gl_FragColor</span><span class="o">=</span><span class="n">un_color</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Nuestro programa es parecido al anterior con alguna pequeña diferencia:</p>
+<ul class="simple">
+<li>Hemos dicho que los &#8220;float&#8221; de Java usarán en este caso una precisión menor, la &#8220;medium_p&#8221; (existen &#8220;low_p&#8221;, &#8220;medium_p&#8221; y &#8220;high_p&#8221; aunque este ultimo en pocos móviles, se usa más bien en PC)</li>
+<li>Nuestro &#8220;attribute&#8221; ahora es &#8220;uniform&#8221;. Con ello estamos avisando que el color va a ser &#8220;uniforme&#8221; es decir que no va a cambiar. Esto permite a OpenGL ir aún más deprisa.</li>
+<li>Nuestro main se limita a poner el color al valor que tenga &#8220;un_color&#8221;. Para cambiar algo de color hay que cambiar la variable globar &#8220;gl_FragColor&#8221;.</li>
+</ul>
+<p>OpenGL usa el modelo de colores RGB donde cada color puede ir de 0.0 (el mínimo) a 1.0 (el máximo). Como puede verse, por lo demás es parecido al modelo de colores HTML.</p>
+</div>
+</div>
 </div>
 </div>
 
@@ -3729,6 +3874,13 @@ ficheroTemp.delete();</p>
 <li class="toctree-l2"><a class="reference internal" href="index.html#inicializando-opengl">Inicializando OpenGL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#clases-necesarias">Clases necesarias</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#un-ejemplo-basico-borrar-la-pantalla">Un ejemplo básico: borrar la pantalla</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-cap2opengl">OpenGL: vértices y shaders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduccion">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#ejes-de-coordenadas">Ejes de coordenadas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#enviando-los-datos-a-opengl">Enviando los datos a OpenGL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#el-flujo-de-opengl">El flujo de OpenGL</a></li>
 </ul>
 </li>
 </ul>

@@ -95,3 +95,8 @@
 \BOOKMARK [1][-]{section.5.3}{Inicializando OpenGL}{chapter.5}% 95
 \BOOKMARK [1][-]{section.5.4}{Clases necesarias}{chapter.5}% 96
 \BOOKMARK [1][-]{section.5.5}{Un ejemplo b\341sico: borrar la pantalla}{chapter.5}% 97
+\BOOKMARK [0][-]{chapter.6}{OpenGL: v\351rtices y shaders}{}% 98
+\BOOKMARK [1][-]{section.6.1}{Introducci\363n}{chapter.6}% 99
+\BOOKMARK [1][-]{section.6.2}{Ejes de coordenadas}{chapter.6}% 100
+\BOOKMARK [1][-]{section.6.3}{Enviando los datos a OpenGL}{chapter.6}% 101
+\BOOKMARK [1][-]{section.6.4}{El flujo de OpenGL}{chapter.6}% 102

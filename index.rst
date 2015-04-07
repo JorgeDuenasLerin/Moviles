@@ -17,3 +17,4 @@ Prog. multimedia y de dispositivos móviles.
    tema4
    tema5
    cap1opengl
+   cap2opengl

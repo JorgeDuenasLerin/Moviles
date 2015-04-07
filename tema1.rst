@@ -328,7 +328,7 @@ Como ya se ha mencionado, la plataforma Android establece diversas categorías d
 
 * En densidades se distingue entre *ldpi*, *mdpi*, *hdpi* y *xhdpi*.
 
-.. TIP::
+.. WARNING::
    Un cambio en la orientación del dispositivo **también se considera un cambio en el tamaño del dispositivo**.
    
 .. figure:: imagenes/tamaniospantalla.png
