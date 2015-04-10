@@ -3758,6 +3758,79 @@ ficheroTemp.delete();</p>
 <p>OpenGL usa el modelo de colores RGB donde cada color puede ir de 0.0 (el mínimo) a 1.0 (el máximo). Como puede verse, por lo demás es parecido al modelo de colores HTML.</p>
 </div>
 </div>
+<span id="document-cap3opengl"></span><div class="section" id="opengl-vertices-y-shaders">
+<h2>OpenGL: vértices y shaders<a class="headerlink" href="#opengl-vertices-y-shaders" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En el apartado anterior hemos visto que es necesario crear &#8220;programas separados&#8221; para poder acceder a la aceleración gráfica. En este capítulo veremos como compilar y enlazar estos programas para poder visualizar el resultado en pantalla. También veremos como OpenGL muestra los elementos en pantalla y como necesitaremos adaptarnos a su sistema de coordenadas.</p>
+<p>En este capítulo crearemos una clase auxiliar llamada <tt class="docutils literal"><span class="pre">OpenGLHelper.java</span></tt> que podremos reutilizar el resto del tema.</p>
+</div>
+<div class="section" id="cargando-shaders">
+<h3>Cargando shaders<a class="headerlink" href="#cargando-shaders" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>En primer lugar necesitamos que nuestra clase <tt class="docutils literal"><span class="pre">OpenGLHelper.java</span></tt> disponga de un método que permita cargar recursos (en este caso nuestros mini-programas OpenGL) y dejarlos en un <tt class="docutils literal"><span class="pre">String</span></tt></p>
+<p>El programa siguiente abre un fichero de recurso que habremos guardado en <tt class="docutils literal"><span class="pre">res/raw</span></tt>
+.. code-block:: java</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>public class OpenGLHelper {</dt>
+<dd><dl class="first docutils">
+<dt>public static String cargarFicheroPrograma(</dt>
+<dd>Context contexto, int idRecurso)</dd>
+</dl>
+<dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first docutils">
+<dt>StringBuilder programa=</dt>
+<dd>new StringBuilder();</dd>
+<dt>try{</dt>
+<dd><p class="first">Resources res=contexto.getResources();
+InputStream is=</p>
+<blockquote>
+<div>res.openRawResource(idRecurso);</div></blockquote>
+<dl class="docutils">
+<dt>InputStreamReader isr=</dt>
+<dd>new InputStreamReader(is);</dd>
+<dt>BufferedReader bfr=</dt>
+<dd>new BufferedReader(isr);</dd>
+</dl>
+<p>String linea;
+linea=bfr.readLine();
+while (linea!=null){</p>
+<blockquote>
+<div>programa.append(linea+&#8221;n&#8221;);
+linea=bfr.readLine();</div></blockquote>
+<p class="last">} //Fin del while</p>
+</dd>
+</dl>
+<p>} //Fin del try
+catch (IOException e){</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>throw new RuntimeException(</dt>
+<dd>&#8220;No se pudo abrir el recurso &#8220;+
+&#8220;cuyo id era:&#8221;+idRecurso);</dd>
+</dl>
+</div></blockquote>
+<p>} //Fin del catch IOException
+catch (Resources.NotFoundException nfe){</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>throw new RuntimeException(</dt>
+<dd>&#8220;No se encontro el recurso &#8220;+
+&#8220;cuyo id era:&#8221;+idRecurso);</dd>
+</dl>
+</div></blockquote>
+<p class="last">}
+return programa.toString();</p>
+</dd>
+</dl>
+<p class="last">} //Fin de cargarFicheroPrograma</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+</div>
+</div>
 </div>
 </div>
 
@@ -3881,6 +3954,11 @@ ficheroTemp.delete();</p>
 <li class="toctree-l2"><a class="reference internal" href="index.html#ejes-de-coordenadas">Ejes de coordenadas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#enviando-los-datos-a-opengl">Enviando los datos a OpenGL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#el-flujo-de-opengl">El flujo de OpenGL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-cap3opengl">OpenGL: vértices y shaders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduccion">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cargando-shaders">Cargando shaders</a></li>
 </ul>
 </li>
 </ul>

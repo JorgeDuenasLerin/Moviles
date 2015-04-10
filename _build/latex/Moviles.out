@@ -100,3 +100,6 @@
 \BOOKMARK [1][-]{section.6.2}{Ejes de coordenadas}{chapter.6}% 100
 \BOOKMARK [1][-]{section.6.3}{Enviando los datos a OpenGL}{chapter.6}% 101
 \BOOKMARK [1][-]{section.6.4}{El flujo de OpenGL}{chapter.6}% 102
+\BOOKMARK [0][-]{chapter.7}{OpenGL: v\351rtices y shaders}{}% 103
+\BOOKMARK [1][-]{section.7.1}{Introducci\363n}{chapter.7}% 104
+\BOOKMARK [1][-]{section.7.2}{Cargando shaders}{chapter.7}% 105
