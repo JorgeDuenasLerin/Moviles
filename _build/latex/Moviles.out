@@ -103,3 +103,7 @@
 \BOOKMARK [0][-]{chapter.7}{OpenGL: v\351rtices y shaders}{}% 103
 \BOOKMARK [1][-]{section.7.1}{Introducci\363n}{chapter.7}% 104
 \BOOKMARK [1][-]{section.7.2}{Cargando shaders}{chapter.7}% 105
+\BOOKMARK [1][-]{section.7.3}{Compilando shaders}{chapter.7}% 106
+\BOOKMARK [1][-]{section.7.4}{Enlazando shaders}{chapter.7}% 107
+\BOOKMARK [1][-]{section.7.5}{Validaci\363n de un programa}{chapter.7}% 108
+\BOOKMARK [1][-]{section.7.6}{Conexiones finales}{chapter.7}% 109

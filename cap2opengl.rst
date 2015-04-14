@@ -162,7 +162,7 @@ Recordemos que a OpenGL le estamos pasando floats, que en Java tienen 32 bits, s
 
 .. code-block:: c
 
-	precision medium_p float;
+	precision mediump float;
 	uniform vec4 un_color;
 	void main(){
 		gl_FragColor=un_color;
@@ -170,7 +170,7 @@ Recordemos que a OpenGL le estamos pasando floats, que en Java tienen 32 bits, s
 	
 Nuestro programa es parecido al anterior con alguna pequeña diferencia:
 
-* Hemos dicho que los "float" de Java usarán en este caso una precisión menor, la "medium_p" (existen "low_p", "medium_p" y "high_p" aunque este ultimo en pocos móviles, se usa más bien en PC)
+* Hemos dicho que los "float" de Java usarán en este caso una precisión menor, la "mediump" (existen "lowp", "mediump" y "highp" aunque este ultimo solo en pocos móviles, se usa más bien en PC)
 * Nuestro "attribute" ahora es "uniform". Con ello estamos avisando que el color va a ser "uniforme" es decir que no va a cambiar. Esto permite a OpenGL ir aún más deprisa.
 * Nuestro main se limita a poner el color al valor que tenga "un_color". Para cambiar algo de color hay que cambiar la variable globar "gl_FragColor".
 

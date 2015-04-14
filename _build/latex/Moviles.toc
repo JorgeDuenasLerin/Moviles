@@ -155,3 +155,7 @@
 \contentsline {chapter}{\numberline {7}OpenGL: v\IeC {\'e}rtices y shaders}{115}{chapter.7}
 \contentsline {section}{\numberline {7.1}Introducci\IeC {\'o}n}{115}{section.7.1}
 \contentsline {section}{\numberline {7.2}Cargando shaders}{115}{section.7.2}
+\contentsline {section}{\numberline {7.3}Compilando shaders}{116}{section.7.3}
+\contentsline {section}{\numberline {7.4}Enlazando shaders}{117}{section.7.4}
+\contentsline {section}{\numberline {7.5}Validaci\IeC {\'o}n de un programa}{117}{section.7.5}
+\contentsline {section}{\numberline {7.6}Conexiones finales}{118}{section.7.6}

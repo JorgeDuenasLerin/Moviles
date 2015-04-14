@@ -3742,7 +3742,7 @@ ficheroTemp.delete();</p>
 <p>El programa principal lo único que hacer es dibujar el punto (asignando nuestro &#8220;posicion&#8221; a la variable global &#8220;gl_Position&#8221;). Por así decirlo, para modificar la posición de un vértice hay que modificar su &#8220;gl_Position&#8221;.</p>
 <p>Este &#8220;miniprograma&#8221; tendrá que ejecutarse para cada vértice, sin embargo esto no será suficiente. Tendremos que construir los triángulos usando &#8220;fragment shaders&#8221; y colorear dichos triángulos.</p>
 <p>Recordemos que a OpenGL le estamos pasando floats, que en Java tienen 32 bits, sin embargo en OpenGL podemos decidir no utilizar la misma precisión a fin de acelerar el programa (y utilizar por ejemplo menos de 32 bits para algo). En nuestro fragment shader indicaremos un color de rellenado pero en él no usaremos la máxima precisión para el color, sino algo un poco menor. Un ejemplo de fragment shader sería este:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="n">precision</span> <span class="n">medium_p</span> <span class="kt">float</span><span class="p">;</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">precision</span> <span class="n">mediump</span> <span class="kt">float</span><span class="p">;</span>
 <span class="n">uniform</span> <span class="n">vec4</span> <span class="n">un_color</span><span class="p">;</span>
 <span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
         <span class="n">gl_FragColor</span><span class="o">=</span><span class="n">un_color</span><span class="p">;</span>
@@ -3751,7 +3751,7 @@ ficheroTemp.delete();</p>
 </div>
 <p>Nuestro programa es parecido al anterior con alguna pequeña diferencia:</p>
 <ul class="simple">
-<li>Hemos dicho que los &#8220;float&#8221; de Java usarán en este caso una precisión menor, la &#8220;medium_p&#8221; (existen &#8220;low_p&#8221;, &#8220;medium_p&#8221; y &#8220;high_p&#8221; aunque este ultimo en pocos móviles, se usa más bien en PC)</li>
+<li>Hemos dicho que los &#8220;float&#8221; de Java usarán en este caso una precisión menor, la &#8220;mediump&#8221; (existen &#8220;lowp&#8221;, &#8220;mediump&#8221; y &#8220;highp&#8221; aunque este ultimo solo en pocos móviles, se usa más bien en PC)</li>
 <li>Nuestro &#8220;attribute&#8221; ahora es &#8220;uniform&#8221;. Con ello estamos avisando que el color va a ser &#8220;uniforme&#8221; es decir que no va a cambiar. Esto permite a OpenGL ir aún más deprisa.</li>
 <li>Nuestro main se limita a poner el color al valor que tenga &#8220;un_color&#8221;. Para cambiar algo de color hay que cambiar la variable globar &#8220;gl_FragColor&#8221;.</li>
 </ul>
@@ -3768,67 +3768,168 @@ ficheroTemp.delete();</p>
 <div class="section" id="cargando-shaders">
 <h3>Cargando shaders<a class="headerlink" href="#cargando-shaders" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>En primer lugar necesitamos que nuestra clase <tt class="docutils literal"><span class="pre">OpenGLHelper.java</span></tt> disponga de un método que permita cargar recursos (en este caso nuestros mini-programas OpenGL) y dejarlos en un <tt class="docutils literal"><span class="pre">String</span></tt></p>
-<p>El programa siguiente abre un fichero de recurso que habremos guardado en <tt class="docutils literal"><span class="pre">res/raw</span></tt>
-.. code-block:: java</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>public class OpenGLHelper {</dt>
-<dd><dl class="first docutils">
-<dt>public static String cargarFicheroPrograma(</dt>
-<dd>Context contexto, int idRecurso)</dd>
-</dl>
-<dl class="docutils">
-<dt>{</dt>
-<dd><dl class="first docutils">
-<dt>StringBuilder programa=</dt>
-<dd>new StringBuilder();</dd>
-<dt>try{</dt>
-<dd><p class="first">Resources res=contexto.getResources();
-InputStream is=</p>
-<blockquote>
-<div>res.openRawResource(idRecurso);</div></blockquote>
-<dl class="docutils">
-<dt>InputStreamReader isr=</dt>
-<dd>new InputStreamReader(is);</dd>
-<dt>BufferedReader bfr=</dt>
-<dd>new BufferedReader(isr);</dd>
-</dl>
-<p>String linea;
-linea=bfr.readLine();
-while (linea!=null){</p>
-<blockquote>
-<div>programa.append(linea+&#8221;n&#8221;);
-linea=bfr.readLine();</div></blockquote>
-<p class="last">} //Fin del while</p>
-</dd>
-</dl>
-<p>} //Fin del try
-catch (IOException e){</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>throw new RuntimeException(</dt>
-<dd>&#8220;No se pudo abrir el recurso &#8220;+
-&#8220;cuyo id era:&#8221;+idRecurso);</dd>
-</dl>
-</div></blockquote>
-<p>} //Fin del catch IOException
-catch (Resources.NotFoundException nfe){</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>throw new RuntimeException(</dt>
-<dd>&#8220;No se encontro el recurso &#8220;+
-&#8220;cuyo id era:&#8221;+idRecurso);</dd>
-</dl>
-</div></blockquote>
-<p class="last">}
-return programa.toString();</p>
-</dd>
-</dl>
-<p class="last">} //Fin de cargarFicheroPrograma</p>
-</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
+<p>El programa siguiente abre un fichero de recurso que habremos guardado en <tt class="docutils literal"><span class="pre">res/raw</span></tt></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OpenGLHelper</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">cargarFicheroPrograma</span><span class="o">(</span>
+                                <span class="n">Context</span> <span class="n">contexto</span><span class="o">,</span> <span class="kt">int</span> <span class="n">idRecurso</span><span class="o">)</span>
+        <span class="o">{</span>
+                <span class="n">StringBuilder</span> <span class="n">programa</span><span class="o">=</span>
+                                <span class="k">new</span> <span class="nf">StringBuilder</span><span class="o">();</span>
+                <span class="k">try</span><span class="o">{</span>
+                        <span class="n">Resources</span> <span class="n">res</span><span class="o">=</span><span class="n">contexto</span><span class="o">.</span><span class="na">getResources</span><span class="o">();</span>
+                        <span class="n">InputStream</span> <span class="n">is</span><span class="o">=</span>
+                                        <span class="n">res</span><span class="o">.</span><span class="na">openRawResource</span><span class="o">(</span><span class="n">idRecurso</span><span class="o">);</span>
+                        <span class="n">InputStreamReader</span> <span class="n">isr</span><span class="o">=</span>
+                                        <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
+                        <span class="n">BufferedReader</span> <span class="n">bfr</span><span class="o">=</span>
+                                        <span class="k">new</span> <span class="nf">BufferedReader</span><span class="o">(</span><span class="n">isr</span><span class="o">);</span>
+                        <span class="n">String</span> <span class="n">linea</span><span class="o">;</span>
+                        <span class="n">linea</span><span class="o">=</span><span class="n">bfr</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                        <span class="k">while</span> <span class="o">(</span><span class="n">linea</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                                <span class="n">programa</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">linea</span><span class="o">+</span><span class="s">&quot;\n&quot;</span><span class="o">);</span>
+                                <span class="n">linea</span><span class="o">=</span><span class="n">bfr</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                        <span class="o">}</span> <span class="c1">//Fin del while</span>
+                <span class="o">}</span> <span class="c1">//Fin del try</span>
+                <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+                        <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span>
+                                <span class="s">&quot;No se pudo abrir el recurso &quot;</span><span class="o">+</span>
+                                <span class="s">&quot;cuyo id era:&quot;</span><span class="o">+</span><span class="n">idRecurso</span><span class="o">);</span>
+                <span class="o">}</span> <span class="c1">//Fin del catch IOException</span>
+                <span class="k">catch</span> <span class="o">(</span><span class="n">Resources</span><span class="o">.</span><span class="na">NotFoundException</span> <span class="n">nfe</span><span class="o">){</span>
+                        <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span>
+                                        <span class="s">&quot;No se encontro el recurso &quot;</span><span class="o">+</span>
+                                        <span class="s">&quot;cuyo id era:&quot;</span><span class="o">+</span><span class="n">idRecurso</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="n">programa</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+        <span class="o">}</span> <span class="c1">//Fin de cargarFicheroPrograma</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Ahora la clase <tt class="docutils literal"><span class="pre">MiRenderer.java</span></tt> necesita un constructor como este:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="nf">MiRenderer</span><span class="o">(</span><span class="n">Context</span> <span class="n">ctx</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">contexto</span><span class="o">=</span><span class="n">ctx</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">vertexShader</span><span class="o">=</span>
+                        <span class="n">OpenGLHelper</span><span class="o">.</span><span class="na">cargarFicheroPrograma</span><span class="o">(</span>
+                                        <span class="n">contexto</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">raw</span><span class="o">.</span><span class="na">vertices</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">fragmentShader</span><span class="o">=</span>
+                        <span class="n">OpenGLHelper</span><span class="o">.</span><span class="na">cargarFicheroPrograma</span><span class="o">(</span>
+                                        <span class="n">contexto</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">raw</span><span class="o">.</span><span class="na">fragments</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compilando-shaders">
+<h3>Compilando shaders<a class="headerlink" href="#compilando-shaders" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Ahora que podemos cargar ficheros necesitamos compilarlos. Para ello añadiremos a la clase <tt class="docutils literal"><span class="pre">OpenGLHelper</span></tt> el código siguiente:</p>
+<p>Obsérvese que hemos añadido dos métodos auxiliares <tt class="docutils literal"><span class="pre">compilarVertexShader</span></tt> y <tt class="docutils literal"><span class="pre">compilarFragmentShader</span></tt> que en realidad llaman al método <tt class="docutils literal"><span class="pre">compilar</span></tt>. Dicho método es el corazón del proceso de compilación.</p>
+<p>Como se ve, el proceso de compilación es más o menos el siguiente:</p>
+<ol class="arabic simple">
+<li>Crear un shader vacío.</li>
+<li>Se inyecta en ese shader vacío el código del shader cargado con <tt class="docutils literal"><span class="pre">glShaderSource</span></tt>.</li>
+<li>Se compila dicho shader con <tt class="docutils literal"><span class="pre">glCompileSource</span></tt></li>
+<li>Se comprueba si hay errores con <tt class="docutils literal"><span class="pre">glGetShaderiv</span></tt>.</li>
+</ol>
+</div>
+<div class="section" id="enlazando-shaders">
+<h3>Enlazando shaders<a class="headerlink" href="#enlazando-shaders" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Un programa OpenGL consta de un shader para los vértices más un shader para los fragmentos. Es necesario &#8220;unir&#8221; los dos programas mediante un proceso de enlace como el que realiza el método siguiente:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">enlazar</span>
+<span class="o">(</span><span class="kt">int</span> <span class="n">idVertexShader</span><span class="o">,</span> <span class="kt">int</span> <span class="n">idFragmentShader</span><span class="o">)</span>
+<span class="o">{</span>
+        <span class="kt">int</span> <span class="n">idPrograma</span><span class="o">=</span><span class="n">glCreateProgram</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">idPrograma</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">LOGS_ACTIVADOS</span><span class="o">){</span>
+                        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;No se pudo crear un programa OpenGL&quot;</span><span class="o">);</span>
+                        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="cm">/* Si se pudo crear un programa vacío se intentan enlazar</span>
+<span class="cm">         * el vertexshader y el fragmentshader */</span>
+        <span class="n">glAttachShader</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">,</span> <span class="n">idVertexShader</span><span class="o">);</span>
+        <span class="n">glAttachShader</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">,</span> <span class="n">idFragmentShader</span><span class="o">);</span>
+        <span class="cm">/* Se intenta hacer el enlazado*/</span>
+        <span class="n">glLinkProgram</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">);</span>
+        <span class="cm">/* Y se comprueba si hay errores*/</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">codigoError</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+        <span class="n">glGetProgramiv</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">,</span> <span class="n">GL_LINK_STATUS</span><span class="o">,</span> <span class="n">codigoError</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">codigoError</span><span class="o">[</span><span class="mi">0</span><span class="o">]==</span><span class="mi">0</span><span class="o">){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">LOGS_ACTIVADOS</span><span class="o">){</span>
+                        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;Error al enlazar&quot;</span><span class="o">);</span>
+                        <span class="n">String</span> <span class="n">msg</span><span class="o">=</span><span class="n">glGetProgramInfoLog</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">);</span>
+                        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;Mensaje:&quot;</span><span class="o">+</span><span class="n">msg</span><span class="o">);</span>
+                        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="cm">/* Si no hay errores, perfecto*/</span>
+        <span class="k">return</span> <span class="n">idPrograma</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>El proceso es el siguiente:</p>
+<ol class="arabic simple">
+<li>Se crea un programa vacío.</li>
+<li>Se meten dentro de él los dos shader (el de vértices y el de fragmentos)</li>
+<li>Se hace el enlazado.</li>
+<li>Se comprueba si hubo errores.</li>
+</ol>
+</div>
+<div class="section" id="validacion-de-un-programa">
+<h3>Validación de un programa<a class="headerlink" href="#validacion-de-un-programa" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Todo programa OpenGL debe validarse. El código siguiente ilustra como realizar esta tarea.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">validarPrograma</span><span class="o">(</span>
+        <span class="kt">int</span> <span class="n">idPrograma</span><span class="o">)</span>
+<span class="o">{</span>
+        <span class="cm">/* Se intenta validar*/</span>
+        <span class="n">glValidateProgram</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">);</span>
+        <span class="cm">/* Y se comprueba si hay algun error*/</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">codigoError</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+        <span class="n">glGetProgramiv</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">,</span> <span class="n">GL_VALIDATE_STATUS</span><span class="o">,</span> <span class="n">codigoError</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">codigoError</span><span class="o">[</span><span class="mi">0</span><span class="o">]==</span><span class="mi">0</span><span class="o">){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">LOGS_ACTIVADOS</span><span class="o">){</span>
+                        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;Error al enlazar&quot;</span><span class="o">);</span>
+                        <span class="n">String</span> <span class="n">msg</span><span class="o">=</span><span class="n">glGetProgramInfoLog</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">);</span>
+                        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;Mensaje:&quot;</span><span class="o">+</span><span class="n">msg</span><span class="o">);</span>
+                        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="cm">/* Si se llega aquí no hay error y el programa es válido</span>
+<span class="cm">         * para el estado actual de OpenGL       */</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span> <span class="cm">/*Fin de validar*/</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conexiones-finales">
+<h3>Conexiones finales<a class="headerlink" href="#conexiones-finales" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Nuestros fragments hacían referencia a valores tales como la posición o el color. Sin embargo aún no se ha conectado ninguno de los fragment con ninguna variable Java.</p>
+<p>Esta conexión la haremos en nuestro renderer, por lo que añadiremos el siguiente código a nuestro archivo <tt class="docutils literal"><span class="pre">MiRenderer.java</span></tt></p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/* Color &quot;uniform&quot; de los fragment en el fichero glsl*/</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">nombreColorFragment</span><span class="o">=</span><span class="s">&quot;un_color&quot;</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">direccionColorFragment</span><span class="o">;</span>
+<span class="cm">/* Posicion (attribute) de los vertices en el fichero glsl*/</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">nombreAtrPosicion</span><span class="o">=</span><span class="s">&quot;posicion&quot;</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">direccionPosicionFragment</span><span class="o">;</span>
+</pre></div>
+</div>
+<p>El proceso que haremos será pedir a OpenGL la dirección de memoria donde ha decidido almacenar dichos valores. Luego escribiremos valores en estas direcciones de memoria para conseguir &#8220;pasar&#8221; valores a OpenGL.Estas conexiones las haremos en el método <tt class="docutils literal"><span class="pre">onSurfaceCreated</span></tt>.</p>
+<p>Además, tenemos que indicar a OpenGL donde encontrar datos para dibujar los vértices que hemos definido. Al final de <tt class="docutils literal"><span class="pre">onSurfaceCreated</span></tt> indicaremos lo siguiente:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/* Nos aseguramos de que los datos se empiecen a leer desde la posición 0 */</span>
+<span class="n">datosVertices</span><span class="o">.</span><span class="na">position</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="cm">/*</span>
+<span class="cm"> * 1. Enviar cada posicion a direccionPosicionFragment</span>
+<span class="cm"> * 2. Cada vertice tiene NUM_COMPONENTES (dos, la x y la y)</span>
+<span class="cm"> * 3. Leer valores float (GL_FLOAT)</span>
+<span class="cm"> * 4. No hay que &quot;normalizar&quot; datos (false)</span>
+<span class="cm"> * 5. El 0 es la posicion del atributo en un vector, como solo</span>
+<span class="cm"> * hay un atributo indicamos la primera posicion</span>
+<span class="cm"> * 6. Leer los datos de datosVertices</span>
+<span class="cm"> */</span>
+<span class="n">glVertexAttribPointer</span><span class="o">(</span><span class="n">direccionPosicionFragment</span><span class="o">,</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">NUM_COMPONENTES</span><span class="o">,</span> <span class="n">GL_FLOAT</span><span class="o">,</span><span class="kc">false</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="n">datosVertices</span><span class="o">);</span>
+<span class="cm">/* Habilitar los datos*/</span>
+<span class="n">glEnableVertexAttribArray</span><span class="o">(</span><span class="n">direccionPosicionFragment</span><span class="o">);</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -3959,6 +4060,10 @@ return programa.toString();</p>
 <li class="toctree-l1"><a class="reference internal" href="index.html#document-cap3opengl">OpenGL: vértices y shaders</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="index.html#introduccion">Introducción</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#cargando-shaders">Cargando shaders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#compilando-shaders">Compilando shaders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#enlazando-shaders">Enlazando shaders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#validacion-de-un-programa">Validación de un programa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#conexiones-finales">Conexiones finales</a></li>
 </ul>
 </li>
 </ul>
