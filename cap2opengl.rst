@@ -116,6 +116,7 @@ Para enviar un vector de floats a OpenGL se puede usar la clase ``FloatBuffer`` 
 			int totalBytes=datos.length*BYTES_POR_FLOAT;
 			ByteBuffer temp=ByteBuffer.allocateDirect(totalBytes);
 			ByteOrder orden=ByteOrder.nativeOrder();
+			temp.order(orden);
 			return temp.asFloatBuffer();
 		}
 		
@@ -143,18 +144,19 @@ Así por ejemplo, para cada vértice **tenemos que ejecutar un pequeño programa
 
 Por desgracia estos programas tienen su propia sintaxis que no es como la de Java, por lo que habrá que aprender un nuevo lenguaje (llamado GLSL "GL Shading Language", aunque es muy parecido a C).
 
-Por ejemplo, un fragment shader típico suele ser así:
+Por ejemplo, un vertex shader típico suele ser así:
 
 .. code-block:: c
 
 	attribute vec4 posicion;
 	void main(){
+		gl_PointSize=10.0;
 		gl_Position=posicion;
 	}
 	
 En la primera línea se define un *atributo* (``attribute``) llamado "posicion" que es del tipo `` vec4``. En OpenGL el tipo ``vec4`` es un vector de 4 posiciones, siendo las tres primeras las coordenadas *(x,y,z)* del punto. El último se usará más adelante.
 
-El programa principal lo único que hacer es dibujar el punto (asignando nuestro "posicion" a la variable global "gl_Position"). Por así decirlo, para modificar la posición de un vértice hay que modificar su "gl_Position".
+El programa principal lo único que hacer es dibujar el punto (asignando nuestro "posicion" a la variable global "gl_Position"). Por así decirlo, para modificar la posición de un vértice hay que modificar su "gl_Position". En este caso, hemos indicado que el tamaño de punto es 10 pixeles escribiendo en la variable global ``gl_PointSize``
 
 Este "miniprograma" tendrá que ejecutarse para cada vértice, sin embargo esto no será suficiente. Tendremos que construir los triángulos usando "fragment shaders" y colorear dichos triángulos.
 
@@ -172,6 +174,6 @@ Nuestro programa es parecido al anterior con alguna pequeña diferencia:
 
 * Hemos dicho que los "float" de Java usarán en este caso una precisión menor, la "mediump" (existen "lowp", "mediump" y "highp" aunque este ultimo solo en pocos móviles, se usa más bien en PC)
 * Nuestro "attribute" ahora es "uniform". Con ello estamos avisando que el color va a ser "uniforme" es decir que no va a cambiar. Esto permite a OpenGL ir aún más deprisa.
-* Nuestro main se limita a poner el color al valor que tenga "un_color". Para cambiar algo de color hay que cambiar la variable globar "gl_FragColor".
+* Nuestro main se limita a poner el color al valor que tenga "un_color". Para cambiar algo de color hay que cambiar la variable global "gl_FragColor".
 
 OpenGL usa el modelo de colores RGB donde cada color puede ir de 0.0 (el mínimo) a 1.0 (el máximo). Como puede verse, por lo demás es parecido al modelo de colores HTML.

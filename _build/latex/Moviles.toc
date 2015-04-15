@@ -159,3 +159,5 @@
 \contentsline {section}{\numberline {7.4}Enlazando shaders}{117}{section.7.4}
 \contentsline {section}{\numberline {7.5}Validaci\IeC {\'o}n de un programa}{117}{section.7.5}
 \contentsline {section}{\numberline {7.6}Conexiones finales}{118}{section.7.6}
+\contentsline {section}{\numberline {7.7}Dibujando}{119}{section.7.7}
+\contentsline {section}{\numberline {7.8}Resultado final}{120}{section.7.8}
