@@ -100,7 +100,7 @@
 \BOOKMARK [1][-]{section.6.2}{Ejes de coordenadas}{chapter.6}% 100
 \BOOKMARK [1][-]{section.6.3}{Enviando los datos a OpenGL}{chapter.6}% 101
 \BOOKMARK [1][-]{section.6.4}{El flujo de OpenGL}{chapter.6}% 102
-\BOOKMARK [0][-]{chapter.7}{OpenGL: v\351rtices y shaders}{}% 103
+\BOOKMARK [0][-]{chapter.7}{OpenGL: compilado}{}% 103
 \BOOKMARK [1][-]{section.7.1}{Introducci\363n}{chapter.7}% 104
 \BOOKMARK [1][-]{section.7.2}{Cargando shaders}{chapter.7}% 105
 \BOOKMARK [1][-]{section.7.3}{Compilando shaders}{chapter.7}% 106
@@ -109,3 +109,6 @@
 \BOOKMARK [1][-]{section.7.6}{Conexiones finales}{chapter.7}% 109
 \BOOKMARK [1][-]{section.7.7}{Dibujando}{chapter.7}% 110
 \BOOKMARK [1][-]{section.7.8}{Resultado final}{chapter.7}% 111
+\BOOKMARK [0][-]{chapter.8}{OpenGL: sombreado}{}% 112
+\BOOKMARK [1][-]{section.8.1}{Introducci\363n}{chapter.8}% 113
+\BOOKMARK [1][-]{section.8.2}{Suavizado de colores}{chapter.8}% 114

@@ -3760,8 +3760,8 @@ ficheroTemp.delete();</p>
 <p>OpenGL usa el modelo de colores RGB donde cada color puede ir de 0.0 (el mínimo) a 1.0 (el máximo). Como puede verse, por lo demás es parecido al modelo de colores HTML.</p>
 </div>
 </div>
-<span id="document-cap3opengl"></span><div class="section" id="opengl-vertices-y-shaders">
-<h2>OpenGL: vértices y shaders<a class="headerlink" href="#opengl-vertices-y-shaders" title="Enlazar permanentemente con este título">¶</a></h2>
+<span id="document-cap3opengl"></span><div class="section" id="opengl-compilado">
+<h2>OpenGL: compilado<a class="headerlink" href="#opengl-compilado" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="section" id="introduccion">
 <h3>Introducción<a class="headerlink" href="#introduccion" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>En el apartado anterior hemos visto que es necesario crear &#8220;programas separados&#8221; para poder acceder a la aceleración gráfica. En este capítulo veremos como compilar y enlazar estos programas para poder visualizar el resultado en pantalla. También veremos como OpenGL muestra los elementos en pantalla y como necesitaremos adaptarnos a su sistema de coordenadas.</p>
@@ -4282,6 +4282,123 @@ ficheroTemp.delete();</p>
 </div>
 </div>
 </div>
+<span id="document-cap4opengl"></span><div class="section" id="opengl-sombreado">
+<h2>OpenGL: sombreado<a class="headerlink" href="#opengl-sombreado" title="Enlazar permanentemente con este título">¶</a></h2>
+<div class="section" id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>Hasta ahora hemos usado colores &#8220;planos&#8221;, sin embargo en la vida real toda superficie tiene distintas tonalidades, gradientes de color y/o sombras. En OpenGL se puede conseguir automáticamente el degradado progresivo de color en superficies de una forma bastante cómoda.</p>
+</div>
+<div class="section" id="suavizado-de-colores">
+<h3>Suavizado de colores<a class="headerlink" href="#suavizado-de-colores" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>El proceso en realidad es bastante sencillo: dados tres vértices de un triángulo podemos asociar un color a cada vértice y OpenGL realizará el degradado automáticamente.</p>
+<p>La clave principal está en los atributos <tt class="docutils literal"><span class="pre">varying</span></tt>. Un <tt class="docutils literal"><span class="pre">varying</span></tt> proporciona una conexión entre un vertex shader y un fragment shader. Cuando se define un <tt class="docutils literal"><span class="pre">varying</span></tt> en un vertex shader OpenGL lo modifica y lo pasa al fragment shader. Por ejemplo, supongamos que creamos un triángulo con tres vértices de color rojo, verde y azul. Utilizando un <tt class="docutils literal"><span class="pre">varying</span></tt> OpenGL creará automáticamente los valores intermedios para crear el degradado de colores que se ve a continuación:</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/varying.png" src="_images/varying.png" />
+<p class="caption">Degradado con OpenGL y varying&#8217;s</p>
+</div>
+<p>Nuestro programa OpenGL tendrá esta estructura, obsérverse que hemos modificado algunos nombres de variable:</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/trasiego_varying.png" src="_images/trasiego_varying.png" />
+<p class="caption">Estructura de un programa OpenGL con varying.</p>
+</div>
+<p>Como se ve antes un fragmento tenía un color que asignábamos nosotros. Ahora el color lo tendrá el punto, sin embargo copiaremos dicho color en un <tt class="docutils literal"><span class="pre">varying</span></tt> y dicho color estará disponible para el fragent shader.</p>
+<p>A continuación el vertex shader:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">attribute</span> <span class="n">vec4</span> <span class="n">posicion</span><span class="p">;</span>
+<span class="n">attribute</span> <span class="n">vec4</span> <span class="n">color_vertice</span><span class="p">;</span>
+
+<span class="n">varying</span> <span class="n">vec4</span> <span class="n">color_variante</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+        <span class="n">color_variante</span><span class="o">=</span><span class="n">color_vertice</span><span class="p">;</span>
+        <span class="n">gl_PointSize</span><span class="o">=</span><span class="mf">10.0</span><span class="p">;</span>
+        <span class="n">gl_Position</span><span class="o">=</span><span class="n">posicion</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Obsérvese que como que como <tt class="docutils literal"><span class="pre">color_variante</span></tt> es un <tt class="docutils literal"><span class="pre">varying</span></tt> que luego OpenGL pasará al fragment shader, en cada vértice nos tenemos que apuntar el color de dicho vértice.</p>
+<p>A continuación el fragment shader:</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="n">precision</span> <span class="n">mediump</span> <span class="kt">float</span><span class="p">;</span>
+<span class="n">varying</span> <span class="n">vec4</span> <span class="n">color_variante</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+        <span class="n">gl_FragColor</span><span class="o">=</span><span class="n">color_variante</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Modifiquemos los vértices y añadamos a cada punto tres componentes RGB:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="cm">/* Ahora todos los vértices tienen un color*/</span>
+<span class="kd">private</span> <span class="kt">float</span><span class="o">[]</span> <span class="n">grupoTriangulos</span><span class="o">={</span>
+                <span class="c1">//Vértice central de color blanco</span>
+                <span class="mi">0</span><span class="o">,</span>              <span class="mi">0</span><span class="o">,</span>              <span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span>
+                <span class="c1">//Resto de vértices, ligeramente grises</span>
+                <span class="o">-</span><span class="mf">0.5f</span><span class="o">,</span>  <span class="o">-</span><span class="mf">0.5f</span><span class="o">,</span>  <span class="mf">0.7f</span><span class="o">,</span> <span class="mf">0.7f</span><span class="o">,</span> <span class="mf">0.7f</span><span class="o">,</span>
+                 <span class="mf">0.5f</span><span class="o">,</span>  <span class="o">-</span><span class="mf">0.5f</span><span class="o">,</span>  <span class="mf">0.7f</span><span class="o">,</span> <span class="mf">0.7f</span><span class="o">,</span> <span class="mf">0.7f</span><span class="o">,</span>
+                 <span class="mf">0.5f</span><span class="o">,</span>   <span class="mf">0.5f</span><span class="o">,</span>  <span class="mf">0.7f</span><span class="o">,</span> <span class="mf">0.7f</span><span class="o">,</span> <span class="mf">0.7f</span><span class="o">,</span>
+                <span class="o">-</span><span class="mf">0.5f</span><span class="o">,</span>   <span class="mf">0.5f</span><span class="o">,</span>  <span class="mf">0.7f</span><span class="o">,</span> <span class="mf">0.7f</span><span class="o">,</span> <span class="mf">0.7f</span><span class="o">,</span>
+                <span class="o">-</span><span class="mf">0.5f</span><span class="o">,</span>  <span class="o">-</span><span class="mf">0.5f</span><span class="o">,</span>  <span class="mf">0.7f</span><span class="o">,</span> <span class="mf">0.7f</span><span class="o">,</span> <span class="mf">0.7f</span><span class="o">,</span>
+                <span class="c1">//Linea divisoria, de color verde</span>
+                <span class="o">-</span><span class="mf">0.5f</span><span class="o">,</span>    <span class="mi">0</span><span class="n">f</span><span class="o">,</span>   <span class="mi">0</span><span class="n">f</span><span class="o">,</span> <span class="mi">1</span><span class="n">f</span><span class="o">,</span> <span class="mi">0</span><span class="n">f</span><span class="o">,</span>
+                 <span class="mf">0.5f</span><span class="o">,</span>    <span class="mi">0</span><span class="n">f</span><span class="o">,</span>   <span class="mi">0</span><span class="n">f</span><span class="o">,</span> <span class="mi">1</span><span class="n">f</span><span class="o">,</span> <span class="mi">0</span><span class="n">f</span><span class="o">,</span>
+                <span class="c1">//Pomo de abajo, azul</span>
+                <span class="mi">0</span><span class="n">f</span><span class="o">,</span>     <span class="o">-</span><span class="mf">0.25f</span><span class="o">,</span> <span class="mi">0</span><span class="n">f</span><span class="o">,</span> <span class="mi">0</span><span class="n">f</span><span class="o">,</span> <span class="mi">1</span><span class="n">f</span><span class="o">,</span>
+                <span class="c1">//Pomo de arriba, rojo</span>
+                <span class="mi">0</span><span class="n">f</span><span class="o">,</span>      <span class="mf">0.25f</span><span class="o">,</span> <span class="mi">1</span><span class="n">f</span><span class="o">,</span> <span class="mi">0</span><span class="n">f</span><span class="o">,</span> <span class="mi">0</span><span class="n">f</span><span class="o">,</span>
+<span class="o">};</span>
+</pre></div>
+</div>
+<p>Ahora, al leer cada vértice tenemos que leer 2 componentes (x,y) y luego saltar 3 (rojo, verde, azul), leer 2 y saltar 3, y así sucesivamente. Necesitaremos algunas constantes más.</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">private</span> <span class="kt">int</span> <span class="n">NUM_COMPONENTES_PUNTO</span><span class="o">=</span><span class="mi">2</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">NUM_COMPONENTES_COLOR</span><span class="o">=</span><span class="mi">3</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">BYTES_POR_FLOAT</span><span class="o">=</span><span class="mi">4</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">STRIDE</span> <span class="o">=</span> <span class="o">(</span>
+                <span class="n">NUM_COMPONENTES_PUNTO</span> <span class="o">+</span> <span class="n">NUM_COMPONENTES_COLOR</span>
+                <span class="o">)</span> <span class="o">*</span> <span class="n">BYTES_POR_FLOAT</span><span class="o">;</span>
+</pre></div>
+</div>
+<p>Ahora tendremos que modificar el <tt class="docutils literal"><span class="pre">onSurfaceCreated</span></tt> para que ADEMAS de leer todos los datos de vértices, también lea los colores de los vértices. Esto implica que habrá que crear que indicar otra dirección para ir comunicando a OpenGL los colores de cada vértice.</p>
+<p>El código de la clase queda así:</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSurfaceCreated</span><span class="o">(</span><span class="n">GL10</span> <span class="n">arg0</span><span class="o">,</span> <span class="n">EGLConfig</span> <span class="n">arg1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">glClearColor</span><span class="o">(</span><span class="mf">0.0f</span><span class="o">,</span> <span class="mf">0.0f</span><span class="o">,</span> <span class="mf">0.0f</span><span class="o">,</span> <span class="mf">0.0f</span><span class="o">);</span>
+        <span class="n">compilarShaders</span><span class="o">();</span>
+
+        <span class="n">direccionColorVertice</span><span class="o">=</span><span class="n">glGetAttribLocation</span><span class="o">(</span>
+                        <span class="n">idProgramaOpenGL</span><span class="o">,</span><span class="n">nombreAtrColorVertice</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">direccionPosicionVertice</span><span class="o">=</span><span class="n">glGetAttribLocation</span><span class="o">(</span>
+                        <span class="n">idProgramaOpenGL</span><span class="o">,</span><span class="k">this</span><span class="o">.</span><span class="na">nombreAtrPosVertice</span><span class="o">);</span>
+
+        <span class="n">datosVertices</span><span class="o">.</span><span class="na">position</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+        <span class="n">glVertexAttribPointer</span><span class="o">(</span><span class="n">direccionPosicionVertice</span><span class="o">,</span>
+                        <span class="k">this</span><span class="o">.</span><span class="na">NUM_COMPONENTES_PUNTO</span><span class="o">,</span> <span class="n">GL_FLOAT</span><span class="o">,</span><span class="kc">false</span><span class="o">,</span><span class="n">STRIDE</span><span class="o">,</span><span class="n">datosVertices</span><span class="o">);</span>
+        <span class="cm">/* Habilitar los datos*/</span>
+        <span class="n">glEnableVertexAttribArray</span><span class="o">(</span><span class="n">direccionPosicionVertice</span><span class="o">);</span>
+
+        <span class="cm">/* Aquí en lugar de las posiciones, se van leyendo los colores</span>
+<span class="cm">         * por lo que hay que empezar a leer en otra posicion</span>
+<span class="cm">         */</span>
+        <span class="n">datosVertices</span><span class="o">.</span><span class="na">position</span><span class="o">(</span><span class="n">NUM_COMPONENTES_PUNTO</span><span class="o">);</span>
+        <span class="n">glVertexAttribPointer</span><span class="o">(</span><span class="n">direccionColorVertice</span><span class="o">,</span><span class="k">this</span><span class="o">.</span><span class="na">NUM_COMPONENTES_COLOR</span><span class="o">,</span>
+                        <span class="n">GL_FLOAT</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="n">STRIDE</span><span class="o">,</span> <span class="n">datosVertices</span><span class="o">);</span>
+        <span class="cm">/* Y se habilita la lectura de colores*/</span>
+        <span class="n">glEnableVertexAttribArray</span><span class="o">(</span><span class="n">direccionColorVertice</span><span class="o">);</span>
+<span class="o">}</span> <span class="c1">//Fin de onSurfaceCreated</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDrawFrame</span><span class="o">(</span><span class="n">GL10</span> <span class="n">arg0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">glClear</span><span class="o">(</span><span class="n">GL_COLOR_BUFFER_BIT</span><span class="o">);</span>
+        <span class="cm">/* Mesa*/</span>
+        <span class="n">glDrawArrays</span><span class="o">(</span><span class="n">GL_TRIANGLE_FAN</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span><span class="mi">6</span><span class="o">);</span>
+        <span class="cm">/* Linea divisoria*/</span>
+        <span class="n">glDrawArrays</span><span class="o">(</span><span class="n">GL_LINES</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span><span class="mi">2</span><span class="o">);</span>
+        <span class="cm">/* Pomos*/</span>
+        <span class="n">glDrawArrays</span><span class="o">(</span><span class="n">GL_POINTS</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span><span class="mi">1</span><span class="o">);</span>
+        <span class="n">glDrawArrays</span><span class="o">(</span><span class="n">GL_POINTS</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span><span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>El resultado que se obtendrá se muestra a continuación:</p>
+<div class="figure align-center" style="width: 50%">
+<img alt="_images/capturajuegosuavizado.png" src="_images/capturajuegosuavizado.png" />
+<p class="caption">Suavizado de colores.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -4407,7 +4524,7 @@ ficheroTemp.delete();</p>
 <li class="toctree-l2"><a class="reference internal" href="index.html#el-flujo-de-opengl">El flujo de OpenGL</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="index.html#document-cap3opengl">OpenGL: vértices y shaders</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-cap3opengl">OpenGL: compilado</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="index.html#introduccion">Introducción</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#cargando-shaders">Cargando shaders</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#compilando-shaders">Compilando shaders</a></li>
@@ -4416,6 +4533,11 @@ ficheroTemp.delete();</p>
 <li class="toctree-l2"><a class="reference internal" href="index.html#conexiones-finales">Conexiones finales</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#dibujando">Dibujando</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#resultado-final">Resultado final</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-cap4opengl">OpenGL: sombreado</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduccion">Introducción</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#suavizado-de-colores">Suavizado de colores</a></li>
 </ul>
 </li>
 </ul>

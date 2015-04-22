@@ -1,4 +1,4 @@
-﻿OpenGL: vértices y shaders
+﻿OpenGL: compilado
 ===========================
 
 Introducción

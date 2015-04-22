@@ -152,7 +152,7 @@
 \contentsline {section}{\numberline {6.2}Ejes de coordenadas}{107}{section.6.2}
 \contentsline {section}{\numberline {6.3}Enviando los datos a OpenGL}{111}{section.6.3}
 \contentsline {section}{\numberline {6.4}El flujo de OpenGL}{112}{section.6.4}
-\contentsline {chapter}{\numberline {7}OpenGL: v\IeC {\'e}rtices y shaders}{115}{chapter.7}
+\contentsline {chapter}{\numberline {7}OpenGL: compilado}{115}{chapter.7}
 \contentsline {section}{\numberline {7.1}Introducci\IeC {\'o}n}{115}{section.7.1}
 \contentsline {section}{\numberline {7.2}Cargando shaders}{115}{section.7.2}
 \contentsline {section}{\numberline {7.3}Compilando shaders}{116}{section.7.3}
@@ -161,3 +161,6 @@
 \contentsline {section}{\numberline {7.6}Conexiones finales}{118}{section.7.6}
 \contentsline {section}{\numberline {7.7}Dibujando}{119}{section.7.7}
 \contentsline {section}{\numberline {7.8}Resultado final}{120}{section.7.8}
+\contentsline {chapter}{\numberline {8}OpenGL: sombreado}{127}{chapter.8}
+\contentsline {section}{\numberline {8.1}Introducci\IeC {\'o}n}{127}{section.8.1}
+\contentsline {section}{\numberline {8.2}Suavizado de colores}{127}{section.8.2}

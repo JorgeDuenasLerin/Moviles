@@ -19,3 +19,4 @@ Prog. multimedia y de dispositivos móviles.
    cap1opengl
    cap2opengl
    cap3opengl
+   cap4opengl
