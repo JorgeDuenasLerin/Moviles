@@ -164,3 +164,9 @@
 \contentsline {chapter}{\numberline {8}OpenGL: sombreado}{127}{chapter.8}
 \contentsline {section}{\numberline {8.1}Introducci\IeC {\'o}n}{127}{section.8.1}
 \contentsline {section}{\numberline {8.2}Suavizado de colores}{127}{section.8.2}
+\contentsline {chapter}{\numberline {9}OpenGL: perspectiva}{133}{chapter.9}
+\contentsline {section}{\numberline {9.1}Introducci\IeC {\'o}n}{133}{section.9.1}
+\contentsline {section}{\numberline {9.2}La proporcionalidad}{133}{section.9.2}
+\contentsline {section}{\numberline {9.3}Conceptos b\IeC {\'a}sicos de algebra}{134}{section.9.3}
+\contentsline {section}{\numberline {9.4}Definiendo una proyecci\IeC {\'o}n ortogr\IeC {\'a}fica}{135}{section.9.4}
+\contentsline {section}{\numberline {9.5}A\IeC {\~n}adiendo la proyecci\IeC {\'o}n ortogr\IeC {\'a}fica}{136}{section.9.5}

@@ -112,3 +112,9 @@
 \BOOKMARK [0][-]{chapter.8}{OpenGL: sombreado}{}% 112
 \BOOKMARK [1][-]{section.8.1}{Introducci\363n}{chapter.8}% 113
 \BOOKMARK [1][-]{section.8.2}{Suavizado de colores}{chapter.8}% 114
+\BOOKMARK [0][-]{chapter.9}{OpenGL: perspectiva}{}% 115
+\BOOKMARK [1][-]{section.9.1}{Introducci\363n}{chapter.9}% 116
+\BOOKMARK [1][-]{section.9.2}{La proporcionalidad}{chapter.9}% 117
+\BOOKMARK [1][-]{section.9.3}{Conceptos b\341sicos de algebra}{chapter.9}% 118
+\BOOKMARK [1][-]{section.9.4}{Definiendo una proyecci\363n ortogr\341fica}{chapter.9}% 119
+\BOOKMARK [1][-]{section.9.5}{A\361adiendo la proyecci\363n ortogr\341fica}{chapter.9}% 120
