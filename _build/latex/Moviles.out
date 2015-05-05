@@ -118,3 +118,10 @@
 \BOOKMARK [1][-]{section.9.3}{Conceptos b\341sicos de algebra}{chapter.9}% 118
 \BOOKMARK [1][-]{section.9.4}{Definiendo una proyecci\363n ortogr\341fica}{chapter.9}% 119
 \BOOKMARK [1][-]{section.9.5}{A\361adiendo la proyecci\363n ortogr\341fica}{chapter.9}% 120
+\BOOKMARK [0][-]{chapter.10}{OpenGL: resumen}{}% 121
+\BOOKMARK [1][-]{section.10.1}{Introducci\363n}{chapter.10}% 122
+\BOOKMARK [1][-]{section.10.2}{La clase que hereda de GLSurfaceView}{chapter.10}% 123
+\BOOKMARK [1][-]{section.10.3}{La clase que implementa``Renderer``}{chapter.10}% 124
+\BOOKMARK [1][-]{section.10.4}{Los shaders}{chapter.10}% 125
+\BOOKMARK [1][-]{section.10.5}{Compilaci\363n de shaders}{chapter.10}% 126
+\BOOKMARK [1][-]{section.10.6}{Ejecuci\363n del programa OpenGL}{chapter.10}% 127

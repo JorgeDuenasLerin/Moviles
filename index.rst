@@ -21,3 +21,4 @@ Prog. multimedia y de dispositivos móviles.
    cap3opengl
    cap4opengl
    cap5opengl
+   cap6resumen

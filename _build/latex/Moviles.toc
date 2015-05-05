@@ -170,3 +170,10 @@
 \contentsline {section}{\numberline {9.3}Conceptos b\IeC {\'a}sicos de algebra}{134}{section.9.3}
 \contentsline {section}{\numberline {9.4}Definiendo una proyecci\IeC {\'o}n ortogr\IeC {\'a}fica}{135}{section.9.4}
 \contentsline {section}{\numberline {9.5}A\IeC {\~n}adiendo la proyecci\IeC {\'o}n ortogr\IeC {\'a}fica}{136}{section.9.5}
+\contentsline {chapter}{\numberline {10}OpenGL: resumen}{139}{chapter.10}
+\contentsline {section}{\numberline {10.1}Introducci\IeC {\'o}n}{139}{section.10.1}
+\contentsline {section}{\numberline {10.2}La clase que hereda de \texttt {GLSurfaceView}}{139}{section.10.2}
+\contentsline {section}{\numberline {10.3}La clase que implementa{}`{}`Renderer{}`{}`}{139}{section.10.3}
+\contentsline {section}{\numberline {10.4}Los shaders}{140}{section.10.4}
+\contentsline {section}{\numberline {10.5}Compilaci\IeC {\'o}n de shaders}{140}{section.10.5}
+\contentsline {section}{\numberline {10.6}Ejecuci\IeC {\'o}n del programa OpenGL}{141}{section.10.6}
