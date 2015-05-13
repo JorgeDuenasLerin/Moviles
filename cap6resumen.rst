@@ -27,7 +27,8 @@ El código se muestra a continuación:
 			this.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
 			this.setEGLContextClientVersion(2);
 		}
-	}	
+	}
+	
 	
 La clase que implementa``Renderer``
 ------------------------------------------------------
@@ -107,3 +108,245 @@ Una vez localizado el atributo "posicion_vertice", podemos enviar a esa direcci�
 Una vez pasado el vector con los datos ya se pueden ejecutar llamadas como ``glDrawArrays(GL_TRIANGLE_FAN, primera_pos, ultima_pos)`` para dibujar elementos en pantalla. No solamente podemos usar un vector de posiciones, sino también un vector de colores. Los puntos y los colores pueden almacenarse en el mismo vector o separados. Separar los datos es un poquito más fácil de programar y depurar, pero poner todo junto obtiene el máximo rendimiento.
 
 
+Clase ``CompiladorOpenGL.java``
+------------------------------------------------------
+
+
+A continuación se muestra una clase que ayuda en las tareas de compilado de programas OpenGL
+
+.. code-block:: java
+
+	public class CompiladorOpenGL {
+		private static boolean LOGS_ACTIVADOS=true;
+
+		public static void activarLogs(){
+			LOGS_ACTIVADOS=true;
+		}
+		
+		public static void desactivarLogs(){
+			LOGS_ACTIVADOS=false;
+		}
+		
+		public static int compilarPrograma(Context contexto,
+				int vertexShader, int fragmentShader){
+			int idPrograma=-1;
+			String codigoVertex		=	cargarFichero(contexto, vertexShader);
+			String codigoFragment	=	cargarFichero(contexto, fragmentShader);
+			
+			int idVertex		= 	compilarVertexShader(codigoVertex);
+			int idFragment	=	compilarFragmentShader(codigoFragment);
+			
+			idPrograma = enlazar(idVertex, idFragment);
+			boolean esProgramaValido=validar(idPrograma);
+			if (esProgramaValido){
+				glUseProgram(idPrograma);
+				Log.d("DEBUG", "El programa es valido y su id es:"+idPrograma);
+			}
+			return idPrograma;
+		}
+		
+		
+		public static String cargarFichero (Context contexto, int idRecurso){
+			StringBuilder programa=
+					new StringBuilder();
+			try{
+				Resources res=contexto.getResources();
+				InputStream is=
+						res.openRawResource(idRecurso);
+				InputStreamReader isr=
+						new InputStreamReader(is);
+				BufferedReader bfr=
+						new BufferedReader(isr);
+				String linea;
+				linea=bfr.readLine();
+				while (linea!=null){
+					programa.append(linea+"\n");
+					linea=bfr.readLine();
+				} //Fin del while
+			} //Fin del try
+			catch (IOException e){
+				throw new RuntimeException(
+					"No se pudo abrir el recurso "+
+					"cuyo id era:"+idRecurso);
+			} //Fin del catch IOException
+			catch (Resources.NotFoundException nfe){
+				throw new RuntimeException(
+						"No se encontro el recurso "+
+						"cuyo id era:"+idRecurso);
+			}
+			return programa.toString();
+		}
+		
+		
+		public static int compilar
+			(int tipo, String codigo)
+		{
+			int idShader;
+			//Se pide a OpenGL que nos cree
+			//un id de shader vacío
+			idShader=glCreateShader(tipo);
+			//Si es 0, es que hubo un error
+			if (idShader==0){
+				if (LOGS_ACTIVADOS){
+					Log.d("DEBUG","Fallo al crear shader");
+				}
+				return 0;
+			}
+			//Y si no hay error cargamos el codigo
+			glShaderSource(idShader, codigo);
+			//Lo compilamos
+			glCompileShader(idShader);
+			//Comprobamos si hay error al compilar
+			int[] error=new int[1];
+			/* Se consulta el estado de GL_COMPILE_STATUS
+			 * y se pide que se guarde el estado en el
+			 * vector error en la posicion 0*/
+			glGetShaderiv(idShader, 
+					GL_COMPILE_STATUS, 
+					error, 0);
+			if (error[0]==0){
+				if (LOGS_ACTIVADOS){
+					Log.d("DEBUG", 
+						"Error al compilar, codigo:"+error[0]);
+					Log.d("DEBUG", "Codigo:\n"+codigo);
+					String msg=glGetShaderInfoLog(idShader);
+					Log.d("DEBUG", "Mensaje:"+msg);
+				}
+			}
+			/* Si no ha habido error todo fue bien
+			 * y tenemos un id de programa con
+			 * codigo compilado correctamente
+			 */
+			return idShader;
+		} //Fin de compilar
+		
+		
+		
+		public static int enlazar(int idVertexShader, int idFragmentShader){
+			int idPrograma=glCreateProgram();
+			if (idPrograma==0){
+				if (LOGS_ACTIVADOS){
+					Log.d("DEBUG", "No se pudo crear un programa OpenGL");
+					return 0;
+				}		
+			}
+			/* Si se pudo crear un programa vacío se intentan enlazar
+			 * el vertexshader y el fragmentshader */
+			glAttachShader(idPrograma, idVertexShader);
+			glAttachShader(idPrograma, idFragmentShader);
+			/* Se intenta hacer el enlazado*/
+			glLinkProgram(idPrograma);
+			/* Y se comprueba si hay errores*/
+			int[] codigoError=new int[1];
+			glGetProgramiv(idPrograma, GL_LINK_STATUS, codigoError, 0);
+			if (codigoError[0]==0){
+				if (LOGS_ACTIVADOS){
+					Log.d("DEBUG", "Error al enlazar");
+					String msg=glGetProgramInfoLog(idPrograma);
+					Log.d("DEBUG", "Mensaje:"+msg);
+					return 0;
+				}
+			}
+			/* Si no hay errores, perfecto*/
+			return idPrograma;
+		}
+		
+		
+		
+		
+		public static int compilarVertexShader (String codigo)
+		{
+			int idPrograma;
+			idPrograma=compilar(
+					GL_VERTEX_SHADER,codigo);
+			return idPrograma;
+		} //Fin de compilarVertexShader
+		
+		public static int compilarFragmentShader (String codigo)
+		{
+			int idPrograma;
+			idPrograma=compilar(
+					GL_FRAGMENT_SHADER,codigo);
+			return idPrograma;
+		} //Fin de compilarFragmentShader
+		
+		
+		
+		
+		
+		
+		
+		public static boolean validar(int idPrograma){
+			/* Se intenta validar*/
+			glValidateProgram(idPrograma);
+			/* Y se comprueba si hay algun error*/
+			int[] codigoError=new int[1];
+			glGetProgramiv(idPrograma, GL_VALIDATE_STATUS, codigoError, 0);
+			if (codigoError[0]==0){
+				if (LOGS_ACTIVADOS){
+					Log.d("DEBUG", "Error al enlazar");
+					String msg=glGetProgramInfoLog(idPrograma);
+					Log.d("DEBUG", "Mensaje:"+msg);
+					return false;
+				}
+			}
+			/* Si se llega aquí no hay error y el programa es válido 
+			 * para el estado actual de OpenGL	 */
+			return true;		
+		} /*Fin de validar*/	
+	}
+	
+Clase ``Programa.java``
+------------------------------------------------------
+
+A continuación se muestra un programa que facilita la tarea de crear programas OpenGL
+
+.. code-block:: java
+
+	public class Programa {
+		private int idPrograma;
+		public Programa(int idPrograma){
+			this.idPrograma=idPrograma;
+		}
+		public void setColorBorrado(float r, float g, float b, float a){
+			glClearColor(r,g,b,a);
+		}
+		public void pasarUniform(int direccion, float r, float g, float b, float a){
+			glUniform4f(direccion, r, g, b, a);
+		}
+		public void dibujarTriangulos(int posInicial, int posFinal){
+			glDrawArrays(GL_TRIANGLES, posInicial, posFinal);
+		}
+		public void dibujarFan(int posInicial, int posFinal){
+			glDrawArrays(GL_TRIANGLE_FAN, posInicial, posFinal);
+		}
+		public void dibujarLinea(int posInicial, int posFinal){
+			glDrawArrays(GL_LINES, posInicial, posFinal);
+		}
+		public void dibujarPunto(int posInicial, int posFinal){
+			glDrawArrays(GL_POINTS, posInicial, posFinal);
+		}
+		public void setVertices(float[] datos, int numDimensiones, String nombreAtrPosicion){
+			int direccionAtrPosicion=this.getDireccionAtributo(nombreAtrPosicion);
+			FloatBuffer buffer=Utilidades.crearBuffer(datos);
+			buffer.put(datos);
+			buffer.position(0);
+			/* Cada punto va en 2 dimensiones*/ 
+			glVertexAttribPointer(
+					direccionAtrPosicion,
+					numDimensiones,
+					GL_FLOAT,false,
+					0,buffer);
+					/* Habilitar los datos*/
+					glEnableVertexAttribArray(direccionAtrPosicion);
+		}
+		public int getDireccionAtributo(String nombreAtributo){
+			int direccion=glGetAttribLocation(this.idPrograma, nombreAtributo);
+			return direccion;
+		}
+		public int getDireccionUniform(String nombreAtributo){
+			int direccion=glGetUniformLocation(this.idPrograma, nombreAtributo);
+			return direccion;
+		}
+	}
+	
