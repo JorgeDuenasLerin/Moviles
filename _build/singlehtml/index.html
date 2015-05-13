@@ -4670,6 +4670,243 @@ ficheroTemp.delete();</p>
 <p>Una vez localizado el atributo &#8220;posicion_vertice&#8221;, podemos enviar a esa dirección la lista de puntos para los cuales se debe ejecutar el vertex shader. Para ello se usa <tt class="docutils literal"><span class="pre">glVertexAttribPointer(direccion,</span> <span class="pre">longitud_vector,</span> <span class="pre">GL_FLOAT,</span> <span class="pre">false,</span> <span class="pre">0,</span> <span class="pre">vector)</span></tt> y luego habilitar el vector de puntos con <tt class="docutils literal"><span class="pre">glEnableVertexAttribArray(direccion)</span></tt></p>
 <p>Una vez pasado el vector con los datos ya se pueden ejecutar llamadas como <tt class="docutils literal"><span class="pre">glDrawArrays(GL_TRIANGLE_FAN,</span> <span class="pre">primera_pos,</span> <span class="pre">ultima_pos)</span></tt> para dibujar elementos en pantalla. No solamente podemos usar un vector de posiciones, sino también un vector de colores. Los puntos y los colores pueden almacenarse en el mismo vector o separados. Separar los datos es un poquito más fácil de programar y depurar, pero poner todo junto obtiene el máximo rendimiento.</p>
 </div>
+<div class="section" id="clase-compiladoropengl-java">
+<h3>Clase <tt class="docutils literal"><span class="pre">CompiladorOpenGL.java</span></tt><a class="headerlink" href="#clase-compiladoropengl-java" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A continuación se muestra una clase que ayuda en las tareas de compilado de programas OpenGL</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CompiladorOpenGL</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="n">LOGS_ACTIVADOS</span><span class="o">=</span><span class="kc">true</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">activarLogs</span><span class="o">(){</span>
+                <span class="n">LOGS_ACTIVADOS</span><span class="o">=</span><span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">desactivarLogs</span><span class="o">(){</span>
+                <span class="n">LOGS_ACTIVADOS</span><span class="o">=</span><span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">compilarPrograma</span><span class="o">(</span><span class="n">Context</span> <span class="n">contexto</span><span class="o">,</span>
+                        <span class="kt">int</span> <span class="n">vertexShader</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fragmentShader</span><span class="o">){</span>
+                <span class="kt">int</span> <span class="n">idPrograma</span><span class="o">=-</span><span class="mi">1</span><span class="o">;</span>
+                <span class="n">String</span> <span class="n">codigoVertex</span>             <span class="o">=</span>       <span class="n">cargarFichero</span><span class="o">(</span><span class="n">contexto</span><span class="o">,</span> <span class="n">vertexShader</span><span class="o">);</span>
+                <span class="n">String</span> <span class="n">codigoFragment</span>   <span class="o">=</span>       <span class="n">cargarFichero</span><span class="o">(</span><span class="n">contexto</span><span class="o">,</span> <span class="n">fragmentShader</span><span class="o">);</span>
+
+                <span class="kt">int</span> <span class="n">idVertex</span>            <span class="o">=</span>       <span class="n">compilarVertexShader</span><span class="o">(</span><span class="n">codigoVertex</span><span class="o">);</span>
+                <span class="kt">int</span> <span class="n">idFragment</span>  <span class="o">=</span>       <span class="n">compilarFragmentShader</span><span class="o">(</span><span class="n">codigoFragment</span><span class="o">);</span>
+
+                <span class="n">idPrograma</span> <span class="o">=</span> <span class="n">enlazar</span><span class="o">(</span><span class="n">idVertex</span><span class="o">,</span> <span class="n">idFragment</span><span class="o">);</span>
+                <span class="kt">boolean</span> <span class="n">esProgramaValido</span><span class="o">=</span><span class="n">validar</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">esProgramaValido</span><span class="o">){</span>
+                        <span class="n">glUseProgram</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">);</span>
+                        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;El programa es valido y su id es:&quot;</span><span class="o">+</span><span class="n">idPrograma</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="n">idPrograma</span><span class="o">;</span>
+        <span class="o">}</span>
+
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">cargarFichero</span> <span class="o">(</span><span class="n">Context</span> <span class="n">contexto</span><span class="o">,</span> <span class="kt">int</span> <span class="n">idRecurso</span><span class="o">){</span>
+                <span class="n">StringBuilder</span> <span class="n">programa</span><span class="o">=</span>
+                                <span class="k">new</span> <span class="nf">StringBuilder</span><span class="o">();</span>
+                <span class="k">try</span><span class="o">{</span>
+                        <span class="n">Resources</span> <span class="n">res</span><span class="o">=</span><span class="n">contexto</span><span class="o">.</span><span class="na">getResources</span><span class="o">();</span>
+                        <span class="n">InputStream</span> <span class="n">is</span><span class="o">=</span>
+                                        <span class="n">res</span><span class="o">.</span><span class="na">openRawResource</span><span class="o">(</span><span class="n">idRecurso</span><span class="o">);</span>
+                        <span class="n">InputStreamReader</span> <span class="n">isr</span><span class="o">=</span>
+                                        <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
+                        <span class="n">BufferedReader</span> <span class="n">bfr</span><span class="o">=</span>
+                                        <span class="k">new</span> <span class="nf">BufferedReader</span><span class="o">(</span><span class="n">isr</span><span class="o">);</span>
+                        <span class="n">String</span> <span class="n">linea</span><span class="o">;</span>
+                        <span class="n">linea</span><span class="o">=</span><span class="n">bfr</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                        <span class="k">while</span> <span class="o">(</span><span class="n">linea</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                                <span class="n">programa</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">linea</span><span class="o">+</span><span class="s">&quot;\n&quot;</span><span class="o">);</span>
+                                <span class="n">linea</span><span class="o">=</span><span class="n">bfr</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+                        <span class="o">}</span> <span class="c1">//Fin del while</span>
+                <span class="o">}</span> <span class="c1">//Fin del try</span>
+                <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+                        <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span>
+                                <span class="s">&quot;No se pudo abrir el recurso &quot;</span><span class="o">+</span>
+                                <span class="s">&quot;cuyo id era:&quot;</span><span class="o">+</span><span class="n">idRecurso</span><span class="o">);</span>
+                <span class="o">}</span> <span class="c1">//Fin del catch IOException</span>
+                <span class="k">catch</span> <span class="o">(</span><span class="n">Resources</span><span class="o">.</span><span class="na">NotFoundException</span> <span class="n">nfe</span><span class="o">){</span>
+                        <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span>
+                                        <span class="s">&quot;No se encontro el recurso &quot;</span><span class="o">+</span>
+                                        <span class="s">&quot;cuyo id era:&quot;</span><span class="o">+</span><span class="n">idRecurso</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="n">programa</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+        <span class="o">}</span>
+
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">compilar</span>
+                <span class="o">(</span><span class="kt">int</span> <span class="n">tipo</span><span class="o">,</span> <span class="n">String</span> <span class="n">codigo</span><span class="o">)</span>
+        <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">idShader</span><span class="o">;</span>
+                <span class="c1">//Se pide a OpenGL que nos cree</span>
+                <span class="c1">//un id de shader vacío</span>
+                <span class="n">idShader</span><span class="o">=</span><span class="n">glCreateShader</span><span class="o">(</span><span class="n">tipo</span><span class="o">);</span>
+                <span class="c1">//Si es 0, es que hubo un error</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">idShader</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">LOGS_ACTIVADOS</span><span class="o">){</span>
+                                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span><span class="s">&quot;Fallo al crear shader&quot;</span><span class="o">);</span>
+                        <span class="o">}</span>
+                        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="c1">//Y si no hay error cargamos el codigo</span>
+                <span class="n">glShaderSource</span><span class="o">(</span><span class="n">idShader</span><span class="o">,</span> <span class="n">codigo</span><span class="o">);</span>
+                <span class="c1">//Lo compilamos</span>
+                <span class="n">glCompileShader</span><span class="o">(</span><span class="n">idShader</span><span class="o">);</span>
+                <span class="c1">//Comprobamos si hay error al compilar</span>
+                <span class="kt">int</span><span class="o">[]</span> <span class="n">error</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+                <span class="cm">/* Se consulta el estado de GL_COMPILE_STATUS</span>
+<span class="cm">                 * y se pide que se guarde el estado en el</span>
+<span class="cm">                 * vector error en la posicion 0*/</span>
+                <span class="n">glGetShaderiv</span><span class="o">(</span><span class="n">idShader</span><span class="o">,</span>
+                                <span class="n">GL_COMPILE_STATUS</span><span class="o">,</span>
+                                <span class="n">error</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">error</span><span class="o">[</span><span class="mi">0</span><span class="o">]==</span><span class="mi">0</span><span class="o">){</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">LOGS_ACTIVADOS</span><span class="o">){</span>
+                                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span>
+                                        <span class="s">&quot;Error al compilar, codigo:&quot;</span><span class="o">+</span><span class="n">error</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+                                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;Codigo:\n&quot;</span><span class="o">+</span><span class="n">codigo</span><span class="o">);</span>
+                                <span class="n">String</span> <span class="n">msg</span><span class="o">=</span><span class="n">glGetShaderInfoLog</span><span class="o">(</span><span class="n">idShader</span><span class="o">);</span>
+                                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;Mensaje:&quot;</span><span class="o">+</span><span class="n">msg</span><span class="o">);</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="cm">/* Si no ha habido error todo fue bien</span>
+<span class="cm">                 * y tenemos un id de programa con</span>
+<span class="cm">                 * codigo compilado correctamente</span>
+<span class="cm">                 */</span>
+                <span class="k">return</span> <span class="n">idShader</span><span class="o">;</span>
+        <span class="o">}</span> <span class="c1">//Fin de compilar</span>
+
+
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">enlazar</span><span class="o">(</span><span class="kt">int</span> <span class="n">idVertexShader</span><span class="o">,</span> <span class="kt">int</span> <span class="n">idFragmentShader</span><span class="o">){</span>
+                <span class="kt">int</span> <span class="n">idPrograma</span><span class="o">=</span><span class="n">glCreateProgram</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">idPrograma</span><span class="o">==</span><span class="mi">0</span><span class="o">){</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">LOGS_ACTIVADOS</span><span class="o">){</span>
+                                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;No se pudo crear un programa OpenGL&quot;</span><span class="o">);</span>
+                                <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="cm">/* Si se pudo crear un programa vacío se intentan enlazar</span>
+<span class="cm">                 * el vertexshader y el fragmentshader */</span>
+                <span class="n">glAttachShader</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">,</span> <span class="n">idVertexShader</span><span class="o">);</span>
+                <span class="n">glAttachShader</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">,</span> <span class="n">idFragmentShader</span><span class="o">);</span>
+                <span class="cm">/* Se intenta hacer el enlazado*/</span>
+                <span class="n">glLinkProgram</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">);</span>
+                <span class="cm">/* Y se comprueba si hay errores*/</span>
+                <span class="kt">int</span><span class="o">[]</span> <span class="n">codigoError</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+                <span class="n">glGetProgramiv</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">,</span> <span class="n">GL_LINK_STATUS</span><span class="o">,</span> <span class="n">codigoError</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">codigoError</span><span class="o">[</span><span class="mi">0</span><span class="o">]==</span><span class="mi">0</span><span class="o">){</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">LOGS_ACTIVADOS</span><span class="o">){</span>
+                                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;Error al enlazar&quot;</span><span class="o">);</span>
+                                <span class="n">String</span> <span class="n">msg</span><span class="o">=</span><span class="n">glGetProgramInfoLog</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">);</span>
+                                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;Mensaje:&quot;</span><span class="o">+</span><span class="n">msg</span><span class="o">);</span>
+                                <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="cm">/* Si no hay errores, perfecto*/</span>
+                <span class="k">return</span> <span class="n">idPrograma</span><span class="o">;</span>
+        <span class="o">}</span>
+
+
+
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">compilarVertexShader</span> <span class="o">(</span><span class="n">String</span> <span class="n">codigo</span><span class="o">)</span>
+        <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">idPrograma</span><span class="o">;</span>
+                <span class="n">idPrograma</span><span class="o">=</span><span class="n">compilar</span><span class="o">(</span>
+                                <span class="n">GL_VERTEX_SHADER</span><span class="o">,</span><span class="n">codigo</span><span class="o">);</span>
+                <span class="k">return</span> <span class="n">idPrograma</span><span class="o">;</span>
+        <span class="o">}</span> <span class="c1">//Fin de compilarVertexShader</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">compilarFragmentShader</span> <span class="o">(</span><span class="n">String</span> <span class="n">codigo</span><span class="o">)</span>
+        <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">idPrograma</span><span class="o">;</span>
+                <span class="n">idPrograma</span><span class="o">=</span><span class="n">compilar</span><span class="o">(</span>
+                                <span class="n">GL_FRAGMENT_SHADER</span><span class="o">,</span><span class="n">codigo</span><span class="o">);</span>
+                <span class="k">return</span> <span class="n">idPrograma</span><span class="o">;</span>
+        <span class="o">}</span> <span class="c1">//Fin de compilarFragmentShader</span>
+
+
+
+
+
+
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">validar</span><span class="o">(</span><span class="kt">int</span> <span class="n">idPrograma</span><span class="o">){</span>
+                <span class="cm">/* Se intenta validar*/</span>
+                <span class="n">glValidateProgram</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">);</span>
+                <span class="cm">/* Y se comprueba si hay algun error*/</span>
+                <span class="kt">int</span><span class="o">[]</span> <span class="n">codigoError</span><span class="o">=</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+                <span class="n">glGetProgramiv</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">,</span> <span class="n">GL_VALIDATE_STATUS</span><span class="o">,</span> <span class="n">codigoError</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">codigoError</span><span class="o">[</span><span class="mi">0</span><span class="o">]==</span><span class="mi">0</span><span class="o">){</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">LOGS_ACTIVADOS</span><span class="o">){</span>
+                                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;Error al enlazar&quot;</span><span class="o">);</span>
+                                <span class="n">String</span> <span class="n">msg</span><span class="o">=</span><span class="n">glGetProgramInfoLog</span><span class="o">(</span><span class="n">idPrograma</span><span class="o">);</span>
+                                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;Mensaje:&quot;</span><span class="o">+</span><span class="n">msg</span><span class="o">);</span>
+                                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+                        <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="cm">/* Si se llega aquí no hay error y el programa es válido</span>
+<span class="cm">                 * para el estado actual de OpenGL       */</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span> <span class="cm">/*Fin de validar*/</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="clase-programa-java">
+<h3>Clase <tt class="docutils literal"><span class="pre">Programa.java</span></tt><a class="headerlink" href="#clase-programa-java" title="Enlazar permanentemente con este título">¶</a></h3>
+<p>A continuación se muestra un programa que facilita la tarea de crear programas OpenGL</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Programa</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kt">int</span> <span class="n">idPrograma</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nf">Programa</span><span class="o">(</span><span class="kt">int</span> <span class="n">idPrograma</span><span class="o">){</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">idPrograma</span><span class="o">=</span><span class="n">idPrograma</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setColorBorrado</span><span class="o">(</span><span class="kt">float</span> <span class="n">r</span><span class="o">,</span> <span class="kt">float</span> <span class="n">g</span><span class="o">,</span> <span class="kt">float</span> <span class="n">b</span><span class="o">,</span> <span class="kt">float</span> <span class="n">a</span><span class="o">){</span>
+                <span class="n">glClearColor</span><span class="o">(</span><span class="n">r</span><span class="o">,</span><span class="n">g</span><span class="o">,</span><span class="n">b</span><span class="o">,</span><span class="n">a</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pasarUniform</span><span class="o">(</span><span class="kt">int</span> <span class="n">direccion</span><span class="o">,</span> <span class="kt">float</span> <span class="n">r</span><span class="o">,</span> <span class="kt">float</span> <span class="n">g</span><span class="o">,</span> <span class="kt">float</span> <span class="n">b</span><span class="o">,</span> <span class="kt">float</span> <span class="n">a</span><span class="o">){</span>
+                <span class="n">glUniform4f</span><span class="o">(</span><span class="n">direccion</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">g</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarTriangulos</span><span class="o">(</span><span class="kt">int</span> <span class="n">posInicial</span><span class="o">,</span> <span class="kt">int</span> <span class="n">posFinal</span><span class="o">){</span>
+                <span class="n">glDrawArrays</span><span class="o">(</span><span class="n">GL_TRIANGLES</span><span class="o">,</span> <span class="n">posInicial</span><span class="o">,</span> <span class="n">posFinal</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarFan</span><span class="o">(</span><span class="kt">int</span> <span class="n">posInicial</span><span class="o">,</span> <span class="kt">int</span> <span class="n">posFinal</span><span class="o">){</span>
+                <span class="n">glDrawArrays</span><span class="o">(</span><span class="n">GL_TRIANGLE_FAN</span><span class="o">,</span> <span class="n">posInicial</span><span class="o">,</span> <span class="n">posFinal</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarLinea</span><span class="o">(</span><span class="kt">int</span> <span class="n">posInicial</span><span class="o">,</span> <span class="kt">int</span> <span class="n">posFinal</span><span class="o">){</span>
+                <span class="n">glDrawArrays</span><span class="o">(</span><span class="n">GL_LINES</span><span class="o">,</span> <span class="n">posInicial</span><span class="o">,</span> <span class="n">posFinal</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dibujarPunto</span><span class="o">(</span><span class="kt">int</span> <span class="n">posInicial</span><span class="o">,</span> <span class="kt">int</span> <span class="n">posFinal</span><span class="o">){</span>
+                <span class="n">glDrawArrays</span><span class="o">(</span><span class="n">GL_POINTS</span><span class="o">,</span> <span class="n">posInicial</span><span class="o">,</span> <span class="n">posFinal</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setVertices</span><span class="o">(</span><span class="kt">float</span><span class="o">[]</span> <span class="n">datos</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numDimensiones</span><span class="o">,</span> <span class="n">String</span> <span class="n">nombreAtrPosicion</span><span class="o">){</span>
+                <span class="kt">int</span> <span class="n">direccionAtrPosicion</span><span class="o">=</span><span class="k">this</span><span class="o">.</span><span class="na">getDireccionAtributo</span><span class="o">(</span><span class="n">nombreAtrPosicion</span><span class="o">);</span>
+                <span class="n">FloatBuffer</span> <span class="n">buffer</span><span class="o">=</span><span class="n">Utilidades</span><span class="o">.</span><span class="na">crearBuffer</span><span class="o">(</span><span class="n">datos</span><span class="o">);</span>
+                <span class="n">buffer</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">datos</span><span class="o">);</span>
+                <span class="n">buffer</span><span class="o">.</span><span class="na">position</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+                <span class="cm">/* Cada punto va en 2 dimensiones*/</span>
+                <span class="n">glVertexAttribPointer</span><span class="o">(</span>
+                                <span class="n">direccionAtrPosicion</span><span class="o">,</span>
+                                <span class="n">numDimensiones</span><span class="o">,</span>
+                                <span class="n">GL_FLOAT</span><span class="o">,</span><span class="kc">false</span><span class="o">,</span>
+                                <span class="mi">0</span><span class="o">,</span><span class="n">buffer</span><span class="o">);</span>
+                                <span class="cm">/* Habilitar los datos*/</span>
+                                <span class="n">glEnableVertexAttribArray</span><span class="o">(</span><span class="n">direccionAtrPosicion</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getDireccionAtributo</span><span class="o">(</span><span class="n">String</span> <span class="n">nombreAtributo</span><span class="o">){</span>
+                <span class="kt">int</span> <span class="n">direccion</span><span class="o">=</span><span class="n">glGetAttribLocation</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">idPrograma</span><span class="o">,</span> <span class="n">nombreAtributo</span><span class="o">);</span>
+                <span class="k">return</span> <span class="n">direccion</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getDireccionUniform</span><span class="o">(</span><span class="n">String</span> <span class="n">nombreAtributo</span><span class="o">){</span>
+                <span class="kt">int</span> <span class="n">direccion</span><span class="o">=</span><span class="n">glGetUniformLocation</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">idPrograma</span><span class="o">,</span> <span class="n">nombreAtributo</span><span class="o">);</span>
+                <span class="k">return</span> <span class="n">direccion</span><span class="o">;</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -4827,6 +5064,8 @@ ficheroTemp.delete();</p>
 <li class="toctree-l2"><a class="reference internal" href="index.html#los-shaders">Los shaders</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#compilacion-de-shaders">Compilación de shaders</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#ejecucion-del-programa-opengl">Ejecución del programa OpenGL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#clase-compiladoropengl-java">Clase <tt class="docutils literal"><span class="pre">CompiladorOpenGL.java</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#clase-programa-java">Clase <tt class="docutils literal"><span class="pre">Programa.java</span></tt></a></li>
 </ul>
 </li>
 </ul>

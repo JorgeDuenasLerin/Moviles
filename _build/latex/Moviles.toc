@@ -177,3 +177,5 @@
 \contentsline {section}{\numberline {10.4}Los shaders}{140}{section.10.4}
 \contentsline {section}{\numberline {10.5}Compilaci\IeC {\'o}n de shaders}{140}{section.10.5}
 \contentsline {section}{\numberline {10.6}Ejecuci\IeC {\'o}n del programa OpenGL}{141}{section.10.6}
+\contentsline {section}{\numberline {10.7}Clase \texttt {CompiladorOpenGL.java}}{142}{section.10.7}
+\contentsline {section}{\numberline {10.8}Clase \texttt {Programa.java}}{145}{section.10.8}
